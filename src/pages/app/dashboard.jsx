@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, Alert, Button, Tooltip, Snackbar, useMediaQuery } from '@mui/material';
 
-import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
 
@@ -13,13 +12,12 @@ import BigCard from 'src/components/big-card/big-card';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 import CustomTable from 'src/components/table/table_view/table';
-import DashboardFolder from 'src/components/dashboard-folder/dashboard-folder';
 
 import AddDialog from 'src/sections/one/components/dialog/add-dialog';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Pabbly Email Verification | Dashboard ` };
 const { items, style } = listItems;
 
 export default function Page() {
@@ -72,12 +70,12 @@ export default function Page() {
           }}
         >
           <PageHeader
-            title="Page Heading"
-            Subheading="Subheading of the page showcasing the features of this page in relation to the entire application."
+            title="Dashboard"
+            Subheading="Enhance your email list quality with advanced verification tools, reducing bounce rates and maximizing deliverability."
             link_added="#"
           />
           <Tooltip
-            title="Click here to add WhatsApp Number."
+            title="Click here to Upload the csv file which contains the emails list."
             arrow
             placement="top"
             disableInteractive
@@ -92,7 +90,7 @@ export default function Page() {
               variant="contained"
               color="primary"
             >
-              Add Button
+              Upload
             </Button>
           </Tooltip>
         </Box>
@@ -108,61 +106,57 @@ export default function Page() {
           }}
         >
           <StatsCards
-            cardtitle="Total Uploaded Email CSV "
+            cardtitle="Email Verification Credits Allotted"
             cardstats="10"
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
           />
           <StatsCards
-            cardtitle="Total Processed Email CSV Files"
+            cardtitle="Email Verification Credits Consumed"
             cardstats="32"
             icon_name="Processed.svg"
             icon_color="#10CBF3"
             bg_gradient="#10CBF3"
           />
           <StatsCards
-            cardtitle="Total Complete CSV Email Files"
+            cardtitle="Email Verification Credits Remaining"
             cardstats="30"
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
           />
         </Box>
-        <Box display="flex" gap={3} width="100%">
+        <Box width="100%">
           <Box>
-            <DashboardFolder />
+            <BigCard
+              bigcardtitle="Upload Guidelines"
+              bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
+              style={style}
+              items={items}
+              videoLink="https://www.youtube.com/embed/S-gpjyxqRZo?si=RraJU_Q1ht71Pk2T"
+              thumbnailName="dashboard-big-card-thumbnail.png"
+              keyword="Note:"
+              bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+              action={
+                <Button
+                  startIcon={
+                    <Iconify
+                      icon="heroicons:plus-circle-16-solid"
+                      style={{ width: 18, height: 18 }}
+                    />
+                  }
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                >
+                  Upload
+                </Button>
+              }
+            />
           </Box>
-          <Box width="100%">
-            <Box>
-              <BigCard
-                bigcardtitle="Upload Guidelines"
-                bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
-                buttontitle="Add WhatsApp Number"
-                style={style}
-                items={items}
-                videoLink="https://www.youtube.com/embed/S-gpjyxqRZo?si=RraJU_Q1ht71Pk2T"
-                thumbnailName="Pabbly Plus-3-min.png"
-                action={
-                  <Button
-                    startIcon={
-                      <Iconify
-                        icon="heroicons:plus-circle-16-solid"
-                        style={{ width: 18, height: 18 }}
-                      />
-                    }
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                  >
-                    Action Button
-                  </Button>
-                }
-              />
-            </Box>
-            <Box>
-              <CustomTable />
-            </Box>
+          <Box>
+            <CustomTable />
           </Box>
         </Box>
       </DashboardContent>

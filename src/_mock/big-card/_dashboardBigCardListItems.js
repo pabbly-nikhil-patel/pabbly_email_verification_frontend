@@ -5,13 +5,11 @@ export const listItems = {
     color: '#637381',
   },
   items: [
-    'Choose a WhatsApp Business API provider that suits your needs and requirements.',
-    'Familiarize yourself with the requirements for using the WhatsApp Business API.',
-    'Apply for access to the WhatsApp Business API through your chosen provider.',
-    'Agree to the terms set by WhatsApp and your provider.',
-    'Verify your business and phone number with WhatsApp.',
-    'Work with your chosen provider to complete the setup process.',
-    'Improve your messaging to boost engagement and meet business goals.',
-    'Stay updated on policy changes affecting your API use. Learn more',
+    'Ensure all email addresses are in a single column.',
+    'Email addresses must start in the first row immediately after the header.',
+    'Remove any extra spaces or lines before and after each email address.',
+    'The email address column should be the last column in the file.',
+    'Ensure the file size does not exceed 10MB.',
+    'The file can contain a maximum of 300,000 email addresses.'
   ],
 };
