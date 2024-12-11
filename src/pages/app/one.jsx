@@ -108,7 +108,7 @@ export default function Page() {
           }}
         >
           <StatsCards
-            cardtitle="Total Uploaded Email CSV Files"
+            cardtitle="Total Uploaded Email CSV "
             cardstats="10"
             icon_name="2card.png"
             icon_color="#FFA92E"
