@@ -5,13 +5,11 @@ import { Box,Button,Typography } from '@mui/material';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { CONFIG } from 'src/config-global';
-
 import { JwtSignUpView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sign up | Jwt - ${CONFIG.site.name}` };
+const metadata = { title: `Sign up | Pabbly Email Verification ` };
 
 export default function Page() {
 
