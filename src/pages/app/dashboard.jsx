@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Alert, Button, Tooltip, Snackbar, useMediaQuery } from '@mui/material';
+import { Box, Alert, Button, Tooltip, Snackbar, useMediaQuery, Grid } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -14,6 +14,9 @@ import PageHeader from 'src/components/page-header/page-header';
 import CustomTable from 'src/components/table/table_view/table';
 
 import AddDialog from 'src/sections/one/components/dialog/add-dialog';
+import Upload from 'src/sections/dashboard/component/upload/upload-file';
+import { AppCurrentDownload } from 'src/sections/dashboard/component/chart/app-current-download';
+
 
 // ----------------------------------------------------------------------
 
@@ -156,8 +159,25 @@ export default function Page() {
             />
           </Box>
           <Box>
+            <Upload />
+          </Box>
+          <Box>
             <CustomTable />
           </Box>
+          <Grid xs={12} md={6} lg={4}>
+          <AppCurrentDownload
+            title="Current download"
+            subheader="Downloaded by operating system"
+            chart={{
+              series: [
+                { label: 'Mac', value: 12244 },
+                { label: 'Window', value: 53345 },
+                { label: 'iOS', value: 44313 },
+                { label: 'Android', value: 78343 },
+              ],
+            }}
+          />
+        </Grid>
         </Box>
       </DashboardContent>
       <AddDialog
