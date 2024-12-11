@@ -1,5 +1,7 @@
 // ----------------------------------------------------------------------
 
+
+
 const ROOTS = {
   AUTH: '/auth',
   app: '/app',
@@ -46,14 +48,8 @@ export const paths = {
   // app
   app: {
     root: ROOTS.app,
-    two: `${ROOTS.app}/two`,
-    three: `${ROOTS.app}/three`,
-    
-    settings: {
-      root: `${ROOTS.app}/settings`,
-      timezone: `${ROOTS.app}/settings/timezone`,
-      api: `${ROOTS.app}/settings/api`,
-     
-    },
+    reports: `${ROOTS.app}/reports`,
+    credits: `${ROOTS.app}/credits`,
+    gethelp: `${ROOTS.app}/gethelp`,
   },
 };

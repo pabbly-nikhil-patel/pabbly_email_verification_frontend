@@ -8,15 +8,15 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
 
+
 // ----------------------------------------------------------------------
 
-const IndexPage = lazy(() => import('src/pages/app/one'));
-const PageTwo = lazy(() => import('src/pages/app/two'));
-const PageThree = lazy(() => import('src/pages/app/three'));
+const DashboardPage = lazy(() => import('src/pages/app/dashboard'));
+const ReportsPage = lazy(() => import('src/pages/app/reports'));
+const CreditsPage = lazy(() => import('src/pages/app/credits'));
+const GetHelpPage = lazy(() => import('src/pages/app/credits'));
 
-const Settings = lazy(() => import('src/pages/app/settings'));
-const API = lazy(() => import('../../sections/settings-page/api'));
-const TimeZone = lazy(() => import('../../sections/settings-page/time-zone'));
+
 
 // ----------------------------------------------------------------------
 
@@ -33,20 +33,12 @@ export const dashboardRoutes = [
     path: 'app',
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
-      { element: <IndexPage />, index: true },
-      { path: 'two', element: <PageTwo /> },
-      { path: 'three', element: <PageThree /> },
-     
-      {
-        path: 'settings',
-        element: <Settings />,
-        children: [
-          // { element: <PageFour />, index: true },
-          { path: 'timezone', element: <TimeZone /> },
-          { path: 'api', element: <API /> },
-        
-        ],
-      },
+      { element: <DashboardPage />, index: true },
+      { path: 'reports', element: <ReportsPage /> },
+      { path: 'credits', element: <CreditsPage /> },
+      { path: 'gethelp', element: <GetHelpPage /> },
+
+   
     ],
   },
 ];

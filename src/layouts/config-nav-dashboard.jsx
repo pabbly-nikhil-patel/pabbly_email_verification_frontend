@@ -27,24 +27,10 @@ export const navData = [
   {
     subheader: 'Overview 6.0.0',
     items: [
-      { title: 'One', path: paths.app.root, icon: ICONS.one },
-      { title: 'Two', path: paths.app.two, icon: ICONS.two },
-      { title: 'Three', path: paths.app.three, icon: ICONS.three },
-    ],
-  },
-
-  {
-    items: [
-      {
-        title: 'Settings',
-        path: paths.app.settings.root,
-        icon: ICONS.settings,
-        children: [
-          { title: 'Time Zone', path: paths.app.settings.timezone },
-          { title: 'API', path: paths.app.settings.api },
-  
-        ],
-      },
+      { title: 'Dashboard', path: paths.app.root, icon: ICONS.one },
+      { title: 'Reports', path: paths.app.reports, icon: ICONS.two },
+      { title: 'Credits', path: paths.app.credits, icon: ICONS.three },
+      { title: 'Get Help', path: paths.app.gethelp, icon: ICONS.three },
     ],
   },
 ];
