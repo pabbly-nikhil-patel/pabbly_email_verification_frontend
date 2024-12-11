@@ -17,7 +17,6 @@ import DashboardFolder from 'src/components/dashboard-folder/dashboard-folder';
 
 import AddDialog from 'src/sections/one/components/dialog/add-dialog';
 
-
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Page one | Dashboard - ${CONFIG.site.name}` };
@@ -98,49 +97,36 @@ export default function Page() {
           </Tooltip>
         </Box>
         <Box
+          width="100%"
           sx={{
             mt: '40px',
             mb: '24px',
             gap: 3,
             display: 'grid',
             flexWrap: 'wrap',
-            gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(5, 1fr)' },
+            gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
           }}
         >
           <StatsCards
-            cardtitle="WhatsApp Message"
-            cardstats="10,000"
+            cardtitle="Total Uploaded Email CSV Files"
+            cardstats="10"
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
           />
           <StatsCards
-            cardtitle="WhatsApp Message "
-            cardstats="10,000"
-            icon_name="2card.png"
-            icon_color="#FFA92E"
-            bg_gradient="#FFA92E"
+            cardtitle="Total Processed Email CSV Files"
+            cardstats="32"
+            icon_name="Processed.svg"
+            icon_color="#10CBF3"
+            bg_gradient="#10CBF3"
           />
           <StatsCards
-            cardtitle="WhatsApp Message"
-            cardstats="10,000"
-            icon_name="2card.png"
-            icon_color="#FFA92E"
-            bg_gradient="#FFA92E"
-          />
-          <StatsCards
-            cardtitle="WhatsApp "
-            cardstats="10,000"
-            icon_name="2card.png"
-            icon_color="#FFA92E"
-            bg_gradient="#FFA92E"
-          />
-          <StatsCards
-            cardtitle="WhatsApp Message"
-            cardstats="10,000"
-            icon_name="2card.png"
-            icon_color="#FFA92E"
-            bg_gradient="#FFA92E"
+            cardtitle="Total Complete CSV Email Files"
+            cardstats="30"
+            icon_name="Complete.svg"
+            icon_color="#1D88FA"
+            bg_gradient="#1D88FA"
           />
         </Box>
         <Box display="flex" gap={3} width="100%">
@@ -150,6 +136,8 @@ export default function Page() {
           <Box width="100%">
             <Box>
               <BigCard
+                bigcardtitle="Upload Guidelines"
+                bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
                 buttontitle="Add WhatsApp Number"
                 style={style}
                 items={items}
