@@ -5,18 +5,16 @@ import { Box, Button, Typography } from '@mui/material';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { CONFIG } from 'src/config-global';
-
 import { JwtSignInView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sign in | Jwt - ${CONFIG.site.name}` };
+const metadata = { title: `Sign in | Pabbly Email Verification ` };
 
 export default function Page() {
   const router = useRouter();
 
-  const redirectToLogin = () => {
+  const redirectToLogin = () => { 
     router.push(paths.auth.jwt.signUp);
   };
 
