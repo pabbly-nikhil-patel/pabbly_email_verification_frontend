@@ -103,7 +103,7 @@ const FileUpload = forwardRef(
           {...other}
         />
         <IconButton size="large" component="span" onClick={handleButtonClick} disabled={disabled}>
-          <Iconify width={40} icon="eva:cloud-upload-fill" />
+          <Iconify width={32} icon="eva:cloud-upload-fill" />
         </IconButton>
         <Typography
           variant="body1"
@@ -112,21 +112,25 @@ const FileUpload = forwardRef(
             wordBreak: 'break-all',
             whiteSpace: 'normal',
             textAlign: 'center',
-            mb: 1,
           }}
         >
           {uploadInformation.includes('Sample File') ? (
-            <span>
-              Upload File OR Drag and Drop file here (Only CSV files allowed). Download{' '}
-              <a
-                href="/path-to-sample-file/sample.csv" // Replace with the actual path to your sample CSV file
-                download
-                style={{ color: '#078DEE' }}
-              >
-                Sample File
-              </a>{' '}
-              here.
-            </span>
+           <span>
+           Upload File OR Drag and Drop file here (Only CSV files allowed).
+           <br />
+           <div style={{ marginTop: '4px' }}> {/* Optional styling to add spacing */}
+             Download{' '}
+             <a
+               href="/path-to-sample-file/sample.csv" // Replace with the actual path to your sample CSV file
+               download
+               style={{ color: '#078DEE' }}
+             >
+               Sample File
+             </a>{' '}
+             here.
+           </div>
+         </span>
+         
           ) : (
             uploadInformation
           )}

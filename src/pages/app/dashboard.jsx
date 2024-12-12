@@ -1,8 +1,18 @@
+/* eslint-disable consistent-return */
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Grid, Alert, Button, Tooltip, Snackbar, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Alert,
+  Button,
+  Tooltip,
+  Snackbar,
+  AlertTitle,
+  useMediaQuery,
+} from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -16,6 +26,7 @@ import CustomTable from 'src/components/table/table_view/table';
 import AddDialog from 'src/sections/one/components/dialog/add-dialog';
 import Upload from 'src/sections/dashboard/component/upload/upload-file';
 import { AppCurrentDownload } from 'src/sections/dashboard/component/chart/app-current-download';
+import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
 
 // ----------------------------------------------------------------------
 
@@ -24,16 +35,28 @@ const { items, style } = listItems;
 
 export default function Page() {
   const [addSubaccountDialogOpen, setAddSubaccountDialogOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [alertInfo, setAlertInfo] = useState(null);
   const handleAddSubaccountDialogClose = () => setAddSubaccountDialogOpen(false); // State for Add Subaccount dialog
   const [snackbarState, setSnackbarState] = useState({
     open: false,
     message: '',
     severity: 'success',
   });
+  const [alertState, setAlertState] = useState({
+    open: false,
+    color: 'success',
+    title: '',
+    message: '',
+  });
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') return;
     setSnackbarState((prev) => ({ ...prev, open: false }));
+  };
+
+  const handleAlertClose = () => {
+    setAlertState((prev) => ({ ...prev, open: false }));
   };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -55,6 +78,36 @@ export default function Page() {
 
     setAddSubaccountDialogOpen(false);
   };
+
+  const handleVerify = () => {
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(email)) {
+      // Valid email
+      setAlertState({
+        open: true,
+        color: 'success',
+        title: 'Accept All',
+        message: `The email "${email}" is valid!`,
+      });
+      setEmail(''); // Reset the text field
+    } else {
+      // Invalid email
+      setAlertState({
+        open: true,
+        color: 'error',
+        title: 'Undeliverable',
+        message: `The email "${email}" is invalid!`,
+      });
+    }
+
+    // Auto-hide the alert after 5 seconds
+    setTimeout(() => {
+      handleAlertClose();
+    }, 5000);
+  };
+
   return (
     <>
       <Helmet>
@@ -157,14 +210,21 @@ export default function Page() {
               }
             />
           </Box>
-          <Box>
+        </Box>
+        <Box sx={{ display: 'flex', width: '100%', gap: 3 }}>
+          <Box sx={{ width: '50%' }}>
             <Upload />
           </Box>
-          <Box sx={{display: 'flex'}}>
+          <Box sx={{ width: '50%' }}>
+            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
+          </Box>
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 3 }}>
           <Box>
             <CustomTable />
           </Box>
-          <Grid xs={12} md={6} lg={4}>
+          <Grid xs={12} md={6} lg={4} mt={3}>
             <AppCurrentDownload
               title="Current download"
               subheader="Downloaded by operating system"
@@ -178,8 +238,6 @@ export default function Page() {
               }}
             />
           </Grid>
-          </Box>
-          
         </Box>
       </DashboardContent>
       <AddDialog
@@ -222,6 +280,22 @@ export default function Page() {
           {snackbarState.message}
         </Alert>
       </Snackbar>
+
+      {alertState.open && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '80px',
+            right: '10px',
+            zIndex: 1000,
+          }}
+        >
+          <Alert severity={alertState.color} onClose={handleAlertClose}>
+            <AlertTitle sx={{ textTransform: 'capitalize' }}>Verification Result</AlertTitle>
+            {alertState.message} — <strong>{alertState.title}</strong>
+          </Alert>
+        </div>
+      )}
     </>
   );
 }

@@ -188,7 +188,8 @@ export default function ConnectionsTable({ sx, icon, title, total, color = 'warn
       <Card
         sx={{
           boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
-          mt: 4,
+          mt: 3,
+          width: 1072
         }}
       >
         <CardHeader

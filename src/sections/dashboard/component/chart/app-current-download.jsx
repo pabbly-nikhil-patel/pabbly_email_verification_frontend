@@ -52,7 +52,7 @@ export function AppCurrentDownload({ title, subheader, chart, ...other }) {
   });
 
   return (
-    <Card {...other}>
+    <Card {...other}  >
       <CardHeader title={title} subheader={subheader} />
 
       <Chart
