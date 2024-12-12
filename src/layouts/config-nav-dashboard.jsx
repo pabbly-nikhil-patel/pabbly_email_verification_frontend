@@ -12,9 +12,10 @@ const ICONS = {
 
   settings: icon('ic-user'),
  
-  two: icon('ic-ecommerce'),
-  three: icon('ic-analytics'),
-  one: icon('ic-user'),
+  two: icon('ic-reports'),
+  three: icon('ic-credit'),
+  one: icon('ic-dashboard'),
+  four: icon('ic-gethelp'),
  
 };
 
@@ -30,7 +31,7 @@ export const navData = [
       { title: 'Dashboard', path: paths.app.root, icon: ICONS.one },
       { title: 'Reports', path: paths.app.reports, icon: ICONS.two },
       { title: 'Credits', path: paths.app.credits, icon: ICONS.three },
-      { title: 'Get Help', path: paths.app.gethelp, icon: ICONS.three },
+      { title: 'Get Help', path: paths.app.gethelp, icon: ICONS.four },
     ],
   },
 ];

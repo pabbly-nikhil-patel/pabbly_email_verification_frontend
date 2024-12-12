@@ -6,7 +6,7 @@ import { BlankView } from 'src/sections/blank/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page three | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Get Help | Dashboard - ${CONFIG.site.name}` };
 
 export default function GetHelp() {
   return (
@@ -15,7 +15,7 @@ export default function GetHelp() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <BlankView title="Page three" />
+      <BlankView title="Get Help" />
     </>
   );
 }
