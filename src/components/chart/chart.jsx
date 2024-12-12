@@ -4,16 +4,17 @@ import Box from '@mui/material/Box';
 
 // ----------------------------------------------------------------------
 
-export function Chart({ sx, type, series, height, options, ...other }) {
+export function Chart({ sx, type, series, height, width = '100%', options, ...other }) {
   return (
     <Box
       dir="ltr"
       sx={{
-        width: 360,
+        width,
         height,
         flexShrink: 0,
         borderRadius: 1.5,
         position: 'relative',
+        padding: '20px 20px 20px 8px',
         ...sx,
       }}
       {...other}

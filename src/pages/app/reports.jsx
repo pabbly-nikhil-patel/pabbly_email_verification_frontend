@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Card, CardHeader, Grid, useMediaQuery } from '@mui/material';
+import { Box, Card, CardHeader, useMediaQuery } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -10,9 +10,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
-import { ChartColumnSingle } from 'src/sections/chart-view/chart-column-single';
-import { ChartLegends } from 'src/components/chart';
-import { AnalyticsWebsiteVisits } from 'src/sections/overview/analytics/analytics-website-visits';
+import { ChartColumnSingle } from 'src/sections/reports/component/chart-view/chart-column-single';
 
 // ----------------------------------------------------------------------
 
@@ -96,23 +94,15 @@ export default function Page() {
             bg_gradient="#FFAB00"
           />
         </Box>
-
-        <Grid xs={12} md={6} lg={8}>
-          <AnalyticsWebsiteVisits
-            title="List_name - Verification Summary"
-            subheader="(+43%) than last year"
+        <Card>
+          <CardHeader title="List_name - Verification Summary" />
+          <ChartColumnSingle
             chart={{
-              categories: [
-                'Totals Emails',
-                'Deliverable',
-                'Undeliverable',
-                'Accept-all',
-                'Unknown',
-              ],
-              series: [{ name: 'Team A', data: [2000, 1500, 700, 1800, 1000] }],
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+              series: [{ data: [2000, 1400, 700, 1700, 1000] }],
             }}
           />
-        </Grid>
+        </Card>
       </DashboardContent>
     </>
   );
