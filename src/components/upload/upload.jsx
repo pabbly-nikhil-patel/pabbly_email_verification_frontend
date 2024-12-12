@@ -1,6 +1,6 @@
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Link, IconButton, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 
@@ -9,6 +9,8 @@ import { Iconify } from '../iconify';
 const FileUpload = forwardRef(
   (
     {
+      fileName,
+      fileErrorMessage,
       placeholder,
       error,
       disabled,
@@ -38,7 +40,7 @@ const FileUpload = forwardRef(
       const file = event.target.files[0];
       if (file) {
         if (allowedFileTypes && !allowedFileTypes.includes(file.type)) {
-          setErrorMessage('Only CSV files are allowed.');
+          setErrorMessage(fileErrorMessage);
           return;
         }
         setErrorMessage(null);
@@ -62,7 +64,7 @@ const FileUpload = forwardRef(
       const file = event.dataTransfer.files[0];
       if (file) {
         if (allowedFileTypes && !allowedFileTypes.includes(file.type)) {
-          setErrorMessage('Only CSV files are allowed.');
+          setErrorMessage(fileErrorMessage);
           return;
         }
         setErrorMessage(null);
@@ -115,22 +117,23 @@ const FileUpload = forwardRef(
           }}
         >
           {uploadInformation.includes('Sample File') ? (
-           <span>
-           Upload File OR Drag and Drop file here (Only CSV files allowed).
-           <br />
-           <div style={{ marginTop: '4px' }}> {/* Optional styling to add spacing */}
-             Download{' '}
-             <a
-               href="/path-to-sample-file/sample.csv" // Replace with the actual path to your sample CSV file
-               download
-               style={{ color: '#078DEE' }}
-             >
-               Sample File
-             </a>{' '}
-             here.
-           </div>
-         </span>
-         
+            <span>
+              Upload File OR Drag and Drop file here (Only CSV files allowed).
+              <br />
+              <Box style={{ marginTop: '4px' }}>
+                {' '}
+                {/* Optional styling to add spacing */}
+                Download{' '}
+                <Link
+                  href={`/src/assets/sample-files/${fileName}`} // Replace with the actual path to your sample CSV file
+                  download
+                  style={{ color: '#078DEE' }}
+                >
+                  Sample File
+                </Link>{' '}
+                here.
+              </Box>
+            </span>
           ) : (
             uploadInformation
           )}

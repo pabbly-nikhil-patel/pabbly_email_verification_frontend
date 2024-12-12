@@ -14,6 +14,8 @@ export default function Upload() {
         <FileUpload
           uploadInformation="Upload File OR Drag and Drop file here (Only CSV files allowed). Download  Sample File here."
           allowedFileTypes={['text/csv']}
+          fileName="sample_csv.csv"
+          fileErrorMessage="Please upload CSV file only."
         />
       </CardContent>
     </Card>
