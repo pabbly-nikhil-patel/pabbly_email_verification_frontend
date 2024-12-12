@@ -5,15 +5,9 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
-import Tooltip from '@mui/material/Tooltip';
 import TableBody from '@mui/material/TableBody';
-import IconButton from '@mui/material/IconButton';
 import { Divider, CardHeader, Typography } from '@mui/material';
 
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
-
-import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
 import { fIsBetween } from 'src/utils/format-time';
@@ -22,8 +16,6 @@ import { varAlpha } from 'src/theme/styles';
 import { _dashboard, DASHBOARD_STATUS_OPTIONS } from 'src/_mock/_table/_dashboard';
 
 import { Label } from 'src/components/label';
-// import { toast } from 'src/components/snackbar';
-import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import {
   useTable,
@@ -33,7 +25,6 @@ import {
   getComparator,
   TableEmptyRows,
   TableHeadCustom,
-  TableSelectedAction,
   TablePaginationCustom,
 } from 'src/components/table';
 
@@ -72,18 +63,12 @@ const TABLE_HEAD = [
     tooltip:
       'This is the report which will navigate to the report page where you can see the list wise analytics of the processed list.',
   },
-
- 
 ];
 
 // ----------------------------------------------------------------------
 
 export function DashboardTable() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
-
-  const router = useRouter();
-
-  const confirm = useBoolean();
 
   const [tableData, setTableData] = useState(_dashboard);
 
@@ -106,24 +91,6 @@ export function DashboardTable() {
     (!!filters.state.startDate && !!filters.state.endDate);
 
   const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
-
-  const handleDeleteRow = useCallback(
-    (id) => {
-      const deleteRow = tableData.filter((row) => row.id !== id);
-
-      setTableData(deleteRow);
-
-      table.onUpdatePageDeleteRow(dataInPage.length);
-    },
-    [dataInPage.length, table, tableData]
-  );
-
-  const handleViewRow = useCallback(
-    (id) => {
-      router.push(paths.dashboard.order.details(id));
-    },
-    [router]
-  );
 
   const handleFilterStatus = useCallback(
     (event, newValue) => {
@@ -187,25 +154,6 @@ export function DashboardTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        <TableSelectedAction
-          dense={table.dense}
-          numSelected={table.selected.length}
-          rowCount={dataFiltered.length}
-          onSelectAllRows={(checked) =>
-            table.onSelectAllRows(
-              checked,
-              dataFiltered.map((row) => row.id)
-            )
-          }
-          action={
-            <Tooltip title="Delete">
-              <IconButton color="primary" onClick={confirm.onTrue}>
-                <Iconify icon="solar:trash-bin-trash-bold" />
-              </IconButton>
-            </Tooltip>
-          }
-        />
-
         <Scrollbar sx={{ minHeight: 444 }}>
           <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
             <TableHeadCustom
@@ -236,8 +184,6 @@ export function DashboardTable() {
                     row={row}
                     selected={table.selected.includes(row.id)}
                     onSelectRow={() => table.onSelectRow(row.id)}
-                    onDeleteRow={() => handleDeleteRow(row.id)}
-                    onViewRow={() => handleViewRow(row.id)}
                     dashboardTableIndex={table.page * table.rowsPerPage + index}
                   />
                 ))}

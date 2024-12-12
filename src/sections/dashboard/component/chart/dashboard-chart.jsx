@@ -52,7 +52,7 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
   });
 
   return (
-    <Card {...other} >
+    <Card {...other} sx={{width: '360px'}} >
       <CardHeader title={title} subheader={subheader} />
 
       <Chart
