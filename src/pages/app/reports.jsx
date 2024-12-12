@@ -98,8 +98,8 @@ export default function Page() {
           <CardHeader title="List_name - Verification Summary" />
           <ChartColumnSingle
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-              series: [{ data: [2000, 1400, 700, 1700, 1000] }],
+              categories: ['Total Emails', 'Deliverable', 'Undeliverable', 'Accept-all', 'Unknown'],
+              series: [{ data: [2000, 1400, 300, 1700, 1000] }],
             }}
           />
         </Card>

@@ -4,29 +4,50 @@ import { Chart, useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export function ChartColumnSingle({ chart }) {
+export function ChartColumnSingle({ title, subheader, chart, ...other }) {
   const theme = useTheme();
 
   const chartColors = [
-    hexAlpha(theme.palette.primary.main, 0.8),
-    hexAlpha(theme.palette.secondary.main, 0.8),
-    hexAlpha(theme.palette.error.main, 0.8),
-    hexAlpha(theme.palette.success.main, 0.8),
-    hexAlpha(theme.palette.warning.main, 0.8),
+    hexAlpha('#7D6ADB', 1),
+    hexAlpha('#28A645', 1),
+    hexAlpha('#FF5630', 1),
+    hexAlpha('#00B8D9', 1),
+    hexAlpha('#FFA92E', 1),
   ];
 
   const chartOptions = useChart({
     colors: chartColors,
     stroke: { width: 0 },
     xaxis: { categories: chart.categories },
-    tooltip: {
-      y: {
-        formatter: (value) => `${value} thousands`,
-        title: { formatter: () => '' },
+    legend: {
+      show: true,
+      markers: {
+        shape: 'circle',
       },
     },
-    plotOptions: { bar: { columnWidth: '40%', distributed: true } },
+    plotOptions: {
+      bar: {
+        columnWidth: '40%',
+        distributed: true,
+      },
+    },
   });
 
-  return <Chart type="bar" series={chart.series} options={chartOptions} height={320} />;
+  return (
+    <Chart
+      type="bar"
+      series={chart.series}
+      options={{
+        ...chartOptions,
+        tooltip: {
+          y: {
+            formatter: (value) => `${value} thousands`,
+            title: { formatter: () => '' },
+          },
+        },
+      }}
+      height={364}
+      sx={{ py: 2.5, pl: 1, pr: 2.5 }}
+    />
+  );
 }
