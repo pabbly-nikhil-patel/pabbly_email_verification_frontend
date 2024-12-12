@@ -4,7 +4,7 @@ import FileUpload from 'src/components/upload/upload';
 
 export default function Upload() {
   return (
-    <Card>
+    <Card sx={{mt:3}}>
       <CardHeader
         sx={{ pb: 3 }}
         title={<Typography variant="h6">Upload CSV File for Email Verification </Typography>}
