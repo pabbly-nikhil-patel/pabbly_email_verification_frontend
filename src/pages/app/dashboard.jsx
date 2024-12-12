@@ -22,8 +22,8 @@ import BigCard from 'src/components/big-card/big-card';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
-import AddDialog from 'src/sections/one/components/dialog/add-dialog';
 import Upload from 'src/sections/dashboard/component/upload/upload-file';
+import UploadDialog from 'src/sections/dashboard/hook/upload-file-dialog';
 import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
 import { DashboardChart } from 'src/sections/dashboard/component/chart/dashboard-chart';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
@@ -71,7 +71,7 @@ export default function Page() {
 
     setSnackbarState({
       open: true,
-      message: 'Successfull messgae',
+      message: 'Email csv file uploaded successfully',
       severity: 'success',
     });
 
@@ -225,26 +225,26 @@ export default function Page() {
           </Box>
           <Grid xs={12} md={6} lg={4} mt={3}>
             <DashboardChart
-              title="Current download"
-              subheader="Downloaded by operating system"
+              title="List_name.csv"
+              subheader="Learn more about result codes"
               chart={{
                 series: [
-                  { label: 'Mac', value: 12244 },
-                  { label: 'Window', value: 53345 },
-                  { label: 'iOS', value: 44313 },
-                  { label: 'Android', value: 78343 },
+                  { label: 'Deliverable', value: 12244 },
+                  { label: 'Undeliverable', value: 53345 },
+                  { label: 'Accept-all', value: 44313 },
+                  { label: 'Unknown', value: 78343 },
                 ],
               }}
             />
           </Grid>
         </Box>
       </DashboardContent>
-      <AddDialog
+      <UploadDialog
         addDialogOpen={addSubaccountDialogOpen}
         handleDialogClose={handleAddSubaccountDialogClose}
         action={
           <Button onClick={handleAdd} variant="contained" color="primary">
-            Action
+            Upload
           </Button>
         }
       />

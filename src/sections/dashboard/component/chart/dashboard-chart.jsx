@@ -1,11 +1,13 @@
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
+import { Link, Typography } from '@mui/material';
 import CardHeader from '@mui/material/CardHeader';
 
 import { fNumber } from 'src/utils/format-number';
 
 import { Chart, useChart, ChartLegends } from 'src/components/chart';
+import ProgessLinear from 'src/components/progress-bar/progessLinear';
 
 // ----------------------------------------------------------------------
 
@@ -13,10 +15,10 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
   const theme = useTheme();
 
   const chartColors = chart.colors ?? [
-    theme.palette.primary.lighter,
-    theme.palette.primary.light,
-    theme.palette.primary.dark,
-    theme.palette.primary.darker,
+    theme.palette.success.main,
+    theme.palette.error.main,
+    theme.palette.info.main,
+    theme.palette.warning.main,
   ];
 
   const chartSeries = chart.series.map((item) => item.value);
@@ -52,8 +54,15 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
   });
 
   return (
-    <Card {...other} >
-      <CardHeader title={title} subheader={subheader} />
+    <Card {...other} sx={{ width: '360px' }}>
+      <CardHeader
+        title={<Typography variant="h6">{title}</Typography>}
+        subheader={
+          <Link variant="body2" href="#">
+            {subheader}
+          </Link>
+        }
+      />
 
       <Chart
         type="donut"
@@ -64,12 +73,14 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
         sx={{ my: 6, mx: 'auto' }}
       />
 
+      <ProgessLinear />
+
       <Divider sx={{ borderStyle: 'dashed' }} />
 
       <ChartLegends
         labels={chartOptions?.labels}
         colors={chartOptions?.colors}
-        sx={{ p: 3, justifyContent: 'center' }}
+        sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
       />
     </Card>
   );
