@@ -9,7 +9,7 @@ export function useChart(options) {
 
   const LABEL_TOTAL = {
     show: true,
-    label: 'Total',
+    label: 'Total Emails',
     color: theme.vars.palette.text.secondary,
     fontSize: theme.typography.subtitle2.fontSize,
     fontWeight: theme.typography.subtitle2.fontWeight,

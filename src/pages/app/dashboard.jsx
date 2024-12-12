@@ -225,14 +225,14 @@ export default function Page() {
           </Box>
           <Grid xs={12} md={6} lg={4} mt={3}>
             <DashboardChart
-              title="Current download"
-              subheader="Downloaded by operating system"
+              title="List_name.csv"
+              subheader="Learn more about result codes"
               chart={{
                 series: [
-                  { label: 'Mac', value: 12244 },
-                  { label: 'Window', value: 53345 },
-                  { label: 'iOS', value: 44313 },
-                  { label: 'Android', value: 78343 },
+                  { label: 'Deliverable', value: 12244 },
+                  { label: 'Undeliverable', value: 53345 },
+                  { label: 'Accept-all', value: 44313 },
+                  { label: 'Unknown', value: 78343 },
                 ],
               }}
             />
