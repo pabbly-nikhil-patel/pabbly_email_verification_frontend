@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert, Box, Button, Typography } from '@mui/material';
+import { Box, Alert, Button, Typography } from '@mui/material';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 import { varAlpha } from 'src/theme/styles';
