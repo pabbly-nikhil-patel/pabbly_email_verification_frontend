@@ -8,7 +8,7 @@ import { chipProps, FiltersBlock, FiltersResult } from 'src/components/filters-r
 
 // ----------------------------------------------------------------------
 
-export function CustomTableFiltersResult({ filters, totalResults, onResetPage, sx }) {
+export function DashboardTableFiltersResult({ filters, totalResults, onResetPage, sx }) {
   const handleRemoveKeyword = useCallback(() => {
     onResetPage();
     filters.setState({ name: '' });

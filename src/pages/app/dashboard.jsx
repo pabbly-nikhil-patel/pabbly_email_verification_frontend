@@ -21,11 +21,11 @@ import { Iconify } from 'src/components/iconify';
 import BigCard from 'src/components/big-card/big-card';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
-import CustomTable from 'src/components/table/table_view/table';
 
 import AddDialog from 'src/sections/one/components/dialog/add-dialog';
 import Upload from 'src/sections/dashboard/component/upload/upload-file';
-import { AppCurrentDownload } from 'src/sections/dashboard/component/chart/app-current-download';
+import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
+import { DashboardChart } from 'src/sections/dashboard/component/chart/dashboard-chart';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
 
 // ----------------------------------------------------------------------
@@ -36,7 +36,6 @@ const { items, style } = listItems;
 export default function Page() {
   const [addSubaccountDialogOpen, setAddSubaccountDialogOpen] = useState(false);
   const [email, setEmail] = useState('');
-  const [alertInfo, setAlertInfo] = useState(null);
   const handleAddSubaccountDialogClose = () => setAddSubaccountDialogOpen(false); // State for Add Subaccount dialog
   const [snackbarState, setSnackbarState] = useState({
     open: false,
@@ -222,10 +221,10 @@ export default function Page() {
 
         <Box sx={{ display: 'flex', gap: 3 }}>
           <Box>
-            <CustomTable />
+            <DashboardTable />
           </Box>
           <Grid xs={12} md={6} lg={4} mt={3}>
-            <AppCurrentDownload
+            <DashboardChart
               title="Current download"
               subheader="Downloaded by operating system"
               chart={{

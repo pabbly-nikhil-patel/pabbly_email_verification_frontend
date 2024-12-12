@@ -9,54 +9,40 @@ import { Chart, useChart, ChartLegends } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export function AppCurrentDownload({ title, subheader, chart, ...other }) {
+export function AnalyticsCurrentVisits({ title, subheader, chart, ...other }) {
   const theme = useTheme();
 
-  const chartColors = chart.colors ?? [
-    theme.palette.primary.lighter,
-    theme.palette.primary.light,
-    theme.palette.primary.dark,
-    theme.palette.primary.darker,
-  ];
-
   const chartSeries = chart.series.map((item) => item.value);
+
+  const chartColors = chart.colors ?? [
+    theme.palette.primary.main,
+    theme.palette.warning.light,
+    theme.palette.info.dark,
+    theme.palette.error.main,
+  ];
 
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },
     colors: chartColors,
     labels: chart.series.map((item) => item.label),
     stroke: { width: 0 },
+    dataLabels: { enabled: true, dropShadow: { enabled: false } },
     tooltip: {
       y: {
         formatter: (value) => fNumber(value),
         title: { formatter: (seriesName) => `${seriesName}` },
       },
     },
-    plotOptions: {
-      pie: {
-        donut: {
-          size: '72%',
-          labels: {
-            value: { formatter: (value) => fNumber(value) },
-            total: {
-              formatter: (w) => {
-                const sum = w.globals.seriesTotals.reduce((a, b) => a + b, 0);
-                return fNumber(sum);
-              },
-            },
-          },
-        },
-      },
-    },
+    plotOptions: { pie: { donut: { labels: { show: false } } } },
     ...chart.options,
   });
 
   return (
-    <Card {...other}  >
+    <Card {...other}>
       <CardHeader title={title} subheader={subheader} />
 
       <Chart
-        type="donut"
+        type="pie"
         series={chartSeries}
         options={chartOptions}
         width={{ xs: 240, xl: 260 }}
