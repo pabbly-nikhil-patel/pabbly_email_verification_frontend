@@ -17,15 +17,17 @@ export default function BigCard({
 }) {
   return (
     <Card sx={{ p: 5 }}>
-      <Box
+     <Box
         sx={{
           display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems:'center',
           mb: 0,
+          gap:3
         }}
       >
-        <Box sx={{width:'60%'}} >
+        <Box >
           <Box>
             <Box sx={{ mb: 1 , }}>
               <Typography variant="h6">{bigcardtitle}</Typography>
