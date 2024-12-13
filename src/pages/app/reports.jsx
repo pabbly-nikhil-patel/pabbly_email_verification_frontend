@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
@@ -19,11 +18,6 @@ export default function Page() {
   // Hooks
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [addSubaccountDialogOpen, setAddSubaccountDialogOpen] = useState(false);
-
-  // Handlers
-  const handleAddSubaccountDialogClose = () => setAddSubaccountDialogOpen(false);
-  const buttonClick = () => setAddSubaccountDialogOpen(true);
 
   return (
     <>
@@ -63,6 +57,7 @@ export default function Page() {
             icon_name="Processed.svg"
             icon_color="#7D6ADB"
             bg_gradient="#7D6ADB"
+            tooltipTittle="Total Emails in the list"
           />
           <StatsCards
             cardtitle="Deliverable"
@@ -70,6 +65,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#28A645"
             bg_gradient="#28A645"
+            tooltipTittle="Total Deliverable Emails in the list"
           />
           <StatsCards
             cardtitle="Undeliverable"
@@ -77,6 +73,7 @@ export default function Page() {
             icon_name="undeliverable.svg"
             icon_color="#FF5630"
             bg_gradient="#FF5630"
+            tooltipTittle="Total Undeliverable Emails in the list"
           />
           <StatsCards
             cardtitle="Accept-all"
@@ -84,6 +81,7 @@ export default function Page() {
             icon_name="accept-all.svg"
             icon_color="#00B8D9"
             bg_gradient="#00B8D9"
+            tooltipTittle="Total Accept-all Emails in the list"
           />
           <StatsCards
             cardtitle="Unknown"
@@ -91,6 +89,7 @@ export default function Page() {
             icon_name="unknown.svg"
             icon_color="#FFA92E"
             bg_gradient="#FFAB00"
+            tooltipTittle="Total Unknown Emails in the list"
           />
         </Box>
         <Card>
