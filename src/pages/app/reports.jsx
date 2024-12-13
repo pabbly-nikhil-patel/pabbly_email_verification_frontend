@@ -8,7 +8,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
-import { ChartColumnSingle } from 'src/sections/reports/component/chart-view/chart-column-single';
+import { ReportsBarChart } from 'src/sections/reports/component/chart-view/reports-bar-chart';
 
 // ----------------------------------------------------------------------
 
@@ -94,10 +94,10 @@ export default function Page() {
         </Box>
         <Card>
           <CardHeader title="List_name - Verification Summary" />
-          <ChartColumnSingle
+          <ReportsBarChart
             chart={{
               categories: ['Total Emails', 'Deliverable', 'Undeliverable', 'Accept-all', 'Unknown'],
-              series: [{ data: [2000, 1400, 300, 1700, 1000] }],
+              series: [{ data: [2000, 1200, 300, 1500, 800] }],
             }}
           />
         </Card>

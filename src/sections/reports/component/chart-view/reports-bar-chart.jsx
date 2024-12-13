@@ -4,7 +4,7 @@ import { Chart, useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export function ChartColumnSingle({ title, subheader, chart, ...other }) {
+export function ReportsBarChart({ title, subheader, chart, ...other }) {
   const theme = useTheme();
 
   const chartColors = [
