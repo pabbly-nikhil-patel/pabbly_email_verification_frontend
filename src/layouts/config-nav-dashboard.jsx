@@ -9,14 +9,10 @@ import { SvgColor } from 'src/components/svg-color';
 const icon = (name) => <SvgColor src={`${CONFIG.site.basePath}/assets/icons/navbar/${name}.svg`} />;
 
 const ICONS = {
-
-  settings: icon('ic-user'),
- 
-  two: icon('ic-reports'),
-  three: icon('ic-credit'),
-  one: icon('ic-dashboard'),
-  four: icon('ic-gethelp'),
- 
+  dashboard: icon('ic-dashboard'),
+  reports: icon('ic-reports'),
+  credits: icon('ic-credit'),
+  gethelp: icon('ic-gethelp'),
 };
 
 // ----------------------------------------------------------------------
@@ -28,10 +24,10 @@ export const navData = [
   {
     subheader: 'Overview 6.0.0',
     items: [
-      { title: 'Dashboard', path: paths.app.root, icon: ICONS.one },
-      { title: 'Reports', path: paths.app.reports, icon: ICONS.two },
-      { title: 'Credits', path: paths.app.credits, icon: ICONS.three },
-      { title: 'Get Help', path: paths.app.gethelp, icon: ICONS.four },
+      { title: 'Dashboard', path: paths.app.root, icon: ICONS.dashboard },
+      { title: 'Reports', path: paths.app.reports, icon: ICONS.reports },
+      { title: 'Credits', path: paths.app.credits, icon: ICONS.credits },
+      { title: 'Get Help', path: paths.app.gethelp, icon: ICONS.gethelp },
     ],
   },
 ];
