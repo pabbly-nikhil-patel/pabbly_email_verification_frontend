@@ -106,7 +106,19 @@ export default function Page() {
       handleAlertClose();
     }, 5000);
   };
+  function calculateStats(allottedCredits, consumedCredits) {
+    const remainingCredits = allottedCredits - consumedCredits;
+    return {
+      allotted: allottedCredits,
+      consumed: consumedCredits,
+      remaining: remainingCredits,
+    };
+  }
 
+  const allottedCredits = 10000; // Example value for allotted credits
+  const consumedCredits = 32; // Example value for consumed credits
+
+  const stats = calculateStats(allottedCredits, consumedCredits);
   return (
     <>
       <Helmet>
@@ -161,24 +173,27 @@ export default function Page() {
         >
           <StatsCards
             cardtitle="Email Verification Credits Allotted"
-            cardstats="10"
+            cardstats={stats.allotted}
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
+            tooltipTittle="Number of email verification credit alloted to you"
           />
           <StatsCards
             cardtitle="Email Verification Credits Consumed"
-            cardstats="32"
+            cardstats={stats.consumed}
             icon_name="Processed.svg"
             icon_color="#10CBF3"
             bg_gradient="#10CBF3"
+            tooltipTittle="Number of email verification credit comsumed by you"
           />
           <StatsCards
             cardtitle="Email Verification Credits Remaining"
-            cardstats="30"
+            cardstats={stats.remaining}
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
+            tooltipTittle="Number of email verification credit remaining"
           />
         </Box>
         <Box width="100%">

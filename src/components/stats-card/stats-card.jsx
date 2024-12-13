@@ -11,10 +11,11 @@ export default function StatsCards({
   icon_name,
   icon_color,
   bg_gradient,
+  tooltipTittle,
   ...other
 }) {
   return (
-    <Tooltip title="Number of WhatsApp message alloted to you." arrow placement="top" disableInteractive>
+    <Tooltip title={tooltipTittle} arrow placement="top" disableInteractive>
       <div>
         <Card
           sx={{
