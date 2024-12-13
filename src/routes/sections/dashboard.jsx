@@ -8,15 +8,12 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
 
-
 // ----------------------------------------------------------------------
 
 const DashboardPage = lazy(() => import('src/pages/app/dashboard'));
 const ReportsPage = lazy(() => import('src/pages/app/reports'));
 const CreditsPage = lazy(() => import('src/pages/app/credits'));
-const GetHelpPage = lazy(() => import('src/pages/app/credits'));
-
-
+const GetHelpPage = lazy(() => import('src/pages/app/get-help'));
 
 // ----------------------------------------------------------------------
 
@@ -37,8 +34,6 @@ export const dashboardRoutes = [
       { path: 'reports', element: <ReportsPage /> },
       { path: 'credits', element: <CreditsPage /> },
       { path: 'gethelp', element: <GetHelpPage /> },
-
-   
     ],
   },
 ];
