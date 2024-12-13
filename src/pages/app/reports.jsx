@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, Card, CardHeader, useMediaQuery } from '@mui/material';
 
-import { CONFIG } from 'src/config-global';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import StatsCards from 'src/components/stats-card/stats-card';
@@ -14,7 +13,7 @@ import { ChartColumnSingle } from 'src/sections/reports/component/chart-view/cha
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page Two | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Pabbly Email Verification | Reports` };
 
 export default function Page() {
   // Hooks
