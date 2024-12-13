@@ -41,7 +41,7 @@ export function ChartColumnSingle({ title, subheader, chart, ...other }) {
         ...chartOptions,
         tooltip: {
           y: {
-            formatter: (value) => `${value} thousands`,
+            formatter: (value) => `${value}`,
             title: { formatter: () => '' },
           },
         },
