@@ -13,7 +13,7 @@ import {
 
 export default function VerifySingleEmail({ onVerify, email, setEmail }) {
   return (
-    <Card sx={{ mt: 3 }}>
+    <Card >
         <CardHeader
           sx={{ pb: 3 }}
           title={<Typography variant="h6">Verify Single Email</Typography>}
