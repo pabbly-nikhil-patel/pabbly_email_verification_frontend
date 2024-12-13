@@ -101,7 +101,7 @@ export function DashboardTable() {
   );
 
   return (
-    <Card sx={{ mt: 3, width: 1076 }}>
+    <Card>
       <CardHeader title={<Typography variant="h6">Uploaded List</Typography>} sx={{ pb: 3 }} />
       <Divider />
 

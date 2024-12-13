@@ -42,14 +42,14 @@ export default function BigCard({
                 </li>
               ))}
             </Box>
-            {showNote && (
+            {/* {showNote && (
               <Typography color="#637381" fontSize="14px" mt={2} mb={2}>
                 <span>
                   <strong>{keyword}&nbsp;</strong>
                   {bigcardNote}
                 </span>
               </Typography>
-            )}
+            )} */}
 
             {action}
           </Box>

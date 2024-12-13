@@ -156,7 +156,7 @@ export default function Page() {
               variant="contained"
               color="primary"
             >
-              Upload
+              Upload Files
             </Button>
           </Tooltip>
         </Box>
@@ -219,7 +219,7 @@ export default function Page() {
                   color="primary"
                   size="large"
                 >
-                  Upload
+                  Upload Files
                 </Button>
               }
             />
@@ -227,10 +227,11 @@ export default function Page() {
         </Box>
         <Box sx={{ display: 'flex', width: '100%', gap: 3 }}>
           <Box sx={{ width: '50%' }}>
-            <Upload />
+            
+            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
           </Box>
           <Box sx={{ width: '50%' }}>
-            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
+            <Upload />
           </Box>
         </Box>
 

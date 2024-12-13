@@ -66,8 +66,8 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
       </TableCell>
 
       <TableCell width={140} align='right'>
-        <Button variant="outlined" color="primary">
-          Download
+        <Button variant="outlined" color="primary" disabled>
+          View Report
         </Button>
       </TableCell>
     </TableRow>
