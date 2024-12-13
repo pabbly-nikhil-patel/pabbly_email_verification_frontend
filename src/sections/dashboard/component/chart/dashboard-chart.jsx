@@ -60,7 +60,7 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
   });
 
   return (
-    <Card {...other} >
+    <Card {...other}  >
       <Box sx={{ display: 'flex', justifyContent: 'spaced-between', alignItems: 'center' }}>
         <CardHeader
           title={<Typography variant="h6">{title}</Typography>}

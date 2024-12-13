@@ -243,10 +243,10 @@ export default function Page() {
         </Box>
 
         <Box sx={{mt:3,width:'100%', display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
-          <Box sx={{width:'100%'}}>
+          <Box sx={{width:{ xs: '100%', md: '75%' } }}>
             <DashboardTable />
           </Box>
-          <Box sx={{width:'100%'}}>
+          <Box sx={{width:{ xs: '100%', md: '25%' }}}>
             <DashboardChart
               title="List_name.csv"
               subheader="Learn more about result codes"
