@@ -20,11 +20,11 @@ function ModalVideoView({ hideBackground, sx,videoLink, thumbnailName,...other }
   };
 
   return (
-    <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+    <Box style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
       <Tooltip disableInteractive title="Click to watch tutorial." arrow placement="top">
         <Card  onClick={handleClickOpen} sx={{cursor:'pointer'}}>
           <img
-          width={400}
+          width='100%'
             src={`${CONFIG.site.basePath}/assets/images/big-card-thumbhnails/${thumbnailName}`}
             alt="Background"
           />
@@ -68,7 +68,7 @@ function ModalVideoView({ hideBackground, sx,videoLink, thumbnailName,...other }
         onClose={handleClose}
         maxWidth="lg"
         fullWidth
-        sx={{ '& .MuiDialog-paper': { width: 1060, height: 600 } }}
+        sx={{ '& .MuiDialog-paper': { width: 1060, height:{xs: 224,md:600} } }}
       >
         <IconButton
           onClick={handleClose}
@@ -86,7 +86,7 @@ function ModalVideoView({ hideBackground, sx,videoLink, thumbnailName,...other }
           sx={{ width: '100%', height: '100%', border: 'none' }}
         />
       </Dialog>
-    </div>
+    </Box>
   );
 }
 

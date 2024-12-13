@@ -225,21 +225,28 @@ export default function Page() {
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', width: '100%', gap: 3 }}>
-          <Box sx={{ width: '50%' }}>
-            
-            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
-          </Box>
-          <Box sx={{ width: '50%' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            gap: 3,
+            flexDirection: { xs: 'column', md: 'row' },
+            mt: 3,
+          }}
+        >
+          <Box sx={{ width: '100%' }}>
             <Upload />
+          </Box>
+          <Box sx={{ width: '100%' }}>
+            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 3 }}>
-          <Box>
+        <Box sx={{mt:3,width:'100%', display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
+          <Box sx={{width:'100%'}}>
             <DashboardTable />
           </Box>
-          <Grid xs={12} md={6} lg={4} mt={3}>
+          <Box sx={{width:'100%'}}>
             <DashboardChart
               title="List_name.csv"
               subheader="Learn more about result codes"
@@ -252,7 +259,7 @@ export default function Page() {
                 ],
               }}
             />
-          </Grid>
+          </Box>
         </Box>
       </DashboardContent>
       <UploadDialog
