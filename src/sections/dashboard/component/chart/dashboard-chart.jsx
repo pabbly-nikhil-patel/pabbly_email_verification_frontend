@@ -18,7 +18,7 @@ import ChartAlert from './chart-alert';
 // ----------------------------------------------------------------------
 
 export function DashboardChart({ title, subheader, chart, ...other }) {
-  const { isUploading, progress, isVerificationCompleted, isStartVerification, isUploaded } =
+  const { isUploading, isUploaded, isStartVerification, isVerificationCompleted, progress } =
     useSelector((state) => state.fileUpload);
   const theme = useTheme();
 
@@ -83,7 +83,8 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
           </IconButton>
         </Box>
       </Box>
-      {!isUploading && !isUploaded? (
+
+      {!isUploading && !isUploaded && !isStartVerification && !isVerificationCompleted &&  (
         <>
           <Chart
             type="donut"
@@ -94,39 +95,16 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
             sx={{ my: 6, mx: 'auto' }}
           />
           <ChartLegends
-            labels={chartOptions?.labels}
-            colors={chartOptions?.colors}
-            sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
-          />
-        </>
-      ) : (
-        <ProgessLinear percent={progress} />
-      )}
-      {!isStartVerification && isUploaded && <ChartAlert />}
-      {/* {!isUploading && (
-        <>
-          <Chart
-            type="donut"
-            series={chartSeries}
-            options={chartOptions}
-            width={{ xs: 240, xl: 260 }}
-            height={{ xs: 240, xl: 260 }}
-            sx={{ my: 6, mx: 'auto' }}
-          />
-          <ChartLegends
-            labels={chartOptions?.labels}
-            colors={chartOptions?.colors}
+            labels={chartOptions.labels}
+            colors={chartOptions.colors}
             sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
           />
         </>
       )}
-      {isUploading ? (
-        <ProgessLinear percent={progress} />
-      ) : (
-        <>{!isUploading && isUploaded && <ChartAlert />}</>
-      )} */}
-      {/* {isUploading && <ProgessLinear percent={progress} />}
-      {!isStartVerification && <ChartAlert />} */}
+      {isUploading && <ProgessLinear />}
+      {!isUploading && isUploaded && !isStartVerification && <ChartAlert />}
+      {isStartVerification && !isVerificationCompleted && <ProgessLinear />}
+
       <Divider sx={{ borderStyle: 'dashed' }} />
     </Card>
   );
