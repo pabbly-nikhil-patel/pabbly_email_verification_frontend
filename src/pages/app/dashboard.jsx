@@ -3,15 +3,7 @@ import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import {
-  Box,
-  Alert,
-  Button,
-  Tooltip,
-  Snackbar,
-  AlertTitle,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Alert, Button, Tooltip, Snackbar, AlertTitle, useMediaQuery } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -82,7 +74,7 @@ export default function Page() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(email)) {
-      console.log(email)
+      console.log(email);
       // Valid email
       setAlertState({
         open: true,
@@ -199,6 +191,8 @@ export default function Page() {
         <Box width="100%">
           <Box>
             <BigCard
+            getHelp={false}
+              isVideo
               bigcardtitle="Upload Guidelines"
               bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
               style={style}
@@ -242,11 +236,19 @@ export default function Page() {
           </Box>
         </Box>
 
-        <Box sx={{mt:3,width:'100%', display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
-          <Box sx={{width:{ xs: '100%', md: '75%' } }}>
+        <Box
+          sx={{
+            mt: 3,
+            width: '100%',
+            display: 'flex',
+            gap: 3,
+            flexDirection: { xs: 'column', md: 'row' },
+          }}
+        >
+          <Box sx={{ width: { xs: '100%', md: '75%' } }}>
             <DashboardTable />
           </Box>
-          <Box sx={{width:{ xs: '100%', md: '25%' }}}>
+          <Box sx={{ width: { xs: '100%', md: '25%' } }}>
             <DashboardChart
               title="List_name.csv"
               subheader="Learn more about result codes"

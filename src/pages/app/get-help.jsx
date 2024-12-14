@@ -1,5 +1,3 @@
-
-
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { Button, Tooltip, Typography, useMediaQuery } from '@mui/material';
@@ -7,13 +5,14 @@ import { Button, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
+import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
 
+import BigCard from 'src/components/big-card/big-card';
 import PageHeader from 'src/components/page-header/page-header';
+
 import { VideoPlayList } from 'src/sections/get-help/video-playlist';
 
-
-
-
+const { items, style } = listItems;
 // ----------------------------------------------------------------------
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
@@ -39,15 +38,24 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           link_added="#"
         />
       </Box>
+      <BigCard
+           getHelp={false}
+       isVideo={false}
+        bigcardtitle="Points To Remember!"
+        style={style}
+        items={items}
+        thumbnailName="get-help-photo.png"
+        keyword="Note:"
+        bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+      />
 
-    
       <Box
         sx={{
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
           alignItems: isMobile ? 'flex-start' : 'center',
           justifyContent: 'space-between',
-          mt: 4,
+          mt: 3,
         }}
       >
         <Typography variant="h4">Tutorials</Typography>
@@ -62,7 +70,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
             size="large"
             variant="outlined"
             color="primary"
-            href="https://www.youtube.com/playlist?list=PLgffPJ6GjbaJBSp44lsF-7Mm5rtg9SvCP"
+            href="https://youtube.com/@pabbly?si=TUdac5e7gpDi3fXX"
             target="_blank"
             rel="noopener noreferrer"
           >

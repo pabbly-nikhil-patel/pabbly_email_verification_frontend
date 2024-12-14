@@ -1,34 +1,22 @@
 // video-playlist-card.jsx
 
+import React from 'react';
 
-import React, { useState } from 'react';
+import { Box, Card } from '@mui/material';
 
-import { Box, Card, Button } from '@mui/material';
-
-import { CONFIG } from 'src/config-global';
 import VideoModal from '../video-modal/video-modal';
-
 
 export default function VideoPlayListCards({
   sx,
   Videotitle,
   cardstats,
-  thumbnailimage,
+  thumbnailname,
   buttonText,
   videoId,
   videoTime,
   ...other
 }) {
-  const [isOpen, setOpen] = useState(false);
-  const coverSrc = `${CONFIG.site.basePath}/assets/background/${thumbnailimage}`;
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <Card
@@ -38,36 +26,19 @@ export default function VideoPlayListCards({
       {...other}
     >
       <Box sx={{ pt: 1, px: 1 }}>
-        <VideoModal
-          thumbnailimage={thumbnailimage}
-          videoId={videoId}
-          open={isOpen}
-          onClose={handleClose}
-          onOpen={handleClickOpen}
-        />
+        <VideoModal videoLink={videoId} getHelp thumbnailName={thumbnailname} />
       </Box>
 
       <Box sx={{ pt: 2.5, px: 2, ...sx }}>
         <Box
           sx={{
             fontSize: '14px',
-            fontWeight: '600',
+            fontWeight: '700',
             color: 'text.primary',
             pb: 1.5,
           }}
         >
           {Videotitle}
-        </Box>
-        <Box>
-          <Button
-            variant="contained"
-            color="primary"
-            width="105px"
-            sx={{ mb: 2 }}
-            onClick={handleClickOpen}
-          >
-            View Now
-          </Button>
         </Box>
       </Box>
     </Card>
