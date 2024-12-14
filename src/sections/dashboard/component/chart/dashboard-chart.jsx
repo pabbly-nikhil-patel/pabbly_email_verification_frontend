@@ -1,17 +1,23 @@
+/* eslint-disable consistent-return */
+import { useSelector } from 'react-redux';
+
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
-import { Link, Typography } from '@mui/material';
 import CardHeader from '@mui/material/CardHeader';
+import { Box, Link, IconButton, Typography } from '@mui/material';
 
 import { fNumber } from 'src/utils/format-number';
 
+import { Iconify } from 'src/components/iconify';
 import { Chart, useChart, ChartLegends } from 'src/components/chart';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
+
 
 // ----------------------------------------------------------------------
 
 export function DashboardChart({ title, subheader, chart, ...other }) {
+  const { isUploading, progress } = useSelector((state) => state.fileUpload);
   const theme = useTheme();
 
   const chartColors = chart.colors ?? [
@@ -54,34 +60,46 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
   });
 
   return (
-    <Card {...other} sx={{ width: '360px' }}>
-      <CardHeader
-        title={<Typography variant="h6">{title}</Typography>}
-        subheader={
-          <Link variant="body2" href="#">
-            {subheader}
-          </Link>
-        }
-      />
+    <Card {...other}  >
+      <Box sx={{ display: 'flex', justifyContent: 'spaced-between', alignItems: 'center' }}>
+        <CardHeader
+          title={<Typography variant="h6">{title}</Typography>}
+          subheader={
+            <Link variant="body2" href="#">
+              {subheader}
+            </Link>
+          }
+        />
+        <Box>
+          <IconButton>
+            <Iconify width={24} icon="solar:download-minimalistic-bold" />
+          </IconButton>
+          <IconButton>
+            <Iconify width={24} icon="solar:trash-bin-trash-bold" />
+          </IconButton>
+        </Box>
+      </Box>
+      {!isUploading && (
+        <>
+          <Chart
+            type="donut"
+            series={chartSeries}
+            options={chartOptions}
+            width={{ xs: 240, xl: 260 }}
+            height={{ xs: 240, xl: 260 }}
+            sx={{ my: 6, mx: 'auto' }}
+          />
+          <ChartLegends
+            labels={chartOptions?.labels}
+            colors={chartOptions?.colors}
+            sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
+          />
+        </>
+      )}
 
-      <Chart
-        type="donut"
-        series={chartSeries}
-        options={chartOptions}
-        width={{ xs: 240, xl: 260 }}
-        height={{ xs: 240, xl: 260 }}
-        sx={{ my: 6, mx: 'auto' }}
-      />
-
-      <ProgessLinear />
+      {isUploading && <ProgessLinear percent={progress} />}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
-
-      <ChartLegends
-        labels={chartOptions?.labels}
-        colors={chartOptions?.colors}
-        sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
-      />
     </Card>
   );
 }

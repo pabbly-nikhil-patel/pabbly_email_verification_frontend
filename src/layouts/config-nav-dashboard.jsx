@@ -9,11 +9,10 @@ import { SvgColor } from 'src/components/svg-color';
 const icon = (name) => <SvgColor src={`${CONFIG.site.basePath}/assets/icons/navbar/${name}.svg`} />;
 
 const ICONS = {
- reports: icon('ic-reports'),
-  credits: icon('ic-credit'),
   dashboard: icon('ic-dashboard'),
+  reports: icon('ic-reports'),
+  credits: icon('ic-credit'),
   gethelp: icon('ic-gethelp'),
- 
 };
 
 // ----------------------------------------------------------------------

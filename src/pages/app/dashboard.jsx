@@ -3,16 +3,7 @@ import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import {
-  Box,
-  Grid,
-  Alert,
-  Button,
-  Tooltip,
-  Snackbar,
-  AlertTitle,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Alert, Button, Tooltip, Snackbar, AlertTitle, useMediaQuery } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -83,6 +74,7 @@ export default function Page() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(email)) {
+      console.log(email);
       // Valid email
       setAlertState({
         open: true,
@@ -156,7 +148,7 @@ export default function Page() {
               variant="contained"
               color="primary"
             >
-              Upload
+              Upload Files
             </Button>
           </Tooltip>
         </Box>
@@ -199,6 +191,8 @@ export default function Page() {
         <Box width="100%">
           <Box>
             <BigCard
+            getHelp={false}
+              isVideo
               bigcardtitle="Upload Guidelines"
               bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
               style={style}
@@ -219,26 +213,42 @@ export default function Page() {
                   color="primary"
                   size="large"
                 >
-                  Upload
+                  Upload Files
                 </Button>
               }
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', width: '100%', gap: 3 }}>
-          <Box sx={{ width: '50%' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            gap: 3,
+            flexDirection: { xs: 'column', md: 'row' },
+            mt: 3,
+          }}
+        >
+          <Box sx={{ width: '100%' }}>
             <Upload />
           </Box>
-          <Box sx={{ width: '50%' }}>
+          <Box sx={{ width: '100%' }}>
             <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 3 }}>
-          <Box>
+        <Box
+          sx={{
+            mt: 3,
+            width: '100%',
+            display: 'flex',
+            gap: 3,
+            flexDirection: { xs: 'column', md: 'row' },
+          }}
+        >
+          <Box sx={{ width: { xs: '100%', md: '75%' } }}>
             <DashboardTable />
           </Box>
-          <Grid xs={12} md={6} lg={4} mt={3}>
+          <Box sx={{ width: { xs: '100%', md: '25%' } }}>
             <DashboardChart
               title="List_name.csv"
               subheader="Learn more about result codes"
@@ -251,7 +261,7 @@ export default function Page() {
                 ],
               }}
             />
-          </Grid>
+          </Box>
         </Box>
       </DashboardContent>
       <UploadDialog

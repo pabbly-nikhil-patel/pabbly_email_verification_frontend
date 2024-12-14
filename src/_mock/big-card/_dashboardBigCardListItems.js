@@ -10,6 +10,7 @@ export const listItems = {
     'Remove any extra spaces or lines before and after each email address.',
     'The email address column should be the last column in the file.',
     'Ensure the file size does not exceed 10MB.',
-    'The file can contain a maximum of 300,000 email addresses.'
+    'The file can contain a maximum of 300,000 email addresses.',
+    'All data and reports older than 15 days will be permanently removed automatically.'
   ],
 };

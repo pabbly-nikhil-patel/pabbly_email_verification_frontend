@@ -8,8 +8,6 @@ import { Label } from 'src/components/label';
 // ----------------------------------------------------------------------
 
 export function CreditTableRow({ row, selected, creditTableIndex }) {
-  // const commonIcon = <Iconify icon="heroicons:document-text" sx={{ mr: 1 }} />;
-
   const date = [
     'Oct 23, 2024 17:45:32',
     'Oct 24, 2024 17:45:32',
@@ -28,9 +26,9 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
 
   const actions = ['Added', 'Added', 'Verified Email', 'Verifying List', 'Verifying List'];
 
-  const label = ['500', '100', '500', '50', '100'];
+  const credits = [9000, 1000, -2, -10, -20];
 
-  const currentLabel = label[creditTableIndex % label.length];
+  const currentCredit = credits[creditTableIndex % credits.length];
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -87,13 +85,12 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
         <Label
           variant="soft"
           color={
-            (currentLabel === '500' && 'success') ||
-            (currentLabel === '100' && 'info') ||
-            (currentLabel === '50' && 'error') ||
-            'default'
+            (currentCredit > 0 && 'success') ||
+            (currentCredit === 0 && 'info') ||
+            (currentCredit < 0 && 'error')
           }
         >
-          {label[creditTableIndex % label.length]}
+          {currentCredit}
         </Label>
       </TableCell>
     </TableRow>

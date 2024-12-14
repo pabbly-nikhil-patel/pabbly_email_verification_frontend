@@ -1,8 +1,10 @@
+import { useDispatch } from 'react-redux';
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
 import { Box, Link, IconButton, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
+import { startUpload, finishUpload, updateProgress } from 'src/redux/slice/upload-slice';
 
 import { Iconify } from '../iconify';
 
@@ -26,6 +28,7 @@ const FileUpload = forwardRef(
     const [localSelectedFile, setLocalSelectedFile] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const fileInputRef = useRef(null);
+    const dispatch = useDispatch();
 
     useImperativeHandle(ref, () => ({
       resetFile: () => {
@@ -45,11 +48,50 @@ const FileUpload = forwardRef(
         }
         setErrorMessage(null);
         setLocalSelectedFile(file);
+
+        dispatch(startUpload());
+
+        // Simulate an upload process
+        const uploadSimulation = setInterval(() => {
+          dispatch(
+            updateProgress((prevProgress) => {
+              if (prevProgress >= 100) {
+                clearInterval(uploadSimulation);
+                dispatch(finishUpload());
+                return prevProgress;
+              }
+              return prevProgress + 10; // Increase progress
+            })
+          );
+        }, 500); // Simulate delay
         onFileUpload(file);
       }
       event.target.value = ''; // Reset the file input value to allow selecting the same file again
     };
 
+    // const handleFileChange = (event) => {
+    //   const file = event.target.files[0];
+    //   if (file) {
+    //     // Start uploading
+    //     dispatch(startUpload());
+
+    //     // Simulate an upload process
+    //     const uploadSimulation = setInterval(() => {
+    //       dispatch(
+    //         updateProgress((prevProgress) => {
+    //           if (prevProgress >= 100) {
+    //             clearInterval(uploadSimulation);
+    //             dispatch(finishUpload());
+    //             return prevProgress;
+    //           }
+    //           return prevProgress + 10; // Increase progress
+    //         })
+    //       );
+    //     }, 500); // Simulate delay
+
+    //     onFileUpload(file);
+    //   }
+    // };
     const handleButtonClick = (event) => {
       event.preventDefault();
       fileInputRef.current.click();

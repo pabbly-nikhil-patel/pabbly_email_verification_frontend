@@ -18,6 +18,7 @@ import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../config-nav-account';
 import { HeaderBase } from '../core/header-base';
+import { FooterBase } from '../core/footer-base';
 import { _workspaces } from '../config-nav-workspace';
 import { LayoutSection } from '../core/layout-section';
 import { navData as dashboardNavData } from '../config-nav-dashboard';
@@ -71,9 +72,8 @@ export function DashboardLayout({ sx, children, data }) {
                 { value: 'ar', label: 'Arabic', countryCode: 'SA' },
               ],
               account: _account,
-          
+
               workspaces: _workspaces,
-            
             }}
             slotsDisplay={{
               signIn: false,
@@ -159,7 +159,54 @@ export function DashboardLayout({ sx, children, data }) {
         /** **************************************
          * Footer
          *************************************** */
-        footerSection={null}
+        footerSection={
+          <FooterBase
+            layoutQuery={layoutQuery}
+            disableElevation={isNavVertical}
+            onOpenNav={mobileNavOpen.onTrue}
+            slotProps={{
+              toolbar: {
+                sx: {
+                  [`& [data-slot="logo"]`]: {
+                    display: 'none',
+                  },
+                  [`& [data-area="right"]`]: {
+                    gap: { xs: 0, sm: 0.75 },
+                  },
+                  ...(isNavHorizontal && {
+                    bgcolor: 'var(--layout-nav-bg)',
+                    [`& .${iconButtonClasses.root}`]: {
+                      color: 'var(--layout-nav-text-secondary-color)',
+                    },
+                    [theme.breakpoints.up(layoutQuery)]: {
+                      height: 'var(--layout-nav-horizontal-height)',
+                    },
+                    [`& [data-slot="workspaces"]`]: {
+                      color: 'var(--layout-nav-text-primary-color)',
+                    },
+                    [`& [data-slot="logo"]`]: {
+                      display: 'none',
+                      [theme.breakpoints.up(layoutQuery)]: {
+                        display: 'inline-flex',
+                      },
+                    },
+                    [`& [data-slot="divider"]`]: {
+                      [theme.breakpoints.up(layoutQuery)]: {
+                        display: 'flex',
+                      },
+                    },
+                  }),
+                },
+              },
+              container: {
+                maxWidth: false,
+                sx: {
+                  ...(isNavVertical && { px: { [layoutQuery]: 5 } }),
+                },
+              },
+            }}
+          />
+        }
         /** **************************************
          * Style
          *************************************** */
