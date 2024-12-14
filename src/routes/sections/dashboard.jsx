@@ -8,7 +8,6 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
 
-
 // ----------------------------------------------------------------------
 
 const DashboardPage = lazy(() => import('src/pages/app/dashboard'));
@@ -37,8 +36,6 @@ export const dashboardRoutes = [
       { path: 'reports', element: <ReportsPage /> },
       { path: 'credits', element: <CreditsPage /> },
       { path: 'gethelp', element: <GetHelpPage /> },
-
-   
     ],
   },
 ];

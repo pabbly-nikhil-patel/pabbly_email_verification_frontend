@@ -104,7 +104,7 @@ export function CreditTable() {
   );
 
   return (
-    <Card sx={{ mt: 3 }}>
+    <Card >
       <CardHeader
         title={<Typography variant="h6">Email Verification Logs </Typography>}
         sx={{ pb: 3 }}
@@ -123,7 +123,9 @@ export function CreditTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        <Scrollbar sx={{ minHeight: 444 }}>
+        <Scrollbar
+        //  sx={{ minHeight: 444 }}
+        >
           <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
             <TableHeadCustom
               showCheckbox={false}
