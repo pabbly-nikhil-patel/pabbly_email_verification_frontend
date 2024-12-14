@@ -83,6 +83,7 @@ export default function Page() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(email)) {
+      console.log(email)
       // Valid email
       setAlertState({
         open: true,
