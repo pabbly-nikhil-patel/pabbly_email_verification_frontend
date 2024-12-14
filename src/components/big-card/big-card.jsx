@@ -3,6 +3,8 @@ import { Box, Card, Typography } from '@mui/material';
 import VideoModal from '../video-modal/video-modal';
 
 export default function BigCard({
+  getHelp,
+  isVideo,
   coverSrc,
   items,
   style,
@@ -17,19 +19,19 @@ export default function BigCard({
 }) {
   return (
     <Card sx={{ p: 5 }}>
-     <Box
+      <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
-          alignItems:'center',
+          alignItems: 'center',
           mb: 0,
-          gap:3
+          gap: 3,
         }}
       >
-        <Box >
+        <Box>
           <Box>
-            <Box sx={{ mb: 1 , }}>
+            <Box sx={{ mb: 1 }}>
               <Typography variant="h6">{bigcardtitle}</Typography>
               <Typography color="#637381" fontSize="14px" mt={1}>
                 {bigcardsubtitle}
@@ -56,8 +58,8 @@ export default function BigCard({
             {action}
           </Box>
         </Box>{' '}
-        <Box >
-          <VideoModal videoLink={videoLink} thumbnailName={thumbnailName} />
+        <Box>
+          <VideoModal getHelp={getHelp} isVideo={isVideo} videoLink={videoLink} thumbnailName={thumbnailName} />
         </Box>
       </Box>
     </Card>
