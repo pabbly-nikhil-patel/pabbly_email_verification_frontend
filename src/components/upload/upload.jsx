@@ -51,18 +51,28 @@ const FileUpload = forwardRef(
 
         dispatch(startUpload());
 
+        let progress = 0;
         // Simulate an upload process
         const uploadSimulation = setInterval(() => {
-          dispatch(
-            updateProgress((prevProgress) => {
-              if (prevProgress >= 100) {
-                clearInterval(uploadSimulation);
-                dispatch(finishUpload());
-                return prevProgress;
-              }
-              return prevProgress + 10; // Increase progress
-            })
-          );
+          progress += 5;
+          // dispatch(
+          //   updateProgress((prevProgress) => {
+          //     if (prevProgress >= 100) {
+          //       clearInterval(uploadSimulation);
+          //       dispatch(finishUpload());
+          //       return prevProgress;
+          //     }
+          //     return prevProgress + 10; // Increase progress
+          //   })
+          // );
+          dispatch(updateProgress(progress)); // Dispatch updated progress
+
+      if (progress >= 100) {
+        clearInterval(uploadSimulation); // Clear the interval once progress reaches 100
+        console.log('Dispatching finishUpload');
+        
+        dispatch(finishUpload()); // Dispatch finishUpload after progress reaches 100
+      }
         }, 500); // Simulate delay
         onFileUpload(file);
       }

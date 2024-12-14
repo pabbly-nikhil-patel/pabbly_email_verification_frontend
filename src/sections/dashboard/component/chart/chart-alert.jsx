@@ -1,6 +1,6 @@
 import { Box, Alert, Button, Typography } from '@mui/material';
 
-export default function ChartAlert() {
+export default function ChartAlert( {onStartVerification }) {
   return (
     <Box
       sx={{
@@ -12,9 +12,11 @@ export default function ChartAlert() {
       }}
     >
       <Alert severity="success" variant="outlined" onClose={() => {}}>
-        <Typography variant="body1" fontWeight={600}>Uploaded Successfully</Typography>
+        <Typography variant="body1" fontWeight={600}>
+          Uploaded Successfully
+        </Typography>
       </Alert>
-      <Button color="primary" sx={{ mt: 2 }}>
+      <Button color="primary" sx={{ mt: 2 }} onClick={onStartVerification}>
         Start Verification
       </Button>
     </Box>

@@ -6,37 +6,43 @@ const fileUploadSlice = createSlice({
   initialState: {
     progress: 0, // Percentage of upload progress
     isUploading: false, // Boolean to indicate if upload is in progress
-    isVerificationStarted: false,
-    isCompleted: false, // Boolean to indicate completion
+    isUploaded:false,
+    isStartVerification:false,
+    isVerificationCompleted:false
   },
   reducers: {
     startUpload(state) {
       state.isUploading = true;
       state.progress = 0;
-      state.isCompleted = false;
-      state.isVerificationStarted = false;
     },
     updateProgress(state, action) {
       state.progress = action.payload; // Update the progress percentage
     },
     finishUpload(state) {
       state.isUploading = false;
+      state.isUploaded=true;
       state.progress = 100; // Completion
-      state.isCompleted = true; // Mark upload as completed
     },
-    startVerification(state) {
-      state.isVerificationStarted = true; // Start verification process
+
+    startVerification(state){
+      state.isStartVerification=true
+      state.progress=0
     },
+
+    isVerificationCompleted(state){
+      state.isStartVerification=true;
+      state.progress = 100;
+    },
+
+
     resetUpload(state) {
       state.isUploading = false;
       state.progress = 0; // Reset to initial state
-      state.isVerificationStarted = false;
-      state.isCompleted = false;
     },
   },
 });
 
-export const { startUpload, updateProgress, finishUpload, startVerification, resetUpload } =
+export const { startUpload, updateProgress, finishUpload, startVerification, resetUpload,isVerificationCompleted, } =
   fileUploadSlice.actions;
 
 export default fileUploadSlice.reducer;

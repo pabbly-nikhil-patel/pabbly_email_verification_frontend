@@ -13,12 +13,16 @@ import { Iconify } from 'src/components/iconify';
 import { Chart, useChart, ChartLegends } from 'src/components/chart';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
 
+import ChartAlert from './chart-alert';
 
 // ----------------------------------------------------------------------
 
 export function DashboardChart({ title, subheader, chart, ...other }) {
-  const { isUploading, progress } = useSelector((state) => state.fileUpload);
+  const { isUploading, progress, isVerificationCompleted, isStartVerification, isUploaded } =
+    useSelector((state) => state.fileUpload);
   const theme = useTheme();
+
+  // const isChartVisible = isVerificationCompleted === isUploadCompleted;
 
   const chartColors = chart.colors ?? [
     theme.palette.success.main,
@@ -60,7 +64,7 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
   });
 
   return (
-    <Card {...other}  >
+    <Card {...other}>
       <Box sx={{ display: 'flex', justifyContent: 'spaced-between', alignItems: 'center' }}>
         <CardHeader
           title={<Typography variant="h6">{title}</Typography>}
@@ -79,7 +83,27 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
           </IconButton>
         </Box>
       </Box>
-      {!isUploading && (
+      {!isUploading && !isUploaded? (
+        <>
+          <Chart
+            type="donut"
+            series={chartSeries}
+            options={chartOptions}
+            width={{ xs: 240, xl: 260 }}
+            height={{ xs: 240, xl: 260 }}
+            sx={{ my: 6, mx: 'auto' }}
+          />
+          <ChartLegends
+            labels={chartOptions?.labels}
+            colors={chartOptions?.colors}
+            sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
+          />
+        </>
+      ) : (
+        <ProgessLinear percent={progress} />
+      )}
+      {!isStartVerification && isUploaded && <ChartAlert />}
+      {/* {!isUploading && (
         <>
           <Chart
             type="donut"
@@ -96,9 +120,13 @@ export function DashboardChart({ title, subheader, chart, ...other }) {
           />
         </>
       )}
-
-      {isUploading && <ProgessLinear percent={progress} />}
-
+      {isUploading ? (
+        <ProgessLinear percent={progress} />
+      ) : (
+        <>{!isUploading && isUploaded && <ChartAlert />}</>
+      )} */}
+      {/* {isUploading && <ProgessLinear percent={progress} />}
+      {!isStartVerification && <ChartAlert />} */}
       <Divider sx={{ borderStyle: 'dashed' }} />
     </Card>
   );
