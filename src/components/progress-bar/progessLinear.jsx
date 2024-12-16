@@ -8,7 +8,7 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { varAlpha } from 'src/theme/styles';
 import { updateProgress, completeVerification } from 'src/redux/slice/upload-slice';
 
- // Import the necessary actions
+// Import the necessary actions
 
 export default function ProgressLinear() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function ProgressLinear() {
   }, [isStartVerification, progress, dispatch]);
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3, pt: 6 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1.5 }}>
         <Typography variant="overline">
           {isStartVerification ? 'Processing' : 'Uploading'}

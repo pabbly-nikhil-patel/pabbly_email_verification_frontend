@@ -1,15 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
+import { startVerification } from 'src/redux/slice/upload-slice';
+
 import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
 
 export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
-
   // const commonIcon = <Iconify icon="heroicons:document-text" sx={{ mr: 1 }} />;
 
   const csvfilesname = [
@@ -18,6 +22,16 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
     'newsletter_subscribers.csv (35)',
     'employee_contact_list.csv (64)',
   ];
+  const navigate = useNavigate();
+  const handleViewReport = () => {
+    navigate('/app/reports');
+  };
+
+  const dispatch = useDispatch();
+
+  const handleStartVerification = () => {
+    dispatch(startVerification()); // Dispatch action to reset isUploaded and start verification
+  };
 
   const renderPrimary = (
     <TableRow hover selected={selected}>
@@ -33,9 +47,9 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
             <Label
               variant="soft"
               color={
+                (row.status === 'unprocessed' && 'error') ||
                 (row.status === 'completed' && 'success') ||
                 (row.status === 'processing' && 'info') ||
-                (row.status === 'unprocessed' && 'error') ||
                 'default'
               }
             >
@@ -60,13 +74,29 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
       </TableCell>
 
       <TableCell width={200}>
-      <Button variant="outlined" color="primary">
-          Start Verification
+        <Button
+          variant="outlined"
+          color="primary"
+          disabled={row.status === 'processing'}
+          onClick={
+            row.status === 'processing' || row.status === 'completed'
+              ? undefined
+              : handleStartVerification
+          }
+        >
+          {row.status === 'processing' || row.status === 'completed'
+            ? 'Download'
+            : 'Start Verification'}
         </Button>
       </TableCell>
 
-      <TableCell width={140} align='right'>
-        <Button variant="outlined" color="primary" disabled>
+      <TableCell width={140} align="right">
+        <Button
+          variant="outlined"
+          color="success"
+          disabled={row.status === 'unprocessed' || row.status === 'processing'}
+          onClick={handleViewReport}
+        >
           View Report
         </Button>
       </TableCell>

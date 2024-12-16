@@ -1,9 +1,10 @@
 /* eslint-disable consistent-return */
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Alert, Button, Tooltip, Snackbar, AlertTitle, useMediaQuery } from '@mui/material';
+import { Box, Alert, Button, Tooltip, AlertTitle, useMediaQuery } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -25,28 +26,23 @@ const metadata = { title: `Pabbly Email Verification | Dashboard ` };
 const { items, style } = listItems;
 
 export default function Page() {
+  const { isUploading } = useSelector((state) => state.fileUpload);
   const [addSubaccountDialogOpen, setAddSubaccountDialogOpen] = useState(false);
   const [email, setEmail] = useState('');
   const handleAddSubaccountDialogClose = () => setAddSubaccountDialogOpen(false); // State for Add Subaccount dialog
-  const [snackbarState, setSnackbarState] = useState({
-    open: false,
-    message: '',
-    severity: 'success',
-  });
+
   const [alertState, setAlertState] = useState({
     open: false,
     color: 'success',
     title: '',
     message: '',
+    status: '',
   });
 
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') return;
-    setSnackbarState((prev) => ({ ...prev, open: false }));
-  };
-
   const handleAlertClose = () => {
-    setAlertState((prev) => ({ ...prev, open: false }));
+    setAlertState({
+      open: false,
+    });
   };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -56,17 +52,17 @@ export default function Page() {
   };
 
   const handleAdd = () => {
-    // Validate fields
-
-    // Only proceed if no validation errors
-
-    setSnackbarState({
-      open: true,
-      message: 'Email csv file uploaded successfully',
-      severity: 'success',
-    });
-
     setAddSubaccountDialogOpen(false);
+  };
+
+  const showAlert = (color, title, message, status) => {
+    setAlertState({
+      open: true,
+      color,
+      title,
+      message,
+      status,
+    });
   };
 
   const handleVerify = () => {
@@ -79,8 +75,9 @@ export default function Page() {
       setAlertState({
         open: true,
         color: 'success',
-        title: 'Accept All',
+        status: 'Accept All',
         message: `The email "${email}" is valid!`,
+        title: 'Verification Result',
       });
       setEmail(''); // Reset the text field
     } else {
@@ -88,15 +85,16 @@ export default function Page() {
       setAlertState({
         open: true,
         color: 'error',
-        title: 'Undeliverable',
+        status: 'Undeliverable',
         message: `The email "${email}" is invalid!`,
+        title: 'Verification Result',
       });
     }
 
     // Auto-hide the alert after 5 seconds
     setTimeout(() => {
       handleAlertClose();
-    }, 5000);
+    }, 3000);
   };
   function calculateStats(allottedCredits, consumedCredits) {
     const remainingCredits = allottedCredits - consumedCredits;
@@ -148,7 +146,7 @@ export default function Page() {
               variant="contained"
               color="primary"
             >
-              Upload Files
+              Upload File
             </Button>
           </Tooltip>
         </Box>
@@ -191,7 +189,7 @@ export default function Page() {
         <Box width="100%">
           <Box>
             <BigCard
-            getHelp={false}
+              getHelp={false}
               isVideo
               bigcardtitle="Upload Guidelines"
               bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
@@ -203,17 +201,19 @@ export default function Page() {
               bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
               action={
                 <Button
+                  onClick={buttonClick}
                   startIcon={
                     <Iconify
                       icon="heroicons:plus-circle-16-solid"
                       style={{ width: 18, height: 18 }}
                     />
                   }
+                  sx={{ mt: 3 }}
                   variant="outlined"
                   color="primary"
                   size="large"
                 >
-                  Upload Files
+                  Upload File
                 </Button>
               }
             />
@@ -229,10 +229,10 @@ export default function Page() {
           }}
         >
           <Box sx={{ width: '100%' }}>
-            <Upload />
+            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
           </Box>
           <Box sx={{ width: '100%' }}>
-            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
+            <Upload />
           </Box>
         </Box>
 
@@ -250,6 +250,8 @@ export default function Page() {
           </Box>
           <Box sx={{ width: { xs: '100%', md: '25%' } }}>
             <DashboardChart
+              showAlert={showAlert}
+              handleAlertClose={handleAlertClose}
               title="List_name.csv"
               subheader="Learn more about result codes"
               chart={{
@@ -273,37 +275,6 @@ export default function Page() {
           </Button>
         }
       />
-      <Snackbar
-        open={snackbarState.open}
-        autoHideDuration={2500}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{
-          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-          // mt: 13,
-          zIndex: theme.zIndex.modal + 9999,
-        }}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={snackbarState.severity}
-          sx={{
-            width: '100%',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary, // Keeping text color consistent
-            '& .MuiAlert-icon': {
-              color:
-                snackbarState.severity === 'error'
-                  ? theme.palette.error.main
-                  : theme.palette.success.main,
-            },
-          }}
-        >
-          {snackbarState.message}
-        </Alert>
-      </Snackbar>
 
       {alertState.open && (
         <div
@@ -312,11 +283,12 @@ export default function Page() {
             top: '80px',
             right: '10px',
             zIndex: 1000,
+            width: '700px',
           }}
         >
           <Alert severity={alertState.color} onClose={handleAlertClose}>
-            <AlertTitle sx={{ textTransform: 'capitalize' }}>Verification Result</AlertTitle>
-            {alertState.message} — <strong>{alertState.title}</strong>
+            <AlertTitle sx={{ textTransform: 'capitalize' }}>{alertState.title}</AlertTitle>
+            {alertState.message} — <strong>{alertState.status}</strong>
           </Alert>
         </div>
       )}

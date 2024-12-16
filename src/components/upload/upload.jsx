@@ -52,56 +52,24 @@ const FileUpload = forwardRef(
         dispatch(startUpload());
 
         let progress = 0;
-        // Simulate an upload process
+
         const uploadSimulation = setInterval(() => {
           progress += 5;
-          // dispatch(
-          //   updateProgress((prevProgress) => {
-          //     if (prevProgress >= 100) {
-          //       clearInterval(uploadSimulation);
-          //       dispatch(finishUpload());
-          //       return prevProgress;
-          //     }
-          //     return prevProgress + 10; // Increase progress
-          //   })
-          // );
+
           dispatch(updateProgress(progress)); // Dispatch updated progress
 
-      if (progress >= 100) {
-        clearInterval(uploadSimulation); // Clear the interval once progress reaches 100
-        console.log('Dispatching finishUpload');
-        
-        dispatch(finishUpload()); // Dispatch finishUpload after progress reaches 100
-      }
+          if (progress >= 100) {
+            clearInterval(uploadSimulation); // Clear the interval once progress reaches 100
+            console.log('Dispatching finishUpload');
+
+            dispatch(finishUpload()); // Dispatch finishUpload after progress reaches 100
+          }
         }, 500); // Simulate delay
         onFileUpload(file);
       }
       event.target.value = ''; // Reset the file input value to allow selecting the same file again
     };
 
-    // const handleFileChange = (event) => {
-    //   const file = event.target.files[0];
-    //   if (file) {
-    //     // Start uploading
-    //     dispatch(startUpload());
-
-    //     // Simulate an upload process
-    //     const uploadSimulation = setInterval(() => {
-    //       dispatch(
-    //         updateProgress((prevProgress) => {
-    //           if (prevProgress >= 100) {
-    //             clearInterval(uploadSimulation);
-    //             dispatch(finishUpload());
-    //             return prevProgress;
-    //           }
-    //           return prevProgress + 10; // Increase progress
-    //         })
-    //       );
-    //     }, 500); // Simulate delay
-
-    //     onFileUpload(file);
-    //   }
-    // };
     const handleButtonClick = (event) => {
       event.preventDefault();
       fileInputRef.current.click();
@@ -170,7 +138,7 @@ const FileUpload = forwardRef(
         >
           {uploadInformation.includes('Sample File') ? (
             <span>
-              Upload File OR Drag and Drop file here (Only CSV files allowed).
+              Drag and Drop file or Browse (Only CSV files allowed).
               <br />
               <Box style={{ marginTop: '4px' }}>
                 {' '}
