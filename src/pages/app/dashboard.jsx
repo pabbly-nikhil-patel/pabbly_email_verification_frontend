@@ -40,10 +40,9 @@ export default function Page() {
   });
 
   const handleAlertClose = () => {
-    setAlertState({
-      open: false,
-    });
+    setAlertState(prev => ({ ...prev, open: false }));
   };
+  
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -295,3 +294,4 @@ export default function Page() {
     </>
   );
 }
+

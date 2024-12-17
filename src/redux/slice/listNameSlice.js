@@ -1,14 +1,13 @@
+// src/redux/slice/listNameSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  selectedListName: '',
-};
 
 const listNameSlice = createSlice({
   name: 'listName',
-  initialState,
+  initialState: {
+    selectedListName: '',
+  },
   reducers: {
-    setSelectedListName(state, action) {
+    setSelectedListName: (state, action) => {
       state.selectedListName = action.payload;
     },
   },

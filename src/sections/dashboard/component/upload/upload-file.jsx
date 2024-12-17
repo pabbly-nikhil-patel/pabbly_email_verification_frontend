@@ -12,6 +12,7 @@ export default function Upload() {
       <Divider />
       <CardContent>
         <FileUpload
+        
           uploadInformation="Upload File OR Drag and Drop file here (Only CSV files allowed). Download  Sample File here."
           allowedFileTypes={['text/csv']}
           fileName="sample_csv.csv"
@@ -21,3 +22,4 @@ export default function Upload() {
     </Card>
   );
 }
+

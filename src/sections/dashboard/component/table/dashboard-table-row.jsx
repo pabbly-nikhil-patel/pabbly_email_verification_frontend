@@ -17,9 +17,9 @@ import { Label } from 'src/components/label';
 export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewReport }) {
   const handleViewReport = () => {
     const listName = csvfilesname[dashboardTableIndex % csvfilesname.length];
-    dispatch(setSelectedListName(listName)); // Dispatch the selected list name
+    dispatch(setSelectedListName(listName));
+    navigate('/app/reports');
   };
-
   const csvfilesname = [
     'inactive_email_list.csv (65)',
     'marketing_email_list.csv (656)',
@@ -99,7 +99,7 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewRe
           variant="outlined"
           color="success"
           disabled={row.status === 'unprocessed' || row.status === 'processing'}
-          onClick={handelNavigate}
+          onClick={handleViewReport} // Updated to use the new handler
         >
           View Report
         </Button>
