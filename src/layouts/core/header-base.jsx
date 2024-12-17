@@ -104,11 +104,11 @@ export function HeaderBase({
                 <Box
                   alt="logo"
                   component="img"
-                  src={`${CONFIG.site.basePath}/assets/icons/navbar/pabbly_logo.svg`}
+                  src={`${CONFIG.site.basePath}/assets/icons/navbar/Pabbly Email Verification SVG.svg`}
                   width={120}
                   sx={{
                     display: { xs: 'none', sm: 'block' },
-                    zIndex: theme.zIndex.drawer + 1 
+                    zIndex: theme.zIndex.drawer + 1,
                   }}
                 />
                 <Logo
@@ -150,8 +150,6 @@ export function HeaderBase({
               )}
 
               {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
-
-             
 
               {account && (
                 <Tooltip title="Click here to see account details." arrow placement="bottom">
