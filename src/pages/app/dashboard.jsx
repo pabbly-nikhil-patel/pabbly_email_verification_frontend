@@ -40,9 +40,9 @@ export default function Page() {
   });
 
   const handleAlertClose = () => {
-    setAlertState(prev => ({ ...prev, open: false }));
+    setAlertState((prev) => ({ ...prev, open: false }));
   };
-  
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -231,7 +231,7 @@ export default function Page() {
             <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
           </Box>
           <Box sx={{ width: '100%' }}>
-            <Upload />
+            <Upload setAlertState={setAlertState} />
           </Box>
         </Box>
 
@@ -294,4 +294,3 @@ export default function Page() {
     </>
   );
 }
-
