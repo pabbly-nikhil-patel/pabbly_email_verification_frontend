@@ -8,13 +8,17 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
 import { startVerification } from 'src/redux/slice/upload-slice';
+import { setSelectedListName } from 'src/redux/slice/listNameSlice';
 
 import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
 
-export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
-  // const commonIcon = <Iconify icon="heroicons:document-text" sx={{ mr: 1 }} />;
+export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewReport }) {
+  const handleViewReport = () => {
+    const listName = csvfilesname[dashboardTableIndex % csvfilesname.length];
+    dispatch(setSelectedListName(listName)); // Dispatch the selected list name
+  };
 
   const csvfilesname = [
     'inactive_email_list.csv (65)',
@@ -23,7 +27,7 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
     'employee_contact_list.csv (64)',
   ];
   const navigate = useNavigate();
-  const handleViewReport = () => {
+  const handelNavigate = () => {
     navigate('/app/reports');
   };
 
@@ -95,7 +99,7 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex }) {
           variant="outlined"
           color="success"
           disabled={row.status === 'unprocessed' || row.status === 'processing'}
-          onClick={handleViewReport}
+          onClick={handelNavigate}
         >
           View Report
         </Button>
