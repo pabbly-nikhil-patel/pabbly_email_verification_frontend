@@ -1,42 +1,58 @@
-// src/redux/slices/fileUploadSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+  import { createSlice } from '@reduxjs/toolkit';
 
-const fileUploadSlice = createSlice({
-  name: 'fileUpload',
-  initialState: {
-    progress: 0, // Percentage of upload progress
-    isUploading: false, // Boolean to indicate if upload is in progress
-    isVerificationStarted: false,
-    isCompleted: false, // Boolean to indicate completion
-  },
-  reducers: {
-    startUpload(state) {
-      state.isUploading = true;
-      state.progress = 0;
-      state.isCompleted = false;
-      state.isVerificationStarted = false;
+  const fileUploadSlice = createSlice({
+    name: 'fileUpload',
+    initialState: {
+      progress: 0,
+      isUploading: false,
+      isUploaded: false,
+      isStartVerification: false,
+      isVerificationCompleted: false,
     },
-    updateProgress(state, action) {
-      state.progress = action.payload; // Update the progress percentage
+    reducers: {
+      startUpload(state) {
+        state.isUploading = true;
+        state.progress = 0;
+      },
+      updateProgress(state, action) {
+        state.progress = action.payload;
+      },
+      finishUpload(state) {
+        state.isUploading = false;
+        state.isUploaded = true;
+        state.progress = 100;
+      },
+      startVerification(state) {
+        state.isStartVerification = true;
+        state.progress = 0;
+      },
+      completeVerification(state) {
+        state.isStartVerification = false;
+        state.isVerificationCompleted = true;
+      },
+      resetUpload(state) {
+        state.isUploading = false;
+        state.isUploaded = false;
+        state.isStartVerification = false;
+        state.isVerificationCompleted = false;
+        state.progress = 0;
+      },
+      finishVerification(state) {
+        state.isStartVerification = false;
+        state.isVerificationCompleted = true;
+        state.progress = 100; // Verification complete
+      },
     },
-    finishUpload(state) {
-      state.isUploading = false;
-      state.progress = 100; // Completion
-      state.isCompleted = true; // Mark upload as completed
-    },
-    startVerification(state) {
-      state.isVerificationStarted = true; // Start verification process
-    },
-    resetUpload(state) {
-      state.isUploading = false;
-      state.progress = 0; // Reset to initial state
-      state.isVerificationStarted = false;
-      state.isCompleted = false;
-    },
-  },
-});
+  });
 
-export const { startUpload, updateProgress, finishUpload, startVerification, resetUpload } =
-  fileUploadSlice.actions;
+  export const {
+    startUpload,
+    updateProgress,
+    finishUpload,
+    startVerification,
+    completeVerification,
+    resetUpload,
+    finishVerification
+  } = fileUploadSlice.actions;
 
-export default fileUploadSlice.reducer;
+  export default fileUploadSlice.reducer;
