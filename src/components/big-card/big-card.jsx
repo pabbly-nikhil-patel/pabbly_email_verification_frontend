@@ -37,7 +37,7 @@ export default function BigCard({
                 {bigcardsubtitle}
               </Typography>
             </Box>
-            <Box component="ul" sx={style} p={1}>
+            <Box component="ul" sx={style} p={1} pb={2}>
               {items.map((item, index) => (
                 <li key={index}>
                   <Typography variant="body2" fontWeight={400} color="#637381">
@@ -59,7 +59,12 @@ export default function BigCard({
           </Box>
         </Box>{' '}
         <Box>
-          <VideoModal getHelp={getHelp} isVideo={isVideo} videoLink={videoLink} thumbnailName={thumbnailName} />
+          <VideoModal
+            getHelp={getHelp}
+            isVideo={isVideo}
+            videoLink={videoLink}
+            thumbnailName={thumbnailName}
+          />
         </Box>
       </Box>
     </Card>

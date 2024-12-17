@@ -47,6 +47,7 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
         thumbnailName="get-help-photo.png"
         keyword="Note:"
         bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+        action={<Button variant='outlined' color='primary' size='large' href='https://forum.pabbly.com/forums/general-discussions.39/' target='_blank'>Ask a Question</Button>}
       />
 
       <Box
