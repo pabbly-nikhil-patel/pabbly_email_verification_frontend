@@ -108,6 +108,7 @@ isNotUpgraded=true,
                   sx={{
                     display: { xs: 'none', sm: 'block' },
                     zIndex: theme.zIndex.drawer + 1,
+                   
                   }}
                 />
                 <Logo

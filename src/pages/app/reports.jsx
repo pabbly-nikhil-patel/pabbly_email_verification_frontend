@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
 import { Box, Card, CardHeader, useMediaQuery } from '@mui/material';
@@ -18,6 +19,7 @@ export default function Page() {
   // Hooks
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const selectedListName = useSelector((state) => state.listName.selectedListName);
 
   return (
     <>
@@ -93,7 +95,13 @@ export default function Page() {
           />
         </Box>
         <Card>
-          <CardHeader title="List_name - Verification Summary" />
+          <CardHeader
+            title={
+              selectedListName
+                ? `${selectedListName} - Verification Summary`
+                : 'Verification Summary'
+            }
+          />
           <ReportsBarChart
             chart={{
               categories: ['Total Emails', 'Deliverable', 'Undeliverable', 'Accept-all', 'Unknown'],

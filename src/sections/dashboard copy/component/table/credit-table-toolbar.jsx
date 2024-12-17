@@ -137,7 +137,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
             title={
               isFilterApplied
                 ? "Click the 'X' to clear all applied filters."
-                : 'Filter connections by app name, connection name or workflow name.'
+                : 'Filter your email verification logs.'
             }
             arrow
             placement="top"
@@ -265,11 +265,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
           >
             <Box sx={{ width: '100%' }}>
               <Typography variant="h6" sx={{ fontWeight: '600' }}>
-                <Tooltip
-                  title="Filter connections by app name, connection name or workflow name."
-                  arrow
-                  placement="top"
-                >
+                <Tooltip title="Filter your email verification logs." arrow placement="top">
                   <span> Filter Action</span>
                 </Tooltip>
               </Typography>
@@ -312,15 +308,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
-                  <Tooltip
-                    title="Select an application to filter connections associated with it."
-                    arrow
-                    placement="top"
-                  >
-                    <span> Action</span>
-                  </Tooltip>
-                </Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Action</Typography>
               </FormControl>
 
               <FormControl
