@@ -1,20 +1,13 @@
-import { useState, useCallback } from 'react';
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import SvgIcon from '@mui/material/SvgIcon';
 import InputBase from '@mui/material/InputBase';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import { Tooltip, Typography } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import Dialog, { dialogClasses } from '@mui/material/Dialog';
-
-import { useRouter } from 'src/routes/hooks';
-import { isExternalLink } from 'src/routes/utils';
-
-import { useBoolean } from 'src/hooks/use-boolean';
-import { useEventListener } from 'src/hooks/use-event-listener';
 
 import { varAlpha } from 'src/theme/styles';
 
@@ -24,121 +17,104 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { SearchNotFound } from 'src/components/search-not-found';
 
 import { ResultItem } from './result-item';
-import { groupItems, applyFilter, getAllItems } from './utils';
 
 // ----------------------------------------------------------------------
-
-export function Searchbar({ data: navItems = [], sx, ...other }) {
+const data = [
+  { title: 'List 1' },
+  { title: 'List 2'},
+  { title: 'List 3' },
+  { title: 'List 4' },
+  { title: 'List 5' },
+];
+export default function Searchbar({ sx, ...other }) {
   const theme = useTheme();
-
-  const router = useRouter();
-
-  const search = useBoolean();
-
   const [searchQuery, setSearchQuery] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = useCallback(() => {
-    search.onFalse();
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => {
+    setIsOpen(false);
     setSearchQuery('');
-  }, [search]);
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'k' && event.metaKey) {
-      search.onToggle();
-      setSearchQuery('');
-    }
   };
 
-  useEventListener('keydown', handleKeyDown);
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
-  const handleClick = useCallback(
-    (path) => {
-      if (isExternalLink(path)) {
-        window.open(path);
-      } else {
-        router.push(path);
-      }
-      handleClose();
-    },
-    [handleClose, router]
+  const filteredData = data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleSearch = useCallback((event) => {
-    setSearchQuery(event.target.value);
-  }, []);
-
-  const dataFiltered = applyFilter({
-    inputData: getAllItems({ data: navItems }),
-    query: searchQuery,
-  });
-
-  const notFound = searchQuery && !dataFiltered.length;
-
-  const renderItems = () => {
-    const dataGroups = groupItems(dataFiltered);
-
-    return Object.keys(dataGroups)
-      .sort((a, b) => -b.localeCompare(a))
-      .map((group, index) => (
-        <Box component="ul" key={`${group}-${index}`}>
-          {dataGroups[group].map((item) => {
-            const { title, path } = item;
-
-            const partsTitle = parse(title, match(title, searchQuery));
-
-            const partsPath = parse(path, match(path, searchQuery));
-
-            return (
-              <Box component="li" key={`${title}${path}`} sx={{ display: 'flex' }}>
-                <ResultItem
-                  path={partsPath}
-                  title={partsTitle}
-                  groupLabel={searchQuery && group}
-                  onClickItem={() => handleClick(path)}
-                />
-              </Box>
-            );
-          })}
-        </Box>
-      ));
+  const handleItemClick = (item) => {
+    // onSelectItem(item); // Call parent function to update card title
+    handleClose();
   };
 
-  const renderButton = (
-    <Box
-      display="flex"
-      alignItems="center"
-      onClick={search.onTrue}
-      sx={{
-        pr: { sm: 1 },
-        borderRadius: { sm: 1.5 },
-        cursor: { sm: 'pointer' },
-        bgcolor: { sm: varAlpha(theme.vars.palette.grey['500Channel'], 0.08) },
-        ...sx,
-      }}
-      {...other}
-    >
-      <IconButton disableRipple>
-        {/* https://icon-sets.iconify.design/eva/search-fill/ */}
-        <SvgIcon sx={{ width: 20, height: 20 }}>
-          <path
-            fill="currentColor"
-            d="m20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8a7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42M5 11a6 6 0 1 1 6 6a6 6 0 0 1-6-6"
+  const renderItems = () => (
+    <Box component="ul">
+      {filteredData.map((item) => (
+        <Box
+          component="li"
+          key={item.title} // Use title for unique key instead of item.path
+          sx={{ display: 'flex' }}
+          onClick={() => handleItemClick(item)} // Update title when item is clicked
+        >
+          <ResultItem
+            title={item.title}
+            groupLabel={searchQuery && 'Filtered'}
+            searchQuery={searchQuery}
           />
-        </SvgIcon>
-      </IconButton>
-
-      <Label
-        sx={{
-          fontSize: 12,
-          color: 'grey.800',
-          bgcolor: 'common.white',
-          boxShadow: theme.customShadows.z1,
-          display: { xs: 'none', sm: 'inline-flex' },
-        }}
-      >
-        ⌘K
-      </Label>
+        </Box>
+      ))}
     </Box>
+  );
+ const renderButton = (
+    <Tooltip title="Search Lists to see reports." arrow placement="bottom">
+      <Box
+        display="flex"
+        alignItems="center"
+        onClick={handleOpen}
+        sx={{
+          fontSize: 14,
+          fontWeight: 500,
+          color: 'grey.600',
+          pr: { sm: 1 },
+          borderRadius: { sm: 1.5 },
+          cursor: { sm: 'pointer' },
+          bgcolor: { sm: varAlpha(theme.vars.palette.grey['500Channel'], 0.08) },
+          ...sx,
+        }}
+        {...other}
+      >
+        <Box display="flex" alignItems="center">
+          <IconButton disableRipple>
+            <SvgIcon sx={{ width: 20, height: 20 }}>
+              <path
+                fill="currentColor"
+                d="m20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8a7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42M5 11a6 6 0 1 1 6 6a6 6 0 0 1-6-6"
+              />
+            </SvgIcon>
+          </IconButton>
+        </Box>
+
+        <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
+          Search Report
+        </Typography>
+
+        <Label
+          sx={{
+            ml: 1,
+            fontSize: 12,
+            color: 'grey.800',
+            bgcolor: 'common.white',
+            boxShadow: theme.customShadows.z1,
+            display: { xs: 'none', md: 'inline-flex' },
+          }}
+        >
+          List Name
+        </Label>
+      </Box>
+    </Tooltip>
   );
 
   return (
@@ -148,16 +124,18 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
       <Dialog
         fullWidth
         disableRestoreFocus
-        maxWidth="sm"
-        open={search.value}
+        open={isOpen}
         onClose={handleClose}
         transitionDuration={{
           enter: theme.transitions.duration.shortest,
           exit: 0,
         }}
         PaperProps={{ sx: { mt: 15, overflow: 'unset' } }}
-        sx={{ [`& .${dialogClasses.container}`]: { alignItems: 'flex-start' } }}
+        sx={{
+          [`& .${dialogClasses.container}`]: { alignItems: 'flex-start' },
+        }}
       >
+        {/* Dialog Content */}
         <Box sx={{ p: 3, borderBottom: `solid 1px ${theme.vars.palette.divider}` }}>
           <InputBase
             fullWidth
@@ -170,12 +148,19 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
                 <Iconify icon="eva:search-fill" width={24} sx={{ color: 'text.disabled' }} />
               </InputAdornment>
             }
-            endAdornment={<Label sx={{ letterSpacing: 1, color: 'text.secondary' }}>esc</Label>}
+            endAdornment={
+              <Label
+                sx={{ letterSpacing: 1, color: 'text.secondary', cursor: 'pointer' }}
+                onClick={handleClose}
+              >
+                esc
+              </Label>
+            }
             inputProps={{ sx: { typography: 'h6' } }}
           />
         </Box>
 
-        {notFound ? (
+        {filteredData.length === 0 ? (
           <SearchNotFound query={searchQuery} sx={{ py: 15 }} />
         ) : (
           <Scrollbar sx={{ px: 3, pb: 3, pt: 2, height: 400 }}>{renderItems()}</Scrollbar>
@@ -184,3 +169,4 @@ export function Searchbar({ data: navItems = [], sx, ...other }) {
     </>
   );
 }
+
