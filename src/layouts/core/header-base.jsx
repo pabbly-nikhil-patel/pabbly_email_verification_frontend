@@ -2,21 +2,19 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import { Tooltip } from '@mui/material';
 import Button from '@mui/material/Button';
 import { styled, useTheme } from '@mui/material/styles';
 
 import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 
 import { Logo } from 'src/components/logo';
 
+import Searchbar from '../components/searchbar';
 import { HeaderSection } from './header-section';
-import { Searchbar } from '../components/searchbar';
 import { MenuButton } from '../components/menu-button';
 import { AccountDrawer } from '../components/account-drawer';
 
@@ -55,11 +53,11 @@ export function HeaderBase({
 
   slotsDisplay: {
     account = true,
-    helpLink = true,
+
     purchase = true,
-    searchbar = true,
+
     menuButton = true,
-    localization = true,
+isNotUpgraded=true,
   } = {},
 
   ...other
@@ -68,6 +66,7 @@ export function HeaderBase({
   const location = useLocation();
 
   const isLoginPage = location.pathname === '/login'; // Adjust this path if your login route is different
+  const isReportPage = location.pathname.includes('/app/reports');
 
   return (
     <HeaderSection
@@ -104,11 +103,12 @@ export function HeaderBase({
                 <Box
                   alt="logo"
                   component="img"
-                  src={`${CONFIG.site.basePath}/assets/icons/navbar/Pabbly Email Verification SVG.svg`}
+                  src={`${CONFIG.site.basePath}/assets/icons/navbar/PEV_logo.svg`}
                   width={120}
                   sx={{
                     display: { xs: 'none', sm: 'block' },
                     zIndex: theme.zIndex.drawer + 1,
+                   
                   }}
                 />
                 <Logo
@@ -137,19 +137,11 @@ export function HeaderBase({
                 gap: { xs: 1, sm: 1.5 },
               }}
             >
-              {helpLink && (
-                <Link
-                  data-slot="help-link"
-                  href={paths.faqs}
-                  component={RouterLink}
-                  color="inherit"
-                  sx={{ typography: 'subtitle2' }}
-                >
-                  Need help?
-                </Link>
-              )}
+             
 
-              {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />}
+
+              {isReportPage && <Searchbar data-slot="searchbar" data={data?.nav} />}
+              {isNotUpgraded && <Button variant='contained' size='small' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>}
 
               {account && (
                 <Tooltip title="Click here to see account details." arrow placement="bottom">

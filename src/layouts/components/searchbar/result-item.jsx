@@ -8,7 +8,16 @@ import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
 
-export function ResultItem({ title, path, groupLabel, onClickItem }) {
+export function ResultItem({ title, groupLabel, onClickItem, searchQuery = '' }) {
+  // Ensure searchQuery is always a string
+  const safeSearchQuery = (searchQuery || '').toLowerCase(); // Default to empty string if undefined
+
+  // Handle the case where title is a string or array of objects
+  const titleParts = Array.isArray(title)
+    ? title
+    : [{ text: title, highlight: title && title.toLowerCase().includes(safeSearchQuery) }];
+
+    console.log(titleParts)
   return (
     <ListItemButton
       onClick={onClickItem}
@@ -31,26 +40,17 @@ export function ResultItem({ title, path, groupLabel, onClickItem }) {
       <ListItemText
         primaryTypographyProps={{ typography: 'subtitle2', sx: { textTransform: 'capitalize' } }}
         secondaryTypographyProps={{ typography: 'caption', noWrap: true }}
-        primary={title.map((part, index) => (
+        primary={titleParts.map((part, index) => (
           <Box
             key={index}
             component="span"
-            sx={{ color: part.highlight ? 'primary.main' : 'text.primary' }}
-          >
-            {part.text}
-          </Box>
-        ))}
-        secondary={path.map((part, index) => (
-          <Box
-            key={index}
-            component="span"
-            sx={{ color: part.highlight ? 'primary.main' : 'text.secondary' }}
+            sx={{ color: 'text.primary' }}
           >
             {part.text}
           </Box>
         ))}
       />
-
+      
       {groupLabel && <Label color="info">{groupLabel}</Label>}
     </ListItemButton>
   );
