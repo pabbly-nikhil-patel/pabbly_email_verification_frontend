@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import { Divider, CardHeader, Typography } from '@mui/material';
+import { Divider, Tooltip, CardHeader, Typography } from '@mui/material';
 
 import { useSetState } from 'src/hooks/use-set-state';
 
@@ -38,7 +38,7 @@ const TABLE_HEAD = [
     label: 'Date',
     width: 'flex',
     whiteSpace: 'nowrap',
-    tooltip: 'Timestamp when the email verification action occurred. Click to sort by date.',
+    tooltip: 'Date and time when the email verification action occurred.',
   },
 
   {
@@ -55,8 +55,7 @@ const TABLE_HEAD = [
     width: 'flex',
     whiteSpace: 'nowrap',
     align: 'left',
-    tooltip:
-      'Cost associated with the verification action. Positive numbers indicate credits added, negative numbers indicate credits used.',
+    tooltip: 'Details for the action happened to list.',
   },
   {
     id: 'status',
@@ -64,7 +63,7 @@ const TABLE_HEAD = [
     width: 'flex',
     whiteSpace: 'nowrap',
     align: 'right',
-    tooltip: 'Current state of the email verification process.',
+    tooltip: 'Current state of the email verification credits.',
   },
 ];
 
@@ -104,9 +103,20 @@ export function CreditTable() {
   );
 
   return (
-    <Card >
+    <Card>
       <CardHeader
-        title={<Typography variant="h6">Email Verification Logs </Typography>}
+        title={
+          <Box display="inline-block">
+            <Tooltip
+              arrow
+              placement="top"
+              disableInteractive
+              title="View all the email verification logs here."
+            >
+              <Typography variant="h6">Email Verification Logs</Typography>
+            </Tooltip>
+          </Box>
+        }
         sx={{ pb: 3 }}
       />
       <Divider />

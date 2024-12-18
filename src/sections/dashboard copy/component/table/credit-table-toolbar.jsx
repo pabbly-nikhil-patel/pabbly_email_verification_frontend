@@ -108,7 +108,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search Connections..."
+            placeholder="Search by messages..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

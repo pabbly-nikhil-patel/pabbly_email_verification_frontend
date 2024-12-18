@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
@@ -99,10 +99,12 @@ isNotUpgraded=true,
             {isLoginPage ? (
               <Logo data-slot="logo" />
             ) : (
-              <>
+              
+              <Link to="/app">
                 <Box
                   alt="logo"
                   component="img"
+                  
                   src={`${CONFIG.site.basePath}/assets/icons/navbar/PEV_logo.svg`}
                   width={120}
                   sx={{
@@ -117,7 +119,8 @@ isNotUpgraded=true,
                     display: { xs: 'block', sm: 'none' },
                   }}
                 />
-              </>
+                </Link>
+              
             )}
 
             {!isLoginPage && <StyledDivider data-slot="divider" />}

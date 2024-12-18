@@ -4,6 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
 import { Label } from 'src/components/label';
+import { Tooltip } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +35,36 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
     <TableRow hover selected={selected}>
       <TableCell width={300}>
         <Stack spacing={2} direction="row" alignItems="center">
+          <Tooltip
+            arrow
+            placement="top"
+            disableInteractive
+            title={`Action occured at: ${date[creditTableIndex % date.length]}`}
+          >
+            <Box
+              component="span"
+              sx={{
+                color: 'text.primary',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                maxWidth: '300px',
+                display: 'inline-block',
+              }}
+            >
+              {date[creditTableIndex % date.length]}
+            </Box>
+          </Tooltip>
+        </Stack>
+      </TableCell>
+
+      <TableCell width={200}>
+        <Tooltip
+          arrow
+          placement="top"
+          disableInteractive
+          title={`Message for the action: ${message[creditTableIndex % message.length]}`}
+        >
           <Box
             component="span"
             sx={{
@@ -45,53 +76,49 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
               display: 'inline-block',
             }}
           >
-            {date[creditTableIndex % date.length]}
+            {message[creditTableIndex % message.length]}
           </Box>
-        </Stack>
-      </TableCell>
-
-      <TableCell width={200}>
-        <Box
-          component="span"
-          sx={{
-            color: 'text.primary',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            maxWidth: '300px',
-            display: 'inline-block',
-          }}
-        >
-          {message[creditTableIndex % message.length]}
-        </Box>
+        </Tooltip>
       </TableCell>
 
       <TableCell width={140}>
-        <Box
-          component="span"
-          sx={{
-            color: 'text.primary',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            maxWidth: '300px',
-            display: 'inline-block',
-          }}
+        <Tooltip
+          arrow
+          placement="top"
+          disableInteractive
+          title={`Action: ${actions[creditTableIndex % actions.length]}`}
         >
-          {actions[creditTableIndex % actions.length]}
-        </Box>
+          <Box
+            component="span"
+            sx={{
+              color: 'text.primary',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: '300px',
+              display: 'inline-block',
+            }}
+          >
+            {actions[creditTableIndex % actions.length]}
+          </Box>
+        </Tooltip>
       </TableCell>
       <TableCell width={140} align="right">
-        <Label
-          variant="soft"
-          color={
-            (currentCredit > 0 && 'success') ||
-            (currentCredit === 0 && 'info') ||
-            (currentCredit < 0 && 'error')
-          }
+        <Tooltip
+          arrow
+          placement="top"
+          disableInteractive
+          title={`Status: ${
+            (currentCredit > 0 && 'Email credits alloted.') || (currentCredit < 0 && 'Email credits consumed.')
+          }`}
         >
-          {currentCredit}
-        </Label>
+          <Label
+            variant="soft"
+            color={(currentCredit > 0 && 'success') || (currentCredit < 0 && 'error')}
+          >
+            {currentCredit}
+          </Label>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );
