@@ -6,7 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import { Divider, CardHeader, Typography } from '@mui/material';
+import { Divider, Tooltip, CardHeader, Typography } from '@mui/material';
 
 import { useSetState } from 'src/hooks/use-set-state';
 
@@ -34,7 +34,7 @@ import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...DASHBOARD_STATUS_OPTIONS];
+const STATUS_OPTIONS = [{ value: 'all', label: 'All',tooltip:'All uploaded lists.' }, ...DASHBOARD_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
   {
@@ -119,7 +119,11 @@ export function DashboardTable() {
             key={tab.value}
             iconPosition="end"
             value={tab.value}
-            label={tab.label}
+            label={
+              <Tooltip disableInteractive placement="top" arrow title={tab.tooltip}>
+                <span>{tab.label}</span>
+              </Tooltip>
+            }
             icon={
               <Label
                 variant={
@@ -155,7 +159,7 @@ export function DashboardTable() {
 
       <Box sx={{ position: 'relative' }}>
         <Scrollbar sx={{ minHeight: 444 }}>
-          <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+          <Table size={table.dense ? 'small' : 'medium'} sx={{  }}>
             <TableHeadCustom
               showCheckbox={false}
               order={table.order}

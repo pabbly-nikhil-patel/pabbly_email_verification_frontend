@@ -127,10 +127,10 @@ export default function Page() {
           <PageHeader
             title="Dashboard"
             Subheading="Enhance your email list quality with advanced verification tools, reducing bounce rates and maximizing deliverability."
-            link_added="#"
+            link_added="https://forum.pabbly.com/forums/general-discussions.39/"
           />
           <Tooltip
-            title="Click here to Upload the csv file which contains the emails list."
+            title="Click here to Upload the CSV file which contains the emails list."
             arrow
             placement="top"
             disableInteractive
@@ -199,21 +199,28 @@ export default function Page() {
               keyword="Note:"
               bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
               action={
-                <Button
-                  onClick={buttonClick}
-                  startIcon={
-                    <Iconify
-                      icon="heroicons:plus-circle-16-solid"
-                      style={{ width: 18, height: 18 }}
-                    />
-                  }
-                  sx={{ mt: 3 }}
-                  variant="outlined"
-                  color="primary"
-                  size="large"
+                <Tooltip
+                  title="Click here to Upload the CSV file which contains the emails list."
+                  arrow
+                  placement="top"
+                  disableInteractive
                 >
-                  Upload File
-                </Button>
+                  <Button
+                    onClick={buttonClick}
+                    startIcon={
+                      <Iconify
+                        icon="heroicons:plus-circle-16-solid"
+                        style={{ width: 18, height: 18 }}
+                      />
+                    }
+                    sx={{ mt: 3 }}
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                  >
+                    Upload File
+                  </Button>
+                </Tooltip>
               }
             />
           </Box>
@@ -244,15 +251,15 @@ export default function Page() {
             flexDirection: { xs: 'column', md: 'row' },
           }}
         >
-          <Box sx={{ width: { xs: '100%', md: '75%' } }}>
+          <Box sx={{ width: { xs: '100%', md: '65%' } }}>
             <DashboardTable />
           </Box>
-          <Box sx={{ width: { xs: '100%', md: '25%' } }}>
+          <Box sx={{ width: { xs: '100%', md: '35%' } }}>
             <DashboardChart
               showAlert={showAlert}
               handleAlertClose={handleAlertClose}
               title="List_name.csv"
-              subheader="Learn more about result codes"
+              
               chart={{
                 series: [
                   { label: 'Deliverable', value: 12244 },

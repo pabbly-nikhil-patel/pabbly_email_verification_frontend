@@ -36,7 +36,7 @@ export function ChartLegends({ labels = [], colors = [], values, sublabels, icon
             {icons?.length ? (
               <Box
                 component="span"
-                sx={{ color: colors[index], '& svg, & img': { width: 20, height: 20 } }}
+                sx={{ color: colors[index], '& svg, & img': { width: 16, height: 16 } }}
               >
                 {icons?.[index]}
               </Box>
@@ -44,7 +44,7 @@ export function ChartLegends({ labels = [], colors = [], values, sublabels, icon
               <StyledDot component="span" sx={{ color: colors[index] }} />
             )}
 
-            <Box component="span" sx={{ flexShrink: 0 }}>
+            <Box component="span" sx={{ flexShrink: 0 ,fontSize:'14px'}}>
               {series}
               {sublabels && <> {` (${sublabels[index]})`}</>}
             </Box>

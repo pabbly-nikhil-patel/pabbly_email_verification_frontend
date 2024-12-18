@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -30,7 +29,7 @@ export function DashboardTableToolbar({ filters, onResetPage }) {
           fullWidth
           value={filters.state.name}
           onChange={handleFilterName}
-          placeholder="Search contacts whatsApp number..."
+          placeholder="Search by file name..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -40,7 +39,7 @@ export function DashboardTableToolbar({ filters, onResetPage }) {
           }}
         />
 
-        <Button startIcon={<Iconify icon="mingcute:filter-fill" />}>Filter</Button>
+        
       </Stack>
     </Stack>
   );

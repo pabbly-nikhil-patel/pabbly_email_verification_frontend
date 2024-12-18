@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
-import { Box, Link, IconButton, Typography } from '@mui/material';
+import { Box, Link, Tooltip, IconButton, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 import { startUpload, finishUpload, updateProgress } from 'src/redux/slice/upload-slice';
@@ -171,13 +171,20 @@ const FileUpload = forwardRef(
               <Box style={{ marginTop: '4px' }}>
                 {' '}
                 Download{' '}
-                <Link
-                  href={`/src/assets/sample-files/${fileName}`}
-                  download
-                  style={{ color: '#078DEE' }}
+                <Tooltip
+                  arrow
+                  placement="top"
+                  disableInteractive
+                  title="Click here to download sample file."
                 >
-                  Sample File
-                </Link>{' '}
+                  <Link
+                    href={`/src/assets/sample-files/${fileName}`}
+                    download
+                    style={{ color: '#078DEE' }}
+                  >
+                    Sample File
+                  </Link>{' '}
+                </Tooltip>
                 here.
               </Box>
             </span>
