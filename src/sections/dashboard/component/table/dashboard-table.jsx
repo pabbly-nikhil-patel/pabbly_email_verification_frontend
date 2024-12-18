@@ -34,7 +34,10 @@ import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = [{ value: 'all', label: 'All',tooltip:'All uploaded lists.' }, ...DASHBOARD_STATUS_OPTIONS];
+const STATUS_OPTIONS = [
+  { value: 'all', label: 'All', tooltip: 'All uploaded lists.' },
+  ...DASHBOARD_STATUS_OPTIONS,
+];
 
 const TABLE_HEAD = [
   {
@@ -102,7 +105,20 @@ export function DashboardTable() {
 
   return (
     <Card>
-      <CardHeader title={<Typography variant="h6">Uploaded List</Typography>} sx={{ pb: 3 }} />
+      <CardHeader
+        title={
+          <Box display="inline-block">
+            <Tooltip
+              title="See all your uploaded files and their verification status"
+              arrow
+              placement="top"
+            >
+              <Typography variant="h6">Uploaded List</Typography>
+            </Tooltip>
+          </Box>
+        }
+        sx={{ pb: 3 }}
+      />
       <Divider />
 
       <Tabs
@@ -159,7 +175,7 @@ export function DashboardTable() {
 
       <Box sx={{ position: 'relative' }}>
         <Scrollbar sx={{ minHeight: 444 }}>
-          <Table size={table.dense ? 'small' : 'medium'} sx={{  }}>
+          <Table size={table.dense ? 'small' : 'medium'} sx={{}}>
             <TableHeadCustom
               showCheckbox={false}
               order={table.order}
