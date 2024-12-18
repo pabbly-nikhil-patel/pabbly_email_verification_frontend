@@ -24,6 +24,8 @@ import { AnimateAvatar } from 'src/components/animate';
 
 
 
+
+
 // import { UpgradeBlock } from './nav-upgrade';
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
@@ -36,6 +38,7 @@ export function AccountDrawer({ data = [], sx, ...other }) {
   const router = useRouter();
 
   const pathname = usePathname();
+
 
 
 
@@ -78,8 +81,8 @@ export function AccountDrawer({ data = [], sx, ...other }) {
       <AccountButton
         open={open}
         onClick={handleOpenDrawer}
-        photoURL=""
-        displayName='sdsdsd'
+        // photoURL={user?.photoURL}
+        // displayName='A'
         sx={sx}
         {...other}
       />

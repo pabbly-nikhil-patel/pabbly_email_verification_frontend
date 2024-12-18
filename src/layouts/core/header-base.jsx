@@ -141,14 +141,16 @@ isNotUpgraded=true,
 
 
               {isReportPage && <Searchbar data-slot="searchbar" data={data?.nav} />}
-              {isNotUpgraded && <Button variant='contained' size='small' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>}
+              {isNotUpgraded && 
+               <Tooltip title="Click here to purchase email verification credits." arrow placement="bottom">
+                 
+              <Button variant='contained' size='small' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>
+              </Tooltip>}
 
               {account && (
-                <Tooltip title="Click here to see account details." arrow placement="bottom">
-                  <span>
+               
                     <AccountDrawer data-slot="account" data={data?.account} />
-                  </span>
-                </Tooltip>
+               
               )}
 
               {purchase && (

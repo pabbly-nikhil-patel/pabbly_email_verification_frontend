@@ -161,28 +161,28 @@ export default function Page() {
           }}
         >
           <StatsCards
-            cardtitle="Email Verification Credits Allotted"
+            cardtitle="Email Credits Allotted"
             cardstats={stats.allotted}
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
-            tooltipTittle="Number of email verification credit alloted to you"
+            tooltipTittle=" Total number of email credits allotted to your account."
           />
           <StatsCards
-            cardtitle="Email Verification Credits Consumed"
+            cardtitle="Email Credits Consumed"
             cardstats={stats.consumed}
             icon_name="Processed.svg"
             icon_color="#10CBF3"
             bg_gradient="#10CBF3"
-            tooltipTittle="Number of email verification credit comsumed by you"
+            tooltipTittle="Total number of email credits consumed by your account."
           />
           <StatsCards
-            cardtitle="Email Verification Credits Remaining"
+            cardtitle="Email Credits Remaining"
             cardstats={stats.remaining}
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
-            tooltipTittle="Number of email verification credit remaining"
+            tooltipTittle=" Total number of email credits remaining in your account."
           />
         </Box>
         <Box width="100%">

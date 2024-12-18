@@ -26,15 +26,15 @@ export function AnimateAvatar({ sx, slotProps, children, width = 40, ...other })
       {...other}
     >
       <Avatar
-        alt={slotProps?.avatar?.alt ?? 'My avtar'}
-        src={slotProps?.avatar?.src}
+
+        src=""
         sx={{
           zIndex: 1,
           width: `calc(100% - ${borderWidth * 2 + spacing * 2}px)`,
           height: `calc(100% - ${borderWidth * 2 + spacing * 2}px)`,
-          ...slotProps?.avatar?.sx,
+  
         }}
-        {...slotProps?.avatar}
+    
       >
         {children}
       </Avatar>

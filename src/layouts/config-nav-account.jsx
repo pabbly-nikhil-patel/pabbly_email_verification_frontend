@@ -13,7 +13,7 @@ export const _account = [
  
   
   {
-    label: 'Subscription',
+    label: 'My Subscription',
     href: '#',
     icon: (
       <SvgIcon>

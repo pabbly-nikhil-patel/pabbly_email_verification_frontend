@@ -27,7 +27,7 @@ export function SignOutButton({ onClose, ...other }) {
   }, [checkUserSession, onClose, router]);
 
   return (
-    <Button fullWidth variant="soft" size="large" color="error" onClick={handleLogout} {...other}>
+    <Button fullWidth variant="soft" size="large" color="primary" onClick={handleLogout} {...other}>
       Logout
     </Button>
   );
