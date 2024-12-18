@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Card, CardHeader, useMediaQuery } from '@mui/material';
+import { Box, Card, Tooltip, CardHeader, useMediaQuery } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
@@ -59,7 +59,7 @@ export default function Page() {
             icon_name="Processed.svg"
             icon_color="#7D6ADB"
             bg_gradient="#7D6ADB"
-            tooltipTittle="Total Emails in the list"
+            tooltipTittle="Total numbers of Emails in the list"
           />
           <StatsCards
             cardtitle="Deliverable"
@@ -67,7 +67,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#28A645"
             bg_gradient="#28A645"
-            tooltipTittle="Total Deliverable Emails in the list"
+            tooltipTittle="Total numbers of Deliverable Emails in the list"
           />
           <StatsCards
             cardtitle="Undeliverable"
@@ -75,7 +75,7 @@ export default function Page() {
             icon_name="undeliverable.svg"
             icon_color="#FF5630"
             bg_gradient="#FF5630"
-            tooltipTittle="Total Undeliverable Emails in the list"
+            tooltipTittle="Total numbers of Undeliverable Emails in the list"
           />
           <StatsCards
             cardtitle="Accept-all"
@@ -83,7 +83,7 @@ export default function Page() {
             icon_name="accept-all.svg"
             icon_color="#00B8D9"
             bg_gradient="#00B8D9"
-            tooltipTittle="Total Accept-all Emails in the list"
+            tooltipTittle="Total numbers of Accept-all Emails in the list"
           />
           <StatsCards
             cardtitle="Unknown"
@@ -91,15 +91,23 @@ export default function Page() {
             icon_name="unknown.svg"
             icon_color="#FFA92E"
             bg_gradient="#FFAB00"
-            tooltipTittle="Total Unknown Emails in the list"
+            tooltipTittle="Total numbers of Unknown Emails in the list"
           />
         </Box>
         <Card>
           <CardHeader
             title={
-              selectedListName
-                ? `${selectedListName} - Verification Summary`
-                : 'Verification Summary'
+              <Tooltip
+                title="Bar chart showing the distribution of your email verification results"
+                placement="top"
+                arrow
+              >
+                <span>
+                  {selectedListName
+                    ? `${selectedListName} - Verification Summary`
+                    : 'Verification Summary'}
+                </span>
+              </Tooltip>
             }
           />
           <ReportsBarChart
