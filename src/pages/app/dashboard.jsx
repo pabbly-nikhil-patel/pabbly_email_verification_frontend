@@ -195,8 +195,8 @@ export default function Page() {
               bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
               style={style}
               items={items}
-              videoLink="https://www.youtube.com/embed/S-gpjyxqRZo?si=RraJU_Q1ht71Pk2T"
-              thumbnailName="dashboard-big-card-thumbnail.png"
+              videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
+              thumbnailName="email-verication-video-thumbnail.jpg"
               keyword="Note:"
               bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
               action={
