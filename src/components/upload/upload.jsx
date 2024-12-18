@@ -8,6 +8,8 @@ import { startUpload, finishUpload, updateProgress } from 'src/redux/slice/uploa
 
 import { Iconify } from '../iconify';
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
+
 const FileUpload = forwardRef(
   (
     {
@@ -21,6 +23,7 @@ const FileUpload = forwardRef(
       selectedFile,
       uploadInformation,
       allowedFileTypes,
+      setAlertState, // Add this prop
       ...other
     },
     ref
@@ -39,13 +42,39 @@ const FileUpload = forwardRef(
       },
     }));
 
+    const handleAlertClose = () => {
+      setAlertState((prev) => ({ ...prev, open: false }));
+    };
+
+    const validateFile = (file) => {
+      if (file.size > MAX_FILE_SIZE) {
+        setAlertState({
+          open: true,
+          color: 'error',
+          title: 'Error',
+          message: 'The selected file exceeds the maximum size limit of 10MB',
+          status: 'Please choose a smaller file',
+        });
+        setTimeout(() => {
+          handleAlertClose();
+        }, 3000);
+        return false;
+      }
+      if (allowedFileTypes && !allowedFileTypes.includes(file.type)) {
+        setErrorMessage(fileErrorMessage);
+        return false;
+      }
+      return true;
+    };
+
     const handleFileChange = (event) => {
       const file = event.target.files[0];
       if (file) {
-        if (allowedFileTypes && !allowedFileTypes.includes(file.type)) {
-          setErrorMessage(fileErrorMessage);
+        if (!validateFile(file)) {
+          event.target.value = '';
           return;
         }
+
         setErrorMessage(null);
         setLocalSelectedFile(file);
 
@@ -56,18 +85,18 @@ const FileUpload = forwardRef(
         const uploadSimulation = setInterval(() => {
           progress += 5;
 
-          dispatch(updateProgress(progress)); // Dispatch updated progress
+          dispatch(updateProgress(progress));
 
           if (progress >= 100) {
-            clearInterval(uploadSimulation); // Clear the interval once progress reaches 100
+            clearInterval(uploadSimulation);
             console.log('Dispatching finishUpload');
 
-            dispatch(finishUpload()); // Dispatch finishUpload after progress reaches 100
+            dispatch(finishUpload());
           }
-        }, 500); // Simulate delay
+        }, 500);
         onFileUpload(file);
       }
-      event.target.value = ''; // Reset the file input value to allow selecting the same file again
+      event.target.value = '';
     };
 
     const handleButtonClick = (event) => {
@@ -83,8 +112,7 @@ const FileUpload = forwardRef(
       event.preventDefault();
       const file = event.dataTransfer.files[0];
       if (file) {
-        if (allowedFileTypes && !allowedFileTypes.includes(file.type)) {
-          setErrorMessage(fileErrorMessage);
+        if (!validateFile(file)) {
           return;
         }
         setErrorMessage(null);
@@ -120,7 +148,7 @@ const FileUpload = forwardRef(
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
-          accept={allowedFileTypes.join(',')} // Enforce allowed file types in the file picker
+          accept={allowedFileTypes.join(',')}
           style={{ display: 'none' }}
           {...other}
         />
@@ -142,10 +170,9 @@ const FileUpload = forwardRef(
               <br />
               <Box style={{ marginTop: '4px' }}>
                 {' '}
-                {/* Optional styling to add spacing */}
                 Download{' '}
                 <Link
-                  href={`/src/assets/sample-files/${fileName}`} // Replace with the actual path to your sample CSV file
+                  href={`/src/assets/sample-files/${fileName}`}
                   download
                   style={{ color: '#078DEE' }}
                 >

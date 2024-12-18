@@ -163,9 +163,9 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
         {showChartAlert && <ChartAlert />}
         {showProgressLinear && <ProgessLinear />}
       </Card>
-      <Dialog open={dialog.open} onClose={handleClose}  >
+      <Dialog open={dialog.open} onClose={handleClose}>
         <DialogTitle>
-          {dialog.mode === 'download' ? (
+          {dialog.mode === 'download' && (
             <>
               <Typography variant="h6">Download Verification Result</Typography>
               <Typography variant="body2">
@@ -173,8 +173,6 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                 removed automatically after 15 days.
               </Typography>
             </>
-          ) : (
-            <Typography variant="h6">Confirm Deletion</Typography>
           )}
         </DialogTitle>
 
@@ -196,7 +194,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
         {dialog.mode === 'delete' && (
           <>
             <DialogTitle>
-              <Typography variant='body2'>
+              <Typography variant="body2">
                 The list &quot;Untitled_spreadsheet_-_Sheet1.csv&quot; will be deleted permanently
                 and cannot be recovered back. Do you want to continue?
               </Typography>

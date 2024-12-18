@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet-async';
+
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { Button, Tooltip, Typography, useMediaQuery } from '@mui/material';
@@ -13,7 +15,10 @@ import PageHeader from 'src/components/page-header/page-header';
 import { VideoPlayList } from 'src/sections/get-help/video-playlist';
 
 const { items, style } = listItems;
+
 // ----------------------------------------------------------------------
+
+const metadata = { title: `Pabbly Email Verification | Get Help ` };
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
@@ -22,66 +27,70 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
 
   const dialog = useBoolean();
   return (
-    <DashboardContent maxWidth="xl">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: isMobile ? 'flex-start' : 'center',
-          justifyContent: 'space-between',
-          mb: 4,
-        }}
-      >
-        <PageHeader
-          title="Help & Tutorials"
-          Subheading="Tell us about your problem, and we’ll find you a solution."
-          link_added="#"
-        />
-      </Box>
-      <BigCard
-           getHelp={false}
-       isVideo={false}
-        bigcardtitle="Points To Remember!"
-        style={style}
-        items={items}
-        thumbnailName="get-help-photo.png"
-        keyword="Note:"
-        bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
-        action={<Button variant='outlined' color='primary' size='large' href='https://forum.pabbly.com/forums/general-discussions.39/' target='_blank'>Ask a Question</Button>}
-      />
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: isMobile ? 'flex-start' : 'center',
-          justifyContent: 'space-between',
-          mt: 3,
-        }}
-      >
-        <Typography variant="h4">Tutorials</Typography>
-        <Tooltip
-          title="Click here to access over 10000+ detailed tutorials on our YouTube channel."
-          arrow
-          placement="top"
+    <>
+      <Helmet>
+        <title> {metadata.title}</title>
+      </Helmet>
+      <DashboardContent maxWidth="xl">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            justifyContent: 'space-between',
+            mb: 4,
+          }}
         >
-          <Button
-            onClick={dialog.onTrue}
-            sx={{ mt: isMobile ? 2 : 0 }}
-            size="large"
-            variant="outlined"
-            color="primary"
-            href="https://youtube.com/@pabbly?si=TUdac5e7gpDi3fXX"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View All Videos
-          </Button>
-        </Tooltip>
-      </Box>
-      <VideoPlayList />
+          <PageHeader
+            title="Help & Tutorials"
+            Subheading="Tell us about your problem, and we’ll find you a solution."
+            link_added="#"
+          />
+        </Box>
+        <BigCard
+          getHelp={false}
+          isVideo={false}
+          bigcardtitle="Points To Remember!"
+          style={style}
+          items={items}
+          thumbnailName="get-help-photo.png"
+          keyword="Note:"
+          bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+        />
 
-      {/* Table */}
-    </DashboardContent>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            justifyContent: 'space-between',
+            mt: 3,
+          }}
+        >
+          <Typography variant="h4">Tutorials</Typography>
+          <Tooltip
+            title="Click here to access over 10000+ detailed tutorials on our YouTube channel."
+            arrow
+            placement="top"
+          >
+            <Button
+              onClick={dialog.onTrue}
+              sx={{ mt: isMobile ? 2 : 0 }}
+              size="large"
+              variant="outlined"
+              color="primary"
+              href="https://youtube.com/@pabbly?si=TUdac5e7gpDi3fXX"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View All Videos
+            </Button>
+          </Tooltip>
+        </Box>
+        <VideoPlayList />
+
+        {/* Table */}
+      </DashboardContent>
+    </>
   );
 }
