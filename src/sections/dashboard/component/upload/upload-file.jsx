@@ -1,13 +1,23 @@
-import { Card, Divider, CardHeader, Typography, CardContent } from '@mui/material';
+import { Box, Card, Divider, Tooltip, CardHeader, Typography, CardContent } from '@mui/material';
 
 import FileUpload from 'src/components/upload/upload';
 
-export default function Upload({setAlertState}) {
+export default function Upload({ setAlertState }) {
   return (
     <Card>
       <CardHeader
         sx={{ pb: 3 }}
-        title={<Typography variant="h6">Upload CSV File for Email Verification </Typography>}
+        title={
+          <Box display="inline-block">
+            <Tooltip
+              title="Upload a list of email addresses in CSV format to check them all at once"
+              arrow
+              placement="top"
+            >
+              <Typography variant="h6">Upload CSV File for Email Verification </Typography>
+            </Tooltip>
+          </Box>
+        }
       />
       <Divider />
       <CardContent>
