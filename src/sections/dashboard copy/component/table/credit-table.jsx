@@ -10,8 +10,6 @@ import { useSetState } from 'src/hooks/use-set-state';
 
 import { fIsBetween } from 'src/utils/format-time';
 
-import { _credit, CREDIT_STATUS_OPTIONS } from 'src/_mock/_table/_credit';
-
 import { Scrollbar } from 'src/components/scrollbar';
 import {
   useTable,
@@ -30,12 +28,10 @@ import { CreditTableFiltersResult } from './credit-table-filters-result';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...CREDIT_STATUS_OPTIONS];
-
 const TABLE_HEAD = [
   {
     id: 'date',
-    label: 'Date',
+    label: 'Log Date',
     width: 'flex',
     whiteSpace: 'nowrap',
     tooltip: 'Date and time when the email verification action occurred.',
@@ -67,18 +63,49 @@ const TABLE_HEAD = [
   },
 ];
 
+const dataOn = [
+  {
+    dateCreatedOn: 'Oct 23, 2024 17:45:32',
+    message: 'Used in verifying "SampleImport_(3).csv" list',
+    action: 'Verifying List',
+    credits: 'Consumed',
+    noOfCredits: 9,
+  },
+  {
+    dateCreatedOn: 'Oct 23, 2024 17:45:32',
+    message: 'Used in verifying "SampleImport_(3).csv" list',
+    action: 'Verifying List',
+    credits: 'Consumed',
+    noOfCredits: 7,
+  },
+  {
+    dateCreatedOn: 'Oct 23, 2024 17:45:32',
+    message: 'Used in verifying email: ankit.mandli1@pabbly.com',
+    action: 'Verified Email',
+    credits: 'Consumed',
+    noOfCredits: 20,
+  },
+  {
+    dateCreatedOn: 'Oct 23, 2024 17:45:32',
+    message: 'Email credits added by Admin',
+    action: 'Added',
+    credits: 'Alloted',
+    noOfCredits: 100,
+  },
+];
+
 // ----------------------------------------------------------------------
 
 export function CreditTable() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
-  const [tableData, setTableData] = useState(_credit);
+  const [tableData, setTableData] = useState(dataOn);
 
   const filters = useSetState({
     name: '',
     status: 'all',
   });
-
+ 
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
@@ -154,27 +181,36 @@ export function CreditTable() {
             />
 
             <TableBody>
-              {dataFiltered
+              {dataInPage
                 .slice(
                   table.page * table.rowsPerPage,
                   table.page * table.rowsPerPage + table.rowsPerPage
                 )
                 .map((row, index) => (
                   <CreditTableRow
-                    key={row.id}
+                    key={index}
                     row={row}
                     selected={table.selected.includes(row.id)}
-                    onSelectRow={() => table.onSelectRow(row.id)}
-                    creditTableIndex={table.page * table.rowsPerPage + index}
                   />
                 ))}
 
               <TableEmptyRows
                 height={table.dense ? 56 : 56 + 20}
-                emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
+                emptyRows={emptyRows(table.page, table.rowsPerPage, dataOn.length)}
               />
-
-              <TableNoData notFound={notFound} />
+              {tableData.length === 0 ? (
+                <TableNoData
+                  title="Not Data Found"
+                  description="No data found in the table"
+                  notFound={notFound}
+                />
+              ) : (
+                <TableNoData
+                  title="Not Search Found"
+                  description={`No search found with keyword "${filters.state.name}"`}
+                  notFound={notFound}
+                />
+              )}
             </TableBody>
           </Table>
         </Scrollbar>
@@ -195,33 +231,29 @@ export function CreditTable() {
 function applyFilter({ inputData, comparator, filters, dateError }) {
   const { status, name, startDate, endDate } = filters;
 
-  const stabilizedThis = inputData.map((el, index) => [el, index]);
+  let filteredData = inputData;
 
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  inputData = stabilizedThis.map((el) => el[0]);
-
+  // Filter by message (name)
   if (name) {
-    inputData = inputData.filter(
-      (order) =>
-        order.uploadedList.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.uploadedList.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+    // console.log(name)
+    filteredData = filteredData.filter(
+      (order) => order.message && order.message.toLowerCase().includes(name.toLowerCase())
     );
   }
 
+  // Filter by status
   if (status !== 'all') {
-    inputData = inputData.filter((order) => order.status === status);
+    filteredData = filteredData.filter((order) => order.credits === status);
   }
 
+  // Filter by date range
   if (!dateError) {
     if (startDate && endDate) {
-      inputData = inputData.filter((order) => fIsBetween(order.createdAt, startDate, endDate));
+      filteredData = filteredData.filter((order) =>
+        fIsBetween(new Date(order.dateCreatedOn), startDate, endDate)
+      );
     }
   }
 
-  return inputData;
+  return filteredData;
 }

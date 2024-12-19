@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Card, Tooltip, CardHeader, useMediaQuery } from '@mui/material';
+import { Box, Card, Tooltip, Divider, CardHeader, useMediaQuery } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
@@ -13,7 +13,7 @@ import { ReportsBarChart } from 'src/sections/reports/component/chart-view/repor
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Pabbly Email Verification | Reports` };
+const metadata = { title: `Reports | Pabbly Email Verification` };
 
 export default function Page() {
   // Hooks
@@ -104,12 +104,14 @@ export default function Page() {
               >
                 <span>
                   {selectedListName
-                    ? `${selectedListName} - Verification Summary`
+                    ? `Verification Summary - ${selectedListName} `
                     : 'Verification Summary'}
                 </span>
               </Tooltip>
             }
+            subheader='Here you can see th verification summary of the list'
           />
+          <Divider sx={{mt:3}}/>
           <ReportsBarChart
             chart={{
               categories: ['Total Emails', 'Deliverable', 'Undeliverable', 'Accept-all', 'Unknown'],

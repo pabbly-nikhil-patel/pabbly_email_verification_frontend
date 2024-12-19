@@ -8,21 +8,14 @@ export const CREDIT_STATUS_OPTIONS = [
   { value: 'unprocessed', label: 'Unprocessed' },
 ];
 
-export const _credit = [...Array(20)].map((_, index) => {
+export const _credit = [...Array(2)].map(( index) => {
   const status = index % 3 === 0 ? 'completed' : index % 3 === 1 ? 'processing' : 'unprocessed';
 
-  const uploadedList = {
-    id: _mock.id(index),
-    name: _mock.fullName(index),
-    email: _mock.email(index),
-    avatarUrl: _mock.image.avatar(index),
-    ipAddress: '192.158.1.38',
-  };
 
   return {
     id: _mock.id(index),
     createdAt: _mock.time(index),
-    uploadedList,
+
     status,
   };
 });

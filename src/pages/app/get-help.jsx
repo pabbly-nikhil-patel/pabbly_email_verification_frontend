@@ -18,7 +18,7 @@ const { items, style } = listItems;
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Pabbly Email Verification | Get Help ` };
+const metadata = { title: `Get Help | Pabbly Email Verification` };
 
 export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();

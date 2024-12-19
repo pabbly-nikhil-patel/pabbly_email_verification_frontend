@@ -12,6 +12,7 @@ import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 
 import { Logo } from 'src/components/logo';
+import PabblyAppsMenu from 'src/components/all-apps-drawer/all-apps-drawer';
 
 import Searchbar from '../components/searchbar';
 import { HeaderSection } from './header-section';
@@ -99,7 +100,7 @@ isNotUpgraded=true,
             {isLoginPage ? (
               <Logo data-slot="logo" />
             ) : (
-              
+              <>
               <Link to="/app">
                 <Box
                   alt="logo"
@@ -113,14 +114,14 @@ isNotUpgraded=true,
                    
                   }}
                 />
+                  </Link>
                 <Logo
                   width={30}
                   sx={{
                     display: { xs: 'block', sm: 'none' },
                   }}
                 />
-                </Link>
-              
+              </>
             )}
 
             {!isLoginPage && <StyledDivider data-slot="divider" />}
@@ -149,6 +150,8 @@ isNotUpgraded=true,
                  
               <Button variant='contained' size='small' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>
               </Tooltip>}
+
+              <PabblyAppsMenu />
 
               {account && (
                
