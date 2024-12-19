@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import { Tooltip } from '@mui/material';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
 import { Label } from 'src/components/label';
-import { Tooltip } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -109,7 +109,8 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
           placement="top"
           disableInteractive
           title={`Status: ${
-            (currentCredit > 0 && 'Email credits alloted.') || (currentCredit < 0 && 'Email credits consumed.')
+            (currentCredit > 0 && 'Email credits alloted.') ||
+            (currentCredit < 0 && 'Email credits consumed.')
           }`}
         >
           <Label
