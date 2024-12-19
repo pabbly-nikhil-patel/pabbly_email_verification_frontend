@@ -8,38 +8,16 @@ import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
 
-export function CreditTableRow({ row, selected, creditTableIndex }) {
-  const date = [
-    'Oct 23, 2024 17:45:32',
-    'Oct 24, 2024 17:45:32',
-    'Oct 25, 2024 17:45:32',
-    'Oct 26, 2024 17:45:32',
-    'Oct 27, 2024 17:45:32',
-  ];
-
-  const message = [
-    'Email credits added by Admin',
-    'Email credits added by Admin',
-    'Used in verifying "Untitled_spreadsheet_-_Sheet1.csv" list',
-    'Used in verifying email: ayush.bisen@pabbly.com',
-    'Used in verifying email: ayushbisen0912@gmail.com',
-  ];
-
-  const actions = ['Added', 'Added', 'Verified Email', 'Verifying List', 'Verifying List'];
-
-  const credits = [9000, 1000, -2, -10, -20];
-
-  const currentCredit = credits[creditTableIndex % credits.length];
-
-  const renderPrimary = (
-    <TableRow hover selected={selected}>
+export function CreditTableRow({ row, selected }) {
+  return (
+    <TableRow hover>
       <TableCell width={300}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Tooltip
             arrow
             placement="top"
             disableInteractive
-            title={`Action occured at: ${date[creditTableIndex % date.length]}`}
+            title={`Action occurred at: ${row.dateCreatedOn}`}
           >
             <Box
               component="span"
@@ -52,7 +30,7 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
                 display: 'inline-block',
               }}
             >
-              {date[creditTableIndex % date.length]}
+              {row.dateCreatedOn}
             </Box>
           </Tooltip>
         </Stack>
@@ -63,7 +41,7 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
           arrow
           placement="top"
           disableInteractive
-          title={`Message for the action: ${message[creditTableIndex % message.length]}`}
+          title={`Message for the action: ${row.message}`}
         >
           <Box
             component="span"
@@ -76,18 +54,13 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
               display: 'inline-block',
             }}
           >
-            {message[creditTableIndex % message.length]}
+            {row.message}
           </Box>
         </Tooltip>
       </TableCell>
 
       <TableCell width={140}>
-        <Tooltip
-          arrow
-          placement="top"
-          disableInteractive
-          title={`Action: ${actions[creditTableIndex % actions.length]}`}
-        >
+        <Tooltip arrow placement="top" disableInteractive title={`Action: ${row.action}`}>
           <Box
             component="span"
             sx={{
@@ -99,30 +72,23 @@ export function CreditTableRow({ row, selected, creditTableIndex }) {
               display: 'inline-block',
             }}
           >
-            {actions[creditTableIndex % actions.length]}
+            {row.action}
           </Box>
         </Tooltip>
       </TableCell>
+
       <TableCell width={140} align="right">
         <Tooltip
           arrow
           placement="top"
           disableInteractive
-          title={`Status: ${
-            (currentCredit > 0 && 'Email credits alloted.') ||
-            (currentCredit < 0 && 'Email credits consumed.')
-          }`}
+          title={`Status: ${row.credits === 'Alloted' ? `Credits Alloted ${row.noOfCredits}` : `Credits Consumed ${row.noOfCredits}`}`}
         >
-          <Label
-            variant="soft"
-            color={(currentCredit > 0 && 'success') || (currentCredit < 0 && 'error')}
-          >
-            {currentCredit}
+          <Label variant="soft" color={row.credits === 'Alloted' ? 'success' : 'error'}>
+            {row.credits === 'Alloted' ? row.noOfCredits : `-${row.noOfCredits}`}
           </Label>
         </Tooltip>
       </TableCell>
     </TableRow>
   );
-
-  return <>{renderPrimary}</>;
 }
