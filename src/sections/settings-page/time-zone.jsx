@@ -178,7 +178,7 @@ export default function TimeZonePage() {
             </Select>
 
             <FormHelperText>
-              View workflow and task execution times based on selected time zone.
+              View log times based on selected time zone.
             </FormHelperText>
           </FormControl>
 
