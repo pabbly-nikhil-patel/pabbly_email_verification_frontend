@@ -12,10 +12,9 @@ import { AuthGuard } from 'src/auth/guard';
 
 const DashboardPage = lazy(() => import('src/pages/app/dashboard'));
 const ReportsPage = lazy(() => import('src/pages/app/reports'));
-const CreditsPage = lazy(() => import('src/pages/app/credits'));
 const GetHelpPage = lazy(() => import('src/pages/app/get-help'));
 const Settings = lazy(() => import('src/pages/app/settings'));
-const CreditsNew = lazy(() => import('src/sections/settings-page/credits-new'));
+const CreditsPage = lazy(() => import('src/sections/settings-page/credits'));
 const TimeZone = lazy(() => import('src/sections/settings-page/time-zone'));
 
 

@@ -100,6 +100,7 @@ const FileUpload = forwardRef(
     };
 
     const handleButtonClick = (event) => {
+      console.log();
       event.preventDefault();
       fileInputRef.current.click();
     };
@@ -122,28 +123,7 @@ const FileUpload = forwardRef(
     };
 
     return (
-      <Box
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        sx={{
-          padding: '20px 20px 20px 20px',
-          flexShrink: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          borderRadius: 1,
-          alignItems: 'center',
-          color: 'text.disabled',
-          justifyContent: 'center',
-          bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-          border: (theme) => `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
-          ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
-          ...(error && {
-            color: 'error.main',
-            borderColor: 'grey',
-            bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-          }),
-        }}
-      >
+      <>
         <input
           type="file"
           ref={fileInputRef}
@@ -152,48 +132,36 @@ const FileUpload = forwardRef(
           style={{ display: 'none' }}
           {...other}
         />
-        <IconButton size="large" component="span" onClick={handleButtonClick} disabled={disabled}>
-          <Iconify width={32} icon="eva:cloud-upload-fill" />
-        </IconButton>
-        <Typography
-          variant="span"
+        <Box
+        onClick={handleButtonClick}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
           sx={{
-            width: '100%',
-            wordBreak: 'break-all',
-            whiteSpace: 'normal',
-            textAlign: 'center',
+            cursor: 'pointer',
+            padding: '20px 20px 20px 20px',
+            flexShrink: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            borderRadius: 1,
+            alignItems: 'center',
+            color: 'text.disabled',
+            justifyContent: 'center',
+            bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+            border: (theme) =>
+              `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
+            ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
+            ...(error && {
+              color: 'error.main',
+              borderColor: 'grey',
+              bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+            }),
           }}
         >
-          {uploadInformation.includes('Sample File') ? (
-            <span>
-              <Box display='flex' justifyContent='center' gap={0.6}>
-
-             <Typography sx={{cursor:'pointer'}}  onClick={handleButtonClick}>Choose a file</Typography>
-              
-              or drag it here.
-              </Box>
-              Supports: CSV
-            </span>
-          ) : (
-            uploadInformation
-          )}
-        </Typography>
-
-        {errorMessage && (
+          <IconButton size="large" component="span" disabled={disabled}>
+            <Iconify width={32} icon="eva:cloud-upload-fill" />
+          </IconButton>
           <Typography
-            variant="body1"
-            sx={{
-              color: 'error.main',
-              textAlign: 'center',
-              mt: 1,
-            }}
-          >
-            {errorMessage}
-          </Typography>
-        )}
-        {(selectedFile || localSelectedFile) && (
-          <Typography
-            variant="body1"
+            variant="span"
             sx={{
               width: '100%',
               wordBreak: 'break-all',
@@ -201,10 +169,48 @@ const FileUpload = forwardRef(
               textAlign: 'center',
             }}
           >
-            Selected file: {selectedFile ? selectedFile.name : localSelectedFile.name}
+            {uploadInformation.includes('Sample File') ? (
+              <span>
+                <Box display="flex" justifyContent="center" gap={0.6}>
+                  <Typography sx={{ cursor: 'pointer' }}>
+                    Choose a file
+                  </Typography>
+                  or drag it here.
+                </Box>
+                Supports: CSV
+              </span>
+            ) : (
+              uploadInformation
+            )}
           </Typography>
-        )}
-      </Box>
+
+          {errorMessage && (
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'error.main',
+                textAlign: 'center',
+                mt: 1,
+              }}
+            >
+              {errorMessage}
+            </Typography>
+          )}
+          {(selectedFile || localSelectedFile) && (
+            <Typography
+              variant="body1"
+              sx={{
+                width: '100%',
+                wordBreak: 'break-all',
+                whiteSpace: 'normal',
+                textAlign: 'center',
+              }}
+            >
+              Selected file: {selectedFile ? selectedFile.name : localSelectedFile.name}
+            </Typography>
+          )}
+        </Box>
+      </>
     );
   }
 );

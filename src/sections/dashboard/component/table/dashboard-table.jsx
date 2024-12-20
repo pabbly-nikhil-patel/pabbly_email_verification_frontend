@@ -214,7 +214,19 @@ export function DashboardTable() {
                 emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
               />
 
-              <TableNoData notFound={notFound} />
+              {tableData.length === 0 ? (
+                <TableNoData
+                  title="Not Data Found"
+                  description="No data found in the table"
+                  notFound={notFound}
+                />
+              ) : (
+                <TableNoData
+                  title="Not Search Found"
+                  description={`No search found with keyword "${filters.state.name}"`}
+                  notFound={notFound}
+                />
+              )}
             </TableBody>
           </Table>
         </Scrollbar>

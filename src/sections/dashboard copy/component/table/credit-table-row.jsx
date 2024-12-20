@@ -9,6 +9,7 @@ import { Label } from 'src/components/label';
 // ----------------------------------------------------------------------
 
 export function CreditTableRow({ row, selected }) {
+  const timezone =", (UTC+05:30) Asia/Kolkata"
   return (
     <TableRow hover>
       <TableCell width={300}>
@@ -17,7 +18,7 @@ export function CreditTableRow({ row, selected }) {
             arrow
             placement="top"
             disableInteractive
-            title={`Action occurred at: ${row.dateCreatedOn}`}
+            title={`Action occurred at: ${row.dateCreatedOn} ${timezone}`}
           >
             <Box
               component="span"
