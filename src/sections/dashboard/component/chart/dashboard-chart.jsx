@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
@@ -157,28 +157,28 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
 
   const EMAIL_DETAILS = [
     {
-      header: 'Total',
+      header: 'Total Emails',
       numberOfEmails: 156454,
       tooltip: 'Total email addresses.',
     },
     {
-      header: 'Deliverable',
+      header: 'Deliverable Emails',
       numberOfEmails: 12244,
       tooltip: 'The email address exists and accepts emails.',
     },
     {
-      header: 'Accept-all',
+      header: 'Accept-all Emails',
       numberOfEmails: 43313,
       tooltip:
         'The addresses cannot be verified as their mail server accepts both valid and invalid addresses.',
     },
     {
-      header: 'Undeliverable',
+      header: 'Undeliverable Emails',
       numberOfEmails: 53345,
       tooltip: 'The email address either does not exist or does not accept emails.',
     },
     {
-      header: 'Unknown',
+      header: 'Unknown Emails',
       numberOfEmails: 78343,
       tooltip:
         'The emails could not be verified as their mail servers were unreachable during the process. Unknown addresses are tested multiple times from different locations before this result.',
@@ -208,15 +208,6 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                 </Typography>
               </Tooltip>
             }
-            subheader={
-              <Link
-                variant="body2"
-                target="_blank"
-                href="https://forum.pabbly.com/threads/understanding-email-verification-results.23111/"
-              >
-                Learn more about result codes
-              </Link>
-            }
           />
           {!showChartAlert && !showProgressLinear && showChart && (
             <Box display="flex">
@@ -239,7 +230,15 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
             <Chart
               type="donut"
               series={chartSeries}
-              options={chartOptions}
+              options={{
+                ...chartOptions,
+                tooltip: {
+                  y: {
+                    formatter: (value) => fNumber(value),
+                    title: { formatter: (seriesName) => `${seriesName}` },
+                  },
+                },
+              }}
               width={{ xs: 240, xl: 260 }}
               height={{ xs: 240, xl: 260 }}
               sx={{ my: 6, mx: 'auto' }}
@@ -250,9 +249,21 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
               colors={chartOptions.colors}
               sx={{ py: 2, px: 0, justifyContent: 'center', flexDirection: 'row' }}
             />
-            <Box px={4} pb={2}>
+            <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
+            <Link
+              display="flex"
+              justifyContent="center"
+              variant="body2"
+              target="_blank"
+              href="https://forum.pabbly.com/threads/understanding-email-verification-results.23111/"
+            >
+              Learn more about result codes
+            </Link>
+            <Box px={4} pb={2} pt={2}>
               {EMAIL_DETAILS.map((email_details) => (
-                <>
+                <React.Fragment key={email_details.header}>
+                  {' '}
+                  {/* Adding key here */}
                   <Divider sx={{ borderStyle: 'dashed' }} />
                   <Box py={1} display="flex" justifyContent="space-between">
                     <Tooltip arrow placement="top" disableInteractive title={email_details.tooltip}>
@@ -260,7 +271,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                     </Tooltip>
                     <Typography>{email_details.numberOfEmails}</Typography>
                   </Box>
-                </>
+                </React.Fragment>
               ))}
             </Box>
           </>

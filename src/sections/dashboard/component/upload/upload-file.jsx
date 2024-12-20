@@ -1,4 +1,13 @@
-import { Box, Card, Divider, Tooltip, CardHeader, Typography, CardContent } from '@mui/material';
+import {
+  Box,
+  Card,
+  Link,
+  Divider,
+  Tooltip,
+  CardHeader,
+  Typography,
+  CardContent,
+} from '@mui/material';
 
 import FileUpload from 'src/components/upload/upload';
 
@@ -17,6 +26,19 @@ export default function Upload({ setAlertState }) {
               <Typography variant="h6">Upload CSV File for Email Verification </Typography>
             </Tooltip>
           </Box>
+        }
+        subheader={
+          <>
+            Only CSV files allowed. Download {' '}
+            <Link
+              href="/src/assets/sample-files/sample_csv.csv"
+              download
+              style={{ color: '#078DEE' }}
+            >
+              Sample File
+            </Link>{' '}
+            here.
+          </>
         }
       />
       <Divider />

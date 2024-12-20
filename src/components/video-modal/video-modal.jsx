@@ -33,6 +33,7 @@ function ModalVideoView({
     <Box style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
       {isVideo === true ? (
         <Tooltip disableInteractive title="Click to watch tutorial." arrow placement="top">
+          <div>
           <Card onClick={handleClickOpen} sx={{ cursor: 'pointer' }}>
             <img
               width="100%"
@@ -69,6 +70,7 @@ function ModalVideoView({
           >
             <Iconify icon="icon-park-solid:play" width={50} height={50} />
           </IconButton>
+          </div>
         </Tooltip>
       ) : (
         <Card>

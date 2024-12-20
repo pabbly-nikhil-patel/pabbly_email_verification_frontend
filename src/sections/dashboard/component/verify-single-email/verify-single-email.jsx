@@ -29,6 +29,7 @@ export default function VerifySingleEmail({ onVerify, email, setEmail }) {
             </Tooltip>
           </Box>
         }
+        subheader="Verify single email to check email is valid or not."
       />
       <Divider />
       <CardContent>
@@ -42,7 +43,7 @@ export default function VerifySingleEmail({ onVerify, email, setEmail }) {
           helperText="Enter an email address you want to verify"
         />
       </CardContent>
-      <CardActions sx={{ px: 3, pb: 3 }}>
+      <CardActions sx={{ px: 3, pb: 3,pt:0 }}>
         <Button
           variant="contained"
           color="primary"

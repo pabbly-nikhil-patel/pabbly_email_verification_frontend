@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTheme } from '@emotion/react';
-import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
 import { Box, Alert, Button, Tooltip, Snackbar, useMediaQuery } from '@mui/material';
@@ -15,7 +14,6 @@ import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
 import Upload from 'src/sections/dashboard/component/upload/upload-file';
-import UploadDialog from 'src/sections/dashboard/hook/upload-file-dialog';
 import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
 import { DashboardChart } from 'src/sections/dashboard/component/chart/dashboard-chart';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
@@ -26,10 +24,9 @@ const metadata = { title: `Dashboard | Pabbly Email Verification` };
 const { items, style } = listItems;
 
 export default function Page() {
-  const { isUploading } = useSelector((state) => state.fileUpload);
-  const [addSubaccountDialogOpen, setAddSubaccountDialogOpen] = useState(false);
+  const uploadComponentRef = useRef(null);
+
   const [email, setEmail] = useState('');
-  const handleAddSubaccountDialogClose = () => setAddSubaccountDialogOpen(false); // State for Add Subaccount dialog
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -49,14 +46,6 @@ export default function Page() {
   };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const buttonClick = () => {
-    setAddSubaccountDialogOpen(true);
-  };
-
-  const handleAdd = () => {
-    setAddSubaccountDialogOpen(false);
-  };
 
   const showAlert = (color, title, message, status) => {
     setAlertState({
@@ -109,6 +98,13 @@ export default function Page() {
   const consumedCredits = 32; // Example value for consumed credits
 
   const stats = calculateStats(allottedCredits, consumedCredits);
+
+  const scrollToUpload = () => {
+    uploadComponentRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  };
   return (
     <>
       <Helmet>
@@ -137,7 +133,8 @@ export default function Page() {
             disableInteractive
           >
             <Button
-              onClick={buttonClick}
+              // onClick={buttonClick}
+              onClick={scrollToUpload}
               sx={{ mt: isMobile ? 2 : 0 }}
               startIcon={
                 <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
@@ -207,7 +204,8 @@ export default function Page() {
                   disableInteractive
                 >
                   <Button
-                    onClick={buttonClick}
+                    // onClick={buttonClick}
+                    onClick={scrollToUpload}
                     startIcon={
                       <Iconify
                         icon="heroicons:plus-circle-16-solid"
@@ -238,7 +236,7 @@ export default function Page() {
           <Box sx={{ width: '100%' }}>
             <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
           </Box>
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%' }} ref={uploadComponentRef}>
             <Upload setAlertState={setAlertState} />
           </Box>
         </Box>
@@ -272,15 +270,7 @@ export default function Page() {
           </Box>
         </Box>
       </DashboardContent>
-      <UploadDialog
-        addDialogOpen={addSubaccountDialogOpen}
-        handleDialogClose={handleAddSubaccountDialogClose}
-        action={
-          <Button onClick={handleAdd} variant="contained" color="primary">
-            Upload
-          </Button>
-        }
-      />
+
       <Snackbar
         open={alertState.open}
         autoHideDuration={2500}

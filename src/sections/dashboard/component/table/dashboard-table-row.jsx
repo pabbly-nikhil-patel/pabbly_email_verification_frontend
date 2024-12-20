@@ -115,25 +115,28 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewRe
           placement="top"
           disableInteractive
         >
-          <Button
-            variant="outlined"
-            color="primary"
-            disabled={row.status === 'processing'}
-            onClick={
-              row.status === 'processing' || row.status === 'completed'
-                ? undefined
-                : handleStartVerification
-            }
-          >
-            {row.status === 'processing' || row.status === 'completed'
-              ? 'Download'
-              : 'Start Verification'}
-          </Button>
+          <span>
+            <Button
+              variant="outlined"
+              color="primary"
+              disabled={row.status === 'processing'}
+              onClick={
+                row.status === 'processing' || row.status === 'completed'
+                  ? undefined
+                  : handleStartVerification
+              }
+            >
+              {row.status === 'processing' || row.status === 'completed'
+                ? 'Download'
+                : 'Start Verification'}
+            </Button>
+          </span>
         </Tooltip>
       </TableCell>
 
       <TableCell width={140} align="right">
         <Tooltip title="Click here to view report" arrow placement="top" disableInteractive>
+          <span>
           <Button
             variant="outlined"
             color="success"
@@ -142,6 +145,7 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewRe
           >
             View Report
           </Button>
+          </span>
         </Tooltip>
       </TableCell>
     </TableRow>

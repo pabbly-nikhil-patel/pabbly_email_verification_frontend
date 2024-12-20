@@ -38,7 +38,7 @@ export default function Page() {
         >
           <PageHeader
             title="Reports"
-            Subheading="Analyze your email verification data with a clear summary of Unknown, Accept-all, Undeliverable, Deliverable, and Total emails to enhance your email performance."
+            Subheading="Analyze your email verification data with a clear summary of unknown, accept-all, undeliverable, deliverable, and total emails to enhance your email performance."
             link_added="#"
           />
         </Box>
@@ -54,7 +54,7 @@ export default function Page() {
           }}
         >
           <StatsCards
-            cardtitle="Total Email"
+            cardtitle="Total Emails"
             cardstats="32"
             icon_name="Processed.svg"
             icon_color="#7D6ADB"
@@ -62,7 +62,7 @@ export default function Page() {
             tooltipTittle="Total numbers of Emails in the list"
           />
           <StatsCards
-            cardtitle="Deliverable"
+            cardtitle="Deliverable Emails"
             cardstats="10"
             icon_name="2card.png"
             icon_color="#28A645"
@@ -70,7 +70,7 @@ export default function Page() {
             tooltipTittle="Total numbers of Deliverable Emails in the list"
           />
           <StatsCards
-            cardtitle="Undeliverable"
+            cardtitle="Undeliverable Emails"
             cardstats="30"
             icon_name="undeliverable.svg"
             icon_color="#FF5630"
@@ -78,7 +78,7 @@ export default function Page() {
             tooltipTittle="Total numbers of Undeliverable Emails in the list"
           />
           <StatsCards
-            cardtitle="Accept-all"
+            cardtitle="Accept-all Emails"
             cardstats="30"
             icon_name="accept-all.svg"
             icon_color="#00B8D9"
@@ -86,7 +86,7 @@ export default function Page() {
             tooltipTittle="Total numbers of Accept-all Emails in the list"
           />
           <StatsCards
-            cardtitle="Unknown"
+            cardtitle="Unknown Emails"
             cardstats="30"
             icon_name="unknown.svg"
             icon_color="#FFA92E"
@@ -109,12 +109,12 @@ export default function Page() {
                 </span>
               </Tooltip>
             }
-            subheader='Here you can see th verification summary of the list'
+            subheader='Here you can see the verification summary of the list.'
           />
           <Divider sx={{mt:3}}/>
           <ReportsBarChart
             chart={{
-              categories: ['Total Emails', 'Deliverable', 'Undeliverable', 'Accept-all', 'Unknown'],
+              categories: ['Total Emails', 'Deliverable Emails', 'Undeliverable Emails', 'Accept-All Emails', 'Unknown Emails'],
               series: [{ data: [2000, 1200, 300, 1500, 800] }],
             }}
           />

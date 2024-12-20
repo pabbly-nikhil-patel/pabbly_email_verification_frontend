@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
-import { Box, Link, Tooltip, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 import { startUpload, finishUpload, updateProgress } from 'src/redux/slice/upload-slice';
@@ -156,7 +156,7 @@ const FileUpload = forwardRef(
           <Iconify width={32} icon="eva:cloud-upload-fill" />
         </IconButton>
         <Typography
-          variant="body1"
+          variant="span"
           sx={{
             width: '100%',
             wordBreak: 'break-all',
@@ -166,27 +166,13 @@ const FileUpload = forwardRef(
         >
           {uploadInformation.includes('Sample File') ? (
             <span>
-              Drag and Drop file or Browse (Only CSV files allowed).
-              <br />
-              <Box style={{ marginTop: '4px' }}>
-                {' '}
-                Download{' '}
-                <Tooltip
-                  arrow
-                  placement="top"
-                  disableInteractive
-                  title="Click here to download sample file."
-                >
-                  <Link
-                    href={`/src/assets/sample-files/${fileName}`}
-                    download
-                    style={{ color: '#078DEE' }}
-                  >
-                    Sample File
-                  </Link>{' '}
-                </Tooltip>
-                here.
+              <Box display='flex' justifyContent='center' gap={0.6}>
+
+             <Typography sx={{cursor:'pointer'}}  onClick={handleButtonClick}>Choose a file</Typography>
+              
+              or drag it here.
               </Box>
+              Supports: CSV
             </span>
           ) : (
             uploadInformation
