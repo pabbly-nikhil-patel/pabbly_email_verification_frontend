@@ -4,7 +4,7 @@ import { useTheme } from '@emotion/react';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Alert, Button, Tooltip, AlertTitle, useMediaQuery } from '@mui/material';
+import { Box, Alert, Button, Tooltip, Snackbar, useMediaQuery } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -33,16 +33,20 @@ export default function Page() {
 
   const [alertState, setAlertState] = useState({
     open: false,
-    color: 'success',
+    severity: 'success',
     title: '',
     message: '',
     status: '',
   });
-
-  const handleAlertClose = () => {
-    setAlertState((prev) => ({ ...prev, open: false }));
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertState((prev) => ({
+      ...prev,
+      open: false,
+    }));
   };
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -69,32 +73,29 @@ export default function Page() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(email)) {
-      console.log(email);
       // Valid email
       setAlertState({
         open: true,
-        color: 'success',
+        severity: 'success',
         status: 'Accept All',
         message: `The email "${email}" is valid!`,
         title: 'Verification Result',
       });
-      setEmail(''); // Reset the text field
     } else {
       // Invalid email
       setAlertState({
         open: true,
-        color: 'error',
+        severity: 'error',
         status: 'Undeliverable',
         message: `The email "${email}" is invalid!`,
         title: 'Verification Result',
       });
     }
 
-    // Auto-hide the alert after 5 seconds
-    setTimeout(() => {
-      handleAlertClose();
-    }, 3000);
+    // Optional: Reset email field after verification (if you want)
+    setEmail(''); // Uncomment if you want to reset email after verification
   };
+
   function calculateStats(allottedCredits, consumedCredits) {
     const remainingCredits = allottedCredits - consumedCredits;
     return {
@@ -259,7 +260,6 @@ export default function Page() {
               showAlert={showAlert}
               handleAlertClose={handleAlertClose}
               title="List_name.csv"
-              
               chart={{
                 series: [
                   { label: 'Deliverable', value: 12244 },
@@ -281,8 +281,37 @@ export default function Page() {
           </Button>
         }
       />
-
-      {alertState.open && (
+      <Snackbar
+        open={alertState.open}
+        autoHideDuration={2500}
+        onClose={handleAlertClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+          zIndex: theme.zIndex.modal + 9999,
+        }}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity={alertState.severity}
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary, // Keeping text color consistent
+            '& .MuiAlert-icon': {
+              color:
+                alertState.severity === 'error'
+                  ? theme.palette.error.main
+                  : theme.palette.success.main,
+            },
+          }}
+        >
+          {alertState.message}
+        </Alert>
+      </Snackbar>
+      {/* {alertState.open && (
         <div
           style={{
             position: 'fixed',
@@ -297,7 +326,7 @@ export default function Page() {
             {alertState.message} — <strong>{alertState.status}</strong>
           </Alert>
         </div>
-      )}
+      )} */}
     </>
   );
 }

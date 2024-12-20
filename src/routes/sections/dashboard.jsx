@@ -14,6 +14,9 @@ const DashboardPage = lazy(() => import('src/pages/app/dashboard'));
 const ReportsPage = lazy(() => import('src/pages/app/reports'));
 const CreditsPage = lazy(() => import('src/pages/app/credits'));
 const GetHelpPage = lazy(() => import('src/pages/app/get-help'));
+const Settings = lazy(() => import('src/pages/app/settings'));
+const CreditsNew = lazy(() => import('src/sections/settings-page/credits-new'));
+const TimeZone = lazy(() => import('src/sections/settings-page/time-zone'));
 
 
 
@@ -34,8 +37,18 @@ export const dashboardRoutes = [
     children: [
       { element: <DashboardPage />, index: true },
       { path: 'reports', element: <ReportsPage /> },
-      { path: 'credits', element: <CreditsPage /> },
+      // { path: 'credits', element: <CreditsPage /> },
       { path: 'gethelp', element: <GetHelpPage /> },
+      {
+        path: 'settings',
+        element: <Settings />,
+        children: [
+          // { element: <PageFour />, index: true },
+          { path: 'credits', element: <CreditsPage /> },
+          { path: 'timezone', element: <TimeZone /> },
+        
+        ],
+      },
     ],
   },
 ];

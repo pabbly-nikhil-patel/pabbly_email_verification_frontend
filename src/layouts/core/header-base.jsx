@@ -134,7 +134,7 @@ isNotUpgraded=true,
             {slots?.rightAreaStart}
 
             <Box
-              data-area="right"
+              // data-area="right"
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -148,7 +148,7 @@ isNotUpgraded=true,
               {isNotUpgraded && 
                <Tooltip title="Click here to purchase email verification credits." arrow placement="bottom">
                  
-              <Button variant='contained' size='small' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>
+              <Button variant='contained' size='medium' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>
               </Tooltip>}
 
               <PabblyAppsMenu />

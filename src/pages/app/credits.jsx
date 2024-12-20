@@ -3,10 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, useMediaQuery } from '@mui/material';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-
 import StatsCards from 'src/components/stats-card/stats-card';
-import PageHeader from 'src/components/page-header/page-header';
 
 import { CreditTable } from 'src/sections/dashboard copy/component/table/credit-table';
 
@@ -37,22 +34,8 @@ export default function ThreePage() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-      <DashboardContent maxWidth="xl">
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            alignItems: isMobile ? 'flex-start' : 'center',
-            justifyContent: 'space-between',
-            mb: 0,
-          }}
-        >
-          <PageHeader
-            title="Credits Summary"
-            Subheading="Monitor your credit activity for email verification with insights into credits added, purchased, used, and available."
-            link_added="#"
-          />
-        </Box>
+      {/* <DashboardContent maxWidth="xl"> */}
+       
         <Box
           width="100%"
           sx={{
@@ -90,7 +73,7 @@ export default function ThreePage() {
           />
         </Box>
         <CreditTable />
-      </DashboardContent>
+      {/* </DashboardContent> */}
     </>
   );
 }

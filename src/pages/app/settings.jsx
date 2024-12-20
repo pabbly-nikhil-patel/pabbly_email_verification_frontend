@@ -1,0 +1,51 @@
+import { Helmet } from 'react-helmet-async';
+
+import { CONFIG } from 'src/config-global';
+import { DashboardContent } from 'src/layouts/dashboard';
+
+import { Iconify } from 'src/components/iconify';
+import CustomTabs from 'src/components/custom-tabs/custom-tabs';
+
+// ----------------------------------------------------------------------
+const metadata = { title: `Page Settings | Dashboard - ${CONFIG.site.name}` };
+
+export default function Page() {
+  const EXAMPLE_TABS = [
+    {
+        value: 'credits',
+        path: '/app/settings/credits',
+        icon: <Iconify icon="icons8:tasks" width={24} />,
+        label: 'Credits Summary',
+        tooltip: 'View the credits summary here.',
+        pageTitle: 'Credits Summary',
+        pageSubheading: 'Monitor your credit activity for email verification with insights into credits added, purchased, used, and available.',
+      },
+    {
+      value: 'timzone',
+      path: '/app/settings/timezone',
+      icon: <Iconify icon="icons8:tasks" width={24} />,
+      label: 'Time Zone',
+      tooltip: 'Choose time-zone here.',
+      pageTitle: 'Time Zone',
+      pageSubheading: 'Manage your account time zone settings.',
+    },
+ 
+
+    // ... more tabs
+  ];
+  return (
+    <>
+      <Helmet>
+        <title> {metadata.title}</title>
+      </Helmet>
+      <DashboardContent maxWidth="xl">
+        <CustomTabs
+          tabs={EXAMPLE_TABS}
+          defaultTab="timezone"
+          defaultPath="/app/settings/timezone"
+          dashboardContentProps={{ maxWidth: 'xl' }}
+        />
+      </DashboardContent>
+    </>
+  );
+}

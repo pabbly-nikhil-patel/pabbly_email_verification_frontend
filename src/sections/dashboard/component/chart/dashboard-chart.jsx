@@ -41,6 +41,9 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     mode: '', // 'delete' or 'download'
   });
 
+  const [hasShownUploadAlert, setHasShownUploadAlert] = useState(false);
+  const [hasShownVerificationAlert, setHasShownVerificationAlert] = useState(false);
+
   const handleOpen = (mode) => {
     setDialog({ open: true, mode });
   };
@@ -99,25 +102,58 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     ...chart.options,
   });
   useEffect(() => {
-    if (isUploading) {
+    let alertTimeout;
+
+    if (isUploading && !hasShownUploadAlert) {
       showAlert(
         'info',
         'Notice',
         'The file "Untitled_spreadsheet_-_Sheet1.csv" is under review and will be uploaded in 3-5 minutes. Once the upload is completed, click "Start Verification" to begin the email verification process.',
         'Uploading'
       );
-    } else if (isStartVerification) {
+      setHasShownUploadAlert(true);
+
+      // Close the alert after 3 seconds
+      alertTimeout = setTimeout(() => {
+        handleAlertClose();
+      }, 5000);
+    } else if (isStartVerification && !hasShownVerificationAlert) {
       showAlert(
         'success',
         'Processing',
         'We have started the cleaning process of list named as Untitled_spreadsheet_-_Sheet1.csv. You will receive an email notification from our end once the cleaning process is done.',
         'Processing'
       );
-    } else if (isUploaded) {
-      // Close the alert automatically when both `isUploading` and `isProcessing` are false
-      handleAlertClose();
+      setHasShownVerificationAlert(true);
+
+      // Close the alert after 3 seconds
+      alertTimeout = setTimeout(() => {
+        handleAlertClose();
+      }, 5000);
     }
-  }, [isUploading, isStartVerification, showAlert, isUploaded, handleAlertClose]);
+
+    // Cleanup timeout on unmount or when dependencies change
+    return () => {
+      if (alertTimeout) {
+        clearTimeout(alertTimeout);
+      }
+    };
+  }, [
+    isUploading,
+    isStartVerification,
+    showAlert,
+    handleAlertClose,
+    hasShownUploadAlert,
+    hasShownVerificationAlert,
+  ]);
+
+  // Reset alert states when the process completes
+  useEffect(() => {
+    if (isVerificationCompleted) {
+      setHasShownUploadAlert(false);
+      setHasShownVerificationAlert(false);
+    }
+  }, [isVerificationCompleted]);
 
   const EMAIL_DETAILS = [
     {

@@ -13,6 +13,7 @@ const ICONS = {
   reports: icon('ic-reports'),
   credits: icon('ic-credit'),
   gethelp: icon('ic-gethelp'),
+  settings: icon('ic-settings'),
 };
 
 // ----------------------------------------------------------------------
@@ -22,12 +23,26 @@ export const navData = [
    * Overview
    */
   {
-    subheader: 'Overview 6.0.0',
     items: [
       { title: 'Dashboard', path: paths.app.root, icon: ICONS.dashboard },
       { title: 'Reports', path: paths.app.reports, icon: ICONS.reports },
-      { title: 'Credits', path: paths.app.credits, icon: ICONS.credits },
-      { title: 'Get Help', path: paths.app.gethelp, icon: ICONS.gethelp },
+      // { title: 'Credits', path: paths.app.credits, icon: ICONS.credits },
     ],
+  },
+  {
+    items: [
+      {
+        title: 'Settings',
+        path: paths.app.settings.root,
+        icon: ICONS.settings,
+        children: [
+          { title: 'Credits Summary', path: paths.app.settings.credits },
+          { title: 'Time Zone', path: paths.app.settings.timezone },
+        ],
+      },
+    ],
+  },
+  {
+    items: [{ title: 'Get Help', path: paths.app.gethelp, icon: ICONS.gethelp }],
   },
 ];
