@@ -10,7 +10,6 @@ import { Divider, Tooltip, TextField, Typography, DialogTitle } from '@mui/mater
 
 import { varAlpha } from 'src/theme/styles';
 
-import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { SearchNotFound } from 'src/components/search-not-found';
@@ -99,11 +98,14 @@ export default function Searchbar({ sx, ...other }) {
         </Box>
 
         <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
-          Search Report
+          Search Report For0-
         </Typography>
 
-        <Label
+        <Typography
+          fontWeight={600}
           sx={{
+            p: 0.5,
+            borderRadius: 1,
             ml: 1,
             fontSize: 12,
             color: 'grey.800',
@@ -112,8 +114,8 @@ export default function Searchbar({ sx, ...other }) {
             display: { xs: 'none', md: 'inline-flex' },
           }}
         >
-          Email List Name
-        </Label>
+          clothing_users_email_list.csv
+        </Typography>
       </Box>
     </Tooltip>
   );
@@ -148,11 +150,7 @@ export default function Searchbar({ sx, ...other }) {
           <Divider sx={{ borderStyle: 'dashed' }} />
         </Box>
         <Box sx={{ p: 2 }}>
-          <Tooltip
-            title="Enter the email list name."
-            arrow
-            placement="top"
-          >
+          <Tooltip title="Enter the email list name." arrow placement="top">
             <TextField
               fullWidth
               size="large"

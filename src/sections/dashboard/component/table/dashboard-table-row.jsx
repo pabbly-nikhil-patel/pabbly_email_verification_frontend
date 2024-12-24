@@ -66,11 +66,11 @@ export function DashboardTableRow({
               }}
             >
               <Tooltip
-                title={`Email verification process is ${
-                  (row.status === 'unprocessed' && 'unprocessed') ||
-                  (row.status === 'completed' && 'completed') ||
-                  (row.status === 'processing' && 'processing')
-                }.`}
+                title={`${
+                  (row.status === 'unprocessed' && 'The email verification has not yet started on the uploaded email list.') ||
+                  (row.status === 'completed' && 'The email verification is process is completed on the uploaded email list.') ||
+                  (row.status === 'processing' && 'The email verification is started processing on the uploaded email list.')
+                }`}
                 arrow
                 placement="top"
                 disableInteractive
