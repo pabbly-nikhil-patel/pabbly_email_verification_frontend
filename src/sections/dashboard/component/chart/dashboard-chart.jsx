@@ -121,7 +121,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
       showAlert(
         'success',
         'Processing',
-        'We have started the cleaning process of list named as Untitled_spreadsheet_-_Sheet1.csv. You will receive an email notification from our end once the cleaning process is done.',
+        'The email verification is in progress. The Verification in progress button will change to Download button once the verification is complete.',
         'Processing'
       );
       setHasShownVerificationAlert(true);
@@ -204,25 +204,12 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   }}
                   variant="h6"
                 >
-                  {title}
+                  All Lists Summary
                 </Typography>
               </Tooltip>
             }
           />
-          {!showChartAlert && !showProgressLinear && showChart && (
-            <Box display="flex">
-              <Tooltip arrow placement="top" disableInteractive title="Download List">
-                <IconButton onClick={() => handleOpen('download')}>
-                  <Iconify width={24} icon="solar:download-minimalistic-bold" />
-                </IconButton>
-              </Tooltip>
-              <Tooltip arrow placement="top" disableInteractive title="Delete List">
-                <IconButton onClick={() => handleOpen('delete')}>
-                  <Iconify width={24} icon="solar:trash-bin-trash-bold" />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          )}
+    
         </Box>
 
         {showChart && (

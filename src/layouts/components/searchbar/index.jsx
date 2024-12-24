@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import SvgIcon from '@mui/material/SvgIcon';
-import InputBase from '@mui/material/InputBase';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import { Tooltip, Typography } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import Dialog, { dialogClasses } from '@mui/material/Dialog';
+import { Divider, Tooltip, TextField, Typography, DialogTitle } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 
@@ -20,11 +19,9 @@ import { ResultItem } from './result-item';
 
 // ----------------------------------------------------------------------
 const data = [
-  { title: 'List 1' },
-  { title: 'List 2'},
-  { title: 'List 3' },
-  { title: 'List 4' },
-  { title: 'List 5' },
+  { title: 'pabbly_connect_users_email_list.csv' },
+  { title: 'pabbly_chatflow_users_email_list.csv' },
+  { title: 'clothing_users_email_list.csv' },
 ];
 export default function Searchbar({ sx, ...other }) {
   const theme = useTheme();
@@ -50,6 +47,10 @@ export default function Searchbar({ sx, ...other }) {
     handleClose();
   };
 
+  const handleClearSearch = useCallback(() => {
+    setSearchQuery('');
+  }, []);
+
   const renderItems = () => (
     <Box component="ul">
       {filteredData.map((item) => (
@@ -68,7 +69,7 @@ export default function Searchbar({ sx, ...other }) {
       ))}
     </Box>
   );
- const renderButton = (
+  const renderButton = (
     <Tooltip title="Search Lists to see reports." arrow placement="bottom">
       <Box
         display="flex"
@@ -111,7 +112,7 @@ export default function Searchbar({ sx, ...other }) {
             display: { xs: 'none', md: 'inline-flex' },
           }}
         >
-          List Name
+          Email List Name
         </Label>
       </Box>
     </Tooltip>
@@ -135,38 +136,60 @@ export default function Searchbar({ sx, ...other }) {
           [`& .${dialogClasses.container}`]: { alignItems: 'flex-start' },
         }}
       >
-        {/* Dialog Content */}
-        <Box sx={{ p: 3, borderBottom: `solid 1px ${theme.vars.palette.divider}` }}>
-          <InputBase
-            fullWidth
-            autoFocus
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={handleSearch}
-            startAdornment={
-              <InputAdornment position="start">
-                <Iconify icon="eva:search-fill" width={24} sx={{ color: 'text.disabled' }} />
-              </InputAdornment>
-            }
-            endAdornment={
-              <Label
-                sx={{ letterSpacing: 1, color: 'text.secondary', cursor: 'pointer' }}
-                onClick={handleClose}
-              >
-                esc
-              </Label>
-            }
-            inputProps={{ sx: { typography: 'h6' } }}
-          />
+        <Box>
+          <DialogTitle sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}>
+            Search Email List
+            <Iconify
+              onClick={handleClose}
+              icon="uil:times"
+              style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
+            />
+          </DialogTitle>
+          <Divider sx={{ borderStyle: 'dashed' }} />
         </Box>
+        <Box sx={{ p: 2 }}>
+          <Tooltip
+            title="Enter the email list name."
+            arrow
+            placement="top"
+          >
+            <TextField
+              fullWidth
+              size="large"
+              placeholder="Search by email list name..."
+              value={searchQuery}
+              onChange={handleSearch}
+              autoFocus
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon="eva:search-fill" width={24} height={24} />
+                  </InputAdornment>
+                ),
+                endAdornment: searchQuery ? (
+                  <InputAdornment position="end">
+                    <Iconify
+                      icon="ic:round-clear"
+                      style={{
+                        cursor: 'pointer',
+                        color: '#637381',
+                      }}
+                      onClick={handleClearSearch}
+                    />
+                  </InputAdornment>
+                ) : null,
+              }}
+            />
+          </Tooltip>
+        </Box>
+        {/* Dialog Content */}
 
         {filteredData.length === 0 ? (
           <SearchNotFound query={searchQuery} sx={{ py: 15 }} />
         ) : (
-          <Scrollbar sx={{ px: 3, pb: 3, pt: 2, height: 400 }}>{renderItems()}</Scrollbar>
+          <Scrollbar sx={{ px: 3, pb: 3, pt: 0, height: 400 }}>{renderItems()}</Scrollbar>
         )}
       </Dialog>
     </>
   );
 }
-

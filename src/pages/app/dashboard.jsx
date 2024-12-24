@@ -250,7 +250,7 @@ export default function Page() {
             flexDirection: { xs: 'column', md: 'row' },
           }}
         >
-          <Box sx={{ width: { xs: '100%', md: '65%' } }}>
+          <Box sx={{ width: { xs: '100%', md: '65%',zIndex:99 } }}>
             <DashboardTable />
           </Box>
           <Box sx={{ width: { xs: '100%', md: '35%' } }}>

@@ -67,14 +67,14 @@ const dataOn = [
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
     message: 'Used in verifying "SampleImport_(3).csv" list',
-    action: 'Verifying List',
+    action: 'Verified List',
     credits: 'Consumed',
     noOfCredits: 9,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
     message: 'Used in verifying "SampleImport_(3).csv" list',
-    action: 'Verifying List',
+    action: 'Verified List',
     credits: 'Consumed',
     noOfCredits: 7,
   },
@@ -83,7 +83,7 @@ const dataOn = [
     message: 'Used in verifying email: ankit.mandli1@pabbly.com',
     action: 'Verified Email',
     credits: 'Consumed',
-    noOfCredits: 20,
+    noOfCredits: 1,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',

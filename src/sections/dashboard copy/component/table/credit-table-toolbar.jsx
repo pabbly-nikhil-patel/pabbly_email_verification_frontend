@@ -34,7 +34,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
   const [operator, setOperator] = useState('contains');
   const [filterValue, setFilterValue] = useState('');
 
-  const applicationName = ['Added', 'Verified Email', 'Verifying List'];
+  const applicationName = ['Added', 'Verified Email', 'Verified List'];
 
   const handlePopoverClose = () => setAnchorEl(null);
 

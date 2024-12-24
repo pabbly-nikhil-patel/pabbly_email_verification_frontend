@@ -23,7 +23,7 @@ export default function Upload({ setAlertState }) {
               arrow
               placement="top"
             >
-              <Typography variant="h6">Upload CSV File for Email Verification </Typography>
+              <Typography variant="h6">Verify Bulk Emails (Upload CSV File for Email Verification) </Typography>
             </Tooltip>
           </Box>
         }

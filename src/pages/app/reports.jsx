@@ -1,11 +1,28 @@
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Card, Tooltip, Divider, CardHeader, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Card,
+  Dialog,
+  Button,
+  Tooltip,
+  Divider,
+  CardHeader,
+  IconButton,
+  Typography,
+  DialogTitle,
+  ListItemText,
+  useMediaQuery,
+  DialogActions,
+  ListItemButton,
+} from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { Iconify } from 'src/components/iconify';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
@@ -20,6 +37,19 @@ export default function Page() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const selectedListName = useSelector((state) => state.listName.selectedListName);
+  const downloadActions = ['All Result', 'Deliverable', 'Undeliverable'];
+  const [dialog, setDialog] = useState({
+    open: false,
+    mode: '', // 'delete' or 'download'
+  });
+
+  const handleOpen = (mode) => {
+    setDialog({ open: true, mode });
+  };
+
+  const handleClose = () => {
+    setDialog({ open: false, mode: '' });
+  };
 
   return (
     <>
@@ -95,31 +125,93 @@ export default function Page() {
           />
         </Box>
         <Card>
-          <CardHeader
-            title={
-              <Tooltip
-                title="Bar chart showing the distribution of your email verification results"
-                placement="top"
-                arrow
-              >
-                <span>
-                  {selectedListName
-                    ? `Verification Summary - ${selectedListName} `
-                    : 'Verification Summary'}
-                </span>
-              </Tooltip>
-            }
-            subheader='Here you can see the verification summary of the list.'
-          />
-          <Divider sx={{mt:3}}/>
+          <Box display='flex' justifyContent='space-between' flexWrap='wrap' alignItems='center' alignContent='center'>
+            <CardHeader
+              title={
+                <Tooltip
+                  title="Bar chart showing the distribution of your email verification results"
+                  placement="top"
+                  arrow
+                >
+                  <span>
+                    {selectedListName
+                      ? `Verification Summary - ${selectedListName} `
+                      : 'Verification Summary'}
+                  </span>
+                </Tooltip>
+              }
+              subheader="Here you can see the verification summary of the list."
+            />
+            <Box pt={3} px={3}>
+
+            <Tooltip arrow placement="top" disableInteractive title="Download List">
+              <Button variant='outlined' color='primary' onClick={() => handleOpen('download')} startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}>Download Report</Button>
+              
+            </Tooltip>
+            </Box>
+          </Box>
+          <Divider sx={{ mt: 3 }} />
           <ReportsBarChart
             chart={{
-              categories: ['Total Emails', 'Deliverable Emails', 'Undeliverable Emails', 'Accept-All Emails', 'Unknown Emails'],
+              categories: [
+                'Total Emails',
+                'Deliverable Emails',
+                'Undeliverable Emails',
+                'Accept-All Emails',
+                'Unknown Emails',
+              ],
               series: [{ data: [2000, 1200, 300, 1500, 800] }],
             }}
           />
         </Card>
       </DashboardContent>
+      <Dialog open={dialog.open} onClose={handleClose}>
+        <DialogTitle>
+          {dialog.mode === 'download' && (
+            <>
+              <Typography variant="h6">Download Verification Result</Typography>
+              <Typography variant="body2">
+                Please note all data and reports associated with this list will be permanently
+                removed automatically after 15 days.
+              </Typography>
+            </>
+          )}
+        </DialogTitle>
+
+        {dialog.mode === 'download' && (
+          <Box component="ul" sx={{ mb: 3, listStyleType: 'none', p: 0 }}>
+            {downloadActions.map((downloads) => (
+              <Box key={downloads} component="li" sx={{ display: 'flex' }}>
+                <ListItemButton onClick={() => handleClose()}>
+                  <IconButton sx={{ mr: 2 }}>
+                    <Iconify width={32} icon="simple-icons:ticktick" />
+                  </IconButton>
+                  <ListItemText primary={downloads} />
+                </ListItemButton>
+              </Box>
+            ))}
+          </Box>
+        )}
+
+        {dialog.mode === 'delete' && (
+          <>
+            <DialogTitle>
+              <Typography variant="body2">
+                The list &quot;Untitled_spreadsheet_-_Sheet1.csv&quot; will be deleted permanently
+                and cannot be recovered back. Do you want to continue?
+              </Typography>
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleClose} color="inherit">
+                Cancel
+              </Button>
+              <Button onClick={() => console.log('Item Deleted')} color="error" variant="contained">
+                Delete
+              </Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
     </>
   );
 }

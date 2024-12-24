@@ -38,7 +38,7 @@ export function ResultItem({ title, groupLabel, onClickItem, searchQuery = '' })
       }}
     >
       <ListItemText
-        primaryTypographyProps={{ typography: 'subtitle2', sx: { textTransform: 'capitalize' } }}
+        primaryTypographyProps={{ typography: 'subtitle2',  }}
         secondaryTypographyProps={{ typography: 'caption', noWrap: true }}
         primary={titleParts.map((part, index) => (
           <Box
