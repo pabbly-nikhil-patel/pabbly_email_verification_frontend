@@ -37,7 +37,24 @@ export default function Page() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const selectedListName = useSelector((state) => state.listName.selectedListName);
-  const downloadActions = ['All Result', 'Deliverable', 'Undeliverable'];
+  // const downloadActions = ['All Result', 'Deliverable', 'Undeliverable'];
+  const downloadActions = [
+    {
+      itemName:"All Result",
+      itemIcon :"ci:check-all"
+   
+    },
+    {
+      itemName:"Deliverable",
+      itemIcon :"charm:tick"
+
+    },
+    {
+      itemName:"Undeliverable",
+      itemIcon :"charm:cross"
+
+    }
+  ]
   const [dialog, setDialog] = useState({
     open: false,
     mode: '', // 'delete' or 'download'
@@ -184,9 +201,9 @@ export default function Page() {
               <Box key={downloads} component="li" sx={{ display: 'flex' }}>
                 <ListItemButton onClick={() => handleClose()}>
                   <IconButton sx={{ mr: 2 }}>
-                    <Iconify width={32} icon="simple-icons:ticktick" />
+                    <Iconify width={32} icon={downloads.itemIcon}/>
                   </IconButton>
-                  <ListItemText primary={downloads} />
+                  <ListItemText primary={downloads.itemName} />
                 </ListItemButton>
               </Box>
             ))}
