@@ -3,9 +3,9 @@ import { _mock } from '../_mock';
 // ----------------------------------------------------------------------
 
 export const DASHBOARD_STATUS_OPTIONS = [
-  { value: 'completed', label: 'Completed' },
-  { value: 'processing', label: 'Processing' },
-  { value: 'unprocessed', label: 'Unprocessed' },
+  { value: 'completed', label: 'Completed', tooltip: 'All completed lists.' },
+  { value: 'processing', label: 'Processing', tooltip: 'All processing lists.' },
+  { value: 'unprocessed', label: 'Unprocessed', tooltip: 'All unprocessed lists.' },
 ];
 
 export const _dashboard = [...Array(20)].map((_, index) => {

@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import { Tooltip, Typography } from '@mui/material';
 
 import { startVerification } from 'src/redux/slice/upload-slice';
 import { setSelectedListName } from 'src/redux/slice/listNameSlice';
@@ -15,18 +15,21 @@ import { Label } from 'src/components/label';
 // ----------------------------------------------------------------------
 
 export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewReport }) {
+  const csvfilesname = [
+    { name: 'inactive_email_list.csv', numberOfEmails: 65 },
+    { name: 'marketing_email_list.csv', numberOfEmails: 656 },
+    { name: 'newsletter_subscribers.csv', numberOfEmails: 35 },
+    { name: 'employee_contact_list.csv', numberOfEmails: 64 },
+  ];
+
+  // Get the current file details based on the index
+  const currentFile = csvfilesname[dashboardTableIndex % csvfilesname.length];
+  const navigate = useNavigate();
   const handleViewReport = () => {
     const listName = csvfilesname[dashboardTableIndex % csvfilesname.length];
-    dispatch(setSelectedListName(listName));
+    dispatch(setSelectedListName(currentFile.name));
     navigate('/app/reports');
   };
-  const csvfilesname = [
-    'inactive_email_list.csv (65)',
-    'marketing_email_list.csv (656)',
-    'newsletter_subscribers.csv (35)',
-    'employee_contact_list.csv (64)',
-  ];
-  const navigate = useNavigate();
   const handelNavigate = () => {
     navigate('/app/reports');
   };
@@ -48,61 +51,98 @@ export function DashboardTableRow({ row, selected, dashboardTableIndex, onViewRe
               alignItems: 'flex-start',
             }}
           >
-            <Label
-              variant="soft"
-              color={
-                (row.status === 'unprocessed' && 'error') ||
-                (row.status === 'completed' && 'success') ||
-                (row.status === 'processing' && 'info') ||
-                'default'
+            <Tooltip
+              title={`Email verification process is ${
+                (row.status === 'unprocessed' && 'unprocessed') ||
+                (row.status === 'completed' && 'completed') ||
+                (row.status === 'processing' && 'processing')
+              }.`}
+              arrow
+              placement="top"
+              disableInteractive
+            >
+              <Label
+                variant="soft"
+                color={
+                  (row.status === 'unprocessed' && 'error') ||
+                  (row.status === 'completed' && 'success') ||
+                  (row.status === 'processing' && 'info') ||
+                  'default'
+                }
+              >
+                {row.status}
+              </Label>
+            </Tooltip>
+            <Tooltip
+              // title={csvfilesname[dashboardTableIndex % csvfilesname.length]}
+              title={
+                <>
+                  Filename: {currentFile.name} <br />
+                  Number of Emails: {currentFile.numberOfEmails}
+                </>
               }
+              arrow
+              placement="top"
+              disableInteractive
             >
-              {row.status}
-            </Label>
-            <Box
-              component="span"
-              sx={{
-                color: 'text.disabled',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                maxWidth: '300px',
-                display: 'inline-block',
-              }}
-            >
-              {csvfilesname[dashboardTableIndex % csvfilesname.length]}
-              {/* {commonIcon} */}
-            </Box>
+              <Typography
+                component="span"
+                fontSize={14}
+                sx={{
+                  mt: '5px',
+                  // color: 'text.disabled',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '300px',
+                }}
+              >
+                {currentFile.name} ({currentFile.numberOfEmails}){/* {commonIcon} */}
+              </Typography>
+            </Tooltip>
           </Stack>
         </Stack>
       </TableCell>
 
       <TableCell width={200}>
-        <Button
-          variant="outlined"
-          color="primary"
-          disabled={row.status === 'processing'}
-          onClick={
+        <Tooltip
+          title={`Click here to ${
             row.status === 'processing' || row.status === 'completed'
-              ? undefined
-              : handleStartVerification
-          }
+              ? 'Download'
+              : 'Start Verification'
+          }`}
+          arrow
+          placement="top"
+          disableInteractive
         >
-          {row.status === 'processing' || row.status === 'completed'
-            ? 'Download'
-            : 'Start Verification'}
-        </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            disabled={row.status === 'processing'}
+            onClick={
+              row.status === 'processing' || row.status === 'completed'
+                ? undefined
+                : handleStartVerification
+            }
+          >
+            {row.status === 'processing' || row.status === 'completed'
+              ? 'Download'
+              : 'Start Verification'}
+          </Button>
+        </Tooltip>
       </TableCell>
 
       <TableCell width={140} align="right">
-        <Button
-          variant="outlined"
-          color="success"
-          disabled={row.status === 'unprocessed' || row.status === 'processing'}
-          onClick={handleViewReport} // Updated to use the new handler
-        >
-          View Report
-        </Button>
+        <Tooltip title="Click here to view report" arrow placement="top" disableInteractive>
+          <Button
+            variant="outlined"
+            color="success"
+            disabled={row.status === 'unprocessed' || row.status === 'processing'}
+            onClick={handleViewReport} // Updated to use the new handler
+          >
+            View Report
+          </Button>
+        </Tooltip>
       </TableCell>
     </TableRow>
   );

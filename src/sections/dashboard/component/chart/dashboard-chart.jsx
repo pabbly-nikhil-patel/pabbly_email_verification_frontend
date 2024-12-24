@@ -11,6 +11,7 @@ import {
   Link,
   Dialog,
   Button,
+  Tooltip,
   IconButton,
   Typography,
   DialogTitle,
@@ -118,26 +119,81 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     }
   }, [isUploading, isStartVerification, showAlert, isUploaded, handleAlertClose]);
 
+  const EMAIL_DETAILS = [
+    {
+      header: 'Total',
+      numberOfEmails: 156454,
+      tooltip: 'Total email addresses.',
+    },
+    {
+      header: 'Deliverable',
+      numberOfEmails: 12244,
+      tooltip: 'The email address exists and accepts emails.',
+    },
+    {
+      header: 'Accept-all',
+      numberOfEmails: 43313,
+      tooltip:
+        'The addresses cannot be verified as their mail server accepts both valid and invalid addresses.',
+    },
+    {
+      header: 'Undeliverable',
+      numberOfEmails: 53345,
+      tooltip: 'The email address either does not exist or does not accept emails.',
+    },
+    {
+      header: 'Unknown',
+      numberOfEmails: 78343,
+      tooltip:
+        'The emails could not be verified as their mail servers were unreachable during the process. Unknown addresses are tested multiple times from different locations before this result.',
+    },
+  ];
+
   return (
     <>
       <Card {...other}>
-        <Box sx={{ display: 'flex', justifyContent: 'spaced-between', alignItems: 'center' }}>
+        <Box
+          sx={{ display: 'flex', justifyContent: 'spaced-between', alignItems: 'center', px: 1 }}
+        >
           <CardHeader
-            title={<Typography variant="h6">{title}</Typography>}
+            sx={{ width: '100%', px: 2 }}
+            title={
+              <Tooltip arrow placement="top" disableInteractive title={title}>
+                <Typography
+                  sx={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '320px',
+                  }}
+                  variant="h6"
+                >
+                  {title}
+                </Typography>
+              </Tooltip>
+            }
             subheader={
-              <Link variant="body2" href="#">
-                {subheader}
+              <Link
+                variant="body2"
+                target="_blank"
+                href="https://forum.pabbly.com/threads/understanding-email-verification-results.23111/"
+              >
+                Learn more about result codes
               </Link>
             }
           />
           {!showChartAlert && !showProgressLinear && showChart && (
-            <Box>
-              <IconButton onClick={() => handleOpen('download')}>
-                <Iconify width={24} icon="solar:download-minimalistic-bold" />
-              </IconButton>
-              <IconButton onClick={() => handleOpen('delete')}>
-                <Iconify width={24} icon="solar:trash-bin-trash-bold" />
-              </IconButton>
+            <Box display="flex">
+              <Tooltip arrow placement="top" disableInteractive title="Download List">
+                <IconButton onClick={() => handleOpen('download')}>
+                  <Iconify width={24} icon="solar:download-minimalistic-bold" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow placement="top" disableInteractive title="Delete List">
+                <IconButton onClick={() => handleOpen('delete')}>
+                  <Iconify width={24} icon="solar:trash-bin-trash-bold" />
+                </IconButton>
+              </Tooltip>
             </Box>
           )}
         </Box>
@@ -156,8 +212,21 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
             <ChartLegends
               labels={chartOptions.labels}
               colors={chartOptions.colors}
-              sx={{ p: 3, justifyContent: 'center', flexDirection: 'column' }}
+              sx={{ py: 2, px: 0, justifyContent: 'center', flexDirection: 'row' }}
             />
+            <Box px={4} pb={2}>
+              {EMAIL_DETAILS.map((email_details) => (
+                <>
+                  <Divider sx={{ borderStyle: 'dashed' }} />
+                  <Box py={1} display="flex" justifyContent="space-between">
+                    <Tooltip arrow placement="top" disableInteractive title={email_details.tooltip}>
+                      <Typography fontWeight={600}>{email_details.header}</Typography>
+                    </Tooltip>
+                    <Typography>{email_details.numberOfEmails}</Typography>
+                  </Box>
+                </>
+              ))}
+            </Box>
           </>
         )}
         {showChartAlert && <ChartAlert />}
