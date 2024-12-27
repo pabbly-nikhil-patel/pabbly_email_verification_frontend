@@ -14,10 +14,8 @@ import {
   IconButton,
   Typography,
   DialogTitle,
-  ListItemText,
   useMediaQuery,
   DialogActions,
-  ListItemButton,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -33,39 +31,53 @@ import { ReportsBarChart } from 'src/sections/reports/component/chart-view/repor
 const metadata = { title: `Reports | Pabbly Email Verification` };
 
 export default function Page() {
-  // Hooks
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const selectedListName = useSelector((state) => state.listName.selectedListName);
-  // const downloadActions = ['All Result', 'Deliverable', 'Undeliverable'];
+  const [selectedOption, setSelectedOption] = useState('all-results');
+
   const downloadActions = [
     {
-      itemName:"All Result",
-      itemIcon :"ci:check-all"
-   
+      id: 'all-results',
+      itemName: 'All Result',
+      itemIcon: 'material-symbols:check-circle',
+      selected: true,
     },
     {
-      itemName:"Deliverable",
-      itemIcon :"charm:tick"
-
+      id: 'deliverable',
+      itemName: 'Deliverable',
+      itemIcon: 'ep:list',
+      selected: false,
     },
     {
-      itemName:"Undeliverable",
-      itemIcon :"charm:cross"
+      id: 'undeliverable',
+      itemName: 'Undeliverable',
+      itemIcon: 'gridicons:cross-circle',
+      selected: false,
+    },
+  ];
 
-    }
-  ]
   const [dialog, setDialog] = useState({
     open: false,
-    mode: '', // 'delete' or 'download'
+    mode: '',
   });
 
   const handleOpen = (mode) => {
     setDialog({ open: true, mode });
+    setSelectedOption('all-results');
   };
 
   const handleClose = () => {
     setDialog({ open: false, mode: '' });
+  };
+
+  const handleOptionSelect = (optionId) => {
+    setSelectedOption(optionId);
+  };
+
+  const handleDownload = () => {
+    console.log(`Downloading ${selectedOption}`);
+    handleClose();
   };
 
   return (
@@ -142,7 +154,13 @@ export default function Page() {
           />
         </Box>
         <Card>
-          <Box display='flex' justifyContent='space-between' flexWrap='wrap' alignItems='center' alignContent='center'>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            flexWrap="wrap"
+            alignItems="center"
+            alignContent="center"
+          >
             <CardHeader
               title={
                 <Tooltip
@@ -160,11 +178,16 @@ export default function Page() {
               subheader="Here you can see the verification summary of the list."
             />
             <Box pt={3} px={3}>
-
-            <Tooltip arrow placement="top" disableInteractive title="Download List">
-              <Button variant='outlined' color='primary' onClick={() => handleOpen('download')} startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}>Download Report</Button>
-              
-            </Tooltip>
+              <Tooltip arrow placement="top" disableInteractive title="Download List">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleOpen('download')}
+                  startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
+                >
+                  Download Report
+                </Button>
+              </Tooltip>
             </Box>
           </Box>
           <Divider sx={{ mt: 3 }} />
@@ -182,52 +205,119 @@ export default function Page() {
           />
         </Card>
       </DashboardContent>
-      <Dialog open={dialog.open} onClose={handleClose}>
-        <DialogTitle>
+
+      <Dialog open={dialog.open} onClose={handleClose} maxWidth="sm" fullWidth>
+        <Box sx={{ position: 'relative', p: 2 }}>
           {dialog.mode === 'download' && (
             <>
-              <Typography variant="h6">Download Verification Result</Typography>
-              <Typography variant="body2">
-                Please note all data and reports associated with this list will be permanently
-                removed automatically after 15 days.
-              </Typography>
+              <DialogTitle sx={{ p: 0, mb: 2 }}>
+                <Typography variant="h6">Download Verification Result</Typography>
+                <IconButton
+                  onClick={handleClose}
+                  sx={{
+                    position: 'absolute',
+                    right: 8,
+                    top: 8,
+                    color: 'text.secondary',
+                  }}
+                >
+                  <Iconify icon="eva:close-fill" />
+                </IconButton>
+              </DialogTitle>
+
+              <Box sx={{ px: 1 }}>
+                <Box
+                  sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: 2,
+                    mb: 4,
+                  }}
+                >
+                  {downloadActions.map((action) => (
+                    <Button
+                      key={action.id}
+                      onClick={() => handleOptionSelect(action.id)}
+                      sx={{
+                        height: '150px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        p: 2,
+                        border: 2,
+                        borderColor: selectedOption === action.id ? 'primary.main' : 'divider',
+                        borderRadius: 1,
+                        bgcolor:
+                          selectedOption === action.id ? 'primary.lighter' : 'background.paper',
+                        '&:hover': {
+                          borderColor:
+                            selectedOption === action.id ? 'primary.main' : 'text.secondary',
+                          bgcolor:
+                            selectedOption === action.id ? 'primary.lighter' : 'action.hover',
+                        },
+                      }}
+                    >
+                      <Iconify
+                        icon={action.itemIcon}
+                        width={24}
+                        sx={{
+                          color: selectedOption === action.id ? 'primary.main' : 'text.secondary',
+                        }}
+                      />
+
+                      <Typography
+                        sx={{
+                          mt: 1,
+                          color: selectedOption === action.id ? 'primary.main' : 'text.secondary',
+                          fontWeight: selectedOption === action.id ? 500 : 400,
+                        }}
+                      >
+                        {action.itemName}
+                      </Typography>
+                    </Button>
+                  ))}
+                </Box>
+
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                  Please note all data and reports associated with this list will be permanently
+                  removed automatically after 15 days.
+                </Typography>
+
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button variant="contained" onClick={handleDownload} color="primary">
+                    Download
+                  </Button>
+                </Box>
+              </Box>
             </>
           )}
-        </DialogTitle>
 
-        {dialog.mode === 'download' && (
-          <Box component="ul" sx={{ mb: 3, listStyleType: 'none', p: 0 }}>
-            {downloadActions.map((downloads) => (
-              <Box key={downloads} component="li" sx={{ display: 'flex' }}>
-                <ListItemButton onClick={() => handleClose()}>
-                  <IconButton sx={{ mr: 2 }}>
-                    <Iconify width={32} icon={downloads.itemIcon}/>
-                  </IconButton>
-                  <ListItemText primary={downloads.itemName} />
-                </ListItemButton>
-              </Box>
-            ))}
-          </Box>
-        )}
-
-        {dialog.mode === 'delete' && (
-          <>
-            <DialogTitle>
-              <Typography variant="body2">
-                The list &quot;Untitled_spreadsheet_-_Sheet1.csv&quot; will be deleted permanently
-                and cannot be recovered back. Do you want to continue?
-              </Typography>
-            </DialogTitle>
-            <DialogActions>
-              <Button onClick={handleClose} color="inherit">
-                Cancel
-              </Button>
-              <Button onClick={() => console.log('Item Deleted')} color="error" variant="contained">
-                Delete
-              </Button>
-            </DialogActions>
-          </>
-        )}
+          {dialog.mode === 'delete' && (
+            <>
+              <DialogTitle>
+                <Typography variant="body2">
+                  The list &quot;Untitled_spreadsheet_-_Sheet1.csv&quot; will be deleted permanently
+                  and cannot be recovered back. Do you want to continue?
+                </Typography>
+              </DialogTitle>
+              <DialogActions>
+                <Button onClick={handleClose} color="inherit">
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => {
+                    console.log('Item Deleted');
+                    handleClose();
+                  }}
+                  color="error"
+                  variant="contained"
+                >
+                  Delete
+                </Button>
+              </DialogActions>
+            </>
+          )}
+        </Box>
       </Dialog>
     </>
   );
