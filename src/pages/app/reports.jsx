@@ -19,16 +19,18 @@ import {
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
+import { listItems } from 'src/_mock/big-card/_reportsBigCardListItems';
 
 import { Iconify } from 'src/components/iconify';
+import BigCard from 'src/components/big-card/big-card';
 import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
 import { ReportsBarChart } from 'src/sections/reports/component/chart-view/reports-bar-chart';
-
 // ----------------------------------------------------------------------
 
 const metadata = { title: `Reports | Pabbly Email Verification` };
+const { items, style } = listItems;
 
 export default function Page() {
   const theme = useTheme();
@@ -97,7 +99,7 @@ export default function Page() {
         >
           <PageHeader
             title="Reports"
-            Subheading="Analyze your email verification data with a clear summary of unknown, accept-all, undeliverable, deliverable, and total emails to enhance your email performance."
+            Subheading="Get a detailed summary of your email verification results to optimize performance."
             link_added="#"
           />
         </Box>
@@ -118,7 +120,7 @@ export default function Page() {
             icon_name="Processed.svg"
             icon_color="#7D6ADB"
             bg_gradient="#7D6ADB"
-            tooltipTittle="Total numbers of Emails in the list"
+            tooltipTittle="Total number of emails processed in verification."
           />
           <StatsCards
             cardtitle="Deliverable Emails"
@@ -126,7 +128,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#28A645"
             bg_gradient="#28A645"
-            tooltipTittle="Total numbers of Deliverable Emails in the list"
+            tooltipTittle="Total number of emails deliverable in verification."
           />
           <StatsCards
             cardtitle="Undeliverable Emails"
@@ -134,7 +136,7 @@ export default function Page() {
             icon_name="undeliverable.svg"
             icon_color="#FF5630"
             bg_gradient="#FF5630"
-            tooltipTittle="Total numbers of Undeliverable Emails in the list"
+            tooltipTittle="Total number of emails undeliverable in verification."
           />
           <StatsCards
             cardtitle="Accept-all Emails"
@@ -142,7 +144,7 @@ export default function Page() {
             icon_name="accept-all.svg"
             icon_color="#00B8D9"
             bg_gradient="#00B8D9"
-            tooltipTittle="Total numbers of Accept-all Emails in the list"
+            tooltipTittle="Total number of emails accepted in verification."
           />
           <StatsCards
             cardtitle="Unknown Emails"
@@ -150,10 +152,19 @@ export default function Page() {
             icon_name="unknown.svg"
             icon_color="#FFA92E"
             bg_gradient="#FFAB00"
-            tooltipTittle="Total numbers of Unknown Emails in the list"
+            tooltipTittle="Total number of emails unknown in verification."
           />
         </Box>
-        <Card>
+        <BigCard
+          getHelp={false}
+          isVideo={false}
+          bigcardtitle="Email List Analysis Report"
+          bigcardsubtitle="Get detailed insights about your email list quality with complete verification status breakdown:"
+          style={style}
+          items={items}
+          thumbnailName="Report.png"
+        />
+        <Card sx={{ mt: 3 }}>
           <Box
             display="flex"
             justifyContent="space-between"
@@ -178,7 +189,7 @@ export default function Page() {
               subheader="Here you can see the verification summary of the list."
             />
             <Box pt={3} px={3}>
-              <Tooltip arrow placement="top" disableInteractive title="Download List">
+              <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
                 <Button
                   variant="outlined"
                   color="primary"

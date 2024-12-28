@@ -58,7 +58,7 @@ export function HeaderBase({
     purchase = true,
 
     menuButton = true,
-isNotUpgraded=true,
+    isNotUpgraded = true,
   } = {},
 
   ...other
@@ -101,20 +101,18 @@ isNotUpgraded=true,
               <Logo data-slot="logo" />
             ) : (
               <>
-              <Link to="/app">
-                <Box
-                  alt="logo"
-                  component="img"
-                  
-                  src={`${CONFIG.site.basePath}/assets/icons/navbar/PEV_logo.svg`}
-                  width={120}
-                  sx={{
-                    display: { xs: 'none', sm: 'block' },
-                    zIndex: theme.zIndex.drawer + 1,
-                   
-                  }}
-                />
-                  </Link>
+                <Link to="/app">
+                  <Box
+                    alt="logo"
+                    component="img"
+                    src={`${CONFIG.site.basePath}/assets/icons/navbar/PEV_logo.svg`}
+                    width={120}
+                    sx={{
+                      display: { xs: 'none', sm: 'block' },
+                      zIndex: theme.zIndex.drawer + 1,
+                    }}
+                  />
+                </Link>
                 <Logo
                   width={30}
                   sx={{
@@ -141,22 +139,29 @@ isNotUpgraded=true,
                 gap: { xs: 1, sm: 1.5 },
               }}
             >
-             
-
-
               {isReportPage && <Searchbar data-slot="searchbar" data={data?.nav} />}
-              {isNotUpgraded && 
-               <Tooltip title="Click here to purchase email verification credits." arrow placement="bottom">
-                 
-              <Button variant='contained' size='medium' color='error' href='https://www.pabbly.com/email-list-cleaning/#pricing' target='_blank'>Upgrade</Button>
-              </Tooltip>}
+              {isNotUpgraded && (
+                <Tooltip title="Click here to purchase credits." arrow placement="bottom">
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="error"
+                    href="https://www.pabbly.com/email-list-cleaning/#pricing"
+                    target="_blank"
+                  >
+                    Upgrade
+                  </Button>
+                </Tooltip>
+              )}
 
               <PabblyAppsMenu />
 
               {account && (
-               
+                <Tooltip title="Click here to see account details." arrow placement="bottom">
+                  <span>
                     <AccountDrawer data-slot="account" data={data?.account} />
-               
+                  </span>
+                </Tooltip>
               )}
 
               {purchase && (

@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Card, Tooltip, Typography } from '@mui/material';
 
 import VideoModal from '../video-modal/video-modal';
 
@@ -10,6 +10,7 @@ export default function BigCard({
   style,
   action,
   videoLink,
+  tooltip,
   thumbnailName,
   bigcardtitle,
   bigcardsubtitle,
@@ -32,7 +33,13 @@ export default function BigCard({
         <Box>
           <Box>
             <Box sx={{ mb: 1 }}>
-              <Typography variant="h6">{bigcardtitle}</Typography>
+              <Typography variant="h6">
+                <Tooltip arrow placement="top" title={tooltip}>
+                  {' '}
+                  {bigcardtitle}{' '}
+                </Tooltip>
+              </Typography>
+
               <Typography color="#637381" fontSize="14px" mt={1}>
                 {bigcardsubtitle}
               </Typography>

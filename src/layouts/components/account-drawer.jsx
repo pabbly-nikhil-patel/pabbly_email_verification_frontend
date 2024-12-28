@@ -22,10 +22,6 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { AnimateAvatar } from 'src/components/animate';
 // import UpgradeCard from 'src/components/uprgade-card/upgrade-card';
 
-
-
-
-
 // import { UpgradeBlock } from './nav-upgrade';
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
@@ -38,9 +34,6 @@ export function AccountDrawer({ data = [], sx, ...other }) {
   const router = useRouter();
 
   const pathname = usePathname();
-
-
-
 
   const [open, setOpen] = useState(false);
 
@@ -102,7 +95,7 @@ export function AccountDrawer({ data = [], sx, ...other }) {
         </IconButton>
 
         <Scrollbar>
-          <Stack alignItems="center" sx={{ pt: 8,pb:3 }}>
+          <Stack alignItems="center" sx={{ pt: 8, pb: 3 }}>
             {renderAvatar}
 
             <Typography variant="subtitle1" noWrap sx={{ mt: 2 }}>
@@ -110,11 +103,9 @@ export function AccountDrawer({ data = [], sx, ...other }) {
             </Typography>
 
             <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }} noWrap>
-             ankit.mandli@pabbly.com
+              ankit.mandli@pabbly.com
             </Typography>
           </Stack>
-
-          
 
           <Stack
             sx={{

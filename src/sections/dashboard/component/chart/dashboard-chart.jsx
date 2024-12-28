@@ -34,11 +34,10 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
   const { isUploading, isUploaded, isStartVerification, isVerificationCompleted, progress } =
     useSelector((state) => state.fileUpload);
   const theme = useTheme();
-  // const dialog = useBoolean();
   const downloadActions = ['All Result', 'Deliverable', 'Undeliverable'];
   const [dialog, setDialog] = useState({
     open: false,
-    mode: '', // 'delete' or 'download'
+    mode: '', 
   });
 
   const [hasShownUploadAlert, setHasShownUploadAlert] = useState(false);
@@ -113,7 +112,6 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
       );
       setHasShownUploadAlert(true);
 
-      // Close the alert after 3 seconds
       alertTimeout = setTimeout(() => {
         handleAlertClose();
       }, 5000);
@@ -126,13 +124,11 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
       );
       setHasShownVerificationAlert(true);
 
-      // Close the alert after 3 seconds
       alertTimeout = setTimeout(() => {
         handleAlertClose();
       }, 5000);
     }
 
-    // Cleanup timeout on unmount or when dependencies change
     return () => {
       if (alertTimeout) {
         clearTimeout(alertTimeout);
@@ -147,7 +143,6 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     hasShownVerificationAlert,
   ]);
 
-  // Reset alert states when the process completes
   useEffect(() => {
     if (isVerificationCompleted) {
       setHasShownUploadAlert(false);
@@ -194,23 +189,41 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
           <CardHeader
             sx={{ width: '100%', px: 2 }}
             title={
-              <Tooltip arrow placement="top" disableInteractive title={title}>
-                <Typography
-                  sx={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: '320px',
-                  }}
-                  variant="h6"
+              <Typography
+                sx={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '320px',
+                }}
+                variant="h6"
+              >
+                <Tooltip
+                  arrow
+                  placement="top"
+                  disableInteractive
+                  title="Summary of email verification results for all lists."
                 >
                   All Lists Summary
-                </Typography>
-              </Tooltip>
+                </Tooltip>
+              </Typography>
+            }
+            subheader={
+              <>
+                Graphical representation of all the lists.{' '}
+                <Link
+                  href="https://your-link.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="always"
+                >
+                  Learn more
+                </Link>
+              </>
             }
           />
-    
         </Box>
+        <Divider sx={{ mt: 3 }} />
 
         {showChart && (
           <>
@@ -234,33 +247,15 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
             <ChartLegends
               labels={chartOptions.labels}
               colors={chartOptions.colors}
-              sx={{ py: 2, px: 0, justifyContent: 'center', flexDirection: 'row' }}
+              values={[156454, 12244, 43313, 53345, 78343]} // Add the email counts here
+              totalEmails={188245}
+              sx={{
+                py: 2,
+                flexDirection: 'column',
+                borderTop: '1px dashed',
+                borderColor: 'divider',
+              }}
             />
-            <Divider sx={{ borderStyle: 'dashed', mb: 2 }} />
-            <Link
-              display="flex"
-              justifyContent="center"
-              variant="body2"
-              target="_blank"
-              href="https://forum.pabbly.com/threads/understanding-email-verification-results.23111/"
-            >
-              Learn more about result codes
-            </Link>
-            <Box px={4} pb={2} pt={2}>
-              {EMAIL_DETAILS.map((email_details) => (
-                <React.Fragment key={email_details.header}>
-                  {' '}
-                  {/* Adding key here */}
-                  <Divider sx={{ borderStyle: 'dashed' }} />
-                  <Box py={1} display="flex" justifyContent="space-between">
-                    <Tooltip arrow placement="top" disableInteractive title={email_details.tooltip}>
-                      <Typography fontWeight={600}>{email_details.header}</Typography>
-                    </Tooltip>
-                    <Typography>{email_details.numberOfEmails}</Typography>
-                  </Box>
-                </React.Fragment>
-              ))}
-            </Box>
           </>
         )}
         {showChartAlert && <ChartAlert />}

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
 
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Tooltip, IconButton, Typography } from '@mui/material';
 
 import { varAlpha } from 'src/theme/styles';
 import { startUpload, finishUpload, updateProgress } from 'src/redux/slice/upload-slice';
@@ -133,7 +133,7 @@ const FileUpload = forwardRef(
           {...other}
         />
         <Box
-        onClick={handleButtonClick}
+          onClick={handleButtonClick}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           sx={{
@@ -157,9 +157,11 @@ const FileUpload = forwardRef(
             }),
           }}
         >
-          <IconButton size="large" component="span" disabled={disabled}>
-            <Iconify width={32} icon="eva:cloud-upload-fill" />
-          </IconButton>
+          <Tooltip title="Choose or drag a file here." arrow placement="top">
+            <IconButton size="large" component="span" disabled={disabled}>
+              <Iconify width={32} icon="eva:cloud-upload-fill" />
+            </IconButton>
+          </Tooltip>
           <Typography
             variant="span"
             sx={{
@@ -172,9 +174,7 @@ const FileUpload = forwardRef(
             {uploadInformation.includes('Sample File') ? (
               <span>
                 <Box display="flex" justifyContent="center" gap={0.6}>
-                  <Typography sx={{ cursor: 'pointer' }}>
-                    Choose a file
-                  </Typography>
+                  <Typography sx={{ cursor: 'pointer' }}>Choose a file</Typography>
                   or drag it here.
                 </Box>
                 Supports: CSV

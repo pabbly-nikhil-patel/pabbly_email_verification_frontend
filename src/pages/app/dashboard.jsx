@@ -127,7 +127,7 @@ export default function Page() {
             link_added="https://forum.pabbly.com/forums/general-discussions.39/"
           />
           <Tooltip
-            title="Click here to Upload the CSV file which contains the emails list."
+            title="Start verifying email addresses from the list."
             arrow
             placement="top"
             disableInteractive
@@ -164,7 +164,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
-            tooltipTittle=" Total number of email credits allotted to your account."
+            tooltipTittle="Number of credits alloted to your account."
           />
           <StatsCards
             cardtitle="Email Credits Consumed"
@@ -172,7 +172,7 @@ export default function Page() {
             icon_name="Processed.svg"
             icon_color="#10CBF3"
             bg_gradient="#10CBF3"
-            tooltipTittle="Total number of email credits consumed by your account."
+            tooltipTittle="Number of credits consumed by your account."
           />
           <StatsCards
             cardtitle="Email Credits Remaining"
@@ -180,12 +180,13 @@ export default function Page() {
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
-            tooltipTittle=" Total number of email credits remaining in your account."
+            tooltipTittle="Number of credits remaining in your account."
           />
         </Box>
         <Box width="100%">
           <Box>
             <BigCard
+              tooltip="View file upload guidelines for email verification."
               getHelp={false}
               isVideo
               bigcardtitle="Upload Guidelines"
@@ -198,7 +199,7 @@ export default function Page() {
               bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
               action={
                 <Tooltip
-                  title="Click here to Upload the CSV file which contains the emails list."
+                  title="Start verifying email addresses from the list."
                   arrow
                   placement="top"
                   disableInteractive
@@ -250,7 +251,7 @@ export default function Page() {
             flexDirection: { xs: 'column', md: 'row' },
           }}
         >
-          <Box sx={{ width: { xs: '100%', md: '65%',zIndex:99 } }}>
+          <Box sx={{ width: { xs: '100%', md: '65%', zIndex: 99 } }}>
             <DashboardTable />
           </Box>
           <Box sx={{ width: { xs: '100%', md: '35%' } }}>

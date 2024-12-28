@@ -98,7 +98,7 @@ export default function Searchbar({ sx, ...other }) {
         </Box>
 
         <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
-          Search Report For0-
+          Search report by list here.
         </Typography>
 
         <Typography

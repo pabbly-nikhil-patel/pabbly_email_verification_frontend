@@ -98,7 +98,7 @@ export default function PabblyAppsMenu() {
 
   return (
     <>
-      <Tooltip title="Easily access all your Pabbly application from here." arrow placement="bottom">
+      <Tooltip title="Click here to access other apps from pabbly." arrow placement="bottom">
         <IconButton
           onClick={handleClick}
           sx={{

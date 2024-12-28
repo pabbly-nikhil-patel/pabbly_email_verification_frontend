@@ -20,11 +20,7 @@ export default function VerifySingleEmail({ onVerify, email, setEmail }) {
         sx={{ pb: 3 }}
         title={
           <Box display="inline-block">
-            <Tooltip
-              title="Check if single email address is valid and working"
-              arrow
-              placement="top"
-            >
+            <Tooltip title="Easily verify a single email address here." arrow placement="top">
               <Typography variant="h6">Verify Single Email</Typography>
             </Tooltip>
           </Box>
@@ -43,15 +39,17 @@ export default function VerifySingleEmail({ onVerify, email, setEmail }) {
           helperText="Enter an email address you want to verify"
         />
       </CardContent>
-      <CardActions sx={{ px: 3, pb: 3,pt:0 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={onVerify}
-          disabled={!email.trim()} // Disable button if email is empty
-        >
-          Verify
-        </Button>
+      <CardActions sx={{ px: 3, pb: 3, pt: 0 }}>
+        <Tooltip title="Click to verify the email address.">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onVerify}
+            disabled={!email.trim()} // Disable button if email is empty
+          >
+            Verify
+          </Button>
+        </Tooltip>
       </CardActions>
     </Card>
   );

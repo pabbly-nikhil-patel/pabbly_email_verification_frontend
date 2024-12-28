@@ -12,24 +12,23 @@ const metadata = { title: `Page Settings | Dashboard - ${CONFIG.site.name}` };
 export default function Page() {
   const EXAMPLE_TABS = [
     {
-        value: 'credits',
-        path: '/app/settings/credits',
-        icon: <Iconify icon="icons8:tasks" width={24} />,
-        label: 'Credits Summary',
-        tooltip: 'View the credits summary here.',
-        pageTitle: 'Credits Summary',
-        pageSubheading: 'Monitor your credit activity for email verification with insights into credits added, purchased, used, and available.',
-      },
+      value: 'credits',
+      path: '/app/settings/credits',
+      icon: <Iconify icon="icons8:tasks" width={24} />,
+      label: 'Credits Summary',
+      tooltip: 'Click to view credit summary.',
+      pageTitle: 'Credits Summary',
+      pageSubheading: 'View a summary of your email verification credits.',
+    },
     {
       value: 'timzone',
       path: '/app/settings/timezone',
       icon: <Iconify icon="icons8:tasks" width={24} />,
       label: 'Time Zone',
-      tooltip: 'Choose time-zone here.',
+      tooltip: 'View credit activity based on your time zone here.',
       pageTitle: 'Time Zone',
       pageSubheading: 'Manage your account time zone settings.',
     },
- 
 
     // ... more tabs
   ];
