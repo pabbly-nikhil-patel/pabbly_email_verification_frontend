@@ -37,7 +37,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
   const downloadActions = ['All Result', 'Deliverable', 'Undeliverable'];
   const [dialog, setDialog] = useState({
     open: false,
-    mode: '', 
+    mode: '',
   });
 
   const [hasShownUploadAlert, setHasShownUploadAlert] = useState(false);
@@ -150,36 +150,6 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     }
   }, [isVerificationCompleted]);
 
-  const EMAIL_DETAILS = [
-    {
-      header: 'Total Emails',
-      numberOfEmails: 156454,
-      tooltip: 'Total email addresses.',
-    },
-    {
-      header: 'Deliverable Emails',
-      numberOfEmails: 12244,
-      tooltip: 'The email address exists and accepts emails.',
-    },
-    {
-      header: 'Accept-all Emails',
-      numberOfEmails: 43313,
-      tooltip:
-        'The addresses cannot be verified as their mail server accepts both valid and invalid addresses.',
-    },
-    {
-      header: 'Undeliverable Emails',
-      numberOfEmails: 53345,
-      tooltip: 'The email address either does not exist or does not accept emails.',
-    },
-    {
-      header: 'Unknown Emails',
-      numberOfEmails: 78343,
-      tooltip:
-        'The emails could not be verified as their mail servers were unreachable during the process. Unknown addresses are tested multiple times from different locations before this result.',
-    },
-  ];
-
   return (
     <>
       <Card {...other}>
@@ -211,12 +181,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
             subheader={
               <>
                 Graphical representation of all the lists.{' '}
-                <Link
-                  href="https://your-link.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  underline="always"
-                >
+                <Link href="#" target="_blank" rel="noopener noreferrer" underline="always">
                   Learn more
                 </Link>
               </>

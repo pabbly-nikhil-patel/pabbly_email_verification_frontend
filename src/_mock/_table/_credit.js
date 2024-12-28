@@ -1,21 +1,7 @@
-import { _mock } from '../_mock';
-
 // ----------------------------------------------------------------------
 
 export const CREDIT_STATUS_OPTIONS = [
-  { value: 'completed', label: 'Completed' },
-  { value: 'processing', label: 'Processing' },
-  { value: 'unprocessed', label: 'Unprocessed' },
+  { value: 'verified_list', label: 'Verified List', tooltip: 'The email verification is process is completed on the uploaded email list.' },
+  { value: 'verified_email', label: 'Verified Email', tooltip: 'The email verification is started processing on the uploaded email list.' },
+  { value: 'added', label: 'Added', tooltip: 'The email verification has not yet started on the uploaded email list.' },
 ];
-
-export const _credit = [...Array(2)].map(( index) => {
-  const status = index % 3 === 0 ? 'completed' : index % 3 === 1 ? 'processing' : 'unprocessed';
-
-
-  return {
-    id: _mock.id(index),
-    createdAt: _mock.time(index),
-
-    status,
-  };
-});

@@ -9,7 +9,7 @@ import { Label } from 'src/components/label';
 // ----------------------------------------------------------------------
 
 export function CreditTableRow({ row, selected }) {
-  const timezone =", (UTC+05:30) Asia/Kolkata"
+  const timezone = ', (UTC+05:30) Asia/Kolkata';
   return (
     <TableRow hover>
       <TableCell width={300}>
@@ -18,7 +18,19 @@ export function CreditTableRow({ row, selected }) {
             arrow
             placement="top"
             disableInteractive
-            title={`Action occurred at: ${row.dateCreatedOn} ${timezone}`}
+            title={`Action occurred at: ${row.status} ${timezone}`}
+          >
+            <Label variant="soft" color={row.credits === 'Alloted' ? 'success' : 'error'}>
+              {row.status}
+            </Label>
+          </Tooltip>
+        </Stack>
+        <Stack spacing={2} direction="row" alignItems="center">
+          <Tooltip
+            arrow
+            placement="top"
+            disableInteractive
+            title={`Action occurred at: ${row.status} ${timezone}`}
           >
             <Box
               component="span"
@@ -59,9 +71,13 @@ export function CreditTableRow({ row, selected }) {
           </Box>
         </Tooltip>
       </TableCell>
-
-      <TableCell width={140}>
-        <Tooltip arrow placement="top" disableInteractive title={`Action: ${row.action}`}>
+      <TableCell width={140} align="right">
+        <Tooltip
+          arrow
+          placement="top"
+          disableInteractive
+          title={`Status: ${row.credits === 'Alloted' ? `Credits Alloted ${row.noOfCredits}` : `Credits Consumed ${row.noOfCredits}`}`}
+        >
           <Box
             component="span"
             sx={{
@@ -73,21 +89,8 @@ export function CreditTableRow({ row, selected }) {
               display: 'inline-block',
             }}
           >
-            {row.action}
-          </Box>
-        </Tooltip>
-      </TableCell>
-
-      <TableCell width={140} align="right">
-        <Tooltip
-          arrow
-          placement="top"
-          disableInteractive
-          title={`Status: ${row.credits === 'Alloted' ? `Credits Alloted ${row.noOfCredits}` : `Credits Consumed ${row.noOfCredits}`}`}
-        >
-          <Label variant="soft" color={row.credits === 'Alloted' ? 'success' : 'error'}>
             {row.credits === 'Alloted' ? row.noOfCredits : `-${row.noOfCredits}`}
-          </Label>
+          </Box>
         </Tooltip>
       </TableCell>
     </TableRow>

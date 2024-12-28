@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -30,8 +31,8 @@ import { CreditTableFiltersResult } from './credit-table-filters-result';
 
 const TABLE_HEAD = [
   {
-    id: 'date',
-    label: 'Log Date',
+    id: 'statusdate',
+    label: 'Status/Date',
     width: 'flex',
     whiteSpace: 'nowrap',
     tooltip: 'Date and time when the email verification action occurred.',
@@ -44,18 +45,9 @@ const TABLE_HEAD = [
     whiteSpace: 'nowrap',
     tooltip: 'Description of the email verification action or status update.',
   },
-
   {
-    id: 'action',
-    label: 'Action',
-    width: 'flex',
-    whiteSpace: 'nowrap',
-    align: 'left',
-    tooltip: 'Details for the action happened to list.',
-  },
-  {
-    id: 'status',
-    label: 'Status',
+    id: 'credits',
+    label: 'Credits',
     width: 'flex',
     whiteSpace: 'nowrap',
     align: 'right',
@@ -67,28 +59,28 @@ const dataOn = [
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
     message: 'Used in verifying "SampleImport_(3).csv" list',
-    action: 'Verified List',
+    status: 'Verified List',
     credits: 'Consumed',
     noOfCredits: 9,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
     message: 'Used in verifying "SampleImport_(3).csv" list',
-    action: 'Verified List',
+    status: 'Verified List',
     credits: 'Consumed',
     noOfCredits: 7,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
     message: 'Used in verifying email: ankit.mandli1@pabbly.com',
-    action: 'Verified Email',
+    status: 'Verified Email',
     credits: 'Consumed',
     noOfCredits: 1,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
     message: 'Email credits added by Admin',
-    action: 'Added',
+    status: 'Added',
     credits: 'Alloted',
     noOfCredits: 100,
   },
@@ -100,12 +92,13 @@ export function CreditTable() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const [tableData, setTableData] = useState(dataOn);
+  const theme = useTheme();
 
   const filters = useSetState({
     name: '',
     status: 'all',
   });
- 
+
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
@@ -145,6 +138,7 @@ export function CreditTable() {
           </Box>
         }
         sx={{ pb: 3 }}
+        subheader="All the email verification logs will appear here."
       />
       <Divider />
 
@@ -160,9 +154,7 @@ export function CreditTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        <Scrollbar
-        //  sx={{ minHeight: 444 }}
-        >
+        <Scrollbar>
           <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
             <TableHeadCustom
               showCheckbox={false}

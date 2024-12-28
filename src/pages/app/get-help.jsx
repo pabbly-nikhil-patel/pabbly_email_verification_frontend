@@ -7,8 +7,9 @@ import { Button, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
-import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
+import { listItems } from 'src/_mock/big-card/_getHelpBigCardListItems';
 
+import { Iconify } from 'src/components/iconify';
 import BigCard from 'src/components/big-card/big-card';
 import PageHeader from 'src/components/page-header/page-header';
 
@@ -20,7 +21,7 @@ const { items, style } = listItems;
 
 const metadata = { title: `Get Help | Pabbly Email Verification` };
 
-export default function Page({ sx, icon, title, total, color = 'warning', ...other }) {
+export default function GetHelp({ sx, icon, title, total, color = 'warning', ...other }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -55,7 +56,29 @@ export default function Page({ sx, icon, title, total, color = 'warning', ...oth
           items={items}
           thumbnailName="get-help-photo.png"
           keyword="Note:"
-          bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+          action={
+            <Tooltip
+              title="If you have any questions, you can ask directly from here."
+              arrow
+              placement="top"
+              disableInteractive
+            >
+              <Button
+                startIcon={
+                  <Iconify
+                    icon="heroicons:plus-circle-16-solid"
+                    style={{ width: 18, height: 18 }}
+                  />
+                }
+                sx={{ mt: 3 }}
+                variant="outlined"
+                color="primary"
+                size="large"
+              >
+                Ask Question
+              </Button>
+            </Tooltip>
+          }
         />
 
         <Box

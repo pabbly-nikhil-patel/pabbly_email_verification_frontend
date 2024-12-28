@@ -353,11 +353,9 @@ export function DashboardTable() {
         title="Delete"
         content="Are you sure you want to delete this email list?"
         action={
-     
-            <Button variant="contained" color="error" onClick={handleDelete}>
-              Delete
-            </Button>
-  
+          <Button variant="contained" color="error" onClick={handleDelete}>
+            Delete
+          </Button>
         }
       />
       <Snackbar
@@ -379,7 +377,7 @@ export function DashboardTable() {
             fontSize: '14px',
             fontWeight: 'bold',
             backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary, // Keeping text color consistent
+            color: theme.palette.text.primary,
             '& .MuiAlert-icon': {
               color:
                 snackbarState.severity === 'error'

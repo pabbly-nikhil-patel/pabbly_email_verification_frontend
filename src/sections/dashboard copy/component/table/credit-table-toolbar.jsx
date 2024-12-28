@@ -22,30 +22,22 @@ import { Iconify } from 'src/components/iconify';
 export function CreditTableToolbar({ filters, onResetPage, publish, onChangePublish }) {
   const theme = useTheme();
   const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
-  const [openDrawer, setOpenDrawer] = useState(false);
-
-  const handleOpenDrawer = () => {
-    setOpenDrawer(true);
-  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
-  const [selectedColumn, setSelectedColumn] = useState('');
-  const [operator, setOperator] = useState('contains');
-  const [filterValue, setFilterValue] = useState('');
 
-  const applicationName = ['Added', 'Verified Email', 'Verified List'];
+  const status = ['Added', 'Verified Email', 'Verified List'];
 
   const handlePopoverClose = () => setAnchorEl(null);
 
   const handleFilterName = (event) => {
-    onResetPage(); // Reset the page to page 1 when filtering
-    filters.setState({ name: event.target.value }); // Set the name filter based on the search input
+    onResetPage();
+    filters.setState({ name: event.target.value });
   };
 
   const [isFilterApplied, setFilterApplied] = useState(false); // Local filter state
 
-  const [selectedApplicationName, setSelectedApplicationName] = useState(null);
+  const [selectedstatus, setselectedstatus] = useState(null);
 
   const handleFilterIconClick = (e) => {
     e.stopPropagation();
@@ -56,10 +48,10 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
     }
   };
 
-  const hasAnyFilterSelected = Boolean(selectedApplicationName);
+  const hasAnyFilterSelected = Boolean(selectedstatus);
 
   const resetFilters = () => {
-    setSelectedApplicationName(null);
+    setselectedstatus(null);
     setFilterApplied(false);
   };
 
@@ -102,7 +94,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
         direction={isBelow600px ? 'column' : 'row'}
         sx={{ p: 2.5, width: '100%' }}
       >
-        {/* Search field */}
         <Box sx={{ width: '100%' }}>
           <TextField
             fullWidth
@@ -119,7 +110,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
           />
         </Box>
 
-        {/* Buttons container */}
         <Box
           sx={{
             display: 'flex',
@@ -129,10 +119,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
             justifyContent: 'flex-end',
           }}
         >
-          {/* {renderAddConnectionButton()} */}
-          {/* <NewAppDrawer open={openDrawer} onClose={handleCloseDrawer} /> */}
-
-          {/* Filter Button */}
           <Tooltip
             title={
               isFilterApplied
@@ -231,7 +217,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
         </MenuList>
       </Popover>
 
-      {/*  Filter Task */}
       <Popover
         open={Boolean(filterAnchorEl)}
         anchorEl={filterAnchorEl}
@@ -253,7 +238,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
             },
           }}
         >
-          {/* Filter Header */}
           <Box
             sx={{
               borderBottom: '1px dashed #919eab33',
@@ -282,7 +266,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
             />
           </Box>
 
-          {/* Filter Options */}
           <Box
             sx={{
               p: '16px 16px 0px 16px',
@@ -294,7 +277,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
               },
             }}
           >
-            {/* Application Name */}
             <Box
               sx={{
                 display: 'flex',
@@ -308,7 +290,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Action</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Status</Typography>
               </FormControl>
 
               <FormControl
@@ -339,17 +321,15 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
                     },
                   }}
                   size="small"
-                  options={applicationName}
-                  value={selectedApplicationName}
-                  onChange={(event, newValue) => setSelectedApplicationName(newValue)}
+                  options={status}
+                  value={selectedstatus}
+                  onChange={(event, newValue) => setselectedstatus(newValue)}
                   renderInput={(params) => <TextField {...params} label="Select" />}
-                  // sx={{ width: 300 }}
                 />
               </FormControl>
             </Box>
           </Box>
 
-          {/* Filter Footer */}
           <Box
             sx={{
               p: 2,
