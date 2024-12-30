@@ -125,7 +125,7 @@ export function DashboardTableRow({
               arrow
               placement="top"
               disableInteractive
-              title={`Date and Time of creation: ${timezone}`}
+              title={`List Uploaded: ${row.date}, ${timezone}`}
             >
               <Box
                 component="span"

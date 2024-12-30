@@ -180,7 +180,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
             }
             subheader={
               <>
-                Graphical representation of all the lists.{' '}
+                View summary of all the lists.{' '}
                 <Link href="#" target="_blank" rel="noopener noreferrer" underline="always">
                   Learn more
                 </Link>
