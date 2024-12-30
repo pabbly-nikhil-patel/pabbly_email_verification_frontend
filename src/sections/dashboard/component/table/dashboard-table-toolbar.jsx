@@ -29,7 +29,7 @@ export function DashboardTableToolbar({ filters, onResetPage }) {
           fullWidth
           value={filters.state.name}
           onChange={handleFilterName}
-          placeholder="Search by file name..."
+          placeholder="Search by list name..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

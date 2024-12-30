@@ -61,7 +61,7 @@ export default function ThreePage() {
           icon_name="Processed.svg"
           icon_color="#10CBF3"
           bg_gradient="#10CBF3"
-          tooltipTittle="Number of credits consumed to your account."
+          tooltipTittle="Number of credits consumed by your account."
         />
         <StatsCards
           cardtitle="Email Credits Remaining"

@@ -184,7 +184,7 @@ export default function TimeZonePage() {
 
           <Box>
             <Tooltip
-              title="Click 'Save' to apply the selected time zone to your account, ensuring that all workflow activities and task schedules reflect your local time."
+              title="Click 'Save' to apply the selected time zone to your account for list activities and verifications."
               arrow
               placement="top"
             >

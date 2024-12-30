@@ -50,18 +50,17 @@ import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 // ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = [
-  { value: 'all', label: 'All', tooltip: 'All uploaded lists.' },
+  { value: 'all', label: 'All', tooltip: 'Click here to view all list.' },
   ...DASHBOARD_STATUS_OPTIONS,
 ];
 
 const TABLE_HEAD = [
   {
     id: 'filename',
-    label: 'File Name & Status',
+    label: 'Status/Name/Date',
     width: 'flex',
     whiteSpace: 'nowrap',
-    tooltip:
-      'This is the name of the file which is uploaded and the status of the file wheater it is in processed , under varification and uploading',
+    tooltip: 'View list status, name and date of creation here.',
   },
 
   {
@@ -69,7 +68,7 @@ const TABLE_HEAD = [
     label: 'Action',
     width: 220,
     whiteSpace: 'nowrap',
-    tooltip: 'This is the action which you want to apply on you upload list.',
+    tooltip: 'Take actions on the list here.',
   },
 
   {
@@ -78,8 +77,7 @@ const TABLE_HEAD = [
     width: 'flex',
     whiteSpace: 'nowrap',
     align: 'right',
-    tooltip:
-      'This is the report which will navigate to the report page where you can see the list wise analytics of the processed list.',
+    tooltip: 'View any list report here.',
   },
   { id: '', width: 10 },
 ];
@@ -89,16 +87,19 @@ const dataOn = [
     status: 'unprocessed',
     name: 'pabbly_connect_users_email_list.csv',
     numberOfEmails: 65,
+    date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'processing',
     name: 'pabbly_chatflow_users_email_list.csv',
     numberOfEmails: 65,
+    date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'completed',
     name: 'clothing_users_email_list.csv',
     numberOfEmails: 653343,
+    date: 'Oct 23, 2024 17:45:32',
   },
 ];
 
