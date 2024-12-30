@@ -30,10 +30,10 @@ export const StyledDot = styled(Box)(() => ({
 
 const tooltipDescriptions = {
   'Total Emails': 'Total number of emails processed in verification.',
-  'Deliverable': 'Total number of emails deliverable in verification.',
+  Deliverable: 'Total number of emails deliverable in verification.',
   'Accept-all': 'Total number of emails accepted in verification.',
-  'Undeliverable': 'Total number of emails undeliverable in verification.',
-  'Unknown': 'Total number of emails unknown in verification.',
+  Undeliverable: 'Total number of emails undeliverable in verification.',
+  Unknown: 'Total number of emails unknown in verification.',
 };
 
 export function ChartLegends({ labels = [], colors = [], values = [], totalEmails, ...other }) {
@@ -43,26 +43,26 @@ export function ChartLegends({ labels = [], colors = [], values = [], totalEmail
   return (
     <Stack spacing={0} width="100%" px={3} {...other}>
       {allLabels?.map((label, index) => (
-        <Tooltip key={label} title={tooltipDescriptions[label] || ''} arrow placement="left">
-          <StyledLegend
-            sx={{
-              borderBottom: index === 0 ? '1px dashed' : 'none',
-              borderColor: 'divider',
-              pb: index === 0 ? 2 : 1,
-              pt: index === 1 ? 2 : 1,
-            }}
-          >
+        <StyledLegend
+          sx={{
+            borderBottom: index === 0 ? '1px dashed' : 'none',
+            borderColor: 'divider',
+            pb: index === 0 ? 2 : 1,
+            pt: index === 1 ? 2 : 1,
+          }}
+        >
+          <Tooltip key={label} title={tooltipDescriptions[label] || ''} arrow placement="left">
             <Box display="flex" alignItems="center" gap={1}>
               {index !== 0 && <StyledDot sx={{ color: colors[index - 1] }} />}
               <Typography fontSize="14px" fontWeight={index === 0 ? 800 : 600}>
                 {label}
               </Typography>
             </Box>
-            <Typography fontSize="14px" fontWeight={index === 0 ? 800 : 400}>
-              {allValues[index]?.toLocaleString()}
-            </Typography>
-          </StyledLegend>
-        </Tooltip>
+          </Tooltip>
+          <Typography fontSize="14px" fontWeight={index === 0 ? 800 : 400}>
+            {allValues[index]?.toLocaleString()}
+          </Typography>
+        </StyledLegend>
       ))}
     </Stack>
   );

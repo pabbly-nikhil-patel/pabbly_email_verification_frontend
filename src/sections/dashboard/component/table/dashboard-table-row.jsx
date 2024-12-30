@@ -96,7 +96,7 @@ export function DashboardTableRow({
               // title={csvfilesname[dashboardTableIndex % csvfilesname.length]}
               title={
                 <>
-                  List Name : {currentFile.name} ({currentFile.numberOfEmails})
+                  List Name: {currentFile.name} ({currentFile.numberOfEmails})
                   {/* Number of Emails: {currentFile.numberOfEmails} */}
                 </>
               }
@@ -183,7 +183,7 @@ export function DashboardTableRow({
             title={
               row.status === 'completed'
                 ? 'Click to view report of list.'
-                : 'Wait for the verification.'
+                : 'Verification in progress. Please wait.'
             }
             arrow
             placement="top"
