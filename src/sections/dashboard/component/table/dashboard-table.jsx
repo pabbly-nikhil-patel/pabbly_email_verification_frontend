@@ -23,8 +23,6 @@ import {
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
-import { fIsBetween } from 'src/utils/format-time';
-
 import { varAlpha } from 'src/theme/styles';
 import { DASHBOARD_STATUS_OPTIONS } from 'src/_mock/_table/_dashboard';
 
@@ -413,10 +411,25 @@ export function DashboardTable() {
   );
 }
 
-function applyFilter({ inputData, comparator, filters, dateError }) {
-  const { status, name, startDate, endDate } = filters;
+function applyFilter({ inputData, comparator, filters }) {
+  const { status, name } = filters;
 
-  const stabilizedThis = inputData.map((el, index) => [el, index]);
+  let filteredData = [...inputData];
+
+  // Filter by search text
+  if (name) {
+    filteredData = filteredData.filter((item) =>
+      item.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
+
+  // Filter by status
+  if (status !== 'all') {
+    filteredData = filteredData.filter((item) => item.status === status);
+  }
+
+  // Sort the data
+  const stabilizedThis = filteredData.map((el, index) => [el, index]);
 
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -424,25 +437,5 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
     return a[1] - b[1];
   });
 
-  inputData = stabilizedThis.map((el) => el[0]);
-
-  if (name) {
-    inputData = inputData.filter(
-      (order) =>
-        order.uploadedList.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        order.uploadedList.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
-    );
-  }
-
-  if (status !== 'all') {
-    inputData = inputData.filter((order) => order.status === status);
-  }
-
-  if (!dateError) {
-    if (startDate && endDate) {
-      inputData = inputData.filter((order) => fIsBetween(order.createdAt, startDate, endDate));
-    }
-  }
-
-  return inputData;
+  return stabilizedThis.map((el) => el[0]);
 }
