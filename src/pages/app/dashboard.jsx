@@ -19,6 +19,7 @@ import {
   DialogTitle,
   useMediaQuery,
   DialogContent,
+  Link,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -305,7 +306,10 @@ export default function Page() {
             <Box>
               <Typography variant="h6">Upload Email List</Typography>
               <Typography mt="4px" fontSize="14px" color="text.secondary">
-                Upload the email list you want to verify.
+                Upload the email list you want to verify.{' '}
+                <Link href="#" underline="always">
+                  Learn more
+                </Link>
               </Typography>
             </Box>
             <IconButton onClick={() => handleDialogClose('bulkEmail')}>
