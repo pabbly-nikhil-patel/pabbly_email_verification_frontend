@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 
 import {
   Box,
+  Link,
   Alert,
   Button,
   Dialog,
@@ -19,7 +20,6 @@ import {
   DialogTitle,
   useMediaQuery,
   DialogContent,
-  Link,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -185,7 +185,7 @@ export default function Page() {
             gap: 3,
             display: 'grid',
             flexWrap: 'wrap',
-            gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' },
+            gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' },
           }}
         >
           <StatsCards
@@ -210,6 +210,14 @@ export default function Page() {
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
+            tooltipTittle="Number of Emails credits remaining in your account."
+          />
+          <StatsCards
+            cardtitle="Total Number of Lists"
+            cardstats="10000"
+            icon_name="list.svg"
+            icon_color="#28a645"
+            bg_gradient="#28a645"
             tooltipTittle="Number of Emails credits remaining in your account."
           />
         </Box>
@@ -253,7 +261,7 @@ export default function Page() {
                     variant="outlined"
                     size="large"
                   >
-                    Upload File
+                    Verify Email
                   </Button>
                 </Tooltip>
               }

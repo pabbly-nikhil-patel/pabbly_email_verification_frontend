@@ -29,7 +29,7 @@ export function DashboardTableToolbar({ filters, onResetPage }) {
           fullWidth
           value={filters.state.name}
           onChange={handleFilterName}
-          placeholder="Search by list name..."
+          placeholder="Search by Email..."
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -38,8 +38,6 @@ export function DashboardTableToolbar({ filters, onResetPage }) {
             ),
           }}
         />
-
-        
       </Stack>
     </Stack>
   );

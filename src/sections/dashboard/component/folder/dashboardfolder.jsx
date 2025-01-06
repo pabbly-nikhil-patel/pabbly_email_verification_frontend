@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 
 import { styled } from '@mui/material/styles';
@@ -23,8 +24,10 @@ import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
 import { CustomPopover } from 'src/components/custom-popover';
+import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 import { CreateFolderDialog } from './createfolder';
+import { RenameFolderDialog } from './rename_folder-dailog';
 
 // Define all labels and tooltips in constants
 const LABELS = {
@@ -236,93 +239,118 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   };
 
   return (
-    <StyledTreeItem
-      ref={ref}
-      label={
-        <>
-          <Tooltip title={`Folder Name: ${fullLabel || label}`} arrow placement="top">
-            <Box sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }} onClick={handleItemClick}>
-              <span>{label}</span> {/* Truncated label for display */}
-            </Box>
-          </Tooltip>
-          {!hideEllipsis && id !== '0' && (
-            <IconButton onClick={handleIconClick} size="small">
-              <Tooltip title="Click to see options." arrow placement="top">
-                <Iconify icon="eva:more-vertical-fill" width={16} height={16} sx={{ ml: 'auto' }} />
-              </Tooltip>
-            </IconButton>
-          )}
+    <>
+      <StyledTreeItem
+        ref={ref}
+        label={
+          <>
+            <Tooltip title={`Folder Name: ${fullLabel || label}`} arrow placement="top">
+              <Box sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }} onClick={handleItemClick}>
+                <span>{label}</span> {/* Truncated label for display */}
+              </Box>
+            </Tooltip>
+            {!hideEllipsis && id !== '0' && (
+              <IconButton onClick={handleIconClick} size="small">
+                <Tooltip title="Click to see options." arrow placement="top">
+                  <Iconify
+                    icon="eva:more-vertical-fill"
+                    width={16}
+                    height={16}
+                    sx={{ ml: 'auto' }}
+                  />
+                </Tooltip>
+              </IconButton>
+            )}
 
-          <CustomPopover
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: 'offset',
-                  options: {
-                    offset: [0, 8],
+            <CustomPopover
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: 'offset',
+                    options: {
+                      offset: [0, 8],
+                    },
+                  },
+                ],
+              }}
+              sx={{
+                '& .MuiPaper-root': {
+                  borderRadius: 1,
+                  boxShadow: 3,
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    borderWidth: '6px',
+                    borderStyle: 'solid',
+                    borderColor: 'transparent transparent white transparent',
+                    transform: 'translateY(-100%) translateX(100%)',
+                    transformOrigin: 'bottom left',
                   },
                 },
-              ],
-            }}
-            sx={{
-              '& .MuiPaper-root': {
-                borderRadius: 1,
-                boxShadow: 3,
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  borderWidth: '6px',
-                  borderStyle: 'solid',
-                  borderColor: 'transparent transparent white transparent',
-                  transform: 'translateY(-100%) translateX(100%)',
-                  transformOrigin: 'bottom left',
-                },
-              },
-            }}
-          >
-            <MenuList>
-              <Tooltip title="Create a new folder." arrow placement="left">
-                <MenuItem onClick={handleCreateFolderClick}>
-                  <Iconify icon="fa6-solid:square-plus" />
-                  Create Folder
-                </MenuItem>
-              </Tooltip>
-              <Tooltip title="Change the folder's name." arrow placement="left">
-                <MenuItem onClick={handleRenameFolderClick}>
-                  <Iconify icon="fluent:rename-16-filled" />
-                  Rename
-                </MenuItem>
-              </Tooltip>
+              }}
+            >
+              <MenuList>
+                <Tooltip title="Create a new folder." arrow placement="left">
+                  <MenuItem onClick={handleCreateFolderClick}>
+                    <Iconify icon="fa6-solid:square-plus" />
+                    Create Folder
+                  </MenuItem>
+                </Tooltip>
+                <Tooltip title="Change the folder's name." arrow placement="left">
+                  <MenuItem onClick={handleRenameFolderClick}>
+                    <Iconify icon="fluent:rename-16-filled" />
+                    Rename
+                  </MenuItem>
+                </Tooltip>
+                <Divider style={{ borderStyle: 'dashed' }} />
 
-              <Tooltip title="Share the folder with others." arrow placement="left">
-                <MenuItem onClick={handleTeamMemberDialogClick}>
-                  <Iconify icon="jam:share-alt-f" />
-                  Share Folder
-                </MenuItem>
-              </Tooltip>
-              <Divider style={{ borderStyle: 'dashed' }} />
-
-              <Tooltip
-                title="Delete the folder and move the workflow to the trash."
-                arrow
-                placement="left"
-              >
-                <MenuItem onClick={handleDeleteClick} sx={{ color: 'error.main' }}>
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                  Delete
-                </MenuItem>
-              </Tooltip>
-            </MenuList>
-          </CustomPopover>
-        </>
-      }
-      {...other}
-    />
+                <Tooltip
+                  title="Delete the folder and move the workflow to the trash."
+                  arrow
+                  placement="left"
+                >
+                  <MenuItem onClick={handleDeleteClick} sx={{ color: 'error.main' }}>
+                    <Iconify icon="solar:trash-bin-trash-bold" />
+                    Delete
+                  </MenuItem>
+                </Tooltip>
+              </MenuList>
+            </CustomPopover>
+          </>
+        }
+        {...other}
+      />
+      <CreateFolderDialog open={folderDialogOpen} onClose={handleFolderDialogClose} />
+      <RenameFolderDialog
+        open={renameDialogOpen}
+        onClose={handleRenameFolderClose}
+        workflowName={selectedFolderName}
+      />{' '}
+      <ConfirmDialog
+        open={confirmDeleteOpen}
+        onClose={handleConfirmDeleteClose}
+        title="Do you really want to delete this folder?"
+        content={
+          <>
+            Note that upon deleting a folder, its subfolders are also deleted, and workflows are
+            moved to the home folder.{' '}
+            <Link href="/learn-more" target="_blank" rel="noopener noreferrer">
+              Learn more
+            </Link>
+          </>
+        }
+        action={
+          <Button variant="contained" color="error" onClick={handleConfirmDeleteClose}>
+            Delete
+          </Button>
+        }
+      />
+    </>
   );
 });
 
