@@ -100,9 +100,7 @@ export default function Page() {
         title: 'Verification Result',
       });
     }
-
-    // Optional: Reset email field after verification (if you want)
-    setEmail(''); // Uncomment if you want to reset email after verification
+    setEmail('');
   };
 
   function calculateStats(allottedCredits, consumedCredits) {
@@ -114,8 +112,8 @@ export default function Page() {
     };
   }
 
-  const allottedCredits = 10000; // Example value for allotted credits
-  const consumedCredits = 32; // Example value for consumed credits
+  const allottedCredits = 10000;
+  const consumedCredits = 32;
 
   const stats = calculateStats(allottedCredits, consumedCredits);
 
@@ -195,7 +193,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
-            tooltipTittle="Number of credits alloted to your account."
+            tooltipTittle="Number of Emails credits alloted to your account."
           />
           <StatsCards
             cardtitle="Email Credits Consumed"
@@ -203,7 +201,7 @@ export default function Page() {
             icon_name="Processed.svg"
             icon_color="#10CBF3"
             bg_gradient="#10CBF3"
-            tooltipTittle="Number of credits consumed by your account."
+            tooltipTittle="Number of Emails credits consumed by your account."
           />
           <StatsCards
             cardtitle="Email Credits Remaining"
@@ -211,7 +209,7 @@ export default function Page() {
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
-            tooltipTittle="Number of credits remaining in your account."
+            tooltipTittle="Number of Emails credits remaining in your account."
           />
         </Box>
         <Box
@@ -231,7 +229,7 @@ export default function Page() {
               tooltip="View file upload guidelines for email verification."
               getHelp={false}
               isVideo
-              bigcardtitle="Upload Guidelines"
+              bigcardtitle="Verification Guidelines"
               bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
               style={style}
               items={items}
@@ -247,15 +245,11 @@ export default function Page() {
                   disableInteractive
                 >
                   <Button
-                    startIcon={
-                      <Iconify
-                        icon="heroicons:plus-circle-16-solid"
-                        style={{ width: 18, height: 18 }}
-                      />
-                    }
-                    sx={{ mt: 3 }}
-                    variant="outlined"
+                    startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
+                    endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+                    onClick={handlePopoverOpen}
                     color="primary"
+                    variant="outlined"
                     size="large"
                   >
                     Upload File
@@ -307,10 +301,15 @@ export default function Page() {
           maxWidth="md"
           fullWidth
         >
-          <DialogTitle justifyContent="space-between" display="flex">
-            <Typography variant="h6">Upload Email List </Typography>
-            <IconButton>
-              <Iconify icon="eva:close-fill" />
+          <DialogTitle display="flex" justifyContent="space-between">
+            <Box>
+              <Typography variant="h6">Upload Email List</Typography>
+              <Typography mt="4px" fontSize="14px" color="text.secondary">
+                Upload the email list you want to verify.
+              </Typography>
+            </Box>
+            <IconButton onClick={() => handleDialogClose('bulkEmail')}>
+              <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
             </IconButton>
           </DialogTitle>
           <Divider />
@@ -336,7 +335,7 @@ export default function Page() {
           <MenuItem onClick={() => handleMenuItemClick('singleEmail')}>
             Verify Single Email
           </MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Email</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
         </MenuList>
       </Popover>
 

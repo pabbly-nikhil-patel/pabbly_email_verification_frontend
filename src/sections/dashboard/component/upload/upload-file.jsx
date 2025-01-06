@@ -6,13 +6,38 @@ import FileUpload from 'src/components/upload/upload';
 
 export default function Upload({ setAlertState }) {
   const [listName, setListName] = useState('');
-  const [selectedFolder, setSelectedFolder] = useState(null);
+  const [selectedFolder, setSelectedFolder] = useState('Home');
 
   const folders = [
-    { label: 'Default Folder' },
-    { label: 'Marketing' },
-    { label: 'Customers' },
-    { label: 'Newsletter' },
+    'None',
+    'Pabbly Connect',
+    'Home',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+    'Pabbly Subscription Billing',
+    'Pabbly Email Marketing',
+    'Pabbly Form Builder',
+    'Pabbly Email Verification',
+    'Pabbly Hook',
+    'Client (A)',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
   ];
 
   const handleListNameChange = (event) => {
@@ -35,7 +60,7 @@ export default function Upload({ setAlertState }) {
           helperText={
             <span>
               Enter the name of the email list here.{' '}
-              <Link href="#" underline="hover" onClick={() => console.log('Learn more clicked')}>
+              <Link href="#" underline="always" onClick={() => console.log('Learn more clicked')}>
                 Learn more
               </Link>
             </span>
@@ -50,7 +75,7 @@ export default function Upload({ setAlertState }) {
         <Autocomplete
           sx={{ mb: 3 }}
           options={folders}
-          getOptionLabel={(option) => option.label}
+          getOptionLabel={(option) => option} // Changed this line
           value={selectedFolder}
           onChange={handleFolderChange}
           renderInput={(params) => (
@@ -63,7 +88,7 @@ export default function Upload({ setAlertState }) {
                   Choose the folder where the list should be uploaded.{' '}
                   <Link
                     href="#"
-                    underline="hover"
+                    underline="always"
                     onClick={() => console.log('Learn more clicked')}
                   >
                     Learn more
@@ -104,7 +129,7 @@ export default function Upload({ setAlertState }) {
             borderRadius: 1,
           }}
         >
-          Verify
+          Upload
         </Button>
       </Box>
     </Box>

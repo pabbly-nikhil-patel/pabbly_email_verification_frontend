@@ -54,61 +54,25 @@ const STATUS_OPTIONS = [
   ...DASHBOARD_STATUS_OPTIONS,
 ];
 
-// const TABLE_HEAD = [
-//   {
-//     id: 'filename',
-//     label: 'Status/Name/Date',
-//     width: 'flex',
-//     whiteSpace: 'nowrap',
-//     tooltip: 'View list status, name and date of creation here.',
-//   },
-
-//   {
-//     id: 'consumed',
-//     label: 'No. of Emails & Credits Used',
-//     width: 220,
-//     whiteSpace: 'nowrap',
-//     tooltip: 'Number of credits used by this list',
-//   },
-
-//   {
-//     id: 'action',
-//     label: 'Action',
-//     width: 180,
-//     whiteSpace: 'nowrap',
-//     tooltip: 'Take actions on the list here.',
-//   },
-
-//   {
-//     id: 'report',
-//     label: 'Report',
-//     width: 'flex',
-//     whiteSpace: 'nowrap',
-//     align: 'right',
-//     tooltip: 'View any list report here.',
-//   },
-//   { id: '', width: 10 },
-// ];
-
 const TABLE_HEAD = [
   {
     id: 'filename',
     label: 'Status/Name/Date',
-    width: 400, // Specific width for the first column
+    width: 400,
     whiteSpace: 'nowrap',
     tooltip: 'View list status, name and date of creation here.',
   },
   {
     id: 'consumed',
     label: 'No. of Emails & Credits Used',
-    width: 400, // Specific width for the second column
+    width: 400,
     whiteSpace: 'nowrap',
     tooltip: 'Number of credits used by this list',
   },
   {
     id: 'action',
     label: 'Action',
-    width: 300, // Specific width for the action column
+    width: 300,
     whiteSpace: 'nowrap',
     align: 'right',
     tooltip: 'Take actions on the list here.',
@@ -148,7 +112,7 @@ export function DashboardTable() {
   const [tableData, setTableData] = useState(
     dataOn.map((item, index) => ({
       ...item,
-      id: index, // Add an id to each row for easier identification
+      id: index,
     }))
   );
 
@@ -214,8 +178,10 @@ export function DashboardTable() {
   const [selectedRow, setSelectedRow] = useState(null);
 
   const handleOpenPopover = (event, row) => {
-    setAnchorEl(event.currentTarget);
-    setSelectedRow(row);
+    if (row.status !== 'processing') {
+      setAnchorEl(event.currentTarget);
+      setSelectedRow(row);
+    }
   };
 
   const handleClosePopover = () => {
@@ -235,7 +201,6 @@ export function DashboardTable() {
   const theme = useTheme();
 
   const handleConfirmDelete = () => {
-    // Implement delete logic here
     confirmDelete.onTrue();
     handleClosePopover();
   };
@@ -258,7 +223,7 @@ export function DashboardTable() {
               arrow
               placement="top"
             >
-              <Typography variant="h6">Uploaded List</Typography>
+              <Typography variant="h6">Email List</Typography>
             </Tooltip>
           </Box>
         }
@@ -319,7 +284,6 @@ export function DashboardTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        {/* <Scrollbar sx={{ minHeight: 444 }}> */}
         <Table size={table.dense ? 'small' : 'medium'} sx={{}}>
           <TableHeadCustom
             showCheckbox={false}
@@ -377,7 +341,6 @@ export function DashboardTable() {
             )}
           </TableBody>
         </Table>
-        {/* </Scrollbar> */}
       </Box>
       <CustomPopover
         open={Boolean(anchorEl)}
@@ -386,12 +349,14 @@ export function DashboardTable() {
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <Tooltip title="Delete connection." arrow placement="left">
-            <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
-              Delete
-            </MenuItem>
-          </Tooltip>
+          {selectedRow && selectedRow.status !== 'processing' && (
+            <Tooltip title="Delete connection." arrow placement="left">
+              <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
+                <Iconify icon="solar:trash-bin-trash-bold" />
+                Delete
+              </MenuItem>
+            </Tooltip>
+          )}
         </MenuList>
       </CustomPopover>
       <ConfirmDialog

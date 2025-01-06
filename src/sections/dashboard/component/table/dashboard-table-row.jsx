@@ -206,75 +206,6 @@ export function DashboardTableRow({
             )}
           </Stack>
         </TableCell>
-
-        {/* <TableCell width={180}>
-          <Tooltip
-            title={
-              row.status === 'processing'
-                ? 'Verification in progress. Please wait.'
-                : row.status === 'completed'
-                  ? 'Click to download list'
-                  : 'Click to start verification on list'
-            }
-            arrow
-            placement="top"
-            disableInteractive
-          >
-            <span>
-              <Button
-                variant="outlined"
-                color="primary"
-                disabled={row.status === 'processing'}
-                onClick={
-                  row.status === 'processing' || row.status === 'completed'
-                    ? undefined
-                    : handleStartVerification
-                }
-              >
-                {row.status === 'processing' || row.status === 'completed'
-                  ? row.status === 'completed'
-                    ? 'Download'
-                    : 'Verification In Progress'
-                  : 'Start Verification'}
-              </Button>
-            </span>
-          </Tooltip>
-        </TableCell> */}
-
-        {/* <TableCell width={140} align="right">
-          <Tooltip
-            title={
-              row.status === 'completed'
-                ? 'Click to view report of list.'
-                : 'Verification in progress. Please wait.'
-            }
-            arrow
-            placement="top"
-            disableInteractive
-          >
-            <span>
-              <Button
-                variant="outlined"
-                color="success"
-                disabled={row.status === 'unprocessed' || row.status === 'processing'}
-                onClick={handleViewReport}
-              >
-                View Report
-              </Button>
-            </span>
-          </Tooltip>
-        </TableCell>
-
-        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-          <Tooltip title="Click for more options." arrow placement="top">
-            <IconButton
-              color={popover.open ? 'inherit' : 'default'}
-              onClick={(event) => onOpenPopover(event)}
-            >
-              <Iconify icon="eva:more-vertical-fill" />
-            </IconButton>
-          </Tooltip>
-        </TableCell> */}
         <TableCell width={300} align="right" sx={{ pr: 1 }}>
           <Stack direction="row" spacing={1} justifyContent="flex-end">
             <Tooltip
@@ -306,7 +237,7 @@ export function DashboardTableRow({
             </Tooltip>
           </Stack>
         </TableCell>
-        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+        {/* <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Click for more options." arrow placement="top">
             <IconButton
               color={popover.open ? 'inherit' : 'default'}
@@ -315,50 +246,36 @@ export function DashboardTableRow({
               <Iconify icon="eva:more-vertical-fill" />
             </IconButton>
           </Tooltip>
+        </TableCell> */}
+        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+          <Tooltip
+            title={
+              row.status === 'processing'
+                ? 'Actions unavailable during verification'
+                : 'Click for more options.'
+            }
+            arrow
+            placement="top"
+          >
+            <span>
+              {' '}
+              {/* Wrap in span to maintain tooltip during disabled state */}
+              <IconButton
+                color={popover.open ? 'inherit' : 'default'}
+                onClick={(event) => onOpenPopover(event)}
+                disabled={row.status === 'processing'}
+                sx={{
+                  '&.Mui-disabled': {
+                    opacity: 0.5,
+                  },
+                }}
+              >
+                <Iconify icon="eva:more-vertical-fill" />
+              </IconButton>
+            </span>
+          </Tooltip>
         </TableCell>
       </TableRow>
-
-      {/* <Drawer
-        anchor="right"
-        open={isDrawerOpen}
-        onClose={handleCloseDrawer}
-        PaperProps={{
-          sx: {
-            width: {
-              xs: '100%',
-              md: '600px',
-            },
-            p: 3,
-          },
-        }}
-      >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h6">Email Verification Report</Typography>
-          <IconButton
-            onClick={handleCloseDrawer}
-            sx={{
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-              },
-            }}
-          >
-            <Iconify icon="mingcute:close-line" />
-          </IconButton>
-        </Box>
-        <DashboardChart
-          showAlert={showAlert}
-          handleAlertClose={handleAlertClose}
-          title={currentFile.name} // Pass the current file name as title
-          chart={{
-            series: [
-              { label: 'Deliverable', value: 12244 },
-              { label: 'Undeliverable', value: 53345 },
-              { label: 'Accept-all', value: 44313 },
-              { label: 'Unknown', value: 78343 },
-            ],
-          }}
-        />
-      </Drawer> */}
       <Drawer
         anchor="right"
         open={isDrawerOpen}
