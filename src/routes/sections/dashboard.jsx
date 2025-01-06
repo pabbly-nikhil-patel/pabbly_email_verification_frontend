@@ -16,8 +16,7 @@ const GetHelpPage = lazy(() => import('src/pages/app/get-help'));
 const Settings = lazy(() => import('src/pages/app/settings'));
 const CreditsPage = lazy(() => import('src/sections/settings-page/credits'));
 const TimeZone = lazy(() => import('src/sections/settings-page/time-zone'));
-
-
+const Api = lazy(() => import('src/sections/settings-page/api'));
 
 // ----------------------------------------------------------------------
 
@@ -45,7 +44,7 @@ export const dashboardRoutes = [
           // { element: <PageFour />, index: true },
           { path: 'credits', element: <CreditsPage /> },
           { path: 'timezone', element: <TimeZone /> },
-        
+          { path: 'api', element: <Api /> },
         ],
       },
     ],

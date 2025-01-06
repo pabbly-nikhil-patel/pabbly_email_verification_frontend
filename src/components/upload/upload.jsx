@@ -138,10 +138,10 @@ const FileUpload = forwardRef(
           onDrop={handleDrop}
           sx={{
             cursor: 'pointer',
-            padding: '20px 20px 20px 20px',
             flexShrink: 0,
             display: 'flex',
             flexDirection: 'column',
+            padding: '20px 20px 20px 20px',
             borderRadius: 1,
             alignItems: 'center',
             color: 'text.disabled',

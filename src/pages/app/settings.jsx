@@ -29,6 +29,15 @@ export default function Page() {
       pageTitle: 'Time Zone',
       pageSubheading: 'Manage your account time zone settings.',
     },
+    {
+      value: 'api',
+      path: '/app/settings/api',
+      icon: <Iconify icon="icon-park-solid:api" width={24} />,
+      label: 'API',
+      tooltip: 'View credit activity based on your time zone here.',
+      pageTitle: 'API',
+      pageSubheading: 'Manage your account time zone settings.',
+    },
 
     // ... more tabs
   ];

@@ -1,48 +1,83 @@
-import {
-  Box,
-  Card,
-  Link,
-  Divider,
-  Tooltip,
-  CardHeader,
-  Typography,
-  CardContent,
-} from '@mui/material';
+import { useState } from 'react';
+
+import { Box, Link, Button, TextField, Autocomplete } from '@mui/material';
 
 import FileUpload from 'src/components/upload/upload';
 
 export default function Upload({ setAlertState }) {
+  const [listName, setListName] = useState('');
+  const [selectedFolder, setSelectedFolder] = useState(null);
+
+  const folders = [
+    { label: 'Default Folder' },
+    { label: 'Marketing' },
+    { label: 'Customers' },
+    { label: 'Newsletter' },
+  ];
+
+  const handleListNameChange = (event) => {
+    setListName(event.target.value);
+  };
+
+  const handleFolderChange = (event, newValue) => {
+    setSelectedFolder(newValue);
+  };
+
   return (
-    <Card>
-      <CardHeader
-        sx={{ pb: 3 }}
-        title={
-          <Box display="inline-block">
-            <Tooltip title="Verify multiple emails here with a CSV file." arrow placement="top">
-              <Typography variant="h6">
-                Verify Bulk Emails (Upload CSV File for Email Verification){' '}
-              </Typography>
-            </Tooltip>
-          </Box>
-        }
-        subheader={
-          <>
-            Only CSV files allowed. Download{' '}
-            <Tooltip title="Click to download the sample file." arrow placement="top">
-              <Link
-                href="/src/assets/sample-files/sample_csv.csv"
-                download
-                style={{ color: '#078DEE' }}
-              >
-                Sample File
-              </Link>{' '}
-            </Tooltip>
-            here.
-          </>
-        }
-      />
-      <Divider />
-      <CardContent>
+    <Box>
+      <Box>
+        <TextField
+          label="Email List Name"
+          fullWidth
+          value={listName}
+          onChange={handleListNameChange}
+          placeholder="Enter the name of the email list here"
+          helperText={
+            <span>
+              Enter the name of the email list here.{' '}
+              <Link href="#" underline="hover" onClick={() => console.log('Learn more clicked')}>
+                Learn more
+              </Link>
+            </span>
+          }
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: 1,
+            },
+            mb: '24px',
+          }}
+        />
+        <Autocomplete
+          sx={{ mb: 3 }}
+          options={folders}
+          getOptionLabel={(option) => option.label}
+          value={selectedFolder}
+          onChange={handleFolderChange}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Select Folder"
+              placeholder="Choose the folder where the list should be uploaded"
+              helperText={
+                <span>
+                  Choose the folder where the list should be uploaded.{' '}
+                  <Link
+                    href="#"
+                    underline="hover"
+                    onClick={() => console.log('Learn more clicked')}
+                  >
+                    Learn more
+                  </Link>
+                </span>
+              }
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 1,
+                },
+              }}
+            />
+          )}
+        />
         <FileUpload
           uploadInformation="Upload File OR Drag and Drop file here (Only CSV files allowed). Download  Sample File here."
           allowedFileTypes={['text/csv']}
@@ -50,7 +85,28 @@ export default function Upload({ setAlertState }) {
           fileErrorMessage="Please upload CSV file only."
           setAlertState={setAlertState}
         />
-      </CardContent>
-    </Card>
+      </Box>
+      <Box
+        sx={{
+          mt: 3,
+          px: 3,
+          pb: 3,
+          pt: 0,
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            minWidth: 120,
+            borderRadius: 1,
+          }}
+        >
+          Verify
+        </Button>
+      </Box>
+    </Box>
   );
 }

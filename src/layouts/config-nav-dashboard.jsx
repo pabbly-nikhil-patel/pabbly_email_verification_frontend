@@ -25,7 +25,7 @@ export const navData = [
   {
     items: [
       { title: 'Dashboard', path: paths.app.root, icon: ICONS.dashboard },
-      { title: 'Reports', path: paths.app.reports, icon: ICONS.reports },
+      // { title: 'Reports', path: paths.app.reports, icon: ICONS.reports },
       // { title: 'Credits', path: paths.app.credits, icon: ICONS.credits },
     ],
   },
@@ -38,6 +38,7 @@ export const navData = [
         children: [
           { title: 'Credits Summary', path: paths.app.settings.credits },
           { title: 'Time Zone', path: paths.app.settings.timezone },
+          { title: 'API', path: paths.app.settings.api },
         ],
       },
     ],

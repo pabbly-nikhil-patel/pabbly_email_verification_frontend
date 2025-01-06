@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -5,7 +6,14 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import { Box, Tooltip, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Drawer,
+  Tooltip,
+  IconButton,
+  Typography,
+  Backdrop as MuiBackdrop,
+} from '@mui/material';
 
 import { startVerification } from 'src/redux/slice/upload-slice';
 import { setSelectedListName } from 'src/redux/slice/listNameSlice';
@@ -14,7 +22,12 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { usePopover } from 'src/components/custom-popover';
 
-// ----------------------------------------------------------------------
+import { DashboardChart } from '../chart/dashboard-chart';
+
+// Custom backdrop for transparent background
+const CustomBackdrop = (props) => (
+  <MuiBackdrop {...props} sx={{ backgroundColor: 'transparent' }} />
+);
 
 export function DashboardTableRow({
   row,
@@ -26,32 +39,36 @@ export function DashboardTableRow({
   isProcessing,
   isCompleted,
 }) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [alertState, setAlertState] = useState(null);
+
   const csvfilesname = [{ name: row.name, numberOfEmails: row.numberOfEmails }];
   const timezone = '(UTC+05:30) Asia/Kolkata';
-
-  // Get the current file details based on the index
   const currentFile = csvfilesname[dashboardTableIndex % csvfilesname.length];
   const navigate = useNavigate();
   const popover = usePopover();
-  const handleViewReport = () => {
-    const listName = csvfilesname[dashboardTableIndex % csvfilesname.length];
-    dispatch(setSelectedListName(currentFile.name));
-    navigate('/app/reports');
-  };
-  const handelNavigate = () => {
-    navigate('/app/reports');
-  };
-
   const dispatch = useDispatch();
 
-  const handleStartVerification = () => {
-    onStartVerification(); // Update local state
-    dispatch(startVerification()); // Start verification process
+  const showAlert = (type, title, message) => {
+    console.log(`Alert Type: ${type}, Title: ${title}, Message: ${message}`);
+  };
 
-    // Simulate verification completion (remove in production)
-    // setTimeout(() => {
-    //   dispatch(finishVerification());
-    // }, 3000);
+  const handleAlertClose = () => {
+    console.log('Alert closed');
+  };
+
+  const handleViewReport = () => {
+    dispatch(setSelectedListName(currentFile.name)); // Dispatch selected list name
+    setIsDrawerOpen(true); // Open the drawer
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+  };
+
+  const handleStartVerification = () => {
+    onStartVerification();
+    dispatch(startVerification());
   };
 
   const renderPrimary = (
@@ -93,11 +110,9 @@ export function DashboardTableRow({
           </Stack>
           <Stack spacing={2} direction="row" alignItems="center">
             <Tooltip
-              // title={csvfilesname[dashboardTableIndex % csvfilesname.length]}
               title={
                 <>
                   List Name: {currentFile.name} ({currentFile.numberOfEmails})
-                  {/* Number of Emails: {currentFile.numberOfEmails} */}
                 </>
               }
               arrow
@@ -109,14 +124,13 @@ export function DashboardTableRow({
                 fontSize={14}
                 sx={{
                   mt: '4px',
-                  // color: 'text.disabled',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
                   maxWidth: '300px',
                 }}
               >
-                {currentFile.name} ({currentFile.numberOfEmails}){/* {commonIcon} */}
+                {currentFile.name} ({currentFile.numberOfEmails})
               </Typography>
             </Tooltip>
           </Stack>
@@ -201,6 +215,7 @@ export function DashboardTableRow({
             </span>
           </Tooltip>
         </TableCell>
+
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Click for more options." arrow placement="top">
             <IconButton
@@ -212,32 +227,63 @@ export function DashboardTableRow({
           </Tooltip>
         </TableCell>
       </TableRow>
-      {/* <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
+
+      <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={handleCloseDrawer}
+        PaperProps={{
+          sx: {
+            width: {
+              xs: '100%',
+              md: '600px',
+            },
+            p: 3,
+          },
+        }}
       >
-        <MenuList>
-          <Tooltip title="Update connection." arrow placement="left">
-            <MenuItem sx={{ color: 'secondary' }}>
-              <Iconify icon="material-symbols:settings-b-roll-rounded" />
-              Update
-            </MenuItem>
-          </Tooltip>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+          <Typography variant="h6">Upload Report</Typography>
+          <IconButton
+            onClick={handleCloseDrawer}
+            sx={{
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+              },
+            }}
+          >
+            <Iconify icon="mingcute:close-line" />
+          </IconButton>
+        </Box>
 
-          <Divider style={{ borderStyle: 'dashed' }} />
-
-          <Tooltip title="Delete connection." arrow placement="left">
-            <MenuItem sx={{ color: 'error.main' }}>
-              <Iconify icon="solar:trash-bin-trash-bold" />
-              Delete
-            </MenuItem>
+        <DashboardChart
+          showAlert={showAlert}
+          handleAlertClose={handleAlertClose}
+          title="List_name.csv"
+          chart={{
+            series: [
+              { label: 'Deliverable', value: 12244 },
+              { label: 'Undeliverable', value: 53345 },
+              { label: 'Accept-all', value: 44313 },
+              { label: 'Unknown', value: 78343 },
+            ],
+          }}
+        />
+        <Box pt={3} px={3} alignSelf='end' >
+          <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
+            <Button
+              variant="outlined"
+              color="primary"
+              // onClick={() => handleOpen('download')}
+              startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
+            >
+              Download Report
+            </Button>
           </Tooltip>
-        </MenuList>
-      </CustomPopover> */}
+        </Box>
+      </Drawer>
     </>
   );
 
-  return <>{renderPrimary}</>;
+  return renderPrimary;
 }

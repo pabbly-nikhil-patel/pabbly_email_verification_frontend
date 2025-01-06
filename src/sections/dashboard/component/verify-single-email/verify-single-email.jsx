@@ -2,33 +2,37 @@ import React from 'react';
 
 import {
   Box,
-  Card,
   Button,
   Divider,
   Tooltip,
   TextField,
   CardHeader,
   Typography,
-  CardActions,
   CardContent,
 } from '@mui/material';
 
 export default function VerifySingleEmail({ onVerify, email, setEmail }) {
   return (
-    <Card>
+    <Box>
       <CardHeader
-        sx={{ pb: 3 }}
+        sx={{
+          pt: 3,
+          px: 3,
+          pb: 2,
+        }}
         title={
           <Box display="inline-block">
             <Tooltip title="Easily verify a single email address here." arrow placement="top">
-              <Typography variant="h6">Verify Single Email</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                Verify Single Email
+              </Typography>
             </Tooltip>
           </Box>
         }
-        subheader="Verify single email to check email is valid or not."
+        subheader="Verify single email to check email is valid or not"
       />
       <Divider />
-      <CardContent>
+      <CardContent sx={{ p: 3 }}>
         <TextField
           label="Enter Email"
           fullWidth
@@ -37,20 +41,35 @@ export default function VerifySingleEmail({ onVerify, email, setEmail }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           helperText="Enter an email address you want to verify"
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: 1,
+            },
+          }}
         />
       </CardContent>
-      <CardActions sx={{ px: 3, pb: 3, pt: 0 }}>
-        <Tooltip title="Click to verify the email address.">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={onVerify}
-            disabled={!email.trim()} // Disable button if email is empty
-          >
-            Verify
-          </Button>
-        </Tooltip>
-      </CardActions>
-    </Card>
+      <Box
+        sx={{
+          px: 3,
+          pb: 3,
+          pt: 0,
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={onVerify}
+          disabled={!email.trim()}
+          sx={{
+            minWidth: 120,
+            borderRadius: 1,
+          }}
+        >
+          Verify
+        </Button>
+      </Box>
+    </Box>
   );
 }

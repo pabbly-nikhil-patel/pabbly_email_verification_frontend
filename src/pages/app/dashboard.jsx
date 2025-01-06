@@ -1,9 +1,25 @@
 /* eslint-disable consistent-return */
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Alert, Button, Tooltip, Snackbar, useMediaQuery } from '@mui/material';
+import {
+  Box,
+  Alert,
+  Button,
+  Dialog,
+  Popover,
+  Tooltip,
+  Divider,
+  Snackbar,
+  MenuList,
+  MenuItem,
+  IconButton,
+  Typography,
+  DialogTitle,
+  useMediaQuery,
+  DialogContent,
+} from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -14,8 +30,8 @@ import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
 import Upload from 'src/sections/dashboard/component/upload/upload-file';
+import FolderCard from 'src/sections/dashboard/component/folder/dashboardfolder';
 import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
-import { DashboardChart } from 'src/sections/dashboard/component/chart/dashboard-chart';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
 
 // ----------------------------------------------------------------------
@@ -24,7 +40,7 @@ const metadata = { title: `Dashboard | Pabbly Email Verification` };
 const { items, style } = listItems;
 
 export default function Page() {
-  const uploadComponentRef = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const [email, setEmail] = useState('');
 
@@ -35,6 +51,10 @@ export default function Page() {
     message: '',
     status: '',
   });
+
+  const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
+  const handlePopoverClose = () => setAnchorEl(null);
+
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -99,12 +119,26 @@ export default function Page() {
 
   const stats = calculateStats(allottedCredits, consumedCredits);
 
-  const scrollToUpload = () => {
-    uploadComponentRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
+  const [dialogState, setDialogState] = useState({
+    singleEmail: false,
+    bulkEmail: false,
+  });
+
+  const handleMenuItemClick = (type) => {
+    setDialogState((prev) => ({
+      ...prev,
+      [type]: true,
+    }));
+    handlePopoverClose();
   };
+
+  const handleDialogClose = (type) => {
+    setDialogState((prev) => ({
+      ...prev,
+      [type]: false,
+    }));
+  };
+
   return (
     <>
       <Helmet>
@@ -133,17 +167,14 @@ export default function Page() {
             disableInteractive
           >
             <Button
-              // onClick={buttonClick}
-              onClick={scrollToUpload}
-              sx={{ mt: isMobile ? 2 : 0 }}
-              startIcon={
-                <Iconify icon="heroicons:plus-circle-16-solid" style={{ width: 18, height: 18 }} />
-              }
-              size="large"
-              variant="contained"
+              startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
+              endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+              onClick={handlePopoverOpen}
               color="primary"
+              variant="contained"
+              size="large"
             >
-              Upload File
+              Verify Email
             </Button>
           </Tooltip>
         </Box>
@@ -183,8 +214,19 @@ export default function Page() {
             tooltipTittle="Number of credits remaining in your account."
           />
         </Box>
-        <Box width="100%">
+        <Box
+          width="100%"
+          sx={{
+            gap: 3,
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'stretch',
+          }}
+        >
           <Box>
+            <FolderCard />
+          </Box>
+          <Box gap={3}>
             <BigCard
               tooltip="View file upload guidelines for email verification."
               getHelp={false}
@@ -205,8 +247,6 @@ export default function Page() {
                   disableInteractive
                 >
                   <Button
-                    // onClick={buttonClick}
-                    onClick={scrollToUpload}
                     startIcon={
                       <Iconify
                         icon="heroicons:plus-circle-16-solid"
@@ -223,54 +263,82 @@ export default function Page() {
                 </Tooltip>
               }
             />
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            width: '100%',
-            gap: 3,
-            flexDirection: { xs: 'column', md: 'row' },
-            mt: 3,
-          }}
-        >
-          <Box sx={{ width: '100%' }}>
-            <VerifySingleEmail onVerify={handleVerify} email={email} setEmail={setEmail} />
-          </Box>
-          <Box sx={{ width: '100%' }} ref={uploadComponentRef}>
-            <Upload setAlertState={setAlertState} />
-          </Box>
-        </Box>
-
-        <Box
-          sx={{
-            mt: 3,
-            width: '100%',
-            display: 'flex',
-            gap: 3,
-            flexDirection: { xs: 'column', md: 'row' },
-          }}
-        >
-          <Box sx={{ width: { xs: '100%', md: '65%', zIndex: 99 } }}>
-            <DashboardTable />
-          </Box>
-          <Box sx={{ width: { xs: '100%', md: '35%' } }}>
-            <DashboardChart
-              showAlert={showAlert}
-              handleAlertClose={handleAlertClose}
-              title="List_name.csv"
-              chart={{
-                series: [
-                  { label: 'Deliverable', value: 12244 },
-                  { label: 'Undeliverable', value: 53345 },
-                  { label: 'Accept-all', value: 44313 },
-                  { label: 'Unknown', value: 78343 },
-                ],
-              }}
-            />
+            <Box sx={{ mt: 3 }}>
+              <DashboardTable />
+            </Box>
           </Box>
         </Box>
       </DashboardContent>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          gap: 3,
+          flexDirection: { xs: 'column', md: 'row' },
+          mt: 3,
+        }}
+      >
+        <Dialog
+          open={dialogState.singleEmail}
+          onClose={() => handleDialogClose('singleEmail')}
+          maxWidth="sm"
+          fullWidth
+          PaperProps={{
+            sx: {
+              borderRadius: 2,
+              maxWidth: 'sm',
+            },
+          }}
+        >
+          <DialogContent sx={{ p: 0 }}>
+            <VerifySingleEmail
+              onVerify={() => {
+                handleVerify();
+                handleDialogClose('singleEmail');
+              }}
+              email={email}
+              setEmail={setEmail}
+            />
+          </DialogContent>
+        </Dialog>
+        <Dialog
+          open={dialogState.bulkEmail}
+          onClose={() => handleDialogClose('bulkEmail')}
+          maxWidth="md"
+          fullWidth
+        >
+          <DialogTitle justifyContent="space-between" display="flex">
+            <Typography variant="h6">Upload Email List </Typography>
+            <IconButton>
+              <Iconify icon="eva:close-fill" />
+            </IconButton>
+          </DialogTitle>
+          <Divider />
+          <DialogContent sx={{ pt: 3 }}>
+            <Upload setAlertState={setAlertState} />
+          </DialogContent>
+        </Dialog>
+      </Box>
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuList>
+          <MenuItem onClick={() => handleMenuItemClick('singleEmail')}>
+            Verify Single Email
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Email</MenuItem>
+        </MenuList>
+      </Popover>
 
       <Snackbar
         open={alertState.open}
@@ -290,7 +358,7 @@ export default function Page() {
             fontSize: '14px',
             fontWeight: 'bold',
             backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary, // Keeping text color consistent
+            color: theme.palette.text.primary,
             '& .MuiAlert-icon': {
               color:
                 alertState.severity === 'error'
@@ -302,22 +370,6 @@ export default function Page() {
           {alertState.message}
         </Alert>
       </Snackbar>
-      {/* {alertState.open && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '80px',
-            right: '10px',
-            zIndex: 1000,
-            width: '700px',
-          }}
-        >
-          <Alert severity={alertState.color} onClose={handleAlertClose}>
-            <AlertTitle sx={{ textTransform: 'capitalize' }}>{alertState.title}</AlertTitle>
-            {alertState.message} — <strong>{alertState.status}</strong>
-          </Alert>
-        </div>
-      )} */}
     </>
   );
 }
