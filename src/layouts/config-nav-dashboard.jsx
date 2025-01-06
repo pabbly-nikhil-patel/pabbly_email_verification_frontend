@@ -37,8 +37,8 @@ export const navData = [
         icon: ICONS.settings,
         children: [
           { title: 'Credits Summary', path: paths.app.settings.credits },
-          { title: 'Time Zone', path: paths.app.settings.timezone },
           { title: 'API', path: paths.app.settings.api },
+          { title: 'Time Zone', path: paths.app.settings.timezone },
         ],
       },
     ],

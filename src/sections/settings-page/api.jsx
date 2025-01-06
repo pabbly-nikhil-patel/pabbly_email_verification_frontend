@@ -130,7 +130,7 @@ export default function API() {
             <Box display="inline-block">
               <Tooltip title="Easily verify a single email address here." arrow placement="top">
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                  Pabbly Email Verification Api
+                  Pabbly Email Verification API
                 </Typography>
               </Tooltip>
             </Box>
@@ -148,6 +148,7 @@ export default function API() {
               variant="outlined"
               type="password"
               value={secretvalues.password}
+              helperText='Use the "Copy" button to copy the key securely. Do not share this key with others.'
               InputProps={{
                 readOnly: true, // Makes the field read-only
                 endAdornment: (
@@ -184,6 +185,7 @@ export default function API() {
               variant="outlined"
               type="text"
               value={'•'.repeat(16)}
+              helperText='Use the "Copy" button to securely copy it. Keep it private and secure.'
               InputProps={{
                 readOnly: true,
                 endAdornment: (

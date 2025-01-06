@@ -54,8 +54,8 @@ export const paths = {
     settings: {
       root: `${ROOTS.app}/settings`,
       credits: `${ROOTS.app}/settings/credits`,
-      timezone: `${ROOTS.app}/settings/timezone`,
       api: `${ROOTS.app}/settings/api`,
+      timezone: `${ROOTS.app}/settings/timezone`,
      
     },
   },

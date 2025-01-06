@@ -157,8 +157,57 @@ export function DashboardTableRow({
             </Tooltip>
           </Stack>
         </TableCell>
+        <TableCell width={220}>
+          <Stack spacing={2} direction="row" alignItems="center">
+            <Tooltip
+              title={<>Number of Emails: ({currentFile.numberOfEmails})</>}
+              arrow
+              placement="top"
+              disableInteractive
+            >
+              <Typography
+                component="span"
+                fontSize={14}
+                sx={{
+                  mt: '4px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '300px',
+                }}
+              >
+                {currentFile.numberOfEmails} Emails
+              </Typography>
+            </Tooltip>
+          </Stack>
+          <Stack spacing={2} direction="row" alignItems="center">
+            {(row.status === 'processing' || row.status === 'completed') && (
+              <Tooltip
+                arrow
+                placement="top"
+                disableInteractive
+                title="Credits consumed for verification"
+              >
+                <Typography
+                  component="span"
+                  sx={{
+                    color: 'success.main',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '300px',
+                    display: 'inline-block',
+                    fontSize: '14px',
+                  }}
+                >
+                  {row.creditconsumed || `${currentFile.numberOfEmails} Credit Consumed`}
+                </Typography>
+              </Tooltip>
+            )}
+          </Stack>
+        </TableCell>
 
-        <TableCell width={200}>
+        <TableCell width={180}>
           <Tooltip
             title={
               row.status === 'processing'
@@ -269,18 +318,6 @@ export function DashboardTableRow({
             ],
           }}
         />
-        <Box pt={3} px={3} alignSelf='end' >
-          <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
-            <Button
-              variant="outlined"
-              color="primary"
-              // onClick={() => handleOpen('download')}
-              startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
-            >
-              Download Report
-            </Button>
-          </Tooltip>
-        </Box>
       </Drawer>
     </>
   );

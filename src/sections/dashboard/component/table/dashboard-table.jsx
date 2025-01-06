@@ -64,9 +64,17 @@ const TABLE_HEAD = [
   },
 
   {
+    id: 'consumed',
+    label: 'No. of Emails & Credits Used',
+    width: 220,
+    whiteSpace: 'nowrap',
+    tooltip: 'Number of credits used by this list',
+  },
+
+  {
     id: 'action',
     label: 'Action',
-    width: 220,
+    width: 180,
     whiteSpace: 'nowrap',
     tooltip: 'Take actions on the list here.',
   },
@@ -87,18 +95,21 @@ const dataOn = [
     status: 'unprocessed',
     name: 'pabbly_connect_users_email_list.csv',
     numberOfEmails: 65,
+    creditconsumed: '65 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'processing',
     name: 'pabbly_chatflow_users_email_list.csv',
     numberOfEmails: 65,
+    creditconsumed: '65 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'completed',
     name: 'clothing_users_email_list.csv',
     numberOfEmails: 653343,
+    creditconsumed: '653343 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',
   },
 ];
@@ -116,9 +127,18 @@ export function DashboardTable() {
   );
 
   const handleStartVerification = (rowId) => {
-    setProcessingRowId(rowId); // Store the current processing row ID
+    setProcessingRowId(rowId);
     setTableData((prevData) =>
-      prevData.map((row) => (row.id === rowId ? { ...row, status: 'processing' } : row))
+      prevData.map((row) => {
+        if (row.id === rowId) {
+          return {
+            ...row,
+            status: 'processing',
+            creditconsumed: `${row.numberOfEmails} Credit Consumed`,
+          };
+        }
+        return row;
+      })
     );
   };
 

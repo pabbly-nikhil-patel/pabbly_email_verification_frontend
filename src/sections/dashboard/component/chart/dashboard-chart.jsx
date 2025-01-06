@@ -154,10 +154,19 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     <>
       <Card {...other}>
         <Box
-          sx={{ display: 'flex', justifyContent: 'spaced-between', alignItems: 'center', px: 1 }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            p: 2,
+            width: '100%',
+          }}
         >
           <CardHeader
-            sx={{ width: '100%', px: 2 }}
+            sx={{
+              flex: 1,
+              p: 0,
+            }}
             title={
               <Typography
                 sx={{
@@ -174,7 +183,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   disableInteractive
                   title="Summary of email verification results for all lists."
                 >
-                  All Lists Summary
+                  <span>All Lists Summary</span>
                 </Tooltip>
               </Typography>
             }
@@ -187,8 +196,17 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
               </>
             }
           />
+          <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
+            >
+              Download Report
+            </Button>
+          </Tooltip>
         </Box>
-        <Divider sx={{ mt: 3 }} />
+        <Divider />
 
         {showChart && (
           <>

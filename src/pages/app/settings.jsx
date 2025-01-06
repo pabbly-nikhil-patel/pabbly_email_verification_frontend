@@ -21,15 +21,6 @@ export default function Page() {
       pageSubheading: 'View a summary of your email verification credits.',
     },
     {
-      value: 'timzone',
-      path: '/app/settings/timezone',
-      icon: <Iconify icon="icons8:tasks" width={24} />,
-      label: 'Time Zone',
-      tooltip: 'View credit activity based on your time zone here.',
-      pageTitle: 'Time Zone',
-      pageSubheading: 'Manage your account time zone settings.',
-    },
-    {
       value: 'api',
       path: '/app/settings/api',
       icon: <Iconify icon="icon-park-solid:api" width={24} />,
@@ -38,8 +29,15 @@ export default function Page() {
       pageTitle: 'API',
       pageSubheading: 'Manage your account time zone settings.',
     },
-
-    // ... more tabs
+    {
+      value: 'timzone',
+      path: '/app/settings/timezone',
+      icon: <Iconify icon="icons8:tasks" width={24} />,
+      label: 'Time Zone',
+      tooltip: 'View credit activity based on your time zone here.',
+      pageTitle: 'Time Zone',
+      pageSubheading: 'Manage your account time zone settings.',
+    },
   ];
   return (
     <>
