@@ -200,6 +200,9 @@ export default function API() {
               }}
             />
           </Box>
+          <Button variant="contained" sx={{ mt: '24px' }} size="large" color="primary">
+            Regenerate
+          </Button>
         </CardContent>
       </Card>
       <Snackbar

@@ -137,7 +137,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
         <Divider sx={{ mb: 3, borderStyle: 'dashed' }} />
 
         <DialogContent>
-          <Box display="flex" flexDirection="column" gap={2}>
+          <Box display="flex" flexDirection="column" gap={3}>
             <TextField
               autoFocus
               fullWidth

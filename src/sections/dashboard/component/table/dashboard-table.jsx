@@ -54,38 +54,64 @@ const STATUS_OPTIONS = [
   ...DASHBOARD_STATUS_OPTIONS,
 ];
 
+// const TABLE_HEAD = [
+//   {
+//     id: 'filename',
+//     label: 'Status/Name/Date',
+//     width: 'flex',
+//     whiteSpace: 'nowrap',
+//     tooltip: 'View list status, name and date of creation here.',
+//   },
+
+//   {
+//     id: 'consumed',
+//     label: 'No. of Emails & Credits Used',
+//     width: 220,
+//     whiteSpace: 'nowrap',
+//     tooltip: 'Number of credits used by this list',
+//   },
+
+//   {
+//     id: 'action',
+//     label: 'Action',
+//     width: 180,
+//     whiteSpace: 'nowrap',
+//     tooltip: 'Take actions on the list here.',
+//   },
+
+//   {
+//     id: 'report',
+//     label: 'Report',
+//     width: 'flex',
+//     whiteSpace: 'nowrap',
+//     align: 'right',
+//     tooltip: 'View any list report here.',
+//   },
+//   { id: '', width: 10 },
+// ];
+
 const TABLE_HEAD = [
   {
     id: 'filename',
     label: 'Status/Name/Date',
-    width: 'flex',
+    width: 400, // Specific width for the first column
     whiteSpace: 'nowrap',
     tooltip: 'View list status, name and date of creation here.',
   },
-
   {
     id: 'consumed',
     label: 'No. of Emails & Credits Used',
-    width: 220,
+    width: 400, // Specific width for the second column
     whiteSpace: 'nowrap',
     tooltip: 'Number of credits used by this list',
   },
-
   {
     id: 'action',
     label: 'Action',
-    width: 180,
-    whiteSpace: 'nowrap',
-    tooltip: 'Take actions on the list here.',
-  },
-
-  {
-    id: 'report',
-    label: 'Report',
-    width: 'flex',
+    width: 300, // Specific width for the action column
     whiteSpace: 'nowrap',
     align: 'right',
-    tooltip: 'View any list report here.',
+    tooltip: 'Take actions on the list here.',
   },
   { id: '', width: 10 },
 ];

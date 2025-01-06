@@ -16,7 +16,6 @@ import {
 } from '@mui/material';
 
 import { startVerification } from 'src/redux/slice/upload-slice';
-import { setSelectedListName } from 'src/redux/slice/listNameSlice';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
@@ -57,24 +56,25 @@ export function DashboardTableRow({
     console.log('Alert closed');
   };
 
-  const handleViewReport = () => {
-    dispatch(setSelectedListName(currentFile.name)); // Dispatch selected list name
-    setIsDrawerOpen(true); // Open the drawer
-  };
-
-  const handleCloseDrawer = () => {
-    setIsDrawerOpen(false);
-  };
-
   const handleStartVerification = () => {
     onStartVerification();
     dispatch(startVerification());
   };
 
+  const handleAction = () => {
+    if (row.status === 'unprocessed') {
+      onStartVerification();
+      dispatch(startVerification());
+      setIsDrawerOpen(true);
+    } else if (row.status === 'completed') {
+      setIsDrawerOpen(true);
+    }
+  };
+
   const renderPrimary = (
     <>
       <TableRow hover selected={selected}>
-        <TableCell width={300}>
+        <TableCell width={400}>
           <Stack
             spacing={2}
             direction="row"
@@ -157,7 +157,7 @@ export function DashboardTableRow({
             </Tooltip>
           </Stack>
         </TableCell>
-        <TableCell width={220}>
+        <TableCell width={400}>
           <Stack spacing={2} direction="row" alignItems="center">
             <Tooltip
               title={<>Number of Emails: ({currentFile.numberOfEmails})</>}
@@ -207,7 +207,7 @@ export function DashboardTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell width={180}>
+        {/* <TableCell width={180}>
           <Tooltip
             title={
               row.status === 'processing'
@@ -239,9 +239,9 @@ export function DashboardTableRow({
               </Button>
             </span>
           </Tooltip>
-        </TableCell>
+        </TableCell> */}
 
-        <TableCell width={140} align="right">
+        {/* <TableCell width={140} align="right">
           <Tooltip
             title={
               row.status === 'completed'
@@ -274,10 +274,51 @@ export function DashboardTableRow({
               <Iconify icon="eva:more-vertical-fill" />
             </IconButton>
           </Tooltip>
+        </TableCell> */}
+        <TableCell width={300} align="right" sx={{ pr: 1 }}>
+          <Stack direction="row" spacing={1} justifyContent="flex-end">
+            <Tooltip
+              title={
+                row.status === 'processing'
+                  ? 'Verification in progress. Please wait.'
+                  : row.status === 'completed'
+                    ? 'View Report'
+                    : 'Click to start verification'
+              }
+              arrow
+              placement="top"
+              disableInteractive
+            >
+              <span>
+                <Button
+                  variant="outlined"
+                  color={row.status === 'completed' ? 'success' : 'primary'}
+                  disabled={row.status === 'processing'}
+                  onClick={handleAction}
+                >
+                  {row.status === 'processing'
+                    ? 'Verification In Progress'
+                    : row.status === 'completed'
+                      ? 'View Report'
+                      : 'Start Verification'}
+                </Button>
+              </span>
+            </Tooltip>
+          </Stack>
+        </TableCell>
+        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+          <Tooltip title="Click for more options." arrow placement="top">
+            <IconButton
+              color={popover.open ? 'inherit' : 'default'}
+              onClick={(event) => onOpenPopover(event)}
+            >
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          </Tooltip>
         </TableCell>
       </TableRow>
 
-      <Drawer
+      {/* <Drawer
         anchor="right"
         open={isDrawerOpen}
         onClose={handleCloseDrawer}
@@ -292,7 +333,7 @@ export function DashboardTableRow({
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h6">Upload Report</Typography>
+          <Typography variant="h6">Email Verification Report</Typography>
           <IconButton
             onClick={handleCloseDrawer}
             sx={{
@@ -304,11 +345,47 @@ export function DashboardTableRow({
             <Iconify icon="mingcute:close-line" />
           </IconButton>
         </Box>
+        <DashboardChart
+          showAlert={showAlert}
+          handleAlertClose={handleAlertClose}
+          title={currentFile.name} // Pass the current file name as title
+          chart={{
+            series: [
+              { label: 'Deliverable', value: 12244 },
+              { label: 'Undeliverable', value: 53345 },
+              { label: 'Accept-all', value: 44313 },
+              { label: 'Unknown', value: 78343 },
+            ],
+          }}
+        />
+      </Drawer> */}
+      <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        PaperProps={{
+          sx: {
+            width: {
+              xs: '100%',
+              md: '600px',
+            },
+            p: 3,
+          },
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+          <Typography variant="h6">
+            {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'}
+          </Typography>
+          <IconButton onClick={() => setIsDrawerOpen(false)}>
+            <Iconify icon="mingcute:close-line" />
+          </IconButton>
+        </Box>
 
         <DashboardChart
           showAlert={showAlert}
           handleAlertClose={handleAlertClose}
-          title="List_name.csv"
+          title={currentFile.name}
           chart={{
             series: [
               { label: 'Deliverable', value: 12244 },
