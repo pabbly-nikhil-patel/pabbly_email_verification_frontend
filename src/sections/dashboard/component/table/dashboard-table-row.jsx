@@ -104,7 +104,7 @@ export function DashboardTableRow({
       case 'processing':
         return 'Verification In Progress';
       case 'uploading':
-        return 'Uploading...';
+        return 'Uploading';
       case 'unprocessed':
         return 'Start Verification';
       default:
@@ -258,11 +258,7 @@ export function DashboardTableRow({
               disableInteractive
             >
               <span>
-                <Button
-                  variant="outlined"
-                  color={getStatusColor(row.status)}
-                  onClick={handleAction}
-                >
+                <Button variant="outlined" color="primary" onClick={handleAction}>
                   {getButtonText(row.status)}
                 </Button>
               </span>

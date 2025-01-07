@@ -45,7 +45,7 @@ export default function GetHelp({ sx, icon, title, total, color = 'warning', ...
           <PageHeader
             title="Help & Tutorials"
             Subheading="Tell us about your problem, and we’ll find you a solution."
-            link_added="#"
+            link_added="https://forum.pabbly.com/threads/help-tutorials.26324/"
           />
         </Box>
         <BigCard

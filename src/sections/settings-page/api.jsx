@@ -159,7 +159,7 @@ export default function API() {
                   <InputAdornment position="end">
                     <Tooltip title="Copy API key" placement="top">
                       <IconButton onClick={() => handleCopy('api')} edge="end">
-                        <Iconify icon="solar:copy-bold" width={24} />
+                        <Iconify icon="solar:copy-bold" width={18} />
                       </IconButton>
                     </Tooltip>
                   </InputAdornment>
