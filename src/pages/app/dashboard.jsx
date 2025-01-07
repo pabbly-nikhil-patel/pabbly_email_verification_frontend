@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
@@ -34,16 +33,16 @@ import Upload from 'src/sections/dashboard/component/upload/upload-file';
 import FolderCard from 'src/sections/dashboard/component/folder/dashboardfolder';
 import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
-
-// ----------------------------------------------------------------------
+import { DashboardTrashTable } from 'src/sections/dashboard/component/dashboard-trash-table/dashboard-trash-table';
 
 const metadata = { title: `Dashboard | Pabbly Email Verification` };
 const { items, style } = listItems;
 
 export default function Page() {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const [email, setEmail] = useState('');
+  const [activeTable, setActiveTable] = useState('dashboard');
+  const [selectedFolder, setSelectedFolder] = useState('Home');
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -56,6 +55,15 @@ export default function Page() {
   const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
   const handlePopoverClose = () => setAnchorEl(null);
 
+  const handleTrashClick = () => {
+    setActiveTable('trash');
+  };
+
+  const handleHomeClick = () => {
+    setActiveTable('dashboard');
+    setSelectedFolder('Home');
+  };
+
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -65,25 +73,14 @@ export default function Page() {
       open: false,
     }));
   };
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const showAlert = (color, title, message, status) => {
-    setAlertState({
-      open: true,
-      color,
-      title,
-      message,
-      status,
-    });
-  };
-
   const handleVerify = () => {
-    // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(email)) {
-      // Valid email
       setAlertState({
         open: true,
         severity: 'success',
@@ -92,7 +89,6 @@ export default function Page() {
         title: 'Verification Result',
       });
     } else {
-      // Invalid email
       setAlertState({
         open: true,
         severity: 'error',
@@ -157,7 +153,7 @@ export default function Page() {
           <PageHeader
             title="Dashboard"
             Subheading="Enhance your email list quality with advanced verification tools, reducing bounce rates and maximizing deliverability."
-            link_added="https://forum.pabbly.com/forums/general-discussions.39/"
+            link_added="https://forum.pabbly.com/threads/dashboard.26311/"
           />
           <Tooltip
             title="Start verifying email addresses from the list."
@@ -194,7 +190,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
-            tooltipTittle="Number of Emails credits alloted to your account."
+            tooltipTittle="Number of emails credits alloted to your account."
           />
           <StatsCards
             cardtitle="Email Credits Consumed"
@@ -202,7 +198,7 @@ export default function Page() {
             icon_name="Processed.svg"
             icon_color="#10CBF3"
             bg_gradient="#10CBF3"
-            tooltipTittle="Number of Emails credits consumed by your account."
+            tooltipTittle="Number of emails credits consumed by your account."
           />
           <StatsCards
             cardtitle="Email Credits Remaining"
@@ -210,15 +206,15 @@ export default function Page() {
             icon_name="Complete.svg"
             icon_color="#1D88FA"
             bg_gradient="#1D88FA"
-            tooltipTittle="Number of Emails credits remaining in your account."
+            tooltipTittle="Number of emails credits remaining in your account."
           />
           <StatsCards
-            cardtitle="Total Number of Lists"
+            cardtitle="Total Number of Email Lists"
             cardstats="100"
             icon_name="list.svg"
             icon_color="#28a645"
             bg_gradient="#28a645"
-            tooltipTittle="Number of Emails credits remaining in your account."
+            tooltipTittle="Number of email lists uploaded in your account."
           />
         </Box>
         <Box
@@ -231,7 +227,12 @@ export default function Page() {
           }}
         >
           <Box>
-            <FolderCard />
+            <FolderCard
+              // onFolderSelect={setSelectedFolder}
+              onHomeClick={handleHomeClick}
+              onTrashClick={handleTrashClick}
+              activeTable={activeTable}
+            />
           </Box>
           <Box gap={3}>
             <BigCard
@@ -267,69 +268,67 @@ export default function Page() {
               }
             />
             <Box sx={{ mt: 3 }}>
-              <DashboardTable />
+              {activeTable === 'trash' ? (
+                <DashboardTrashTable />
+              ) : (
+                <DashboardTable selectedFolder={selectedFolder} />
+              )}
             </Box>
           </Box>
         </Box>
       </DashboardContent>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100%',
-          gap: 3,
-          flexDirection: { xs: 'column', md: 'row' },
-          mt: 3,
+
+      <Dialog
+        open={dialogState.singleEmail}
+        onClose={() => handleDialogClose('singleEmail')}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            maxWidth: 'sm',
+          },
         }}
       >
-        <Dialog
-          open={dialogState.singleEmail}
-          onClose={() => handleDialogClose('singleEmail')}
-          maxWidth="sm"
-          fullWidth
-          PaperProps={{
-            sx: {
-              borderRadius: 2,
-              maxWidth: 'sm',
-            },
-          }}
-        >
-          <DialogContent sx={{ p: 0 }}>
-            <VerifySingleEmail
-              onVerify={() => {
-                handleVerify();
-                handleDialogClose('singleEmail');
-              }}
-              email={email}
-              setEmail={setEmail}
-            />
-          </DialogContent>
-        </Dialog>
-        <Dialog
-          open={dialogState.bulkEmail}
-          onClose={() => handleDialogClose('bulkEmail')}
-          maxWidth="md"
-          fullWidth
-        >
-          <DialogTitle display="flex" justifyContent="space-between">
-            <Box>
-              <Typography variant="h6">Upload Email List</Typography>
-              <Typography mt="4px" fontSize="14px" color="text.secondary">
-                Upload the email list you want to verify.{' '}
-                <Link href="#" underline="always">
-                  Learn more
-                </Link>
-              </Typography>
-            </Box>
-            <IconButton onClick={() => handleDialogClose('bulkEmail')}>
-              <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
-            </IconButton>
-          </DialogTitle>
-          <Divider />
-          <DialogContent sx={{ pt: 3 }}>
-            <Upload setAlertState={setAlertState} />
-          </DialogContent>
-        </Dialog>
-      </Box>
+        <DialogContent sx={{ p: 0 }}>
+          <VerifySingleEmail
+            onVerify={() => {
+              handleVerify();
+              handleDialogClose('singleEmail');
+            }}
+            email={email}
+            setEmail={setEmail}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={dialogState.bulkEmail}
+        onClose={() => handleDialogClose('bulkEmail')}
+        // maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle display="flex" justifyContent="space-between">
+          <Box>
+            <Typography variant="h6">Verify Bulk Email List</Typography>
+            <Typography mt="4px" fontSize="14px" color="text.secondary">
+              Only CSV files allowed. Download{' '}
+              <Link href="/SampleImport.csv" download underline="always">
+                Sample File
+              </Link>{' '}
+              here.
+            </Typography>
+          </Box>
+          <IconButton onClick={() => handleDialogClose('bulkEmail')}>
+            <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
+          </IconButton>
+        </DialogTitle>
+        <Divider />
+        <DialogContent sx={{ pt: 3 }}>
+          <Upload setAlertState={setAlertState} />
+        </DialogContent>
+      </Dialog>
+
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}

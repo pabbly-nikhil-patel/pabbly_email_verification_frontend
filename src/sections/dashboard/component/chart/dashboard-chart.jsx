@@ -41,17 +41,17 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
     {
       id: 'all-results',
       itemName: 'All Result',
-      itemIcon: 'ci:check-all',
+      itemIcon: 'material-symbols:check-circle',
     },
     {
       id: 'deliverable',
       itemName: 'Deliverable',
-      itemIcon: 'charm:tick',
+      itemIcon: 'ep:list',
     },
     {
       id: 'undeliverable',
       itemName: 'Undeliverable',
-      itemIcon: 'charm:cross',
+      itemIcon: 'gridicons:cross-circle',
     },
   ];
 
@@ -211,16 +211,19 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
               </>
             }
           />
-          <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => handleOpen('download')}
-              startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
-            >
-              Download Report
-            </Button>
-          </Tooltip>
+          {/* Only show download button when not uploading or processing */}
+          {!isUploading && !isStartVerification && isVerificationCompleted && (
+            <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => handleOpen('download')}
+                startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
+              >
+                Download Report
+              </Button>
+            </Tooltip>
+          )}
         </Box>
         <Divider />
 
@@ -262,10 +265,10 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
       </Card>
 
       <Dialog open={dialog.open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <Box sx={{ position: 'relative', p: 2 }}>
+        <Box sx={{ position: 'relative' }}>
           {dialog.mode === 'download' && (
             <>
-              <DialogTitle sx={{ p: 0, mb: 2 }}>
+              <DialogTitle sx={{ p: 2 }}>
                 <Typography variant="h6">Download Verification Result</Typography>
                 <IconButton
                   onClick={handleClose}
@@ -279,8 +282,8 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   <Iconify icon="eva:close-fill" />
                 </IconButton>
               </DialogTitle>
-
-              <Box sx={{ px: 1 }}>
+              <Divider sx={{ width: '100%', mb: 3 }} />
+              <Box sx={{ px: 2 }}>
                 <Box
                   sx={{
                     display: 'grid',
@@ -347,8 +350,8 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   removed automatically after 15 days.
                 </Typography>
 
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button variant="contained" onClick={handleDownload}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+                  <Button variant="contained" onClick={handleDownload} color="primary">
                     Download CSV
                   </Button>
                 </Box>

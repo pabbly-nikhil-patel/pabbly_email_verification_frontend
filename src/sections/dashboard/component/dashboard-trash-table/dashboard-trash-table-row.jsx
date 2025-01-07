@@ -28,7 +28,7 @@ const CustomBackdrop = (props) => (
   <MuiBackdrop {...props} sx={{ backgroundColor: 'transparent' }} />
 );
 
-export function DashboardTableRow({
+export function DashboardTrashTableRow({
   row,
   selected,
   dashboardTableIndex,
@@ -62,53 +62,12 @@ export function DashboardTableRow({
   };
 
   const handleAction = () => {
-    switch (row.status) {
-      case 'unprocessed':
-        onStartVerification();
-        dispatch(startVerification());
-        setIsDrawerOpen(true);
-        break;
-      case 'completed':
-        setIsDrawerOpen(true);
-        break;
-      case 'processing':
-      case 'uploading':
-        setIsDrawerOpen(true); // Show progress drawer for both states
-        break;
-      default:
-        break;
-    }
-  };
-
-  // Status color mapping
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'success';
-      case 'processing':
-        return 'info';
-      case 'uploading':
-        return 'warning';
-      case 'unprocessed':
-        return 'error';
-      default:
-        return 'default';
-    }
-  };
-
-  // Button text mapping
-  const getButtonText = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'View Report';
-      case 'processing':
-        return 'Verification In Progress';
-      case 'uploading':
-        return 'Uploading...';
-      case 'unprocessed':
-        return 'Start Verification';
-      default:
-        return '';
+    if (row.status === 'unprocessed') {
+      onStartVerification();
+      dispatch(startVerification());
+      setIsDrawerOpen(true);
+    } else if (row.status === 'completed') {
+      setIsDrawerOpen(true);
     }
   };
 
@@ -127,20 +86,24 @@ export function DashboardTableRow({
             }}
           >
             <Tooltip
-              title={
-                row.status === 'processing'
-                  ? 'Click to view verification progress'
-                  : row.status === 'uploading'
-                    ? 'Click to view upload progress'
-                    : row.status === 'completed'
-                      ? 'View Report'
-                      : 'Click to start verification'
-              }
+              title={`${
+                (row.status === 'unprocessed' && 'List is Unprocessed.') ||
+                (row.status === 'completed' && 'List is Completed.') ||
+                (row.status === 'processing' && 'List is Processing.')
+              }`}
               arrow
               placement="top"
               disableInteractive
             >
-              <Label variant="soft" color={getStatusColor(row.status)}>
+              <Label
+                variant="soft"
+                color={
+                  (row.status === 'unprocessed' && 'error') ||
+                  (row.status === 'completed' && 'success') ||
+                  (row.status === 'processing' && 'info') ||
+                  'default'
+                }
+              >
                 {row.status}
               </Label>
             </Tooltip>
@@ -260,19 +223,34 @@ export function DashboardTableRow({
               <span>
                 <Button
                   variant="outlined"
-                  color={getStatusColor(row.status)}
+                  color={row.status === 'completed' ? 'success' : 'primary'}
+                  disabled={row.status === 'processing'}
                   onClick={handleAction}
                 >
-                  {getButtonText(row.status)}
+                  {row.status === 'processing'
+                    ? 'Verification In Progress'
+                    : row.status === 'completed'
+                      ? 'View Report'
+                      : 'Start Verification'}
                 </Button>
               </span>
             </Tooltip>
           </Stack>
         </TableCell>
+        {/* <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
+          <Tooltip title="Click for more options." arrow placement="top">
+            <IconButton
+              color={popover.open ? 'inherit' : 'default'}
+              onClick={(event) => onOpenPopover(event)}
+            >
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          </Tooltip>
+        </TableCell> */}
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip
             title={
-              row.status === 'processing' || row.status === 'uploading'
+              row.status === 'processing'
                 ? 'Actions unavailable during verification'
                 : 'Click for more options.'
             }
@@ -280,10 +258,12 @@ export function DashboardTableRow({
             placement="top"
           >
             <span>
+              {' '}
+              {/* Wrap in span to maintain tooltip during disabled state */}
               <IconButton
                 color={popover.open ? 'inherit' : 'default'}
                 onClick={(event) => onOpenPopover(event)}
-                disabled={row.status === 'processing' || row.status === 'uploading'}
+                disabled={row.status === 'processing'}
                 sx={{
                   '&.Mui-disabled': {
                     opacity: 0.5,
@@ -312,8 +292,7 @@ export function DashboardTableRow({
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
           <Typography variant="h6">
-            {/* {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'} */}
-            Verification Report
+            {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'}
           </Typography>
           <IconButton onClick={() => setIsDrawerOpen(false)}>
             <Iconify icon="mingcute:close-line" />

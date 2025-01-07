@@ -228,14 +228,14 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
     setConfirmDeleteOpen(false);
   };
 
-  const handleItemClick = (event) => {
-    if (id === '0') {
-      onHomeClick();
-    } else {
-      onFolderClick(label);
-      onToggle?.(event);
-    }
-  };
+  // const handleItemClick = (event) => {
+  //   if (id === '0') {
+  //     onHomeClick();
+  //   } else {
+  //     onFolderClick(label);
+  //     onToggle?.(event);
+  //   }
+  // };
 
   return (
     <>
@@ -244,7 +244,10 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
         label={
           <>
             <Tooltip title={`Folder Name: ${fullLabel || label}`} arrow placement="top">
-              <Box sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }} onClick={handleItemClick}>
+              <Box
+                sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }}
+                //  onClick={handleItemClick}
+              >
                 <span>{label}</span>
               </Box>
             </Tooltip>
@@ -309,7 +312,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
                 <Divider style={{ borderStyle: 'dashed' }} />
 
                 <Tooltip
-                  title="Delete the folder and move the workflow to the trash."
+                  title="Delete the folder and move the lists to the trash."
                   arrow
                   placement="left"
                 >
@@ -408,7 +411,7 @@ export default function FolderCard({
             >
               <Typography variant="h6" component="div">
                 <Tooltip
-                  title="You can create folders and manage workflows inside them."
+                  title="You can create folders and manage lists inside them."
                   arrow
                   placement="top"
                 >

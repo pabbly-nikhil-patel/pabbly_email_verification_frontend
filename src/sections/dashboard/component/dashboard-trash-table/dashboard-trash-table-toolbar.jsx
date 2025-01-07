@@ -4,8 +4,7 @@ import { Stack, TextField, InputAdornment } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
 
-
-export function DashboardTableToolbar({ filters, onResetPage }) {
+export function DashboardTrashTableToolbar({ filters, onResetPage }) {
   const handleFilterName = useCallback(
     (event) => {
       onResetPage();

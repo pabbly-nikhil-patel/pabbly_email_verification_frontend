@@ -4,9 +4,7 @@ import { useTheme } from '@emotion/react';
 import { useState, useEffect, useCallback } from 'react';
 
 import {
-  Tab,
   Box,
-  Tabs,
   Card,
   Table,
   Alert,
@@ -24,10 +22,8 @@ import {
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
-import { varAlpha } from 'src/theme/styles';
-import { DASHBOARD_STATUS_OPTIONS } from 'src/_mock/_table/_dashboard';
+import { DASHBOARD_TRASH_STATUS_OPTIONS } from 'src/_mock/_table/_dashboardtrash';
 
-import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
@@ -42,14 +38,14 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { DashboardTableRow } from './dashboard-table-row';
-import { DashboardTableToolbar } from './dashboard-table-toolbar';
-import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
+import { DashboardTrashTableRow } from './dashboard-trash-table-row';
+import { DashboardTrashTableToolbar } from './dashboard-trash-table-toolbar';
+import { DashboardTrashTableFiltersResult } from './dashboard-trash-table-filters-result';
 
 // constants/table.js
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All', tooltip: 'Click here to view all list.' },
-  ...DASHBOARD_STATUS_OPTIONS,
+  ...DASHBOARD_TRASH_STATUS_OPTIONS,
 ];
 
 const TABLE_HEAD = [
@@ -80,27 +76,6 @@ const TABLE_HEAD = [
 
 // data/mockData.js
 const dataOn = [
-  {
-    status: 'uploading',
-    name: 'new_users_list.csv',
-    numberOfEmails: 128,
-    creditconsumed: '0 Credit Consumed',
-    date: 'Oct 23, 2024 17:45:32',
-  },
-  {
-    status: 'unprocessed',
-    name: 'pabbly_connect_users_email_list.csv',
-    numberOfEmails: 65,
-    creditconsumed: '65 Credit Consumed',
-    date: 'Oct 23, 2024 17:45:32',
-  },
-  {
-    status: 'processing',
-    name: 'pabbly_chatflow_users_email_list.csv',
-    numberOfEmails: 65,
-    creditconsumed: '65 Credit Consumed',
-    date: 'Oct 23, 2024 17:45:32',
-  },
   {
     status: 'completed',
     name: 'clothing_users_email_list.csv',
@@ -137,7 +112,7 @@ function applyFilter({ inputData, comparator, filters }) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export function DashboardTable() {
+export function DashboardTrashTable() {
   const theme = useTheme();
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
@@ -258,16 +233,16 @@ export function DashboardTable() {
               arrow
               placement="top"
             >
-              <Typography variant="h6">Email List</Typography>
+              <Typography variant="h6">Trash Email List</Typography>
             </Tooltip>
           </Box>
         }
-        subheader="View all the uploaded list here."
+        subheader="View all the deleted list here."
         sx={{ pb: 3 }}
       />
       <Divider />
 
-      <Tabs
+      {/* <Tabs
         value={filters.state.status}
         onChange={handleFilterStatus}
         sx={{
@@ -294,24 +269,23 @@ export function DashboardTable() {
                 color={
                   (tab.value === 'completed' && 'success') ||
                   (tab.value === 'processing' && 'info') ||
-                  (tab.value === 'uploading' && 'warning') ||
                   (tab.value === 'unprocessed' && 'error') ||
                   'default'
                 }
               >
-                {['completed', 'processing', 'uploading', 'unprocessed'].includes(tab.value)
+                {['completed', 'processing', 'unprocessed'].includes(tab.value)
                   ? tableData.filter((user) => user.status === tab.value).length
                   : tableData.length}
               </Label>
             }
           />
         ))}
-      </Tabs>
+      </Tabs> */}
 
-      <DashboardTableToolbar filters={filters} onResetPage={table.onResetPage} />
+      <DashboardTrashTableToolbar filters={filters} onResetPage={table.onResetPage} />
 
       {canReset && (
-        <DashboardTableFiltersResult
+        <DashboardTrashTableFiltersResult
           filters={filters}
           totalResults={dataFiltered.length}
           onResetPage={table.onResetPage}
@@ -344,7 +318,7 @@ export function DashboardTable() {
                 table.page * table.rowsPerPage + table.rowsPerPage
               )
               .map((row, index) => (
-                <DashboardTableRow
+                <DashboardTrashTableRow
                   key={row.id}
                   row={row}
                   selected={table.selected.includes(row.id)}

@@ -1,7 +1,6 @@
-// ----------------------------------------------------------------------
-
 export const DASHBOARD_STATUS_OPTIONS = [
   { value: 'completed', label: 'Completed', tooltip: 'Click here to view completed list.' },
   { value: 'processing', label: 'Processing', tooltip: 'Click here to view processing list.' },
+  { value: 'uploading', label: 'Uploading', tooltip: 'Click here to view uploading list.' }, 
   { value: 'unprocessed', label: 'Unprocessed', tooltip: 'Click here to view unprocessed list.' },
 ];

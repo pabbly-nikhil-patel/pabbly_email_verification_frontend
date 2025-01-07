@@ -13,7 +13,8 @@ export default function CustomTabs({
   defaultPath,
   dashboardContentProps = {},
   pageHeaderProps = {},
-  tabsProps = {}
+  tabsProps = {},
+  link,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,6 +48,7 @@ export default function CustomTabs({
             title={currentTabData.pageTitle}
             Subheading={currentTabData.pageSubheading}
             {...pageHeaderProps}
+            link_added={currentTabData.link}
           />
         )}
       </Box>
@@ -69,7 +71,7 @@ export default function CustomTabs({
             backgroundColor: 'background.currentColor',
             height: '2px',
           },
-          ...tabsProps.sx
+          ...tabsProps.sx,
         }}
         {...tabsProps}
       >
@@ -107,13 +109,14 @@ CustomTabs.propTypes = {
       tooltip: PropTypes.string.isRequired,
       pageTitle: PropTypes.string.isRequired,
       pageSubheading: PropTypes.string.isRequired,
+      link: PropTypes.string,
     })
   ).isRequired,
   defaultTab: PropTypes.string.isRequired,
   defaultPath: PropTypes.string.isRequired,
   dashboardContentProps: PropTypes.shape({
     maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    sx: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),  // Accept either an object or a function
+    sx: PropTypes.oneOfType([PropTypes.object, PropTypes.func]), // Accept either an object or a function
   }),
   pageHeaderProps: PropTypes.shape({
     title: PropTypes.string,
@@ -121,7 +124,7 @@ CustomTabs.propTypes = {
     link_added: PropTypes.string,
   }),
   tabsProps: PropTypes.shape({
-    sx: PropTypes,  // Allow any object for sx
+    sx: PropTypes, // Allow any object for sx
     className: PropTypes.string,
   }),
 };

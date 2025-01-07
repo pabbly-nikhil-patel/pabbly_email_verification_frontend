@@ -19,6 +19,7 @@ export default function Page() {
       tooltip: 'Click to view credit summary.',
       pageTitle: 'Credits Summary',
       pageSubheading: 'View a summary of your email verification credits.',
+      link: 'https://forum.pabbly.com/threads/credits-summary.26312/',
     },
     {
       value: 'team-members',
@@ -36,7 +37,9 @@ export default function Page() {
       label: 'API',
       tooltip: 'View credit activity based on your time zone here.',
       pageTitle: 'API',
-      pageSubheading: 'Get your API and Secret Key for secure authentication. Ensure these keys remain confidential.',
+      pageSubheading:
+        'Get your API and Secret Key for secure authentication. Ensure these keys remain confidential.',
+      link: 'https://forum.pabbly.com/threads/api.26313/',
     },
     {
       value: 'timzone',
@@ -46,6 +49,7 @@ export default function Page() {
       tooltip: 'View credit activity based on your time zone here.',
       pageTitle: 'Time Zone',
       pageSubheading: 'Manage your account time zone settings.',
+      link: 'https://forum.pabbly.com/threads/time-zone.26314/',
     },
   ];
   return (
