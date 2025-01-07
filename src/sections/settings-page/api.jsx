@@ -245,6 +245,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { CONFIG } from 'src/config-global';
 import { listItems } from 'src/_mock/big-card/api';
 
 import { Iconify } from 'src/components/iconify';
@@ -252,7 +253,7 @@ import BigCard from 'src/components/big-card/big-card';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Pabbly Email Verification | API ` };
+const metadata = { title: `API | ${CONFIG.site.name}` };
 
 export default function API() {
   const theme = useTheme();
@@ -383,7 +384,7 @@ export default function API() {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={() => handleCopy('api')} edge="end">
-                      <Iconify icon="solar:copy-bold" width={24} />
+                      <Iconify icon="solar:copy-bold" width={18} />
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -415,7 +416,7 @@ export default function API() {
                   <InputAdornment position="end">
                     <Tooltip title="Copy secret key" placement="top">
                       <IconButton onClick={() => handleCopy('secret')} edge="end">
-                        <Iconify icon="solar:copy-bold" width={24} />
+                        <Iconify icon="solar:copy-bold" width={18} />
                       </IconButton>
                     </Tooltip>
                   </InputAdornment>

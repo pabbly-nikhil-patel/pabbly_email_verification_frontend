@@ -7,7 +7,7 @@ import { Iconify } from 'src/components/iconify';
 import CustomTabs from 'src/components/custom-tabs/custom-tabs';
 
 // ----------------------------------------------------------------------
-const metadata = { title: `Page Settings | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Settings | ${CONFIG.site.name}` };
 
 export default function Page() {
   const EXAMPLE_TABS = [
@@ -21,18 +21,27 @@ export default function Page() {
       pageSubheading: 'View a summary of your email verification credits.',
     },
     {
+      value: 'team-members',
+      path: '/app/settings/team-members',
+      icon: <Iconify icon="fluent:people-team-28-filled" width={24} />,
+      label: 'Team Members',
+      tooltip: 'Add team members and share folder(s) access with them.',
+      pageTitle: 'Team Members',
+      pageSubheading: 'You can add members with varying access level to manage your business.',
+    },
+    {
       value: 'api',
       path: '/app/settings/api',
-      icon: <Iconify icon="icon-park-solid:api" width={24} />,
+      icon: <Iconify icon="pajamas:api" width={24} />,
       label: 'API',
       tooltip: 'View credit activity based on your time zone here.',
       pageTitle: 'API',
-      pageSubheading: 'Manage your account time zone settings.',
+      pageSubheading: 'Get your API and Secret Key for secure authentication. Ensure these keys remain confidential.',
     },
     {
       value: 'timzone',
       path: '/app/settings/timezone',
-      icon: <Iconify icon="icons8:tasks" width={24} />,
+      icon: <Iconify icon="ri:time-zone-fill" width={24} />,
       label: 'Time Zone',
       tooltip: 'View credit activity based on your time zone here.',
       pageTitle: 'Time Zone',

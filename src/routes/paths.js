@@ -56,6 +56,7 @@ export const paths = {
       credits: `${ROOTS.app}/settings/credits`,
       api: `${ROOTS.app}/settings/api`,
       timezone: `${ROOTS.app}/settings/timezone`,
+      teamMembers: `${ROOTS.app}/settings/team-members`,
      
     },
   },
