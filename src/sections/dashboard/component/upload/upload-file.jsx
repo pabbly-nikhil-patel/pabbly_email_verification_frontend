@@ -60,7 +60,11 @@ export default function Upload({ setAlertState }) {
           helperText={
             <span>
               Enter the name of the email list here.{' '}
-              <Link href="#" underline="always" onClick={() => console.log('Learn more clicked')}>
+              <Link
+                href="https://forum.pabbly.com/threads/verify-email.26310/"
+                underline="always"
+                onClick={() => console.log('Learn more clicked')}
+              >
                 Learn more
               </Link>
             </span>
@@ -87,7 +91,7 @@ export default function Upload({ setAlertState }) {
                 <span>
                   Choose the folder where the list should be uploaded.{' '}
                   <Link
-                    href="#"
+                    href="https://forum.pabbly.com/threads/verify-email.26310/"
                     underline="always"
                     onClick={() => console.log('Learn more clicked')}
                   >
@@ -135,3 +139,4 @@ export default function Upload({ setAlertState }) {
     </Box>
   );
 }
+

@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 
 export default function PageHeader({ title, Subheading, link_added }) {
   const theme = useTheme();
@@ -13,7 +12,7 @@ export default function PageHeader({ title, Subheading, link_added }) {
       </Typography>
       <Typography sx={{ color: 'text.secondary' }}>
         {Subheading}{' '}
-        <Link style={{ color: '#078DEE' }} underline="always" to={link_added}>
+        <Link style={{ color: '#078DEE' }} underline="always" href={link_added} target="_blank">
           Learn more
         </Link>
       </Typography>

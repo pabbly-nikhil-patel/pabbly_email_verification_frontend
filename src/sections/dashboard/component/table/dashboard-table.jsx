@@ -81,6 +81,13 @@ const TABLE_HEAD = [
 // data/mockData.js
 const dataOn = [
   {
+    status: 'uploading',
+    name: 'new_users_list.csv',
+    numberOfEmails: 128,
+    creditconsumed: '0 Credit Consumed',
+    date: 'Oct 23, 2024 17:45:32',
+  },
+  {
     status: 'unprocessed',
     name: 'pabbly_connect_users_email_list.csv',
     numberOfEmails: 65,
@@ -287,11 +294,12 @@ export function DashboardTable() {
                 color={
                   (tab.value === 'completed' && 'success') ||
                   (tab.value === 'processing' && 'info') ||
+                  (tab.value === 'uploading' && 'warning') ||
                   (tab.value === 'unprocessed' && 'error') ||
                   'default'
                 }
               >
-                {['completed', 'processing', 'unprocessed'].includes(tab.value)
+                {['completed', 'processing', 'uploading', 'unprocessed'].includes(tab.value)
                   ? tableData.filter((user) => user.status === tab.value).length
                   : tableData.length}
               </Label>
