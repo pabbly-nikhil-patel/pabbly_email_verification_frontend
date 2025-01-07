@@ -10,6 +10,7 @@ import {
   Box,
   Drawer,
   Tooltip,
+  Checkbox,
   IconButton,
   Typography,
   Backdrop as MuiBackdrop,
@@ -29,8 +30,10 @@ const CustomBackdrop = (props) => (
 );
 
 export function DashboardTrashTableRow({
-  row,
   selected,
+  onSelectRow,
+  onDeleteRow,
+  row,
   dashboardTableIndex,
   onOpenPopover,
   onViewReport,
@@ -74,6 +77,15 @@ export function DashboardTrashTableRow({
   const renderPrimary = (
     <>
       <TableRow hover selected={selected}>
+        <TableCell padding="checkbox" onClick={(e) => e.stopPropagation()}>
+          <Tooltip title="Select Row" arrow placement="top">
+            <Checkbox
+              checked={selected}
+              onClick={onSelectRow}
+              inputProps={{ id: `row-checkbox-${row.id}`, 'aria-label': `Row checkbox` }}
+            />
+          </Tooltip>
+        </TableCell>
         <TableCell width={400}>
           <Stack
             spacing={2}

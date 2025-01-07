@@ -38,6 +38,7 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
+import { TableSelectedAction } from './table-selected-action';
 import { DashboardTrashTableRow } from './dashboard-trash-table-row';
 import { DashboardTrashTableToolbar } from './dashboard-trash-table-toolbar';
 import { DashboardTrashTableFiltersResult } from './dashboard-trash-table-filters-result';
@@ -282,7 +283,11 @@ export function DashboardTrashTable() {
         ))}
       </Tabs> */}
 
-      <DashboardTrashTableToolbar filters={filters} onResetPage={table.onResetPage} />
+      <DashboardTrashTableToolbar
+        filters={filters}
+        onResetPage={table.onResetPage}
+        numSelected={table.selected.length}
+      />
 
       {canReset && (
         <DashboardTrashTableFiltersResult
@@ -294,9 +299,20 @@ export function DashboardTrashTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
+        <TableSelectedAction
+          dense={table.dense}
+          numSelected={table.selected.length}
+          rowCount={dataFiltered.length}
+          onSelectAllRows={(checked) =>
+            table.onSelectAllRows(
+              checked,
+              dataFiltered.map((row) => row.id)
+            )
+          }
+        />
         <Table size={table.dense ? 'small' : 'medium'}>
           <TableHeadCustom
-            showCheckbox={false}
+            showCheckbox
             order={table.order}
             orderBy={table.orderBy}
             headLabel={TABLE_HEAD}
