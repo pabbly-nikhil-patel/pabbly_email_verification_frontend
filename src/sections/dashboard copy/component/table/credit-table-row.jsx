@@ -30,7 +30,7 @@ export function CreditTableRow({ row, selected }) {
             arrow
             placement="top"
             disableInteractive
-            title={`Action occurred at: ${row.status} ${timezone}`}
+            title={`Action occurred at: ${row.dateCreatedOn} ${timezone}`}
           >
             <Box
               component="span"

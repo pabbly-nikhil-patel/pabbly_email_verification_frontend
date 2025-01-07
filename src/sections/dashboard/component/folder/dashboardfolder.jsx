@@ -312,7 +312,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
                 <Divider style={{ borderStyle: 'dashed' }} />
 
                 <Tooltip
-                  title="Delete the folder and move the workflow to the trash."
+                  title="Delete the folder and move the lists to the trash."
                   arrow
                   placement="left"
                 >
@@ -411,7 +411,7 @@ export default function FolderCard({
             >
               <Typography variant="h6" component="div">
                 <Tooltip
-                  title="You can create folders and manage workflows inside them."
+                  title="You can create folders and manage lists inside them."
                   arrow
                   placement="top"
                 >
