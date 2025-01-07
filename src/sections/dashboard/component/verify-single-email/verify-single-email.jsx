@@ -59,7 +59,12 @@ const VerifySingleEmail = ({ onVerify }) => {
           <Box sx={{ mt: 0.5 }}>
             <Typography variant="body2" color="text.secondary">
               Verify single email to check email is valid or not.{' '}
-              <Link href="#" underline="always" onClick={(e) => e.preventDefault()}>
+              <Link
+                href="https://forum.pabbly.com/threads/verify-single-email.26319/"
+                target="_blank"
+                underline="always"
+                // onClick={(e) => e.preventDefault()}
+              >
                 Learn more
               </Link>
             </Typography>
@@ -80,7 +85,11 @@ const VerifySingleEmail = ({ onVerify }) => {
             error || (
               <span>
                 Enter an email address you want to verify.{' '}
-                <Link href="#" underline="always" onClick={(e) => e.preventDefault()}>
+                <Link
+                  href="https://forum.pabbly.com/threads/verify-single-email.26319/"
+                  underline="always"
+                  target="_blank"
+                >
                   Learn more
                 </Link>
               </span>

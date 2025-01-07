@@ -124,7 +124,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
         PaperProps={isWeb ? { style: { minWidth: '600px' } } : { style: { minWidth: '330px' } }}
       >
         <DialogTitle
-          sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}
+          sx={{ fontWeight: '600', display: 'flex', justifyContent: 'space-between' }}
           onClick={dialog.onFalse}
         >
           Create Folder
@@ -159,6 +159,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
                       href="https://forum.pabbly.com/threads/folders.20987/"
                       style={{ color: '#078DEE' }}
                       underline="always"
+                      target="_blank"
                     >
                       Learn more
                     </Link>
@@ -203,6 +204,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
                             href="https://forum.pabbly.com/threads/folders.20987/"
                             style={{ color: '#078DEE' }}
                             underline="always"
+                            target="_blank"
                           >
                             Learn more
                           </Link>

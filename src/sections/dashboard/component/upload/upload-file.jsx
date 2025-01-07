@@ -63,7 +63,7 @@ export default function Upload({ setAlertState }) {
               <Link
                 href="https://forum.pabbly.com/threads/verify-email.26310/"
                 underline="always"
-                onClick={() => console.log('Learn more clicked')}
+                target="_blank"
               >
                 Learn more
               </Link>
@@ -94,6 +94,7 @@ export default function Upload({ setAlertState }) {
                     href="https://forum.pabbly.com/threads/verify-email.26310/"
                     underline="always"
                     onClick={() => console.log('Learn more clicked')}
+                    target="_blank"
                   >
                     Learn more
                   </Link>
@@ -139,4 +140,3 @@ export default function Upload({ setAlertState }) {
     </Box>
   );
 }
-

@@ -62,7 +62,7 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
         PaperProps={isWeb ? { style: { minWidth: '600px' } } : { style: { minWidth: '330px' } }}
       >
         <DialogTitle
-          sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}
+          sx={{ fontWeight: '600', display: 'flex', justifyContent: 'space-between' }}
           onClick={dialog.onFalse}
         >
           Rename Folder
@@ -92,7 +92,12 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
                 ) : (
                   <span>
                     You can rename folder from here.{' '}
-                    <Link href="#" style={{ color: '#078DEE' }} underline="always">
+                    <Link
+                      href="https://forum.pabbly.com/threads/rename-folder.26322/"
+                      style={{ color: '#078DEE' }}
+                      underline="always"
+                      target="_blank"
+                    >
                       Learn more
                     </Link>
                   </span>

@@ -29,13 +29,14 @@ export default function Page() {
       tooltip: 'Add team members and share folder(s) access with them.',
       pageTitle: 'Team Members',
       pageSubheading: 'You can add members with varying access level to manage your business.',
+      link: 'https://forum.pabbly.com/threads/team-members.26323/',
     },
     {
       value: 'api',
       path: '/app/settings/api',
       icon: <Iconify icon="pajamas:api" width={24} />,
       label: 'API',
-      tooltip: 'View credit activity based on your time zone here.',
+      tooltip: 'Get your API and Secret Key for secure authentication.',
       pageTitle: 'API',
       pageSubheading:
         'Get your API and Secret Key for secure authentication. Ensure these keys remain confidential.',
