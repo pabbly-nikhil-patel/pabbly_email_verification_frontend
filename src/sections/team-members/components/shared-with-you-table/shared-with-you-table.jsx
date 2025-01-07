@@ -193,7 +193,7 @@ export default function SharedWithYouTeamMemberTable({
         )}
 
         <Box sx={{ position: 'relative' }}>
-          <TableSelectedAction
+          {/* <TableSelectedAction
             dense={table.dense}
             numSelected={table.selected.length}
             rowCount={dataFiltered.length}
@@ -217,7 +217,7 @@ export default function SharedWithYouTeamMemberTable({
                 </IconButton>
               </Tooltip>
             }
-          />
+          /> */}
 
           <Scrollbar>
             <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
