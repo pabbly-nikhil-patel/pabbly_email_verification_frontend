@@ -3,13 +3,15 @@ import { Helmet } from 'react-helmet-async';
 
 import { Box, useMediaQuery } from '@mui/material';
 
+import { CONFIG } from 'src/config-global';
+
 import StatsCards from 'src/components/stats-card/stats-card';
 
 import { CreditTable } from 'src/sections/dashboard copy/component/table/credit-table';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Pabbly Email Verification | Credits ` };
+const metadata = { title: `Credits | ${CONFIG.site.name}` };
 
 export default function ThreePage() {
   const theme = useTheme();
@@ -39,8 +41,7 @@ export default function ThreePage() {
       <Box
         width="100%"
         sx={{
-          mt: '40px',
-          mb: '24px',
+          mb: 4,
           gap: 3,
           display: 'grid',
           flexWrap: 'wrap',
