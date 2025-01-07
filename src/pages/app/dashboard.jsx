@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { useState } from 'react';
 import { useTheme } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
@@ -34,16 +33,16 @@ import Upload from 'src/sections/dashboard/component/upload/upload-file';
 import FolderCard from 'src/sections/dashboard/component/folder/dashboardfolder';
 import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
-
-// ----------------------------------------------------------------------
+import { DashboardTrashTable } from 'src/sections/dashboard/component/dashboard-trash-table/dashboard-trash-table';
 
 const metadata = { title: `Dashboard | Pabbly Email Verification` };
 const { items, style } = listItems;
 
 export default function Page() {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const [email, setEmail] = useState('');
+  const [activeTable, setActiveTable] = useState('dashboard');
+  const [selectedFolder, setSelectedFolder] = useState('Home');
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -56,6 +55,15 @@ export default function Page() {
   const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
   const handlePopoverClose = () => setAnchorEl(null);
 
+  const handleTrashClick = () => {
+    setActiveTable('trash');
+  };
+
+  const handleHomeClick = () => {
+    setActiveTable('dashboard');
+    setSelectedFolder('Home');
+  };
+
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -65,25 +73,14 @@ export default function Page() {
       open: false,
     }));
   };
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const showAlert = (color, title, message, status) => {
-    setAlertState({
-      open: true,
-      color,
-      title,
-      message,
-      status,
-    });
-  };
-
   const handleVerify = () => {
-    // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(email)) {
-      // Valid email
       setAlertState({
         open: true,
         severity: 'success',
@@ -92,7 +89,6 @@ export default function Page() {
         title: 'Verification Result',
       });
     } else {
-      // Invalid email
       setAlertState({
         open: true,
         severity: 'error',
@@ -231,7 +227,12 @@ export default function Page() {
           }}
         >
           <Box>
-            <FolderCard />
+            <FolderCard 
+              // onFolderSelect={setSelectedFolder}
+              onHomeClick={handleHomeClick}
+              onTrashClick={handleTrashClick}
+              activeTable={activeTable}
+            />
           </Box>
           <Box gap={3}>
             <BigCard
@@ -267,69 +268,66 @@ export default function Page() {
               }
             />
             <Box sx={{ mt: 3 }}>
-              <DashboardTable />
+              {activeTable === 'trash' ? (
+                <DashboardTrashTable />
+              ) : (
+                <DashboardTable selectedFolder={selectedFolder} />
+              )}
             </Box>
           </Box>
         </Box>
       </DashboardContent>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100%',
-          gap: 3,
-          flexDirection: { xs: 'column', md: 'row' },
-          mt: 3,
+
+      <Dialog
+        open={dialogState.singleEmail}
+        onClose={() => handleDialogClose('singleEmail')}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            maxWidth: 'sm',
+          },
         }}
       >
-        <Dialog
-          open={dialogState.singleEmail}
-          onClose={() => handleDialogClose('singleEmail')}
-          maxWidth="sm"
-          fullWidth
-          PaperProps={{
-            sx: {
-              borderRadius: 2,
-              maxWidth: 'sm',
-            },
-          }}
-        >
-          <DialogContent sx={{ p: 0 }}>
-            <VerifySingleEmail
-              onVerify={() => {
-                handleVerify();
-                handleDialogClose('singleEmail');
-              }}
-              email={email}
-              setEmail={setEmail}
-            />
-          </DialogContent>
-        </Dialog>
-        <Dialog
-          open={dialogState.bulkEmail}
-          onClose={() => handleDialogClose('bulkEmail')}
-          maxWidth="md"
-          fullWidth
-        >
-          <DialogTitle display="flex" justifyContent="space-between">
-            <Box>
-              <Typography variant="h6">Upload Email List</Typography>
-              <Typography mt="4px" fontSize="14px" color="text.secondary">
-                Upload the email list you want to verify.{' '}
-                <Link href="#" underline="always">
-                  Learn more
-                </Link>
-              </Typography>
-            </Box>
-            <IconButton onClick={() => handleDialogClose('bulkEmail')}>
-              <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
-            </IconButton>
-          </DialogTitle>
-          <Divider />
-          <DialogContent sx={{ pt: 3 }}>
-            <Upload setAlertState={setAlertState} />
-          </DialogContent>
-        </Dialog>
-      </Box>
+        <DialogContent sx={{ p: 0 }}>
+          <VerifySingleEmail
+            onVerify={() => {
+              handleVerify();
+              handleDialogClose('singleEmail');
+            }}
+            email={email}
+            setEmail={setEmail}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={dialogState.bulkEmail}
+        onClose={() => handleDialogClose('bulkEmail')}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle display="flex" justifyContent="space-between">
+          <Box>
+            <Typography variant="h6">Upload Email List</Typography>
+            <Typography mt="4px" fontSize="14px" color="text.secondary">
+              Upload the email list you want to verify.{' '}
+              <Link href="#" underline="always">
+                Learn more
+              </Link>
+            </Typography>
+          </Box>
+          <IconButton onClick={() => handleDialogClose('bulkEmail')}>
+            <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
+          </IconButton>
+        </DialogTitle>
+        <Divider />
+        <DialogContent sx={{ pt: 3 }}>
+          <Upload setAlertState={setAlertState} />
+        </DialogContent>
+      </Dialog>
+
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}

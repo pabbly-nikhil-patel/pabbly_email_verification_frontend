@@ -228,14 +228,14 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
     setConfirmDeleteOpen(false);
   };
 
-  const handleItemClick = (event) => {
-    if (id === '0') {
-      onHomeClick();
-    } else {
-      onFolderClick(label);
-      onToggle?.(event);
-    }
-  };
+  // const handleItemClick = (event) => {
+  //   if (id === '0') {
+  //     onHomeClick();
+  //   } else {
+  //     onFolderClick(label);
+  //     onToggle?.(event);
+  //   }
+  // };
 
   return (
     <>
@@ -244,7 +244,10 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
         label={
           <>
             <Tooltip title={`Folder Name: ${fullLabel || label}`} arrow placement="top">
-              <Box sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }} onClick={handleItemClick}>
+              <Box
+                sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }}
+                //  onClick={handleItemClick}
+              >
                 <span>{label}</span>
               </Box>
             </Tooltip>

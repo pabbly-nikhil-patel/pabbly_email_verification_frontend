@@ -25,7 +25,7 @@ export function CreditTableRow({ row, selected }) {
             </Label>
           </Tooltip>
         </Stack>
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={2} direction="row" alignItems="center" mt="4px">
           <Tooltip
             arrow
             placement="top"

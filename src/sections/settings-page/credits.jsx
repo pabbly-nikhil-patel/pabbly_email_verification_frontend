@@ -69,7 +69,7 @@ export default function ThreePage() {
           icon_name="Complete.svg"
           icon_color="#1D88FA"
           bg_gradient="#1D88FA"
-          tooltipTittle="Number of credits remaining to your account."
+          tooltipTittle="Number of credits remaining in your account."
         />
       </Box>
       <CreditTable />
