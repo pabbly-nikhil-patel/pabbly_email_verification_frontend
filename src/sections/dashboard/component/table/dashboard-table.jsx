@@ -1,14 +1,14 @@
+// components/DashboardTable/index.jsx
 import { useSelector } from 'react-redux';
 import { useTheme } from '@emotion/react';
 import { useState, useEffect, useCallback } from 'react';
 
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Card from '@mui/material/Card';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import {
+  Tab,
+  Box,
+  Tabs,
+  Card,
+  Table,
   Alert,
   Button,
   Divider,
@@ -16,6 +16,7 @@ import {
   MenuList,
   MenuItem,
   Snackbar,
+  TableBody,
   CardHeader,
   Typography,
 } from '@mui/material';
@@ -45,8 +46,7 @@ import { DashboardTableRow } from './dashboard-table-row';
 import { DashboardTableToolbar } from './dashboard-table-toolbar';
 import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
-// ----------------------------------------------------------------------
-
+// constants/table.js
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All', tooltip: 'Click here to view all list.' },
   ...DASHBOARD_STATUS_OPTIONS,
@@ -78,6 +78,7 @@ const TABLE_HEAD = [
   { id: '', width: 10 },
 ];
 
+// data/mockData.js
 const dataOn = [
   {
     status: 'unprocessed',
@@ -102,9 +103,35 @@ const dataOn = [
   },
 ];
 
-// ----------------------------------------------------------------------
+// utils/filterUtils.js
+function applyFilter({ inputData, comparator, filters }) {
+  const { status, name } = filters;
+
+  let filteredData = [...inputData];
+
+  if (name) {
+    filteredData = filteredData.filter((item) =>
+      item.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
+
+  if (status !== 'all') {
+    filteredData = filteredData.filter((item) => item.status === status);
+  }
+
+  const stabilizedThis = filteredData.map((el, index) => [el, index]);
+
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+
+  return stabilizedThis.map((el) => el[0]);
+}
 
 export function DashboardTable() {
+  const theme = useTheme();
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const [tableData, setTableData] = useState(
@@ -114,6 +141,35 @@ export function DashboardTable() {
     }))
   );
 
+  const filters = useSetState({
+    name: '',
+    status: 'all',
+  });
+
+  const [processingRowId, setProcessingRowId] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+
+  const confirmDelete = useBoolean();
+  const isStartVerification = useSelector((state) => state.fileUpload.isStartVerification);
+  const isVerificationCompleted = useSelector((state) => state.fileUpload.isVerificationCompleted);
+
+  // Effect Hooks
+  useEffect(() => {
+    if (isVerificationCompleted && processingRowId !== null) {
+      setTableData((prevData) =>
+        prevData.map((row) => (row.id === processingRowId ? { ...row, status: 'completed' } : row))
+      );
+      setProcessingRowId(null);
+    }
+  }, [isVerificationCompleted, processingRowId]);
+
+  // Handlers
   const handleStartVerification = (rowId) => {
     setProcessingRowId(rowId);
     setTableData((prevData) =>
@@ -130,11 +186,46 @@ export function DashboardTable() {
     );
   };
 
-  const filters = useSetState({
-    name: '',
-    status: 'all',
-  });
+  const handleFilterStatus = useCallback(
+    (event, newValue) => {
+      table.onResetPage();
+      filters.setState({ status: newValue });
+    },
+    [filters, table]
+  );
 
+  const handleOpenPopover = (event, row) => {
+    if (row.status !== 'processing') {
+      setAnchorEl(event.currentTarget);
+      setSelectedRow(row);
+    }
+  };
+
+  const handleClosePopover = () => {
+    setAnchorEl(null);
+    setSelectedRow(null);
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setSnackbarState((prev) => ({ ...prev, open: false }));
+  };
+
+  const handleConfirmDelete = () => {
+    confirmDelete.onTrue();
+    handleClosePopover();
+  };
+
+  const handleDelete = () => {
+    confirmDelete.onFalse();
+    setSnackbarState({
+      open: true,
+      message: 'Email list deleted successfully.',
+      severity: 'success',
+    });
+  };
+
+  // Computed values
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
@@ -150,67 +241,6 @@ export function DashboardTable() {
 
   const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
-  const handleFilterStatus = useCallback(
-    (event, newValue) => {
-      table.onResetPage();
-      filters.setState({ status: newValue });
-    },
-    [filters, table]
-  );
-  const isStartVerification = useSelector((state) => state.fileUpload.isStartVerification);
-  const isVerificationCompleted = useSelector((state) => state.fileUpload.isVerificationCompleted);
-  const [processingRowId, setProcessingRowId] = useState(null);
-
-  useEffect(() => {
-    if (isVerificationCompleted && processingRowId !== null) {
-      setTableData((prevData) =>
-        prevData.map((row) => (row.id === processingRowId ? { ...row, status: 'completed' } : row))
-      );
-      setProcessingRowId(null); // Reset processing row ID
-    }
-  }, [isVerificationCompleted, processingRowId]);
-
-  const confirmDelete = useBoolean();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedRow, setSelectedRow] = useState(null);
-
-  const handleOpenPopover = (event, row) => {
-    if (row.status !== 'processing') {
-      setAnchorEl(event.currentTarget);
-      setSelectedRow(row);
-    }
-  };
-
-  const handleClosePopover = () => {
-    setAnchorEl(null);
-    setSelectedRow(null);
-  };
-  const [snackbarState, setSnackbarState] = useState({
-    open: false,
-    message: '',
-    severity: 'success',
-  });
-
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') return;
-    setSnackbarState((prev) => ({ ...prev, open: false }));
-  };
-  const theme = useTheme();
-
-  const handleConfirmDelete = () => {
-    confirmDelete.onTrue();
-    handleClosePopover();
-  };
-
-  const handleDelete = () => {
-    confirmDelete.onFalse();
-    setSnackbarState({
-      open: true,
-      message: 'Email list deleted successfully.',
-      severity: 'success',
-    });
-  };
   return (
     <Card>
       <CardHeader
@@ -282,7 +312,7 @@ export function DashboardTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        <Table size={table.dense ? 'small' : 'medium'} sx={{}}>
+        <Table size={table.dense ? 'small' : 'medium'}>
           <TableHeadCustom
             showCheckbox={false}
             order={table.order}
@@ -340,6 +370,7 @@ export function DashboardTable() {
           </TableBody>
         </Table>
       </Box>
+
       <CustomPopover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -357,6 +388,7 @@ export function DashboardTable() {
           )}
         </MenuList>
       </CustomPopover>
+
       <ConfirmDialog
         open={confirmDelete.value}
         onClose={confirmDelete.onFalse}
@@ -368,6 +400,7 @@ export function DashboardTable() {
           </Button>
         }
       />
+
       <Snackbar
         open={snackbarState.open}
         autoHideDuration={2500}
@@ -399,6 +432,7 @@ export function DashboardTable() {
           {snackbarState.message}
         </Alert>
       </Snackbar>
+
       <TablePaginationCustom
         page={table.page}
         count={dataFiltered.length}
@@ -409,33 +443,4 @@ export function DashboardTable() {
       />
     </Card>
   );
-}
-
-function applyFilter({ inputData, comparator, filters }) {
-  const { status, name } = filters;
-
-  let filteredData = [...inputData];
-
-  // Filter by search text
-  if (name) {
-    filteredData = filteredData.filter((item) =>
-      item.name.toLowerCase().includes(name.toLowerCase())
-    );
-  }
-
-  // Filter by status
-  if (status !== 'all') {
-    filteredData = filteredData.filter((item) => item.status === status);
-  }
-
-  // Sort the data
-  const stabilizedThis = filteredData.map((el, index) => [el, index]);
-
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  return stabilizedThis.map((el) => el[0]);
 }

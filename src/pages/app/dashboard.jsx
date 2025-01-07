@@ -214,7 +214,7 @@ export default function Page() {
           />
           <StatsCards
             cardtitle="Total Number of Lists"
-            cardstats="10000"
+            cardstats="100"
             icon_name="list.svg"
             icon_color="#28a645"
             bg_gradient="#28a645"

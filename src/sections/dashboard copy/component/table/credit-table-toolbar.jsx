@@ -26,7 +26,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
 
-  const status = ['Added', 'Verified Email', 'Verified List'];
+  const status = ['Email Credits Purchased', 'Single Verification', 'Bulk Verification'];
 
   const handlePopoverClose = () => setAnchorEl(null);
 

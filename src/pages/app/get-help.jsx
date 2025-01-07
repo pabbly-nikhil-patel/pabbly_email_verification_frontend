@@ -74,6 +74,9 @@ export default function GetHelp({ sx, icon, title, total, color = 'warning', ...
                 variant="outlined"
                 color="primary"
                 size="large"
+                component="a"
+                href="https://forum.pabbly.com/#pabbly-email-verification.38"
+                target="_blank"
               >
                 Ask Question
               </Button>

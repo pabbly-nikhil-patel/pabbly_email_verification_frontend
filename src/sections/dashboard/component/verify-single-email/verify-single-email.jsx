@@ -102,6 +102,7 @@ const VerifySingleEmail = ({ onVerify }) => {
           <Button
             variant="contained"
             onClick={handleVerify}
+            color="primary"
             sx={{
               minWidth: 120,
               borderRadius: 1,

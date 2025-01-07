@@ -29,7 +29,7 @@ import { ConfirmDialog } from 'src/components/confirm-dialog';
 import { CreateFolderDialog } from './createfolder';
 import { RenameFolderDialog } from './rename_folder-dailog';
 
-// Define all labels and tooltips in constants
+// constants.js
 const LABELS = {
   home: 'Home',
   pabblyConnect: 'Pabbly Connect',
@@ -56,25 +56,23 @@ const LABELS = {
   trash: 'Trash',
 };
 
-// Count children for tree view items
+// utils/treeUtils.js
 const countChildren = (item) =>
   item.children?.length ||
   0 + (item.children?.reduce((acc, child) => acc + countChildren(child), 0) || 0);
 
-// Truncate labels if too long
 const truncateLabel = (label, maxLength = 25) =>
   label.length > maxLength ? `${label.slice(0, maxLength)}...` : label;
 
-// Process items for the tree view
 const processItems = (items) =>
   items.map((item) => ({
     ...item,
-    fullLabel: item.label, // Ensure fullLabel is assigned for tooltip display
-    label: `${truncateLabel(item.label)} (${countChildren(item)})`, // Truncated label for display
+    fullLabel: item.label,
+    label: `${truncateLabel(item.label)} (${countChildren(item)})`,
     children: item.children ? processItems(item.children) : [],
   }));
 
-// Items for different sections
+// data/treeItems.js
 const HOMEITEMS = processItems([{ id: '25', label: LABELS.home, children: [] }]);
 
 const ITEMS = processItems([
@@ -135,6 +133,7 @@ const ITEMS = processItems([
 
 const ITEMS2 = processItems([{ id: '24', label: LABELS.trash, children: [] }]);
 
+// components/StyledTreeItem.js
 const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   color: theme.vars.palette.grey[800],
   [stylesMode.dark]: { color: theme.vars.palette.grey[200] },
@@ -154,7 +153,6 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   },
   [`& .${treeItemClasses.iconContainer}`]: {
     borderRadius: '50%',
-    // backgroundColor and dark mode styling removed for the arrow icon
   },
   [`& .${treeItemClasses.groupTransition}`]: {
     marginLeft: 15,
@@ -163,6 +161,7 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   },
 }));
 
+// components/CustomTreeItem.js
 const CustomTreeItem = React.forwardRef((props, ref) => {
   const {
     fullLabel,
@@ -180,7 +179,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   const [renameDialogOpen, setRenameDialogOpen] = useState(false);
   const [quickShareDialogOpen, setTeamMemberDialogOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
-  const [selectedFolderName, setSelectedFolderName] = useState(''); // Added state to store selected folder name
+  const [selectedFolderName, setSelectedFolderName] = useState('');
 
   const handleIconClick = (event) => {
     event.stopPropagation();
@@ -198,7 +197,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   };
 
   const handleRenameFolderClick = (event) => {
-    setSelectedFolderName(fullLabel || label); // Store the selected folder name
+    setSelectedFolderName(fullLabel || label);
     setRenameDialogOpen(true);
     handleMenuClose(event);
   };
@@ -233,7 +232,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
     if (id === '0') {
       onHomeClick();
     } else {
-      onFolderClick(label); // Trigger the folder click event and pass the label
+      onFolderClick(label);
       onToggle?.(event);
     }
   };
@@ -246,7 +245,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
           <>
             <Tooltip title={`Folder Name: ${fullLabel || label}`} arrow placement="top">
               <Box sx={{ mr: 'auto', cursor: 'pointer', width: '100%' }} onClick={handleItemClick}>
-                <span>{label}</span> {/* Truncated label for display */}
+                <span>{label}</span>
               </Box>
             </Tooltip>
             {!hideEllipsis && id !== '0' && (
@@ -330,7 +329,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
         open={renameDialogOpen}
         onClose={handleRenameFolderClose}
         workflowName={selectedFolderName}
-      />{' '}
+      />
       <ConfirmDialog
         open={confirmDeleteOpen}
         onClose={handleConfirmDeleteClose}
@@ -354,6 +353,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   );
 });
 
+// components/FolderCard.js
 export default function FolderCard({
   sx,
   icon,
@@ -362,7 +362,7 @@ export default function FolderCard({
   color = 'warning',
   onTrashClick,
   onHomeClick,
-  onFolderClick, // Add this prop to handle folder click
+  onFolderClick,
   ...other
 }) {
   const theme = useTheme();
@@ -428,7 +428,6 @@ export default function FolderCard({
                   }}
                   onClick={folderDialog.onTrue}
                   maxWidth
-                  // color="inherit"
                   color="primary"
                   variant="contained"
                 >
@@ -451,7 +450,7 @@ export default function FolderCard({
                   onFolderClick={onFolderClick}
                   onHomeClick={onHomeClick}
                 />
-              ), // Pass the folder click handler
+              ),
             }}
             items={HOMEITEMS}
           />
@@ -465,7 +464,7 @@ export default function FolderCard({
                   onFolderClick={onFolderClick}
                   onHomeClick={onHomeClick}
                 />
-              ), // Pass the folder click handler
+              ),
             }}
             items={ITEMS}
           />
