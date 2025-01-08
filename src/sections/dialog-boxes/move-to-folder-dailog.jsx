@@ -91,81 +91,83 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleDialogClose}
-      {...other}
-      PaperProps={isWeb ? { style: { minWidth: '600px' } } : { style: { minWidth: '330px' } }}
-    >
-      <DialogTitle
-        sx={{ fontWeight: '600', display: 'flex', justifyContent: 'space-between' }}
-        onClick={() => {}}
+    <>
+      <Dialog
+        open={open}
+        onClose={handleDialogClose}
+        {...other}
+        PaperProps={isWeb ? { style: { minWidth: '600px' } } : { style: { minWidth: '330px' } }}
       >
-        Move To Folder{' '}
-        <Iconify
-          onClick={handleDialogClose}
-          icon="uil:times"
-          style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
-        />
-      </DialogTitle>
-      <Divider sx={{ mb: '16px', borderStyle: 'dashed' }} />
+        <DialogTitle
+          sx={{ fontWeight: '600', display: 'flex', justifyContent: 'space-between' }}
+          onClick={() => {}}
+        >
+          Move To Folder{' '}
+          <Iconify
+            onClick={handleDialogClose}
+            icon="uil:times"
+            style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
+          />
+        </DialogTitle>
+        <Divider sx={{ mb: '16px', borderStyle: 'dashed' }} />
 
-      <DialogContent>
-        <Autocomplete
-          sx={{
-            '& .MuiInputBase-input': {
-              fontSize: '14px',
-            },
-            '& .MuiInputLabel-root': {
-              fontSize: '14px',
-            },
-            mt: 1.2,
-          }}
-          options={folder}
-          value={categoryList} // Set the value of Autocomplete
-          onChange={handleChangeCategoryList}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={
-                <Tooltip
-                  title="Select folder to which the workflow needs to be moved."
-                  arrow
-                  placement="top"
-                >
-                  <span>Select Folder</span>
-                </Tooltip>
-              }
-              helperText={
-                <span>
-                  {categoryError ? (
-                    'Please select a required folder.'
-                  ) : (
-                    <>
-                      Select the folder or subfolder where you want to move the workflow(s).{' '}
-                      <Link
-                        href="https://forum.pabbly.com/threads/folders.20987/"
-                        style={{ color: '#078DEE' }}
-                        underline="always"
-                      >
-                        Learn more
-                      </Link>
-                    </>
-                  )}
-                </span>
-              }
-              error={categoryError}
-            />
-          )}
-        />
-      </DialogContent>
+        <DialogContent>
+          <Autocomplete
+            sx={{
+              '& .MuiInputBase-input': {
+                fontSize: '14px',
+              },
+              '& .MuiInputLabel-root': {
+                fontSize: '14px',
+              },
+              mt: 1.2,
+            }}
+            options={folder}
+            value={categoryList} // Set the value of Autocomplete
+            onChange={handleChangeCategoryList}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={
+                  <Tooltip
+                    title="Select folder to which the workflow needs to be moved."
+                    arrow
+                    placement="top"
+                  >
+                    <span>Select Folder</span>
+                  </Tooltip>
+                }
+                helperText={
+                  <span>
+                    {categoryError ? (
+                      'Please select a required folder.'
+                    ) : (
+                      <>
+                        Select the folder or subfolder where you want to move the workflow(s).{' '}
+                        <Link
+                          href="https://forum.pabbly.com/threads/folders.20987/"
+                          style={{ color: '#078DEE' }}
+                          underline="always"
+                        >
+                          Learn more
+                        </Link>
+                      </>
+                    )}
+                  </span>
+                }
+                error={categoryError}
+              />
+            )}
+          />
+        </DialogContent>
 
-      <DialogActions>
-        {action}
-        <Button onClick={handleAdd} variant="contained" color="primary">
-          Move
-        </Button>
-      </DialogActions>
+        <DialogActions>
+          {action}
+          <Button onClick={handleAdd} variant="contained" color="primary">
+            Move
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2500}
@@ -191,6 +193,6 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
           The workflow(s) moved successfully.
         </Alert>
       </Snackbar>
-    </Dialog>
+    </>
   );
 }
