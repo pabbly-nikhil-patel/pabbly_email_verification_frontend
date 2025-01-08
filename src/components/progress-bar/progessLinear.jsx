@@ -31,12 +31,12 @@ export default function ProgressLinear() {
   }, [isStartVerification, progress, dispatch]);
 
   return (
-    <Box sx={{ p: 3, pt: 6 }}>
+    <Box sx={{ p: 3, pt: 3}}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1.5 }}>
-        <Typography variant="overline">
-          {isStartVerification ? 'Processing' : 'Uploading'}
+        <Typography >
+          {isStartVerification ? 'Email Verification in Progress ' : 'Uploading Email List'}
         </Typography>
-        <Typography variant="subtitle1">{`${progress.toFixed(2)}%`}</Typography>
+        <Typography variant="subtitle1">{`${progress.toFixed(0)}%`}</Typography>
       </Box>
 
       <LinearProgress
