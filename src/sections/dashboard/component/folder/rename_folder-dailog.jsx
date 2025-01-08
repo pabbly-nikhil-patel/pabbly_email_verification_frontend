@@ -111,9 +111,6 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
           <Button onClick={handleAdd} variant="contained" color="primary">
             Update
           </Button>
-          <Button onClick={onClose} variant="outlined" color="inherit">
-            Cancel
-          </Button>
         </DialogActions>
       </Dialog>
 
