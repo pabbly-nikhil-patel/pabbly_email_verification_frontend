@@ -4,9 +4,11 @@ import { useTheme } from '@emotion/react';
 import {
   Box,
   Chip,
+  Alert,
   Button,
   Dialog,
   Divider,
+  Snackbar,
   TextField,
   DialogTitle,
   Autocomplete,
@@ -18,7 +20,6 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
-import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
 
 export function TeamMemberDialog({ open, onClose, ...other }) {
   const theme = useTheme();
@@ -28,28 +29,30 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
   const [emailError, setEmailError] = useState(false);
   const [autocompleteError, setAutocompleteError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
-  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
 
-  const folders = [
-    'Pabbly Connect',
-    'Main Folder',
-    '-Child Folder 1 - Subscription Billing',
-    '-- Child Folder 2',
-    '--- Grand child 1',
-    '--- Grand child 2',
-    'Folder 1',
-    'Folder 2',
-    'Folder 3',
-    
-  ];
+  const [categoryList, setCategoryList] = useState(null);
+  const [categoryError, setCategoryError] = useState(false);
+
+  const folder = ['Write Access', 'Read Access'];
+  const folders = ['Pabbly Connect', 'Main Folder', 'Folder 1', 'Folder 2', 'Folder 3'];
 
   const handleClose = () => {
     setEmail('');
     setSelectedItems([]);
     setEmailError(false);
     setAutocompleteError(false);
+    setCategoryList(null);
+    setCategoryError(false);
     onClose();
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   const ALLOWED_EMAILS = [
@@ -70,32 +73,53 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
     setEmailError(!value || !isEmailValid(value));
   };
 
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') return;
-    setErrorSnackbarOpen(false);
-    setSuccessSnackbarOpen(false);
+  const handleChangeCategoryList = (event, newValue) => {
+    setCategoryList(newValue);
+    setCategoryError(!newValue);
   };
 
   const handleAdd = () => {
+    let hasError = false;
+
+    // Validate email
     if (!email || !isEmailValid(email)) {
       setEmailError(true);
-      return;
+      hasError = true;
     }
 
+    // Validate folder selection
     if (selectedItems.length === 0) {
       setAutocompleteError(true);
-      return;
+      hasError = true;
     }
 
+    // Validate permissions
+    if (!categoryList) {
+      setCategoryError(true);
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Check if email is in allowed list
     if (!ALLOWED_EMAILS.includes(email)) {
-      setErrorSnackbarOpen(true);
+      setSnackbar({
+        open: true,
+        message: 'This email is not registered with Pabbly',
+        severity: 'error',
+      });
       return;
     }
 
     setIsLoading(true);
-    setSuccessSnackbarOpen(true);
 
+    // Simulate API call
     setTimeout(() => {
+      setSnackbar({
+        open: true,
+        message: 'Team member added successfully!',
+        severity: 'success',
+      });
       handleClose();
       setIsLoading(false);
     }, 1200);
@@ -109,9 +133,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
         {...other}
         PaperProps={isWeb ? { style: { minWidth: '600px' } } : { style: { minWidth: '330px' } }}
       >
-        <DialogTitle
-          sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}
-        >
+        <DialogTitle sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}>
           Add Team Member
           <Iconify
             onClick={handleClose}
@@ -136,7 +158,11 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
               error={emailError}
               helperText={
                 emailError ? (
-                  email ? 'Please enter a valid email address.' : 'Email address is required.'
+                  email ? (
+                    'Please enter a valid email address.'
+                  ) : (
+                    'Email address is required.'
+                  )
                 ) : (
                   <span>Ensure that the email address is already registered with Pabbly. </span>
                 )
@@ -151,7 +177,6 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                   {...params}
                   label="Select Folder"
                   placeholder="Select"
-                  required
                   error={autocompleteError}
                   helperText={
                     autocompleteError ? (
@@ -159,7 +184,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                     ) : (
                       <span>
                         Select folders to be shared.{' '}
-                        <LearnMoreLink link="https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-connect-account.5336/#post-25220/" />
+                        <LearnMoreLink link="https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-email-verification-account.26333/" />
                       </span>
                     )
                   }
@@ -173,6 +198,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                     label={option}
                     size="small"
                     variant="soft"
+                    color='primary'
                   />
                 ))
               }
@@ -181,6 +207,29 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                 setAutocompleteError(false);
                 setSelectedItems(newValue);
               }}
+            />
+
+            <Autocomplete
+              options={folder}
+              value={categoryList}
+              onChange={handleChangeCategoryList}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select Permission"
+                  error={categoryError}
+                  helperText={
+                    categoryError ? (
+                      'Please select a permission level.'
+                    ) : (
+                      <span>
+                        Select the permission level for shared folders.{' '}
+                        <LearnMoreLink link='https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-email-verification-account.26333/'/>
+                      </span>
+                    )
+                  }
+                />
+              )}
             />
           </Box>
         </DialogContent>
@@ -191,20 +240,36 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
           </Button>
         </DialogActions>
       </Dialog>
-
-      <CustomSnackbar
-        open={errorSnackbarOpen}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3500}
         onClose={handleSnackbarClose}
-        message="Enter a valid email address."
-        severity="error"
-      />
-
-      <CustomSnackbar
-        open={successSnackbarOpen}
-        onClose={handleSnackbarClose}
-        message="Team Member Added Successfully!"
-        severity="success"
-      />
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+          zIndex: theme.zIndex.modal + 9999,
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbar.severity}
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary, // Keeping text color consistent
+            '& .MuiAlert-icon': {
+              color:
+                snackbar.severity === 'error'
+                  ? theme.palette.error.main
+                  : theme.palette.success.main,
+            },
+          }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

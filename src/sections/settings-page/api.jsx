@@ -168,25 +168,34 @@ export default function API() {
             <Box display="inline-block">
               <Tooltip title="Easily verify a single email address here." arrow placement="top">
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                  Pabbly Email Verification API
+                  API
                 </Typography>
               </Tooltip>
             </Box>
           }
-          subheader="Check Pabbly Email Verification Api"
+          // subheader="Check Pabbly Email Verification Api"
         />
         <Divider />
         <CardContent>
           <Box>
-            <Typography fontSize={14} fontWeight={600} mb="8px" ml="13px">
+            {/* <Typography fontSize={14} fontWeight={600} mb="8px" ml="13px">
               API Key
-            </Typography>
+            </Typography> */}
             <TextField
               sx={{ width: '700px' }}
               variant="outlined"
               type="text"
+              label='API Key'
               value="●●●●●●●●●●●●●●●●●●"
-              helperText='Use the "Copy" button to copy the key securely. Do not share this key with others.'
+              helperText={
+                <>
+                  Use the &apos;Copy&apos; button to securely copy it. Keep it private and don&apos;t share with others.{' '}
+                  <a href="https://forum.pabbly.com/threads/api.26313/" target="_blank"
+                  rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                    Learn more
+                  </a>
+                </>
+              }
               InputProps={{
                 readOnly: true,
                 endAdornment: (
@@ -203,9 +212,9 @@ export default function API() {
           </Box>
 
           <Box sx={{ mt: 3 }}>
-            <Typography fontSize={14} fontWeight={600} mb="8px" ml="13px">
+            {/* <Typography fontSize={14} fontWeight={600} mb="8px" ml="13px">
               Secret Key
-            </Typography>
+            </Typography> */}
             <TextField
               sx={{
                 width: '700px',
@@ -217,9 +226,18 @@ export default function API() {
                 },
               }}
               variant="outlined"
+              label="Secret Key"
               type="text"
               value="●●●●●●●●●●●●●●●●●●"
-              helperText='Use the "Copy" button to securely copy it. Keep it private and secure.'
+              helperText={
+                <>
+                  Use the &apos;Copy&apos; button to securely copy it. Keep it private and don&apos;t share with others.{' '}
+                  <a href="https://forum.pabbly.com/threads/api.26313/" target="_blank"
+                  rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                    Learn more
+                  </a>
+                </>
+              }
               InputProps={{
                 readOnly: true,
                 endAdornment: (
@@ -241,22 +259,22 @@ export default function API() {
             sx={{ mt: '24px' }}
             onClick={handleDialogOpen}
           >
-            Generate API Token
+            Generate Key 
           </Button>
         </CardContent>
       </Card>
 
       {/* Confirmation Dialog */}
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Generate New API Token</DialogTitle>
+        <DialogTitle>Generate Key </DialogTitle>
         <DialogContent>
           <Typography>
-            Generating a new API token will invalidate your current token. Do you want to continue?
+            Generating a new API and Secret key will invalidate your current key. Do you want to continue?
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleGenerateToken} variant="contained" color="primary" autoFocus>
-            Generate Token
+            Generate Key
           </Button>
           <Button onClick={handleDialogClose} color="inherit" variant="outlined">
             Cancel
@@ -316,7 +334,7 @@ export default function API() {
             color: theme.palette.text.primary,
           }}
         >
-          API Token Generated Successfully!
+          API key Generated Successfully!
         </Alert>
       </Snackbar>
     </>

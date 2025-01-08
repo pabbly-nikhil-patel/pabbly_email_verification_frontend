@@ -40,14 +40,22 @@ import { OrderTableFiltersResult } from './team-member-table-filters-result';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'sno', label: 'S.No', width: 'flex', whiteSpace: 'nowrap', tooltip: 'Serial Number' },
+  // { id: 'sno', label: 'S.No', width: 'flex', whiteSpace: 'nowrap', tooltip: 'Serial Number' },
+  
+  {
+    id: 'shared_on',
+    label: 'Shared On',
+    width: '200',
+    whiteSpace: 'nowrap',
+    align: 'left',
+    tooltip: 'Date and time when the folder was shared.',
+  },
   {
     id: 'team_member_email',
     label: 'Team Member Email',
     width: '250',
     tooltip: 'Email address of the team member with whom the folder is shared.',
   },
-
   {
     id: 'folders',
     label: 'Folders You’ve Shared',
@@ -55,13 +63,13 @@ const TABLE_HEAD = [
     tooltip: 'Name of the folder shared.',
   },
   {
-    id: 'shared_on',
-    label: 'Shared On',
-    width: '200',
-    whiteSpace: 'nowrap',
+    id: 'permission',
+    label: 'Permission Type',
     align: 'right',
-    tooltip: 'Date and time when the folder was shared.',
+    width: '200',
+    tooltip: 'Indicates the access level as read and write access.',
   },
+
   { id: '', width: 50 },
 ];
 

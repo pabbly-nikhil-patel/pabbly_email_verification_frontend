@@ -87,7 +87,7 @@ export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberA
             fullWidth
             value={filters.state.email}
             onChange={handleFilterEmail} // Handle changes for search input
-            placeholder="Search by folder name..."
+            placeholder="Search by email or folder name..."
             disabled={nomemberAdded} // Disabled When No Team Members Added
             InputProps={{
               startAdornment: (

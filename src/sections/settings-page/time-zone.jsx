@@ -181,7 +181,14 @@ export default function TimeZonePage() {
               ))}
             </Select>
 
-            <FormHelperText>View log times based on selected time zone.</FormHelperText>
+            <FormHelperText>All data will be displayed according to the selected time zone.{'   '}<a
+                  href="https://forum.pabbly.com/threads/time-zone.26314/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#078DEE', textDecoration: 'underline' }}
+                >
+                  Learn more
+                </a></FormHelperText>
           </FormControl>
 
           <Box>

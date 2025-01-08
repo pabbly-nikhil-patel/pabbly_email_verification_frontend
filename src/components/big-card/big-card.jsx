@@ -40,14 +40,14 @@ export default function BigCard({
                 </Tooltip>
               </Typography>
 
-              <Typography color="#637381" fontSize="14px" mt={1}>
+              <Typography color="#637381" fontSize="14px" fontWeight={500} mt={1}>
                 {bigcardsubtitle}
               </Typography>
             </Box>
             <Box component="ul" sx={style} p={1} pb={2}>
               {items.map((item, index) => (
                 <li key={index}>
-                  <Typography variant="body2" fontWeight={400} color="#637381">
+                  <Typography variant="body2" fontWeight={500} color="#637381">
                     {item}
                   </Typography>
                 </li>

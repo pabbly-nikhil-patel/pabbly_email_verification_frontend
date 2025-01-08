@@ -28,7 +28,7 @@ export default function Page() {
       label: 'Team Members',
       tooltip: 'Add team members and share folder(s) access with them.',
       pageTitle: 'Team Members',
-      pageSubheading: 'You can add members with varying access level to manage your business.',
+      pageSubheading: 'Add team members and share folder(s) access with them from here. ',
       link: 'https://forum.pabbly.com/threads/team-members.26323/',
     },
     {
@@ -36,10 +36,10 @@ export default function Page() {
       path: '/app/settings/api',
       icon: <Iconify icon="pajamas:api" width={24} />,
       label: 'API',
-      tooltip: 'Get your API and Secret Key for secure authentication.',
+      tooltip: 'Get API key and secret key to perform email verifications directly.',
       pageTitle: 'API',
       pageSubheading:
-        'Get your API and Secret Key for secure authentication. Ensure these keys remain confidential.',
+        'Generate your API Key and Secret Key to perform email verifications directly through the Pabbly Email Verification API. ',
       link: 'https://forum.pabbly.com/threads/api.26313/',
     },
     {
@@ -47,9 +47,9 @@ export default function Page() {
       path: '/app/settings/timezone',
       icon: <Iconify icon="ri:time-zone-fill" width={24} />,
       label: 'Time Zone',
-      tooltip: 'View credit activity based on your time zone here.',
+      tooltip: 'View and manage the time zone settings of your account.',
       pageTitle: 'Time Zone',
-      pageSubheading: 'Manage your account time zone settings.',
+      pageSubheading: 'Manage your account time zone settings. ',
       link: 'https://forum.pabbly.com/threads/time-zone.26314/',
     },
   ];

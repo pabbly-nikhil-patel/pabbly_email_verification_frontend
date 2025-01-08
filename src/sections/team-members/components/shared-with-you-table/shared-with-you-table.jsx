@@ -42,13 +42,28 @@ import { OrderTableFiltersResult } from './shared-with-you-table-filters-result'
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'sno', label: 'S.No', width: 'flex', whiteSpace: 'nowrap', tooltip: 'Serial Number' },
+  // { id: 'sno', label: 'S.No', width: 'flex', whiteSpace: 'nowrap', tooltip: 'Serial Number' },
 
+  {
+    id: 'shared_on',
+    label: 'Shared On',
+    width: '200',
+    whiteSpace: 'nowrap',
+    align: 'left',
+    tooltip: 'Date and time when the folder was shared.',
+  },
   {
     id: 'folders',
     label: 'Folders Shared By',
     width: '200',
     tooltip: 'Email address of the admin who has shared the folder(s) with you.',
+  },
+  {
+    id: 'permission',
+    label: 'Permission Type',
+    align: 'left',
+    width: '200',
+    tooltip: 'Indicates the access level as read and write access.',
   },
   {
     id: 'shared_on',

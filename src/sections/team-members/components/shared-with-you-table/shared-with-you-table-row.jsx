@@ -21,14 +21,8 @@ import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
 import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
 
-export function OrderTableRow({
-  row,
-  selected,
-  onSelectRow,
-  serialNumber,
-}) {
+export function OrderTableRow({ row, selected, onSelectRow, serialNumber }) {
   const [anchorEl, setAnchorEl] = useState(null);
-
 
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,6 +47,18 @@ export function OrderTableRow({
     }
 
     return `Folder Name: ${rowData.workflows_folders_you_shared}`;
+  };
+
+  const getTooltip = (type, rowData) => {
+    const tooltips = {
+      workflow: `Folder Name: ${rowData.workflows_folders_you_shared}`,
+      sharedOn: `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`,
+      permission:
+        rowData.permission === 'Full access'
+          ? 'User has complete access to view, edit, and manage the folder contents'
+          : 'User can only view the folder contents without making changes',
+    };
+    return tooltips[type];
   };
 
   /* Delete Success Snackbar */
@@ -118,17 +124,11 @@ export function OrderTableRow({
           </Tooltip>
         </TableCell>
 
-        {/* Serial Number */}
-        <TableCell width={88}>
-          <Stack spacing={2} direction="row" alignItems="center">
-            <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
-              <Box component="span">
-                <Tooltip title={`Serial Number: ${serialNumber}`} placement="top" arrow>
-                  {serialNumber}
-                </Tooltip>
-              </Box>
-            </Stack>
-          </Stack>
+        {/* Shared On */}
+        <TableCell align="left">
+          <Tooltip title={getTooltip('sharedOn', row)} arrow placement="top" disableInteractive>
+            {row.createdAt}
+          </Tooltip>
         </TableCell>
 
         {/* Email & Workflows or Folders Shared By  */}
@@ -180,9 +180,16 @@ export function OrderTableRow({
           </Stack>
         </TableCell>
 
+        {/* Permission */}
+        <TableCell align="left">
+          <Tooltip title={getTooltip('permission', row)} arrow placement="top" disableInteractive>
+            {row.permission}
+          </Tooltip>
+        </TableCell>
+
         {/* Shared On */}
-        <TableCell  align="center">
-          <Stack  spacing={1} direction="column" alignItems="flex-end">
+        <TableCell align="center">
+          <Stack spacing={1} direction="column" alignItems="flex-end">
             <Box
               // width={180}
               sx={{

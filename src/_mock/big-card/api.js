@@ -3,12 +3,13 @@ export const listItems = {
       listStyleType: 'disc',
       paddingLeft: '20px',
       color: '#637381',
+      lineHeight: '2',
     },
     items: [
-      'The API Key and Secret Key are confidential, treat them as passwords.',
-      'Use the \'Copy\' button to easily copy the API Key & Secret Key.',
-      'Ensure that you do not share the API Key And Secret Key with anyone.',
-      'With the Pabbly Hook API & Secret Key, you can obtain real-time status updates for connections, requests, events, and much more.',
+      "Click 'Generate API key ' to create a new token, invalidating the previous one.",
+      "Click 'Copy' to quickly copy the API token for use in Pabbly Email Verification Manager application.",
+      'Ensure that you do not share the API token with anyone.',
+      "With the Pabbly Email Verification API, you can obtain real-time status updates for folder(s), manage team members, and much more."
     ],
   };
   

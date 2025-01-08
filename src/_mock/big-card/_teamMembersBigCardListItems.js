@@ -6,11 +6,10 @@ export const listItems = {
     lineHeight: '2',
   },
   items: [
-    'Add Team Members: Invite team members and share specific folders with them for seamless collaboration.',
-    'Access Control: Team members can only view and manage the folders shared with them.',
-    'Restricted Deletions: Shared folders cannot be deleted by team members, ensuring data safety.',
-    'Task Monitoring: Team members can review the email verification history linked to the folders shared with them.',
-    'Limited Permissions: Members can add new email list but are restricted from editing or deleting existing ones.',
-    'Privacy Assurance: Billing details and sub-account information remain inaccessible to team members.'
+    'You can share multiple folders with team members.',
+    'Team members can be granted either "Write" or "View" access. With "Write" access, they can upload email lists for verification, while "View" access allows them only to download verification reports.',
+    'Team members do not have access to the "Settings" section, any billing information, or the "Trash" folder.',
+    'Team members cannot create or delete folders, move folders, or delete email lists.',
+    'Team members are also restricted from moving email lists from one folder to another.',
   ],
 };

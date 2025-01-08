@@ -16,6 +16,14 @@ export const _sharedwithyou = [...Array(10)].map((_, index) => {
     'rajendra.jatav@pabbly.com',
   ];
 
+  const permissions = [
+    'Write Access',
+    'Read Access',
+    'Read Access',
+    'Write Access',
+    'Read Access',
+  ];
+
   const workflows_folders_you_shareds = [
     'Company A Folder, Company B sub folder',
     'Company B, Company C',
@@ -28,6 +36,7 @@ export const _sharedwithyou = [...Array(10)].map((_, index) => {
   const createdOn = dayjs().subtract(index, 'day').format('MMM DD, YYYY HH:mm:ss');
   const updatedAt = dayjs().subtract(index, 'day').add(2, 'hours').format('MMM DD, YYYY HH:mm:ss'); // Updated time for demonstration
   const email = emails[index % emails.length];
+  const permission = permissions[index % permissions.length];
   const workflows_folders_you_shared =
     workflows_folders_you_shareds[index % workflows_folders_you_shareds.length];
   const createdAt = dayjs().subtract(index, 'day').format('MMM DD, YYYY HH:mm:ss');
@@ -38,6 +47,7 @@ export const _sharedwithyou = [...Array(10)].map((_, index) => {
     email,
     workflows_folders_you_shared,
     createdOn,
+    permission,
     updatedAt,
     totalQuantity: (index + 1) * 5,
     createdAt,
