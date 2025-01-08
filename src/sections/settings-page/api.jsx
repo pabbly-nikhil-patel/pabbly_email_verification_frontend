@@ -7,6 +7,7 @@ import {
   Card,
   Alert,
   Button,
+  Dialog,
   Divider,
   Tooltip,
   Snackbar,
@@ -14,7 +15,10 @@ import {
   CardHeader,
   Typography,
   IconButton,
+  DialogTitle,
   CardContent,
+  DialogActions,
+  DialogContent,
   useMediaQuery,
   InputAdornment,
 } from '@mui/material';
@@ -33,13 +37,18 @@ export default function API() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  // Updated alert state management
+  // Dialog and Snackbar states
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [shareSnackbarOpen, setShareSnackbarOpen] = useState(false);
+
+  // Alert state management
   const [alertState, setAlertState] = useState({
     open: false,
     severity: 'success',
     message: '',
   });
 
+  // Form values state
   const [apivalues, setapiValues] = useState({
     amount: '',
     password: '',
@@ -58,6 +67,7 @@ export default function API() {
 
   const { items, style } = listItems;
 
+  // Handlers for form inputs
   const handleChangeapi = (prop) => (event) => {
     setapiValues({ ...apivalues, [prop]: event.target.value });
   };
@@ -78,13 +88,13 @@ export default function API() {
     event.preventDefault();
   }, []);
 
+  // Alert handlers
   const handleAlertClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    if (reason === 'clickaway') return;
     setAlertState((prev) => ({ ...prev, open: false }));
   };
 
+  // Copy handlers
   const handleCopy = (type) => {
     if (type === 'api') {
       navigator.clipboard.writeText(apivalues.password);
@@ -103,17 +113,40 @@ export default function API() {
     }
   };
 
+  // Dialog handlers
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  // Snackbar handlers
+  const handleShareSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setShareSnackbarOpen(false);
+  };
+
+  // Generate token handler
+  const handleGenerateToken = () => {
+    handleDialogClose();
+    // Add your token generation logic here
+    setShareSnackbarOpen(true);
+  };
+
   return (
     <>
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
+
       <Box width="100%">
         <BigCard
           tooltip="View file upload guidelines for email verification."
           getHelp={false}
           isVideo
-          bigcardtitle="Upload Guidelines"
+          bigcardtitle="Points To Remember"
           bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
           style={style}
           items={items}
@@ -123,6 +156,7 @@ export default function API() {
           bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
         />
       </Box>
+
       <Card sx={{ mt: 3 }}>
         <CardHeader
           sx={{
@@ -167,6 +201,7 @@ export default function API() {
               }}
             />
           </Box>
+
           <Box sx={{ mt: 3 }}>
             <Typography fontSize={14} fontWeight={600} mb="8px" ml="13px">
               Secret Key
@@ -175,7 +210,6 @@ export default function API() {
               sx={{
                 width: '700px',
                 '& .MuiInputBase-input': {
-                  // letterSpacing: '2px',
                   fontFamily: 'monospace',
                   '&::placeholder': {
                     letterSpacing: '2px',
@@ -200,12 +234,37 @@ export default function API() {
               }}
             />
           </Box>
-          <Button variant="contained" sx={{ mt: '24px' }} size="large" color="primary">
-            Regenerate
+
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mt: '24px' }}
+            onClick={handleDialogOpen}
+          >
+            Generate API Token
           </Button>
         </CardContent>
       </Card>
 
+      {/* Confirmation Dialog */}
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Generate New API Token</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Generating a new API token will invalidate your current token. Do you want to continue?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleGenerateToken} variant="contained" color="primary" autoFocus>
+            Generate Token
+          </Button>
+          <Button onClick={handleDialogClose} color="inherit" variant="outlined">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Alerts and Snackbars */}
       <Snackbar
         open={alertState.open}
         autoHideDuration={2500}
@@ -234,6 +293,30 @@ export default function API() {
           }}
         >
           {alertState.message}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={shareSnackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleShareSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+        }}
+      >
+        <Alert
+          onClose={handleShareSnackbarClose}
+          severity="success"
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          }}
+        >
+          API Token Generated Successfully!
         </Alert>
       </Snackbar>
     </>

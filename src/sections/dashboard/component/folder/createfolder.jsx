@@ -78,15 +78,16 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
   useEffect(() => {
     if (!open) {
       setWorkflowName('');
-      setCategoryList('None'); // Reset to Home when dialog is closed
+      setCategoryList('Home'); // Reset to Home when dialog is closed
     }
   }, [open]);
 
   // Sample data for folder options
   const folder = [
     'None',
-    'Pabbly Connect',
-    'Main Folder',
+    'Home',
+    'Organization 1',
+    'Organization 2',
     '- Child Folder 1 - Subscription Billing',
     '- Child Folder 2',
     '-- Grand child 1',
@@ -97,22 +98,8 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
     '-- Grand child 3',
     '- Child Folder 3',
     '- Child Folder 4',
-    'Pabbly Subscription Billing',
-    'Pabbly Email Marketing',
-    'Pabbly Form Builder',
-    'Pabbly Email Verification',
-    'Pabbly Hook',
-    'Client (A)',
-    '- Child Folder 1 - Subscription Billing',
-    '- Child Folder 2',
-    '-- Grand child 1',
-    '-- Grand child 2',
-    '--- Folder 1',
-    '--- Folder 2',
-    '--- Folder 3',
-    '-- Grand child 3',
-    '- Child Folder 3',
-    '- Child Folder 4',
+    'Organization 3',
+    'Organization 4',
   ];
 
   return (
@@ -137,7 +124,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
         <Divider sx={{ mb: 3, borderStyle: 'dashed' }} />
 
         <DialogContent>
-          <Box display="flex" flexDirection="column" gap={3}>
+          <Box display="flex" flexDirection="column" gap={3} mt={0} mb={0}>
             <TextField
               autoFocus
               fullWidth

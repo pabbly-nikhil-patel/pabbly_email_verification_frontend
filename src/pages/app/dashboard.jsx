@@ -312,7 +312,7 @@ export default function Page() {
           <Box>
             <Typography variant="h6">Verify Bulk Email List</Typography>
             <Typography mt="4px" fontSize="14px" color="text.secondary">
-              Only CSV files allowed. Download{' '}
+              Upload email list for bulk verification. Download{' '}
               <Link href="/SampleImport.csv" download underline="always">
                 Sample File
               </Link>{' '}

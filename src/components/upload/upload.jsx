@@ -177,7 +177,8 @@ const FileUpload = forwardRef(
                   <Typography sx={{ cursor: 'pointer' }}>Choose a file</Typography>
                   or drag it here.
                 </Box>
-                Supports: CSV
+                <Typography fontSize="12px">Allowed *.csv</Typography>
+                <Typography fontSize="12px">max size of 10 Mb</Typography>
               </span>
             ) : (
               uploadInformation

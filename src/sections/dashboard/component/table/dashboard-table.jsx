@@ -44,6 +44,7 @@ import {
 
 import { DashboardTableRow } from './dashboard-table-row';
 import { DashboardTableToolbar } from './dashboard-table-toolbar';
+import { DashboardTableSelectedAction } from './table-selected-action';
 import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
 // constants/table.js
@@ -308,7 +309,11 @@ export function DashboardTable() {
         ))}
       </Tabs>
 
-      <DashboardTableToolbar filters={filters} onResetPage={table.onResetPage} />
+      <DashboardTableToolbar
+        filters={filters}
+        onResetPage={table.onResetPage}
+        numSelected={table.selected.length}
+      />
 
       {canReset && (
         <DashboardTableFiltersResult
@@ -320,9 +325,20 @@ export function DashboardTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
+        <DashboardTableSelectedAction
+          dense={table.dense}
+          numSelected={table.selected.length}
+          rowCount={dataFiltered.length}
+          onSelectAllRows={(checked) =>
+            table.onSelectAllRows(
+              checked,
+              dataFiltered.map((row) => row.id)
+            )
+          }
+        />
         <Table size={table.dense ? 'small' : 'medium'}>
           <TableHeadCustom
-            showCheckbox={false}
+            showCheckbox
             order={table.order}
             orderBy={table.orderBy}
             headLabel={TABLE_HEAD}

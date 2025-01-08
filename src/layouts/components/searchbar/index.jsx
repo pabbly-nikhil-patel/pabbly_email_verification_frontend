@@ -18,9 +18,15 @@ import { ResultItem } from './result-item';
 
 // ----------------------------------------------------------------------
 const data = [
-  { title: 'pabbly_connect_users_email_list.csv' },
-  { title: 'pabbly_chatflow_users_email_list.csv' },
-  { title: 'clothing_users_email_list.csv' },
+  { title: 'Organisation 1' },
+  { title: 'Organisation 2' },
+  { title: 'Organisation 3' },
+  { title: 'Organisation 4' },
+  { title: 'Organisation 5' },
+  { title: 'Organisation 6' },
+  { title: 'Organisation 7' },
+  { title: 'Organisation 8' },
+  { title: 'Organisation 9' },
 ];
 export default function Searchbar({ sx, ...other }) {
   const theme = useTheme();
@@ -69,7 +75,7 @@ export default function Searchbar({ sx, ...other }) {
     </Box>
   );
   const renderButton = (
-    <Tooltip title="Search Lists to see reports." arrow placement="bottom">
+    <Tooltip title="Search Folders." arrow placement="bottom">
       <Box
         display="flex"
         alignItems="center"
@@ -98,7 +104,7 @@ export default function Searchbar({ sx, ...other }) {
         </Box>
 
         <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
-          Search report by list here.
+          Search folders.
         </Typography>
 
         <Typography
@@ -114,7 +120,7 @@ export default function Searchbar({ sx, ...other }) {
             display: { xs: 'none', md: 'inline-flex' },
           }}
         >
-          clothing_users_email_list.csv
+          Organisation 1
         </Typography>
       </Box>
     </Tooltip>
@@ -140,7 +146,7 @@ export default function Searchbar({ sx, ...other }) {
       >
         <Box>
           <DialogTitle sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}>
-            Search Email List
+            Search Folder
             <Iconify
               onClick={handleClose}
               icon="uil:times"
@@ -150,11 +156,11 @@ export default function Searchbar({ sx, ...other }) {
           <Divider sx={{ borderStyle: 'dashed' }} />
         </Box>
         <Box sx={{ p: 2 }}>
-          <Tooltip title="Enter the email list name." arrow placement="top">
+          <Tooltip title="Enter the folder name." arrow placement="top">
             <TextField
               fullWidth
               size="large"
-              placeholder="Search by email list name..."
+              placeholder="Search by folder name..."
               value={searchQuery}
               onChange={handleSearch}
               autoFocus

@@ -39,6 +39,8 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
 
   const [selectedstatus, setselectedstatus] = useState(null);
 
+  const [selectedFolder, setSelectedFolder] = useState(null);
+
   const handleFilterIconClick = (e) => {
     e.stopPropagation();
     if (isFilterApplied) {
@@ -85,6 +87,37 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
       display: 'flex',
     },
   };
+
+  const folder = [
+    'Pabbly Connect',
+    'Main Folder',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+    'Pabbly Subscription Billing',
+    'Pabbly Email Marketing',
+    'Pabbly Form Builder',
+    'Pabbly Email Verification',
+    'Pabbly Hook',
+    'Client (A)',
+    '- Child Folder 1 - Subscription Billing',
+    '- Child Folder 2',
+    '-- Grand child 1',
+    '-- Grand child 2',
+    '--- Folder 1',
+    '--- Folder 2',
+    '--- Folder 3',
+    '-- Grand child 3',
+    '- Child Folder 3',
+    '- Child Folder 4',
+  ];
 
   return (
     <>
@@ -325,6 +358,66 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
                   value={selectedstatus}
                   onChange={(event, newValue) => setselectedstatus(newValue)}
                   renderInput={(params) => <TextField {...params} label="Select" />}
+                />
+              </FormControl>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: {
+                  xs: 'column',
+                  sm: 'column',
+                  md: 'row',
+                },
+                gap: 2,
+                mb: 2,
+              }}
+            >
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+                  <Tooltip
+                    title=" Filter workflows by selecting a folder to view only the workflows within it."
+                    arrow
+                    placement="top"
+                  >
+                    Folder
+                  </Tooltip>
+                </Typography>
+              </FormControl>
+
+              <FormControl
+                fullWidth
+                sx={{
+                  mb: { xs: 2, sm: 2, md: 0 },
+                  width: { xs: '100%', sm: '100%', md: '390px' },
+                }}
+              >
+                <TextField
+                  id="select-currency-label-x"
+                  variant="outlined"
+                  fullWidth
+                  label="In"
+                  disabled
+                  size="small"
+                />
+              </FormControl>
+
+              <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 } }}>
+                <Autocomplete
+                  sx={{
+                    '& .MuiInputBase-input': {
+                      fontSize: '14px',
+                    },
+                    '& .MuiInputLabel-root': {
+                      fontSize: '14px',
+                    },
+                  }}
+                  size="small"
+                  options={folder}
+                  value={selectedFolder}
+                  onChange={(event, newValue) => setSelectedFolder(newValue)}
+                  renderInput={(params) => <TextField {...params} label="Select" />}
+                  // sx={{ width: 300 }}
                 />
               </FormControl>
             </Box>

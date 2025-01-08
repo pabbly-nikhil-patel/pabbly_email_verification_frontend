@@ -139,7 +139,9 @@ export function HeaderBase({
                 gap: { xs: 1, sm: 1.5 },
               }}
             >
-              {isReportPage && <Searchbar data-slot="searchbar" data={data?.nav} />}
+              {/* {isReportPage &&  */}
+              <Searchbar data-slot="searchbar" data={data?.nav} />
+              {/* } */}
               {isNotUpgraded && (
                 <Tooltip title="Click here to purchase credits." arrow placement="bottom">
                   <Button
