@@ -14,15 +14,10 @@ import {
   CircularProgress,
 } from '@mui/material';
 
-import { popover } from 'src/theme/core/components/popover';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
 import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
-// import { ConfirmDialog } from 'src/components/custom-dialog';
-// import { CustomPopover } from 'src/components/custom-popover';
-// import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
 
 export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow, serialNumber }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -49,7 +44,7 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow, serialN
       return 'Folder Name: Main Folder';
     }
 
-    return `Workflow Name: ${rowData.workflows_folders_you_shared}`;
+    return `Folder Name: ${rowData.workflows_folders_you_shared}`;
   };
 
   const getSharedOnTooltip = (rowData) => {
@@ -59,13 +54,12 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow, serialN
     if (rowData.id === 'workflow-4') {
       return `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`;
     }
-    return `Workflow Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`;
+    return `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`;
   };
 
   /* Delete Success Snackbar */
 
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [setConfirmDialogProps] = useState({});
   const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false);
 
   const handleSuccessSnackbarClose = (event, reason) => {
@@ -75,17 +69,6 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow, serialN
 
   const handleCloseConfirmDelete = () => {
     setConfirmDelete(false);
-  };
-
-  const handleCloseConfirmDialog = () => {
-    setConfirmDelete(false);
-    setConfirmDialogProps({});
-  };
-
-  const handleOpenConfirmDialog = (action) => {
-    setConfirmDialogProps(action);
-    setConfirmDelete(true);
-    popover.onClose(); // Close the MenuList when opening confirm dialog
   };
 
   // LoadingButton
@@ -172,19 +155,6 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow, serialN
                 cursor: 'pointer',
               }}
             >
-              {/* <Box
-                component="span"
-                sx={{
-                  width: 550,
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                <Tooltip title={getWorkflowTooltip(row)} placement="top" arrow>
-                  {row.workflows_folders_you_shared}
-                </Tooltip>
-              </Box> */}
               <Tooltip title={getWorkflowTooltip(row)} placement="top" arrow>
                 <Box
                   component="span"
@@ -238,7 +208,7 @@ export function OrderTableRow({ row, selected, onSelectRow, onDeleteRow, serialN
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <Tooltip title="Remove access to shared workflows or folders." arrow placement="left">
+          <Tooltip title="Remove access to shared folders." arrow placement="left">
             <MenuItem onClick={handleOpenConfirmDelete} sx={{ color: 'error.main' }}>
               <Iconify icon="solar:trash-bin-trash-bold" />
               Remove Access

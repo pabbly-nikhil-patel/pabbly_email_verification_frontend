@@ -112,15 +112,15 @@ export default function TeamMembersPage() {
           </Box>
           <Grid xs={12} md={8}>
             <BigCard
-               tooltip="View file upload guidelines for email verification."
-               getHelp={false}
-               isVideo
+              //  tooltip="View file upload guidelines for email verification."
+              getHelp
+              isVideo={false}              
                bigcardtitle="Points To Remember!"
               //  bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
                style={style}
                items={items}
                videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
-               thumbnailName="email-verication-video-thumbnail.jpg"
+               thumbnailName="pev_team_member.png"
                keyword="Note:"
                bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
                action={

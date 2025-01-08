@@ -6,23 +6,26 @@ import {
   Stack,
   Button,
   Tooltip,
-  TextField,
-  useMediaQuery,
-  InputAdornment,
   Popover,
   MenuList,
   MenuItem,
-  Divider,
+  TextField,
+  useMediaQuery,
+  InputAdornment,
 } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
+import { usePopover } from 'src/components/custom-popover';
+import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 import { TeamMemberDialog } from '../../hooks/add-team-member';
 
 export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberAdded }) {
   const theme = useTheme();
+   const confirmDelete = useBoolean();
+    const popover = usePopover();
   const [openDialog, setOpenDialog] = useState(false); // State for dialog visibility
   const [teamMemberDialogOpen, setTeamMemberDialogOpen] = useState(false); // State for TeamMemberDialog
 
@@ -84,7 +87,7 @@ export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberA
             fullWidth
             value={filters.state.email}
             onChange={handleFilterEmail} // Handle changes for search input
-            placeholder="Search by Email..."
+            placeholder="Search by folder name..."
             disabled={nomemberAdded} // Disabled When No Team Members Added
             InputProps={{
               startAdornment: (
@@ -105,7 +108,7 @@ export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberA
             justifyContent: 'flex-end',
           }}
         >
-           {numSelected > 0 && (
+          {numSelected > 0 && (
             <Button
               endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
               onClick={handlePopoverOpen}
@@ -119,11 +122,7 @@ export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberA
               Select Action
             </Button>
           )}
-          <Tooltip
-            title="Add a team member and share workflow(s) or folder(s) with them."
-            arrow
-            placement="top"
-          >
+          <Tooltip title="Add a team member and share folder(s) with them." arrow placement="top">
             <Button
               sx={{
                 ...toolbarbuttonStyle,
@@ -157,48 +156,31 @@ export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberA
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
         <MenuList>
-          {/* <Tooltip title="Activate selected WhatsApp numbers." arrow placement="left"> */}
-            {/* <MenuItem>
-              <Iconify icon="ion:toggle-sharp" sx={{ mr: 2 }} />
-              Enable
-            </MenuItem> */}
-          {/* </Tooltip> */}
-
-          {/* <Tooltip title="Deactivate selected WhatsApp numbers." arrow placement="left"> */}
-            {/* <MenuItem>
-              <Iconify icon="ph:toggle-left-fill" sx={{ mr: 2 }} />
-              Disable
-            </MenuItem> */}
-          {/* </Tooltip> */}
-          {/* <Tooltip title="Click here to move whatsapp number to folder." arrow placement="left"> */}
-            {/* <Tooltip title="Click here to move WhatsApp number to folder." arrow placement="left"> */}
-              <MenuItem
-              // onClick={() => {
-              //   setMoveToFolderPopoverOpen(true); // Open the Move To Folder dialog
-              //   popover.onClose();
-              // }}
-              >
-                <Iconify icon="fluent:folder-move-16-filled" sx={{ mr: 2 }} />
-                Move
-              </MenuItem>
-            {/* </Tooltip> */}
-          {/* </Tooltip> */}
-
-          <Divider style={{ borderStyle: 'dashed' }} />
-          {/* <Tooltip title="Click here to delete selected whatsapp numbers." arrow placement="left"> */}
-            <MenuItem
-              sx={{ color: 'error.main' }}
-              // onClick={() => {
-              //   confirmDelete.onTrue();
-              //   popover.onClose();
-              // }}
-            >
-              <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 2 }} />
-              Delete
-            </MenuItem>
-          {/* </Tooltip> */}
+          <Tooltip title="Remove access to shared folder." arrow placement="left">
+          <MenuItem
+            sx={{ color: 'error.main' }}
+            onClick={() => {
+              confirmDelete.onTrue();
+              popover.onClose();
+            }}
+          >
+            <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 2 }} />
+            Remove access
+          </MenuItem>
+          </Tooltip>
         </MenuList>
       </Popover>
+      <ConfirmDialog
+        open={confirmDelete.value}
+        onClose={confirmDelete.onFalse}
+        title="Do you wish to remove access?"
+        content="You won't be able to revert this!"
+        action={
+          <Button variant="contained" color="error">
+            Remove Access
+          </Button>
+        }
+      />
     </>
   );
 }

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import {
   Box,
@@ -12,56 +10,25 @@ import {
   Checkbox,
   MenuList,
   MenuItem,
-  useTheme,
   TableCell,
   IconButton,
   CircularProgress,
 } from '@mui/material';
 
-// import { showAccessBox } from 'src/redux/slices/accessSlice';
-
 import { Iconify } from 'src/components/iconify';
 import { AnimateLogo1 } from 'src/components/animate';
-// import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
 import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
 
 export function OrderTableRow({
   row,
-  sharedwithyouteammemberIndex,
   selected,
   onSelectRow,
-  onDeleteRow,
   serialNumber,
 }) {
-  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const teammembername = [
-    'Ayush Bisen',
-    'Ankit Mandli',
-    'Nikhil Patel',
-    'Rajendra Jatav',
-    'Anand Nayak',
-    'Hardik Pradhan',
-    'Abhishek Nagr',
-    // Add more flow names as needed
-  ];
-
-  const handleAccessNowClick = () => {
-    setIsAnimating(true);
-    const selectedTeammemberName =
-      teammembername[sharedwithyouteammemberIndex % teammembername.length];
-
-    setTimeout(() => {
-      setIsAnimating(false);
-      // dispatch(showAccessBox); // Pass the team member name
-      navigate('/app');
-    }, 2000);
-  };
 
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,17 +52,7 @@ export function OrderTableRow({
       return `Folder Name: Main Folder', Workflow Name: ${rowData.workflows_folders_you_shared}`;
     }
 
-    return `Workflow Name: ${rowData.workflows_folders_you_shared}`;
-  };
-
-  const getSharedOnTooltip = (rowData) => {
-    if (rowData.id === 'workflow-0') {
-      return `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`;
-    }
-    if (rowData.id === 'workflow-4') {
-      return `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`;
-    }
-    return `Workflow Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`;
+    return `Folder Name: ${rowData.workflows_folders_you_shared}`;
   };
 
   /* Delete Success Snackbar */
@@ -198,22 +155,6 @@ export function OrderTableRow({
                   {row.email}
                 </Tooltip>
               </Box>
-              {/* <Box
-                component="span"
-                sx={{
-                  color: 'text.disabled',
-                  maxWidth: { xs: '530px', md: '800px' },
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-
-                  alignItems: 'flex-start',
-                }}
-              >
-                <Tooltip title={getWorkflowTooltip(row)} placement="bottom" arrow>
-                  {row.workflows_folders_you_shared}
-                </Tooltip>
-              </Box> */}
               <Tooltip title={getWorkflowTooltip(row)} placement="bottom" arrow>
                 <Box
                   component="span"
@@ -258,8 +199,6 @@ export function OrderTableRow({
                   <Button
                     variant="outlined"
                     color="primary"
-                    // size="small"
-                    onClick={handleAccessNowClick}
                     disabled={isAnimating} // Optionally disable button during animation
                   >
                     Access Now

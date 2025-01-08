@@ -1,4 +1,3 @@
-// import { useSelector } from 'react-redux';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -13,7 +12,6 @@ import {
   CardHeader,
   useMediaQuery,
   CircularProgress,
-  // CircularProgress,
 } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -24,7 +22,6 @@ import { fIsAfter } from 'src/utils/format-time';
 import { Label } from 'src/components/label';
 import { Scrollbar } from 'src/components/scrollbar';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
-// import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
 import {
   useTable,
@@ -104,7 +101,6 @@ export default function SharedbyYouTeamMemberTable({
 
   const canReset = !!filters.state.email || filters.state.status !== 'all';
 
-  const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
 
   const handleDeleteRow = useCallback(
     (id) => {
@@ -144,8 +140,6 @@ export default function SharedbyYouTeamMemberTable({
   // Modify these conditions at the top of your component
   const nomemberAdded = tableData.length === 0; // When no tasks exist at all
   const noSearchResults = dataFiltered.length === 0 && filters.state.email; // When search returns no results
-
-  // const { DataStatus, DataError } = useSelector((state) => state.member);   /* Table CircularProgress loading */
 
   // LoadingButton
   const [isLoading, setIsLoading] = useState(false);
@@ -226,12 +220,6 @@ export default function SharedbyYouTeamMemberTable({
 
           <Scrollbar>
             <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-              {/* Table CircularProgress loading */}
-              {/* {DataStatus === 'loading' && ( */}
-              {/* <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 3 }}>
-                <CircularProgress />
-              </Box> */}
-              {/* )} */}
               <TableHeadCustom
                 showCheckbox
                 order={table.order}

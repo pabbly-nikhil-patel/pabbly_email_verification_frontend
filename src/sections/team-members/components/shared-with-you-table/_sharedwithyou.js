@@ -17,11 +17,11 @@ export const _sharedwithyou = [...Array(10)].map((_, index) => {
   ];
 
   const workflows_folders_you_shareds = [
-    'Client (A), Add Student in Uteach Course and Subscriber in Convertkit on Thrivecart Payment or Add Lead in Salesforce on New Google Form Submission,  Create Invoice in QuickBooks after Stripe Payment, Update Customer in Hubspot on New Sale in Shopify',
-    'Add Student in Uteach Course and Subscriber in Convertkit on Thrivecart Payment or Add Lead in Salesforce on New Google Form Submission',
-    'Main Folder, Add Student in Uteach Course and Subscriber in Convertkit on Thrivecart Payment or Add Lead in Salesforce on New Google Form Submission,  Create Invoice in QuickBooks after Stripe Payment, Update Customer in Hubspot on New Sale in Shopify',
-    'Create Invoice in QuickBooks after Stripe Payment',
-    'Update Customer in Hubspot on New Sale in Shopify',
+    'Company A Folder, Company B sub folder',
+    'Company B, Company C',
+    'Client A',
+    'Client B',
+    'Parent Folder',
     'Main Folder',
   ];
 
