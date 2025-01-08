@@ -18,6 +18,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 
+import { DeleteDialog } from 'src/sections/dialog-boxes/confirm-delete-dialog';
 import { MoveToFolderPopover } from 'src/sections/dialog-boxes/move-to-folder-dailog';
 
 // Constants
@@ -42,6 +43,7 @@ export function DashboardTrashTableToolbar({
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
   const [isFilterApplied, setFilterApplied] = useState(false);
   const [moveFolderOpen, setMoveFolderOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const confirmDelete = useBoolean();
 
   // Computed values
@@ -58,13 +60,6 @@ export function DashboardTrashTableToolbar({
 
   const handleActionsOpen = (event) => setAnchorEl(event.currentTarget);
   const handleActionsClose = () => setAnchorEl(null);
-
-  const handleDelete = () => {
-    if (onDeleteSelected) {
-      onDeleteSelected();
-    }
-    handleActionsClose();
-  };
 
   const handleFilterIconClick = (e) => {
     e.stopPropagation();
@@ -97,6 +92,15 @@ export function DashboardTrashTableToolbar({
 
   const handleFilterClose = () => {
     setFilterAnchorEl(null);
+  };
+
+  const handleDelete = () => {
+    setDeleteOpen(true);
+    handleActionsClose();
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
   };
 
   const folder = [
@@ -182,7 +186,7 @@ export function DashboardTrashTableToolbar({
           <Divider sx={{ borderStyle: 'dashed' }} />
           <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
             <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 1 }} />
-            Delete Selected
+            Delete
           </MenuItem>
         </Popover>
         <MoveToFolderPopover
@@ -190,6 +194,12 @@ export function DashboardTrashTableToolbar({
           onClose={handleMoveFolderClose}
           title="Move to Folder"
           folder={folder}
+        />
+        <DeleteDialog
+          title="Do you wish to remove access?"
+          content="You won&quote;t be able to revert this!"
+          open={deleteOpen}
+          onClose={handleDeleteClose}
         />
       </>
     );
