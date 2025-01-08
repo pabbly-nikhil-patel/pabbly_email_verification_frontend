@@ -1,9 +1,24 @@
 import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
 
-import { Box, Stack, TextField, useMediaQuery, InputAdornment, Button, Popover, MenuList, MenuItem, Divider } from '@mui/material';
+import {
+  Box,
+  Stack,
+  Button,
+  Popover,
+  Tooltip,
+  MenuList,
+  MenuItem,
+  TextField,
+  useMediaQuery,
+  InputAdornment,
+} from '@mui/material';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
+import { usePopover } from 'src/components/custom-popover';
+import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 export function OrderTableToolbar({
   filters,
@@ -12,6 +27,8 @@ export function OrderTableToolbar({
   noworkflowsorfoldersShared,
 }) {
   const theme = useTheme();
+  const confirmDelete = useBoolean();
+  const popover = usePopover();
 
   const isBelow600px = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -45,7 +62,7 @@ export function OrderTableToolbar({
             fullWidth
             value={filters.state.email}
             onChange={handleFilterEmail} // Handle changes for search input
-            placeholder="Search by Email..."
+            placeholder="Search by folder name..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -88,48 +105,31 @@ export function OrderTableToolbar({
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
         <MenuList>
-          {/* <Tooltip title="Activate selected WhatsApp numbers." arrow placement="left"> */}
-          {/* <MenuItem>
-          <Iconify icon="ion:toggle-sharp" sx={{ mr: 2 }} />
-          Enable
-        </MenuItem> */}
-          {/* </Tooltip> */}
-
-          {/* <Tooltip title="Deactivate selected WhatsApp numbers." arrow placement="left"> */}
-          {/* <MenuItem>
-          <Iconify icon="ph:toggle-left-fill" sx={{ mr: 2 }} />
-          Disable
-        </MenuItem> */}
-          {/* </Tooltip> */}
-          {/* <Tooltip title="Click here to move whatsapp number to folder." arrow placement="left"> */}
-          {/* <Tooltip title="Click here to move WhatsApp number to folder." arrow placement="left"> */}
-          <MenuItem
-          // onClick={() => {
-          //   setMoveToFolderPopoverOpen(true); // Open the Move To Folder dialog
-          //   popover.onClose();
-          // }}
-          >
-            <Iconify icon="fluent:folder-move-16-filled" sx={{ mr: 2 }} />
-            Move
-          </MenuItem>
-          {/* </Tooltip> */}
-          {/* </Tooltip> */}
-
-          <Divider style={{ borderStyle: 'dashed' }} />
-          {/* <Tooltip title="Click here to delete selected whatsapp numbers." arrow placement="left"> */}
+          <Tooltip title="Remove access to shared folders." arrow placement="left">
           <MenuItem
             sx={{ color: 'error.main' }}
-            // onClick={() => {
-            //   confirmDelete.onTrue();
-            //   popover.onClose();
-            // }}
+            onClick={() => {
+              confirmDelete.onTrue();
+              popover.onClose();
+            }}
           >
             <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 2 }} />
-            Delete
+            Remove Access
           </MenuItem>
-          {/* </Tooltip> */}
+          </Tooltip>
         </MenuList>
       </Popover>
+      <ConfirmDialog
+        open={confirmDelete.value}
+        onClose={confirmDelete.onFalse}
+        title="Do you wish to remove access?"
+        content="You won't be able to revert this!"
+        action={
+          <Button variant="contained" color="error">
+            Remove Access
+          </Button>
+        }
+      />
     </>
   );
 }
