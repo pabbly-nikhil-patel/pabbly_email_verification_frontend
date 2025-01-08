@@ -39,8 +39,8 @@ const TABLE_HEAD = [
   },
 
   {
-    id: 'message',
-    label: 'Message',
+    id: 'verificationsummary',
+    label: 'Verification Summary',
     width: 'flex',
     whiteSpace: 'nowrap',
     tooltip: 'Description of the email verification action or status update.',
@@ -58,30 +58,34 @@ const TABLE_HEAD = [
 const dataOn = [
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Used in verifying "SampleImport_(3).csv" list',
+    message: 'Pabbly_Sheet.csv',
     status: 'Bulk Verification',
+    folder:'Organisation 1',
     credits: 'Consumed',
     noOfCredits: 9,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Used in verifying "SampleImport_(3).csv" list',
+    message: 'MagnetBrains_sheet.csv',
     status: 'Bulk Verification',
     credits: 'Consumed',
+    folder:'Organisation 2',
     noOfCredits: 7,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Used in verifying email: ankit.mandli1@pabbly.com',
+    message: 'ankit.mandli1@pabbly.com',
     status: 'Single Verification',
+    // folder:'Organisation 1',
     credits: 'Consumed',
     noOfCredits: 1,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Email credits added by Admin',
+    message: 'Email credits alloted',
     status: 'Email Credits Purchased',
     credits: 'Alloted',
+    // folder:'Organisation 1',
     noOfCredits: 100,
   },
 ];

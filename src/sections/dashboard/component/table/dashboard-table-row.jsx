@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import {
   Box,
+  Link,
   Drawer,
   Tooltip,
   Checkbox,
@@ -318,10 +319,26 @@ export function DashboardTableRow({
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h6">
-            {/* {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'} */}
-            Verification Report
-          </Typography>
+          <Box>
+            <Typography variant="h6">
+              {/* {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'} */}
+              Verification Report
+            </Typography>
+            <Typography variant="h8">
+              <span>
+                Check the full details of email verification here.{' '}
+                <Link
+                  href="https://forum.pabbly.com/threads/verification-report.26340/"
+                  style={{ color: '#078DEE' }}
+                  underline="always"
+                  target="_blank"
+                >
+                  Learn more
+                </Link>
+              </span>
+            </Typography>
+          </Box>
+
           <IconButton onClick={() => setIsDrawerOpen(false)}>
             <Iconify icon="mingcute:close-line" />
           </IconButton>
@@ -333,10 +350,10 @@ export function DashboardTableRow({
           title={currentFile.name}
           chart={{
             series: [
-              { label: 'Deliverable', value: 12244 },
-              { label: 'Undeliverable', value: 53345 },
-              { label: 'Accept-all', value: 44313 },
-              { label: 'Unknown', value: 78343 },
+              { label: 'Deliverable Emails', value: 12244 },
+              { label: 'Undeliverable Emails', value: 53345 },
+              { label: 'Accept-all Emails', value: 44313 },
+              { label: 'Unknown Emails', value: 78343 },
             ],
           }}
         />

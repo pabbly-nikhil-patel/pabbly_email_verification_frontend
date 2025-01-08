@@ -259,7 +259,7 @@ export function DashboardTable() {
               arrow
               placement="top"
             >
-              <Typography variant="h6">Email List</Typography>
+              <Typography variant="h6">Home</Typography>
             </Tooltip>
           </Box>
         }

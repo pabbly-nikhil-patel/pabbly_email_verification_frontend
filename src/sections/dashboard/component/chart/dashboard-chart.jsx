@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import {
   Box,
-  Link,
   Dialog,
   Button,
   Tooltip,
@@ -183,12 +182,30 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
               p: 0,
             }}
             title={
+              // <Typography
+              //   sx={{
+              //     overflow: 'hidden',
+              //     textOverflow: 'ellipsis',
+              //     whiteSpace: 'nowrap',
+              //     maxWidth: '320px',
+              //   }}
+              //   variant="h6"
+              // >
+              //   <Tooltip
+              //     arrow
+              //     placement="top"
+              //     disableInteractive
+              //     title={`Summary of email verification results for ${title}`}
+              //   >
+              //     <span>{title}</span>
+              //   </Tooltip>
+              // </Typography>
               <Typography
                 sx={{
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
-                  maxWidth: '320px',
+                  maxWidth: '320px', // Adjust the width accordingly
                 }}
                 variant="h6"
               >
@@ -198,18 +215,18 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   disableInteractive
                   title={`Summary of email verification results for ${title}`}
                 >
-                  <span>{title}</span>
+                  <span>{title.length > 30 ? `${title.slice(0, 30)}...` : title}</span>
                 </Tooltip>
               </Typography>
             }
-            subheader={
-              <>
-                View verification report for this list.{' '}
-                <Link href="#" target="_blank" rel="noopener noreferrer" underline="always">
-                  Learn more
-                </Link>
-              </>
-            }
+            // subheader={
+            //   <>
+            //     View verification report for this list.{' '}
+            //     <Link href="#" target="_blank" rel="noopener noreferrer" underline="always">
+            //       Learn more
+            //     </Link>
+            //   </>
+            // }
           />
           {/* Only show download button when not uploading or processing */}
           {!isUploading && !isStartVerification && isVerificationCompleted && (
@@ -220,7 +237,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                 onClick={() => handleOpen('download')}
                 startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
               >
-                Download Report
+                Download
               </Button>
             </Tooltip>
           )}

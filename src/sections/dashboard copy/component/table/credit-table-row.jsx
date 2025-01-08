@@ -48,28 +48,43 @@ export function CreditTableRow({ row, selected }) {
           </Tooltip>
         </Stack>
       </TableCell>
-
       <TableCell width={200}>
-        <Tooltip
-          arrow
-          placement="top"
-          disableInteractive
-          title={`Message for the action: ${row.message}`}
-        >
-          <Box
-            component="span"
-            sx={{
-              color: 'text.primary',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-              maxWidth: '300px',
-              display: 'inline-block',
-            }}
-          >
-            {row.message}
-          </Box>
-        </Tooltip>
+        <Stack spacing={1}>
+          {' '}
+          <Tooltip arrow placement="top" disableInteractive title={`List: ${row.message}`}>
+            <Box
+              component="span"
+              sx={{
+                color: 'text.primary',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                maxWidth: '300px',
+                display: 'inline-block',
+              }}
+            >
+              {row.message}
+            </Box>
+          </Tooltip>
+        </Stack>
+        <Stack>
+          <Tooltip arrow placement="top" disableInteractive title={`Folder Name: ${row.folder}`}>
+            <Box
+              component="span"
+              sx={{
+                color: 'text.secondary',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                maxWidth: '300px',
+                display: 'inline-block',
+                fontSize: '0.875rem',
+              }}
+            >
+              {row.folder}
+            </Box>
+          </Tooltip>
+        </Stack>
       </TableCell>
       <TableCell width={140} align="right">
         <Tooltip
