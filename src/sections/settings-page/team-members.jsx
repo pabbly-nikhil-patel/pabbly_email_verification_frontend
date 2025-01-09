@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Grid, Button, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Button, Tooltip, useMediaQuery } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 // import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -102,7 +102,7 @@ export default function TeamMembersPage() {
               </div>
             </Tooltip>
           </Box>
-          <Grid xs={12} md={8}>
+        
             <BigCard
               //  tooltip="View file upload guidelines for email verification."
               getHelp
@@ -113,6 +113,7 @@ export default function TeamMembersPage() {
               items={items}
               videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
               thumbnailName="pev_team_member.png"
+              learnMoreLink='https://forum.pabbly.com/threads/team-members.26323/'
               keyword="Note:"
               bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
               action={
@@ -137,7 +138,7 @@ export default function TeamMembersPage() {
 
             {/* Separate Dialog */}
             <TeamMemberDialog open={isTeamMemberDialogOpen} onClose={() => setDialogOpen(false)} />
-          </Grid>
+    
           <SharedbyYouTeamMemberTable />
           <SharedWithYouTeamMemberTable />
         </Box>

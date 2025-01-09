@@ -55,6 +55,7 @@ export default function GetHelp({ sx, icon, title, total, color = 'warning', ...
           style={style}
           items={items}
           thumbnailName="get-help-photo.png"
+          learnMoreLink='https://forum.pabbly.com/threads/help-tutorials.26324/'
           keyword="Note:"
           action={
             <Tooltip

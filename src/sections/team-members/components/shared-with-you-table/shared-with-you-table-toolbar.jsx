@@ -20,7 +20,7 @@ import { Iconify } from 'src/components/iconify';
 import { usePopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
 
-export function OrderTableToolbar({
+export function SharedWithYouTeamMemberTableToolbar({
   filters,
   onResetPage,
   numSelected,

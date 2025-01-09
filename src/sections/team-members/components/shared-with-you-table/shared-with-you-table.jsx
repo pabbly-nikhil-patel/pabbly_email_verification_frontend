@@ -35,9 +35,10 @@ import {
 } from 'src/components/table';
 
 import { _sharedwithyou } from './_sharedwithyou';
-import { OrderTableRow } from './shared-with-you-table-row';
-import { OrderTableToolbar } from './shared-with-you-table-toolbar';
-import { OrderTableFiltersResult } from './shared-with-you-table-filters-result';
+import { SharedWithYouTeamMemberTableRow } from './shared-with-you-table-row';
+import { SharedWithYouTeamMemberTableToolbar } from './shared-with-you-table-toolbar';
+import { SharedWithYouTeamMemberTableFiltersResult } from './shared-with-you-table-filters-result';
+
 
 // ----------------------------------------------------------------------
 
@@ -186,7 +187,7 @@ export default function SharedWithYouTeamMemberTable({
         />
         <Divider />
 
-        <OrderTableToolbar
+        <SharedWithYouTeamMemberTableToolbar
           filters={filters}
           onResetPage={table.onResetPage}
           dateError={dateError}
@@ -195,7 +196,7 @@ export default function SharedWithYouTeamMemberTable({
         />
 
         {canReset && (
-          <OrderTableFiltersResult
+          <SharedWithYouTeamMemberTableFiltersResult
             filters={filters}
             totalResults={dataFiltered.length}
             onResetPage={table.onResetPage}
@@ -280,7 +281,7 @@ export default function SharedWithYouTeamMemberTable({
                       table.page * table.rowsPerPage + table.rowsPerPage
                     )
                     .map((row, index) => (
-                      <OrderTableRow
+                      <SharedWithYouTeamMemberTableRow
                         key={row.id}
                         row={row}
                         selected={table.selected.includes(row.id)}
