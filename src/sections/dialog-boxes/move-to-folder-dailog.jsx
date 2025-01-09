@@ -23,46 +23,29 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [categoryList, setCategoryList] = useState(''); // Initialize empty for validation
-  const [categoryError, setCategoryError] = useState(false); // State to manage error message
+  const [categoryList, setCategoryList] = useState(''); 
+  const [categoryError, setCategoryError] = useState(false); 
 
   const handleChangeCategoryList = useCallback((event, value) => {
     setCategoryList(value);
     if (value) {
-      setCategoryError(false); // Reset error when valid selection is made
+      setCategoryError(false); 
     }
   }, []);
 
   const folder = [
+    'None',
     'Home',
-    'Pabbly Connect',
-    'Main Folder',
-    '- Child Folder 1 - Subscription Billing',
-    '- Child Folder 2',
-    '-- Grand child 1',
-    '-- Grand child 2',
-    '--- Folder 1',
-    '--- Folder 2',
-    '--- Folder 3',
-    '-- Grand child 3',
-    '- Child Folder 3',
-    '- Child Folder 4',
-    'Pabbly Subscription Billing',
-    'Pabbly Email Marketing',
-    'Pabbly Form Builder',
-    'Pabbly Email Verification',
-    'Pabbly Hook',
-    'Client (A)',
-    '- Child Folder 1 - Subscription Billing',
-    '- Child Folder 2',
-    '-- Grand child 1',
-    '-- Grand child 2',
-    '--- Folder 1',
-    '--- Folder 2',
-    '--- Folder 3',
-    '-- Grand child 3',
-    '- Child Folder 3',
-    '- Child Folder 4',
+    'Organization 1',
+    'Organization 2',
+    'Organization 3',
+    'Organization 4',
+    'Organization 5',
+    'Organization 6',
+    'Organization 7',
+    'Organization 8',
+    'Organization 9',
+    'Trash',
   ];
 
   const handleAdd = () => {
