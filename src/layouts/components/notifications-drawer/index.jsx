@@ -71,31 +71,6 @@ export function NotificationsDrawer({ data = [], sx, ...other }) {
     </Stack>
   );
 
-  // const renderTabs = (
-  //   <CustomTabs variant="fullWidth" value={currentTab} onChange={handleChangeTab}>
-  //     {TABS.map((tab) => (
-  //       <Tab
-  //         key={tab.value}
-  //         iconPosition="end"
-  //         value={tab.value}
-  //         label={tab.label}
-  //         icon={
-  //           <Label
-  //             variant={((tab.value === 'all' || tab.value === currentTab) && 'filled') || 'soft'}
-  //             color={
-  //               (tab.value === 'unread' && 'info') ||
-  //               (tab.value === 'archived' && 'success') ||
-  //               'default'
-  //             }
-  //           >
-  //             {tab.count}
-  //           </Label>
-  //         }
-  //       />
-  //     ))}
-  //   </CustomTabs>
-  // );
-
   const renderList = (
     <Scrollbar>
       <Box component="ul">

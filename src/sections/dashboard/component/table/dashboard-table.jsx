@@ -49,7 +49,7 @@ import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
 // constants/table.js
 const STATUS_OPTIONS = [
-  { value: 'all', label: 'All', tooltip: 'Click here to view all list.' },
+  { value: 'all', label: 'All', tooltip: 'View all email lists here, regardless of their current status.' },
   ...DASHBOARD_STATUS_OPTIONS,
 ];
 
