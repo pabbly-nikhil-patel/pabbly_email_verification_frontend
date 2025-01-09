@@ -397,6 +397,7 @@ export default function FolderCard({ sx, onTrashClick, onHomeClick, onFolderClic
                     >
                       <Typography
                         variant="body2"
+                        fontWeight={500}
                         sx={{
                           display: 'flex',
                           flexGrow: 1,

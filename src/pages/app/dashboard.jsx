@@ -246,6 +246,7 @@ export default function Page() {
               videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
               thumbnailName="email-verication-video-thumbnail.jpg"
               keyword="Note:"
+              learnMoreLink="https://forum.pabbly.com/threads/dashboard.26311/"
               bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
               action={
                 <Tooltip

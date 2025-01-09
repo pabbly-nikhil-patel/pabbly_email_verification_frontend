@@ -1,4 +1,4 @@
-import { Box, Card, Tooltip, Typography } from '@mui/material';
+import { Box, Card, Link, Tooltip, Typography } from '@mui/material';
 
 import VideoModal from '../video-modal/video-modal';
 
@@ -17,13 +17,14 @@ export default function BigCard({
   showNote = true,
   bigcardNote,
   keyword,
+  learnMoreLink = '#', // Added default prop for learn more link
 }) {
   return (
     <Card sx={{ p: 5 }}>
       <Box
         sx={{
           display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
+          flexDirection: { xs: 'column', lg: 'row' },
           justifyContent: 'space-between',
           alignItems: 'center',
           mb: 0,
@@ -33,9 +34,12 @@ export default function BigCard({
         <Box>
           <Box>
             <Box sx={{ mb: 1 }}>
-              <Tooltip arrow placement="top" title={tooltip}>
-                <Typography variant="h6">{bigcardtitle}</Typography>
-              </Tooltip>
+              <Typography variant="h6">
+                <Tooltip arrow placement="top" title={tooltip}>
+                  {' '}
+                  {bigcardtitle}{' '}
+                </Tooltip>
+              </Typography>
 
               <Typography color="#637381" fontSize="14px" fontWeight={500} mt={1}>
                 {bigcardsubtitle}
@@ -45,24 +49,28 @@ export default function BigCard({
               {items.map((item, index) => (
                 <li key={index}>
                   <Typography variant="body2" fontWeight={500} color="#637381">
-                    {item}
+                    {item}{' '}
+                    {index === items.length - 1 && (
+                      <Link
+                        href={learnMoreLink}
+                        style={{ color: '#078DEE', cursor: 'pointer' }}
+                        underline="always"
+                        // Use href for external links
+                        target="_blank" // Opens in a new tab
+                        rel="noopener noreferrer"
+                      >
+                       Learn More
+                      </Link>
+                    )}
                   </Typography>
                 </li>
               ))}
             </Box>
-            {/* {showNote && (
-              <Typography color="#637381" fontSize="14px" mt={2} mb={2}>
-                <span>
-                  <strong>{keyword}&nbsp;</strong>
-                  {bigcardNote}
-                </span>
-              </Typography>
-            )} */}
 
             {action}
           </Box>
         </Box>{' '}
-        <Box>
+        <Box >
           <VideoModal
             getHelp={getHelp}
             isVideo={isVideo}
