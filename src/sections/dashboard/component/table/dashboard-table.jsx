@@ -44,7 +44,6 @@ import {
 
 import { DashboardTableRow } from './dashboard-table-row';
 import { DashboardTableToolbar } from './dashboard-table-toolbar';
-import { DashboardTableSelectedAction } from './table-selected-action';
 import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
 // constants/table.js
@@ -325,7 +324,7 @@ export function DashboardTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        <DashboardTableSelectedAction
+        {/* <DashboardTableSelectedAction
           dense={table.dense}
           numSelected={table.selected.length}
           rowCount={dataFiltered.length}
@@ -335,7 +334,7 @@ export function DashboardTable() {
               dataFiltered.map((row) => row.id)
             )
           }
-        />
+        /> */}
         <Table size={table.dense ? 'small' : 'medium'}>
           <TableHeadCustom
             showCheckbox
