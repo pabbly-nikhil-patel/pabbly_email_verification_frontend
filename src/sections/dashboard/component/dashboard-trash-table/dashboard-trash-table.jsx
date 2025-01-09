@@ -242,45 +242,7 @@ export function DashboardTrashTable() {
       />
       <Divider />
 
-      {/* <Tabs
-        value={filters.state.status}
-        onChange={handleFilterStatus}
-        sx={{
-          px: 2.5,
-          boxShadow: `inset 0 -2px 0 0 ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
-        }}
-      >
-        {STATUS_OPTIONS.map((tab) => (
-          <Tab
-            key={tab.value}
-            iconPosition="end"
-            value={tab.value}
-            label={
-              <Tooltip disableInteractive placement="top" arrow title={tab.tooltip}>
-                <span>{tab.label}</span>
-              </Tooltip>
-            }
-            icon={
-              <Label
-                variant={
-                  ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
-                  'soft'
-                }
-                color={
-                  (tab.value === 'completed' && 'success') ||
-                  (tab.value === 'processing' && 'info') ||
-                  (tab.value === 'unprocessed' && 'error') ||
-                  'default'
-                }
-              >
-                {['completed', 'processing', 'unprocessed'].includes(tab.value)
-                  ? tableData.filter((user) => user.status === tab.value).length
-                  : tableData.length}
-              </Label>
-            }
-          />
-        ))}
-      </Tabs> */}
+    
 
       <DashboardTrashTableToolbar
         filters={filters}

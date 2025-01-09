@@ -44,7 +44,6 @@ const LABELS = {
   trash: 'Trash',
 };
 
-// Simplified processItems function (no children counting needed)
 const truncateLabel = (label, maxLength = 25) =>
   label.length > maxLength ? `${label.slice(0, maxLength)}...` : label;
 
@@ -55,7 +54,6 @@ const processItems = (items) =>
     label: truncateLabel(item.label),
   }));
 
-// Simplified tree items
 const HOMEITEMS = processItems([{ id: '25', label: LABELS.home }]);
 
 const ITEMS = processItems([
@@ -72,7 +70,6 @@ const ITEMS = processItems([
 
 const ITEMS2 = processItems([{ id: '24', label: LABELS.trash }]);
 
-// StyledTreeItem component remains the same
 const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   color: theme.vars.palette.grey[800],
   [stylesMode.dark]: { color: theme.vars.palette.grey[200] },
@@ -100,7 +97,6 @@ const StyledTreeItem = styled(TreeItem)(({ theme }) => ({
   },
 }));
 
-// Simplified CustomTreeItem component
 const CustomTreeItem = React.forwardRef((props, ref) => {
   const { fullLabel, label, id, onHomeClick, onFolderClick, hideEllipsis, ...other } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -108,6 +104,10 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   const [renameDialogOpen, setRenameDialogOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [selectedFolderName, setSelectedFolderName] = useState('');
+
+  // Check if the item is Home based on its ID (25) or label
+  const isHome = id === '25' || label === LABELS.home;
+  const shouldShowEllipsis = !hideEllipsis && !isHome && id !== '0';
 
   const handleIconClick = (event) => {
     event.stopPropagation();
@@ -158,7 +158,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
                 <span>{label}</span>
               </Box>
             </Tooltip>
-            {!hideEllipsis && id !== '0' && (
+            {shouldShowEllipsis && (
               <IconButton onClick={handleIconClick} size="small">
                 <Tooltip title="Click to see options." arrow placement="top">
                   <Iconify
@@ -204,12 +204,6 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
               }}
             >
               <MenuList>
-                {/* <Tooltip title="Create a new folder." arrow placement="left">
-                  <MenuItem onClick={handleCreateFolderClick}>
-                    <Iconify icon="fa6-solid:square-plus" />
-                    Create Folder
-                  </MenuItem>
-                </Tooltip> */}
                 <Tooltip title="Change the folder's name." arrow placement="left">
                   <MenuItem onClick={handleRenameFolderClick}>
                     <Iconify icon="fluent:rename-16-filled" />
@@ -257,7 +251,6 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   );
 });
 
-// Main FolderCard component
 export default function FolderCard({ sx, onTrashClick, onHomeClick, onFolderClick, ...other }) {
   const theme = useTheme();
   const folderDialog = useBoolean();
