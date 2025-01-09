@@ -59,7 +59,7 @@ export default function BigCard({
                         target="_blank" // Opens in a new tab
                         rel="noopener noreferrer"
                       >
-                       Learn More
+                       Learn more
                       </Link>
                     )}
                   </Typography>

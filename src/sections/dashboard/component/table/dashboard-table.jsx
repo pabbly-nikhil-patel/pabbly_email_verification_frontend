@@ -62,7 +62,7 @@ const TABLE_HEAD = [
   },
   {
     id: 'consumed',
-    label: 'No. of Emails & Credits Used',
+    label: 'No. of Emails/Credits Used',
     width: 400,
     whiteSpace: 'nowrap',
     tooltip: 'Number of credits used by this list',
@@ -262,7 +262,7 @@ export function DashboardTable() {
             </Tooltip>
           </Box>
         }
-        subheader="View all the uploaded list here."
+        subheader="View and manage your uploaded lists here."
         sx={{ pb: 3 }}
       />
       <Divider />

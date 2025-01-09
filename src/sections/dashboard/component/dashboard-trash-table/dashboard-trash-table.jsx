@@ -4,7 +4,9 @@ import { useTheme } from '@emotion/react';
 import { useState, useEffect, useCallback } from 'react';
 
 import {
+  Tab,
   Box,
+  Tabs,
   Card,
   Table,
   Alert,
@@ -22,8 +24,10 @@ import {
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
-import { DASHBOARD_TRASH_STATUS_OPTIONS } from 'src/_mock/_table/_dashboardtrash';
+import { varAlpha } from 'src/theme/styles';
+import { DASHBOARD_STATUS_OPTIONS } from 'src/_mock/_table/_dashboard';
 
+import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
@@ -38,14 +42,16 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
+import { MoveToFolderPopover } from 'src/sections/dialog-boxes/move-to-folder-dailog';
+
 import { DashboardTrashTableRow } from './dashboard-trash-table-row';
 import { DashboardTrashTableToolbar } from './dashboard-trash-table-toolbar';
 import { DashboardTrashTableFiltersResult } from './dashboard-trash-table-filters-result';
 
 // constants/table.js
 const STATUS_OPTIONS = [
-  { value: 'all', label: 'All', tooltip: 'Click here to view all list.' },
-  ...DASHBOARD_TRASH_STATUS_OPTIONS,
+  { value: 'all', label: 'All', tooltip: 'View all email lists that have been uploaded.' },
+  ...DASHBOARD_STATUS_OPTIONS,
 ];
 
 const TABLE_HEAD = [
@@ -58,26 +64,48 @@ const TABLE_HEAD = [
   },
   {
     id: 'consumed',
-    label: 'No. of Emails & Credits Used',
+    label: 'No. of Emails/Credits Used',
     width: 400,
     whiteSpace: 'nowrap',
+    align: 'right',
     tooltip: 'Number of credits used by this list',
   },
-  {
-    id: 'action',
-    label: 'Action',
-    width: 300,
-    whiteSpace: 'nowrap',
-    align: 'right',
-    tooltip: 'Take actions on the list here.',
-  },
+  // {
+  //   id: 'action',
+  //   label: 'Action',
+  //   width: 300,
+  //   whiteSpace: 'nowrap',
+  //   align: 'right',
+  //   tooltip: 'Take actions on the list here.',
+  // },
   { id: '', width: 10 },
 ];
 
 // data/mockData.js
 const dataOn = [
   {
-    status: 'completed',
+    status: 'uploading',
+    name: 'new_users_list.csv',
+    numberOfEmails: 128,
+    creditconsumed: '0 Credit Consumed',
+    date: 'Oct 23, 2024 17:45:32',
+  },
+  {
+    status: 'Unverified',
+    name: 'pabbly_connect_users_email_list.csv',
+    numberOfEmails: 65,
+    creditconsumed: '65 Credit Consumed',
+    date: 'Oct 23, 2024 17:45:32',
+  },
+  {
+    status: 'processing',
+    name: 'pabbly_chatflow_users_email_list.csv',
+    numberOfEmails: 65,
+    creditconsumed: '65 Credit Consumed',
+    date: 'Oct 23, 2024 17:45:32',
+  },
+  {
+    status: 'Verified',
     name: 'clothing_users_email_list.csv',
     numberOfEmails: 653343,
     creditconsumed: '653343 Credit Consumed',
@@ -145,7 +173,7 @@ export function DashboardTrashTable() {
   useEffect(() => {
     if (isVerificationCompleted && processingRowId !== null) {
       setTableData((prevData) =>
-        prevData.map((row) => (row.id === processingRowId ? { ...row, status: 'completed' } : row))
+        prevData.map((row) => (row.id === processingRowId ? { ...row, status: 'Verified' } : row))
       );
       setProcessingRowId(null);
     }
@@ -207,6 +235,14 @@ export function DashboardTrashTable() {
     });
   };
 
+  const [openMoveFolder, setOpenMoveFolder] = useState(false);
+
+  // Add this handler in DashboardTrashTable component
+  const handleMoveToFolder = () => {
+    setOpenMoveFolder(true);
+    handleClosePopover();
+  };
+
   // Computed values
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -242,7 +278,46 @@ export function DashboardTrashTable() {
       />
       <Divider />
 
-    
+      <Tabs
+        value={filters.state.status}
+        onChange={handleFilterStatus}
+        sx={{
+          px: 2.5,
+          boxShadow: `inset 0 -2px 0 0 ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
+        }}
+      >
+        {STATUS_OPTIONS.map((tab) => (
+          <Tab
+            key={tab.value}
+            iconPosition="end"
+            value={tab.value}
+            label={
+              <Tooltip disableInteractive placement="top" arrow title={tab.tooltip}>
+                <span>{tab.label}</span>
+              </Tooltip>
+            }
+            icon={
+              <Label
+                variant={
+                  ((tab.value === 'all' || tab.value === filters.state.status) && 'filled') ||
+                  'soft'
+                }
+                color={
+                  (tab.value === 'Verified' && 'success') ||
+                  (tab.value === 'processing' && 'info') ||
+                  (tab.value === 'uploading' && 'warning') ||
+                  (tab.value === 'Unverified' && 'error') ||
+                  'default'
+                }
+              >
+                {['Verified', 'processing', 'uploading', 'Unverified'].includes(tab.value)
+                  ? tableData.filter((user) => user.status === tab.value).length
+                  : tableData.length}
+              </Label>
+            }
+          />
+        ))}
+      </Tabs>
 
       <DashboardTrashTableToolbar
         filters={filters}
@@ -260,7 +335,7 @@ export function DashboardTrashTable() {
       )}
 
       <Box sx={{ position: 'relative' }}>
-        {/* <TableSelectedAction
+        {/* <DashboardTableSelectedAction
           dense={table.dense}
           numSelected={table.selected.length}
           rowCount={dataFiltered.length}
@@ -338,24 +413,40 @@ export function DashboardTrashTable() {
       >
         <MenuList>
           {selectedRow && selectedRow.status !== 'processing' && (
-            <Tooltip title="Delete email list permanently." arrow placement="left">
-              <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
-                <Iconify icon="solar:trash-bin-trash-bold" />
-                Delete
-              </MenuItem>
-            </Tooltip>
+            <>
+              <Tooltip title="Move to folder" arrow placement="left">
+                <MenuItem onClick={handleMoveToFolder}>
+                  <Iconify icon="fluent:folder-move-16-filled" />
+                  Move to folder
+                </MenuItem>
+              </Tooltip>
+              <Tooltip title="Delete connection." arrow placement="left">
+                <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
+                  <Iconify icon="solar:trash-bin-trash-bold" />
+                  Delete
+                </MenuItem>
+              </Tooltip>
+            </>
           )}
         </MenuList>
       </CustomPopover>
+
+      <MoveToFolderPopover
+        open={openMoveFolder}
+        onClose={() => {
+          setOpenMoveFolder(false);
+          setSelectedRow(null);
+        }}
+      />
 
       <ConfirmDialog
         open={confirmDelete.value}
         onClose={confirmDelete.onFalse}
         title="Delete"
-        content="Email list once deleted cannot be restored in any case."
+        content="Are you sure you want to delete this email list?"
         action={
           <Button variant="contained" color="error" onClick={handleDelete}>
-            Delete Permanently
+            Delete
           </Button>
         }
       />

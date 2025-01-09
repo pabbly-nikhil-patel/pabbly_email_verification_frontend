@@ -104,18 +104,18 @@ export function DashboardTrashTableToolbar({
   };
 
   const folder = [
-    'Home',
-    'Organisation 1',
-    'Organisation 2',
-    'Organisation 3',
-    'Organisation 4',
-    'Organisation 5',
-    'Organisation 6',
-    'Organisation 7',
-    'Organisation 8',
-    'Organisation 9',
+    'Home (0)',
+    'Magnet Brains (2)',
+    'Pabbly Hook (5)',
+    'Pabbly Connect (10)',
+    'Pabbly Subcription Billing (0)',
+    'Pabbly Admin (50)',
+    'Pabbly Chatflow (2)',
+    'Pabbly Form Builder (0)',
+    'Pabbly Email Marketing (2)',
+    'Pabbly Plus (4)',
     'Trash',
-  ];
+  ]
 
   // Render functions
   const renderSearchField = () => (

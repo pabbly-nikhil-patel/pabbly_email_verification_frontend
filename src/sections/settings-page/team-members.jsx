@@ -106,7 +106,7 @@ export default function TeamMembersPage() {
             <BigCard
               //  tooltip="View file upload guidelines for email verification."
               getHelp
-              isVideo={false}
+              isVideo
               bigcardtitle="Points To Remember!"
               //  bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
               style={style}

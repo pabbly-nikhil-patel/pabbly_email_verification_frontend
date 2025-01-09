@@ -152,7 +152,7 @@ export default function Page() {
         >
           <PageHeader
             title="Dashboard"
-            Subheading="Enhance your email list quality with advanced verification tools, reducing bounce rates and maximizing deliverability."
+            Subheading="Verify and manage all your email lists in one place with the Pabbly Email Verification Dashboard. "
             link_added="https://forum.pabbly.com/threads/dashboard.26311/"
           />
           <Tooltip
@@ -344,10 +344,24 @@ export default function Page() {
         }}
       >
         <MenuList>
-          <MenuItem onClick={() => handleMenuItemClick('singleEmail')}>
-            Verify Single Email
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
+          <Tooltip
+            title="Click to verify a single email."
+            arrow
+            placement="left"
+            disableInteractive
+          >
+            <MenuItem onClick={() => handleMenuItemClick('singleEmail')}>
+              Verify Single Email
+            </MenuItem>
+          </Tooltip>
+          <Tooltip
+            title="Click to verify bulk emails."
+            arrow
+            placement="left"
+            disableInteractive
+          >
+            <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
+          </Tooltip>
         </MenuList>
       </Popover>
 

@@ -21,6 +21,7 @@ import { fNumber } from 'src/utils/format-number';
 import { Iconify } from 'src/components/iconify';
 import { Chart, useChart, ChartLegends } from 'src/components/chart';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
+import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
 
 import ChartAlert from './chart-alert';
 
@@ -40,17 +41,17 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
   const downloadActions = [
     {
       id: 'all-results',
-      itemName: 'All Result',
+      itemName: 'All Emails Result ',
       itemIcon: 'material-symbols:check-circle',
     },
     {
       id: 'deliverable',
-      itemName: 'Deliverable',
+      itemName: 'Deliverable Emails',
       itemIcon: 'ep:list',
     },
     {
       id: 'undeliverable',
-      itemName: 'Undeliverable',
+      itemName: 'Undeliverable Emails',
       itemIcon: 'gridicons:cross-circle',
     },
   ];
@@ -300,7 +301,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
           {dialog.mode === 'download' && (
             <>
               <DialogTitle sx={{ p: 2 }}>
-                <Typography variant="h6">Download Verification Result</Typography>
+                <Typography variant="h6">Download Verification Report</Typography>
                 <IconButton
                   onClick={handleClose}
                   sx={{
@@ -377,14 +378,17 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                 </Box>
 
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  Please note all data and reports associated with this list will be permanently
-                  removed automatically after 15 days.
+                  All data and reports will be automatically deleted after 15 days. A copy of the
+                  report will be sent to your registered email before deletion.{' '}
+                  <LearnMoreLink link="#" />
                 </Typography>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
-                  <Button variant="contained" onClick={handleDownload} color="primary">
-                    Download CSV
-                  </Button>
+                  <Tooltip title="Click to download report." arrow placement="top" disableInteractive>
+                    <Button variant="contained" onClick={handleDownload} color="primary">
+                      Download CSV
+                    </Button>
+                  </Tooltip>
                 </Box>
               </Box>
             </>

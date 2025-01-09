@@ -8,11 +8,9 @@ import {
   Dialog,
   Button,
   Divider,
-  Tooltip,
   Snackbar,
   TextField,
   DialogTitle,
-  Autocomplete,
   DialogContent,
   DialogActions,
   useMediaQuery,
@@ -84,17 +82,16 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
 
   // Sample data for folder options
   const folder = [
-    'None',
-    'Home',
-    'Organization 1',
-    'Organization 2',
-    'Organization 3',
-    'Organization 4',
-    'Organization 5',
-    'Organization 6',
-    'Organization 7',
-    'Organization 8',
-    'Organization 9',
+    'Home (0)',
+    'Magnet Brains (2)',
+    'Pabbly Hook (5)',
+    'Pabbly Connect (10)',
+    'Pabbly Subcription Billing (0)',
+    'Pabbly Admin (50)',
+    'Pabbly Chatflow (2)',
+    'Pabbly Form Builder (0)',
+    'Pabbly Email Marketing (2)',
+    'Pabbly Plus (4)',
     'Trash',
   ];
 
@@ -151,7 +148,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
               }
             />
 
-            <Autocomplete
+            {/* <Autocomplete
               sx={{
                 '& .MuiInputBase-input': {
                   fontSize: '14px',
@@ -198,7 +195,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
                   error={categoryError}
                 />
               )}
-            />
+            /> */}
           </Box>
         </DialogContent>
 
@@ -206,9 +203,9 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
           <Button onClick={handleAdd} color="primary" variant="contained">
             Create Folder
           </Button>
-          {/* <Button onClick={onClose} variant="outlined" color="inherit">
+          <Button onClick={onClose} variant="outlined" color="inherit">
             Cancel
-          </Button> */}
+          </Button>
         </DialogActions>
       </Dialog>
       <Snackbar

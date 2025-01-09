@@ -11,6 +11,6 @@ export const listItems = {
     'The email address column should be the last column in the file.',
     'Ensure the file size does not exceed 10MB.',
     'The file can contain a maximum of 300,000 email addresses.',
-    'All data and reports older than 15 days will be permanently removed automatically.'
+    'All data and reports will be automatically deleted after 15 days. A copy of the report will be sent to your registered email before deletion.'
   ],
 };

@@ -183,7 +183,7 @@ export default function API() {
               API Key
             </Typography> */}
             <TextField
-              sx={{ width: '700px' }}
+            fullWidth
               variant="outlined"
               type="text"
               label='API Key'
@@ -217,15 +217,7 @@ export default function API() {
               Secret Key
             </Typography> */}
             <TextField
-              sx={{
-                width: '700px',
-                '& .MuiInputBase-input': {
-                  fontFamily: 'monospace',
-                  '&::placeholder': {
-                    letterSpacing: '2px',
-                  },
-                },
-              }}
+            fullWidth
               variant="outlined"
               label="Secret Key"
               type="text"

@@ -89,17 +89,16 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
   };
 
   const folder = [
-    'None',
-    'Home',
-    'Organization 1',
-    'Organization 2',
-    'Organization 3',
-    'Organization 4',
-    'Organization 5',
-    'Organization 6',
-    'Organization 7',
-    'Organization 8',
-    'Organization 9',
+    'Home (0)',
+    'Magnet Brains (2)',
+    'Pabbly Hook (5)',
+    'Pabbly Connect (10)',
+    'Pabbly Subcription Billing (0)',
+    'Pabbly Admin (50)',
+    'Pabbly Chatflow (2)',
+    'Pabbly Form Builder (0)',
+    'Pabbly Email Marketing (2)',
+    'Pabbly Plus (4)',
     'Trash',
   ];
 

@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import {
   Box,
+  Link,
   Drawer,
   Tooltip,
   Checkbox,
@@ -30,10 +30,9 @@ const CustomBackdrop = (props) => (
 );
 
 export function DashboardTrashTableRow({
-  selected,
   onSelectRow,
-  onDeleteRow,
   row,
+  selected,
   dashboardTableIndex,
   onOpenPopover,
   onViewReport,
@@ -65,12 +64,53 @@ export function DashboardTrashTableRow({
   };
 
   const handleAction = () => {
-    if (row.status === 'unprocessed') {
-      onStartVerification();
-      dispatch(startVerification());
-      setIsDrawerOpen(true);
-    } else if (row.status === 'completed') {
-      setIsDrawerOpen(true);
+    switch (row.status) {
+      case 'Unverified':
+        onStartVerification();
+        dispatch(startVerification());
+        setIsDrawerOpen(true);
+        break;
+      case 'Verified':
+        setIsDrawerOpen(true);
+        break;
+      case 'processing':
+      case 'uploading':
+        setIsDrawerOpen(true); // Show progress drawer for both states
+        break;
+      default:
+        break;
+    }
+  };
+
+  // Status color mapping
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Verified':
+        return 'success';
+      case 'processing':
+        return 'info';
+      case 'uploading':
+        return 'warning';
+      case 'Unverified':
+        return 'error';
+      default:
+        return 'default';
+    }
+  };
+
+  // Button text mapping
+  const getButtonText = (status) => {
+    switch (status) {
+      case 'Verified':
+        return 'View Report';
+      case 'processing':
+        return 'Verification In Progress';
+      case 'uploading':
+        return 'Uploading';
+      case 'Unverified':
+        return 'Start Verification';
+      default:
+        return '';
     }
   };
 
@@ -98,24 +138,20 @@ export function DashboardTrashTableRow({
             }}
           >
             <Tooltip
-              title={`${
-                (row.status === 'unprocessed' && 'List is Unprocessed.') ||
-                (row.status === 'completed' && 'List is Completed.') ||
-                (row.status === 'processing' && 'List is Processing.')
-              }`}
+              title={
+                row.status === 'processing'
+                  ? ' Email list is currently under the verification process.'
+                  : row.status === 'uploading'
+                    ? 'Email list is currently being uploading.'
+                    : row.status === 'Verified'
+                      ? 'Verification for the email list is done.'
+                      : ' Email list has been uploaded but verification has not yet started.'
+              }
               arrow
               placement="top"
               disableInteractive
             >
-              <Label
-                variant="soft"
-                color={
-                  (row.status === 'unprocessed' && 'error') ||
-                  (row.status === 'completed' && 'success') ||
-                  (row.status === 'processing' && 'info') ||
-                  'default'
-                }
-              >
+              <Label variant="soft" color={getStatusColor(row.status)}>
                 {row.status}
               </Label>
             </Tooltip>
@@ -169,62 +205,62 @@ export function DashboardTrashTableRow({
             </Tooltip>
           </Stack>
         </TableCell>
-        <TableCell width={400}>
-          <Stack spacing={2} direction="row" alignItems="center">
-            <Tooltip
-              title={<>Number of Emails: ({currentFile.numberOfEmails})</>}
-              arrow
-              placement="top"
-              disableInteractive
+        <TableCell width={400} align="right">
+          <Stack spacing={2} alignItems="right">
+            <Typography
+              component="span"
+              fontSize={14}
+              sx={{
+                mt: '4px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
             >
-              <Typography
-                component="span"
-                fontSize={14}
-                sx={{
-                  mt: '4px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: '300px',
-                }}
-              >
-                {currentFile.numberOfEmails} Emails
-              </Typography>
-            </Tooltip>
-          </Stack>
-          <Stack spacing={2} direction="row" alignItems="center">
-            {(row.status === 'processing' || row.status === 'completed') && (
               <Tooltip
+                title={<>Number of Emails: ({currentFile.numberOfEmails})</>}
                 arrow
                 placement="top"
                 disableInteractive
-                title="Credits consumed for verification"
               >
-                <Typography
-                  component="span"
-                  sx={{
-                    color: 'success.main',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: '300px',
-                    display: 'inline-block',
-                    fontSize: '14px',
-                  }}
-                >
-                  {row.creditconsumed || `${currentFile.numberOfEmails} Credit Consumed`}
-                </Typography>
+                <span>{currentFile.numberOfEmails} Emails</span>
               </Tooltip>
+            </Typography>
+          </Stack>
+          <Stack spacing={2} alignItems="right">
+            {(row.status === 'processing' || row.status === 'Verified') && (
+              <Typography
+                component="span"
+                sx={{
+                  color: 'success.main',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  display: 'inline-block',
+                  fontSize: '14px',
+                }}
+              >
+                <Tooltip
+                  arrow
+                  placement="top"
+                  disableInteractive
+                  title="Credits consumed for verification"
+                >
+                  <span>
+                    {row.creditconsumed || `${currentFile.numberOfEmails} Credit Consumed`}
+                  </span>
+                </Tooltip>
+              </Typography>
             )}
           </Stack>
         </TableCell>
-        <TableCell width={300} align="right" sx={{ pr: 1 }}>
+        {/* <TableCell width={300} align="right" sx={{ pr: 1 }}>
           <Stack direction="row" spacing={1} justifyContent="flex-end">
             <Tooltip
               title={
                 row.status === 'processing'
                   ? 'Verification in progress. Please wait.'
-                  : row.status === 'completed'
+                  : row.status === 'Verified'
                     ? 'View Report'
                     : 'Click to start verification'
               }
@@ -233,36 +269,17 @@ export function DashboardTrashTableRow({
               disableInteractive
             >
               <span>
-                <Button
-                  variant="outlined"
-                  color={row.status === 'completed' ? 'success' : 'primary'}
-                  disabled={row.status === 'processing'}
-                  onClick={handleAction}
-                >
-                  {row.status === 'processing'
-                    ? 'Verification In Progress'
-                    : row.status === 'completed'
-                      ? 'View Report'
-                      : 'Start Verification'}
+                <Button variant="outlined" color="primary" onClick={handleAction}>
+                  {getButtonText(row.status)}
                 </Button>
               </span>
             </Tooltip>
           </Stack>
-        </TableCell>
-        {/* <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
-          <Tooltip title="Click for more options." arrow placement="top">
-            <IconButton
-              color={popover.open ? 'inherit' : 'default'}
-              onClick={(event) => onOpenPopover(event)}
-            >
-              <Iconify icon="eva:more-vertical-fill" />
-            </IconButton>
-          </Tooltip>
         </TableCell> */}
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip
             title={
-              row.status === 'processing'
+              row.status === 'processing' || row.status === 'uploading'
                 ? 'Actions unavailable during verification'
                 : 'Click for more options.'
             }
@@ -270,17 +287,15 @@ export function DashboardTrashTableRow({
             placement="top"
           >
             <span>
-              {' '}
-              {/* Wrap in span to maintain tooltip during disabled state */}
               <IconButton
                 color={popover.open ? 'inherit' : 'default'}
                 onClick={(event) => onOpenPopover(event)}
-                disabled={row.status === 'processing'}
-                sx={{
-                  '&.Mui-disabled': {
-                    opacity: 0.5,
-                  },
-                }}
+                // disabled={row.status === 'processing' || row.status === 'uploading'}
+                // sx={{
+                //   '&.Mui-disabled': {
+                //     opacity: 0.5,
+                //   },
+                // }}
               >
                 <Iconify icon="eva:more-vertical-fill" />
               </IconButton>
@@ -303,9 +318,26 @@ export function DashboardTrashTableRow({
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-          <Typography variant="h6">
-            {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'}
-          </Typography>
+          <Box>
+            <Typography variant="h6">
+              {/* {row.status === 'completed' ? 'Verification Report' : 'Verification Progress'} */}
+              Verification Report
+            </Typography>
+            <Typography variant="h8">
+              <span>
+                Check the full details of email verification here.{' '}
+                <Link
+                  href="https://forum.pabbly.com/threads/verification-report.26340/"
+                  style={{ color: '#078DEE' }}
+                  underline="always"
+                  target="_blank"
+                >
+                  Learn more
+                </Link>
+              </span>
+            </Typography>
+          </Box>
+
           <IconButton onClick={() => setIsDrawerOpen(false)}>
             <Iconify icon="mingcute:close-line" />
           </IconButton>
@@ -317,10 +349,10 @@ export function DashboardTrashTableRow({
           title={currentFile.name}
           chart={{
             series: [
-              { label: 'Deliverable', value: 12244 },
-              { label: 'Undeliverable', value: 53345 },
-              { label: 'Accept-all', value: 44313 },
-              { label: 'Unknown', value: 78343 },
+              { label: 'Deliverable Emails', value: 12244 },
+              { label: 'Undeliverable Emails', value: 53345 },
+              { label: 'Accept-all Emails', value: 44313 },
+              { label: 'Unknown Emails', value: 78343 },
             ],
           }}
         />

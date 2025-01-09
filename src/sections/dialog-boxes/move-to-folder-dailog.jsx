@@ -23,28 +23,27 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [categoryList, setCategoryList] = useState(''); 
-  const [categoryError, setCategoryError] = useState(false); 
+  const [categoryList, setCategoryList] = useState('');
+  const [categoryError, setCategoryError] = useState(false);
 
   const handleChangeCategoryList = useCallback((event, value) => {
     setCategoryList(value);
     if (value) {
-      setCategoryError(false); 
+      setCategoryError(false);
     }
   }, []);
 
   const folder = [
-    'None',
-    'Home',
-    'Organization 1',
-    'Organization 2',
-    'Organization 3',
-    'Organization 4',
-    'Organization 5',
-    'Organization 6',
-    'Organization 7',
-    'Organization 8',
-    'Organization 9',
+    'Home (0)',
+    'Magnet Brains (2)',
+    'Pabbly Hook (5)',
+    'Pabbly Connect (10)',
+    'Pabbly Subcription Billing (0)',
+    'Pabbly Admin (50)',
+    'Pabbly Chatflow (2)',
+    'Pabbly Form Builder (0)',
+    'Pabbly Email Marketing (2)',
+    'Pabbly Plus (4)',
     'Trash',
   ];
 
@@ -148,6 +147,9 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
           {action}
           <Button onClick={handleAdd} variant="contained" color="primary">
             Move
+          </Button>
+          <Button onClick={onClose} variant="outlined" color="inherit">
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
