@@ -20,7 +20,7 @@ export default function Upload({ setAlertState }) {
     'Pabbly Email Marketing (2)',
     'Pabbly Plus (4)',
     'Trash',
-  ]
+  ];
 
   const handleListNameChange = (event) => {
     setListName(event.target.value);
@@ -90,12 +90,23 @@ export default function Upload({ setAlertState }) {
             />
           )}
         />
-        <FileUpload
+        {/* <FileUpload
           uploadInformation="Upload File OR Drag and Drop file here (Only CSV files allowed). Download  Sample File here."
           allowedFileTypes={['text/csv']}
           fileName="sample_csv.csv"
-          fileErrorMessage="Please upload CSV file only."
+          fileErrorMessage="Upload Error: Please ensure you upload a valid CSV file. You can download a sample file here."
           setAlertState={setAlertState}
+        /> */}
+        <FileUpload
+          uploadInformation="Upload File OR Drag and Drop file here (Only CSV files allowed). Download Sample File here."
+          allowedFileTypes={['text/csv']}
+          fileName="sample_csv.csv"
+          fileErrorMessage="Upload Error: Please ensure you upload a valid CSV file. You can download a sample file here."
+          setAlertState={setAlertState}
+          onSampleFileClick={() => {
+            // Handle sample file download here
+            // e.g., window.open('/path/to/sample.csv', '_blank');
+          }}
         />
       </Box>
       <Box

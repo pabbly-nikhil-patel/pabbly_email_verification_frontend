@@ -11,6 +11,19 @@ import { Label } from 'src/components/label';
 export function CreditTableRow({ row, selected }) {
   const timezone = ', (UTC+05:30) Asia/Kolkata';
 
+  const getStatusTooltip = (status, dateTime) => {
+    switch (status) {
+      case 'Single Verification':
+        return `Single email address was checked for verification.`;
+      case 'Bulk Verification':
+        return `Email list was uploaded and checked for verification.`;
+      case 'Email Credits Purchased':
+        return `Customer has purchased email credits for email verification`;
+      default:
+        return '';
+    }
+  };
+
   return (
     <TableRow hover>
       <TableCell width={300}>
@@ -19,7 +32,7 @@ export function CreditTableRow({ row, selected }) {
             arrow
             placement="top"
             disableInteractive
-            title={`Action occurred at: ${row.status} ${timezone}`}
+            title={getStatusTooltip(row.status, row.status)}
           >
             <Label variant="soft" color={row.credits === 'Alloted' ? 'success' : 'error'}>
               {row.status}
@@ -63,7 +76,16 @@ export function CreditTableRow({ row, selected }) {
               display: 'inline-block',
             }}
           >
-            <Tooltip arrow placement="top" disableInteractive title={`${row?.status==="Single Verification" ? "Email address":"List"}: ${row.message}`}>
+            <Tooltip
+              arrow
+              placement="top"
+              disableInteractive
+              title={
+                row.status === 'Email Credits Purchased'
+                  ? 'Credits Alloted'
+                  : `${row.status === 'Single Verification' ? 'Email address' : 'List'}: ${row.message}`
+              }
+            >
               <span>{row.message}</span>
             </Tooltip>
           </Box>
@@ -82,12 +104,7 @@ export function CreditTableRow({ row, selected }) {
             }}
           >
             {row.status === 'Single Verification' ? (
-              <Tooltip
-                arrow
-                placement="top"
-                disableInteractive
-                title="Email address"
-              >
+              <Tooltip arrow placement="top" disableInteractive title="Email address">
                 <span>Email address</span>{' '}
               </Tooltip>
             ) : (
@@ -108,7 +125,7 @@ export function CreditTableRow({ row, selected }) {
           arrow
           placement="top"
           disableInteractive
-          title={`Status: ${row.credits === 'Alloted' ? `Credits Alloted ${row.noOfCredits}` : `Credits Consumed ${row.noOfCredits}`}`}
+          title={`${row.credits === 'Alloted' ? `Email credits alloted to the account.` : `Email credits consumed for verifying email.`}`}
         >
           <Box
             component="span"

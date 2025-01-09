@@ -68,15 +68,17 @@ export function DashboardTableRow({
     switch (row.status) {
       case 'Unverified':
         onStartVerification();
-        dispatch(startVerification());
-        setIsDrawerOpen(true);
+        if (!row.requiresCredits) {
+          dispatch(startVerification());
+          setIsDrawerOpen(true);
+        }
         break;
       case 'Verified':
         setIsDrawerOpen(true);
         break;
       case 'processing':
       case 'uploading':
-        setIsDrawerOpen(true); // Show progress drawer for both states
+        setIsDrawerOpen(true);
         break;
       default:
         break;

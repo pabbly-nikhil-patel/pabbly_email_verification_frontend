@@ -18,7 +18,7 @@ export default function Page() {
       label: 'Credits Summary',
       tooltip: 'Click to view credit summary.',
       pageTitle: 'Credits Summary',
-      pageSubheading: 'View a summary of your email verification credits.',
+      pageSubheading: 'View a summary of your email verification credits. ' ,
       link: 'https://forum.pabbly.com/threads/credits-summary.26312/',
     },
     {

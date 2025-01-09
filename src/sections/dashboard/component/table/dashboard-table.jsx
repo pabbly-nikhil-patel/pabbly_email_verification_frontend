@@ -11,6 +11,7 @@ import {
   Table,
   Alert,
   Button,
+  Dialog,
   Divider,
   Tooltip,
   MenuList,
@@ -19,6 +20,9 @@ import {
   TableBody,
   CardHeader,
   Typography,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -95,6 +99,14 @@ const dataOn = [
     date: 'Oct 23, 2024 17:45:32',
   },
   {
+    status: 'Unverified',
+    name: 'marketing_leads_list.csv',
+    numberOfEmails: 250,
+    creditconsumed: '0 Credit Consumed',
+    date: 'Oct 23, 2024 17:45:32',
+    requiresCredits: true, // Add this flag for the new row
+  },
+  {
     status: 'processing',
     name: 'pabbly_chatflow_users_email_list.csv',
     numberOfEmails: 65,
@@ -109,7 +121,6 @@ const dataOn = [
     date: 'Oct 23, 2024 17:45:32',
   },
 ];
-
 // utils/filterUtils.js
 function applyFilter({ inputData, comparator, filters }) {
   const { status, name } = filters;
@@ -176,19 +187,38 @@ export function DashboardTable() {
     }
   }, [isVerificationCompleted, processingRowId]);
 
-  // Handlers
+  const [creditDialogOpen, setCreditDialogOpen] = useState(false);
+
+  const handleDialogClose = () => {
+    setCreditDialogOpen(false);
+  };
+
+  const handleBuyCredits = () => {
+    // Handle buy credits action
+    setCreditDialogOpen(false);
+    // Optionally navigate to credits purchase page
+    // navigate('/credits/purchase');
+  };
+
   const handleStartVerification = (rowId) => {
+    const targetRow = tableData.find((item) => item.id === rowId);
+
+    if (targetRow.requiresCredits) {
+      setCreditDialogOpen(true);
+      return;
+    }
+
     setProcessingRowId(rowId);
     setTableData((prevData) =>
-      prevData.map((row) => {
-        if (row.id === rowId) {
+      prevData.map((item) => {
+        if (item.id === rowId) {
           return {
-            ...row,
+            ...item,
             status: 'processing',
-            creditconsumed: `${row.numberOfEmails} Credit Consumed`,
+            creditconsumed: `${item.numberOfEmails} Credit Consumed`,
           };
         }
-        return row;
+        return item;
       })
     );
   };
@@ -423,6 +453,49 @@ export function DashboardTable() {
           </Button>
         }
       />
+
+      <Dialog open={creditDialogOpen} onClose={handleDialogClose} maxWidth="xs" fullWidth>
+        <DialogTitle
+          sx={{
+            fontWeight: 'bold',
+            pb: 1,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
+          {/* <Iconify icon="mdi:credit-card-outline" /> */}
+          Upgrade
+        </DialogTitle>
+
+        <DialogContent>
+          <Typography variant="body1">
+            You don&apos;t have enough credits to verify this email list. Please purchase more
+            credits to continue.
+          </Typography>
+
+          {/* <Box sx={{ bgcolor: 'background.neutral', p: 2, borderRadius: 1, mb: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              • Credits required: 250
+              <br />• Available credits: 0
+            </Typography>
+          </Box> */}
+        </DialogContent>
+
+        <DialogActions sx={{ pb: 3 }}>
+          <Button
+            onClick={handleBuyCredits}
+            color="primary"
+            variant="contained"
+            // startIcon={<Iconify icon="mdi:cart-outline" />}
+          >
+            Upgrade Now
+          </Button>
+          <Button onClick={handleDialogClose} color="inherit" variant="outlined">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Snackbar
         open={snackbarState.open}

@@ -51,7 +51,7 @@ const TABLE_HEAD = [
     width: 'flex',
     whiteSpace: 'nowrap',
     align: 'right',
-    tooltip: 'Current state of the email verification credits.',
+    tooltip: 'View the email credits usage and allocation details.',
   },
 ];
 
@@ -142,7 +142,7 @@ export function CreditTable() {
           </Box>
         }
         sx={{ pb: 3 }}
-        subheader="All the email verification logs will appear here."
+        subheader="View all email verification activities, including type, date, summary, and credit usage. Use filters or search to find specific logs."
       />
       <Divider />
 
