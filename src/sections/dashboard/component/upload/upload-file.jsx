@@ -119,7 +119,6 @@ export default function Upload({ setAlertState }) {
       <Box
         sx={{
           mt: 3,
-          px: 3,
           pb: 3,
           pt: 0,
           display: 'flex',
@@ -129,10 +128,10 @@ export default function Upload({ setAlertState }) {
         <Button
           variant="contained"
           color="primary"
-          sx={{
-            minWidth: 120,
-            borderRadius: 1,
-          }}
+          // sx={{
+          //   minWidth: 120,
+          //   borderRadius: 1,
+          // }}
         >
           Upload
         </Button>

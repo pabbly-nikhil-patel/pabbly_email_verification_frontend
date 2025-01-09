@@ -132,7 +132,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
             fullWidth
             value={filters.state.name}
             onChange={handleFilterName}
-            placeholder="Search by messages..."
+            placeholder="Search by email, email list name and folder name..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

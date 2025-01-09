@@ -66,12 +66,12 @@ export function DashboardTableRow({
 
   const handleAction = () => {
     switch (row.status) {
-      case 'unprocessed':
+      case 'Unverified':
         onStartVerification();
         dispatch(startVerification());
         setIsDrawerOpen(true);
         break;
-      case 'completed':
+      case 'Verified':
         setIsDrawerOpen(true);
         break;
       case 'processing':
@@ -86,13 +86,13 @@ export function DashboardTableRow({
   // Status color mapping
   const getStatusColor = (status) => {
     switch (status) {
-      case 'completed':
+      case 'Verified':
         return 'success';
       case 'processing':
         return 'info';
       case 'uploading':
         return 'warning';
-      case 'unprocessed':
+      case 'Unverified':
         return 'error';
       default:
         return 'default';
@@ -102,13 +102,13 @@ export function DashboardTableRow({
   // Button text mapping
   const getButtonText = (status) => {
     switch (status) {
-      case 'completed':
+      case 'Verified':
         return 'View Report';
       case 'processing':
         return 'Verification In Progress';
       case 'uploading':
         return 'Uploading';
-      case 'unprocessed':
+      case 'Unverified':
         return 'Start Verification';
       default:
         return '';
@@ -141,12 +141,12 @@ export function DashboardTableRow({
             <Tooltip
               title={
                 row.status === 'processing'
-                  ? 'Click to view verification progress'
+                  ? ' Email list is currently under the verification process.'
                   : row.status === 'uploading'
-                    ? 'Click to view upload progress'
-                    : row.status === 'completed'
-                      ? 'View Report'
-                      : 'Click to start verification'
+                    ? 'Email list is currently being uploading.'
+                    : row.status === 'Verified'
+                      ? 'Verification for the email list is done.'
+                      : ' Email list has been uploaded but verification has not yet started.'
               }
               arrow
               placement="top"
@@ -230,7 +230,7 @@ export function DashboardTableRow({
             </Tooltip>
           </Stack>
           <Stack spacing={2} direction="row" alignItems="center">
-            {(row.status === 'processing' || row.status === 'completed') && (
+            {(row.status === 'processing' || row.status === 'Verified') && (
               <Tooltip
                 arrow
                 placement="top"
@@ -261,7 +261,7 @@ export function DashboardTableRow({
               title={
                 row.status === 'processing'
                   ? 'Verification in progress. Please wait.'
-                  : row.status === 'completed'
+                  : row.status === 'Verified'
                     ? 'View Report'
                     : 'Click to start verification'
               }

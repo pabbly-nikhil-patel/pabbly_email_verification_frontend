@@ -1,6 +1,6 @@
 export const DASHBOARD_STATUS_OPTIONS = [
-  { value: 'completed', label: 'Completed', tooltip: 'Click here to view completed list.' },
-  { value: 'processing', label: 'Processing', tooltip: 'Click here to view processing list.' },
-  { value: 'uploading', label: 'Uploading', tooltip: 'Click here to view uploading list.' }, 
-  { value: 'unprocessed', label: 'Unprocessed', tooltip: 'Click here to view unprocessed list.' },
+  { value: 'Verified', label: 'Verified', tooltip: 'View all email lists that have been verified.' },
+  { value: 'processing', label: 'Processing', tooltip: 'View all email lists currently under the verification process.' },
+  { value: 'uploading', label: 'Uploading', tooltip: 'View all email lists currently being uploading.' }, 
+  { value: 'Unverified', label: 'Unverified', tooltip: 'View all email lists that remain unverified.' },
 ];

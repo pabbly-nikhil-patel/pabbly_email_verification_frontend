@@ -9,6 +9,7 @@ export const listItems = {
       "Click 'Generate API key ' to create a new token, invalidating the previous one.",
       "Click 'Copy' to quickly copy the API token for use in Pabbly Email Verification Manager application.",
       'Ensure that you do not share the API token with anyone.',
+      'Keep your data secure, as all uploaded files and reports are automatically deleted after 15 days.',
       "With the Pabbly Email Verification API, you can obtain real-time status updates for folder(s), manage team members, and much more."
     ],
   };

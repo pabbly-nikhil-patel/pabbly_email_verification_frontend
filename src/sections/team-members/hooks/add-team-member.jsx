@@ -38,7 +38,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
   const [categoryList, setCategoryList] = useState(null);
   const [categoryError, setCategoryError] = useState(false);
 
-  const folder = ['Write Access', 'Read Access'];
+  const folder = ['Read Access', 'Write Access'];
   const folders = ['Pabbly Connect', 'Main Folder', 'Folder 1', 'Folder 2', 'Folder 3'];
 
   const handleClose = () => {
@@ -198,7 +198,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                     label={option}
                     size="small"
                     variant="soft"
-                    color='primary'
+                    color="primary"
                   />
                 ))
               }
@@ -224,7 +224,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                     ) : (
                       <span>
                         Select the permission level for shared folders.{' '}
-                        <LearnMoreLink link='https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-email-verification-account.26333/'/>
+                        <LearnMoreLink link="https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-email-verification-account.26333/" />
                       </span>
                     )
                   }

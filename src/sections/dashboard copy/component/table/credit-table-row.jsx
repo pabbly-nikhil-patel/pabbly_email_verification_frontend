@@ -10,6 +10,7 @@ import { Label } from 'src/components/label';
 
 export function CreditTableRow({ row, selected }) {
   const timezone = ', (UTC+05:30) Asia/Kolkata';
+
   return (
     <TableRow hover>
       <TableCell width={300}>
@@ -51,39 +52,55 @@ export function CreditTableRow({ row, selected }) {
       <TableCell width={200}>
         <Stack spacing={1}>
           {' '}
-          <Tooltip arrow placement="top" disableInteractive title={`List: ${row.message}`}>
-            <Box
-              component="span"
-              sx={{
-                color: 'text.primary',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                maxWidth: '300px',
-                display: 'inline-block',
-              }}
-            >
-              {row.message}
-            </Box>
-          </Tooltip>
+          <Box
+            component="span"
+            sx={{
+              color: 'text.primary',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: '300px',
+              display: 'inline-block',
+            }}
+          >
+            <Tooltip arrow placement="top" disableInteractive title={`${row?.status==="Single Verification" ? "Email address":"List"}: ${row.message}`}>
+              <span>{row.message}</span>
+            </Tooltip>
+          </Box>
         </Stack>
         <Stack>
-          <Tooltip arrow placement="top" disableInteractive title={`Folder Name: ${row.folder}`}>
-            <Box
-              component="span"
-              sx={{
-                color: 'text.secondary',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                maxWidth: '300px',
-                display: 'inline-block',
-                fontSize: '0.875rem',
-              }}
-            >
-              {row.folder}
-            </Box>
-          </Tooltip>
+          <Box
+            component="span"
+            sx={{
+              color: 'text.secondary',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: '300px',
+              display: 'inline-block',
+              fontSize: '0.875rem',
+            }}
+          >
+            {row.status === 'Single Verification' ? (
+              <Tooltip
+                arrow
+                placement="top"
+                disableInteractive
+                title="Email address"
+              >
+                <span>Email address</span>{' '}
+              </Tooltip>
+            ) : (
+              <Tooltip
+                arrow
+                placement="top"
+                disableInteractive
+                title={`Folder Name: ${row.folder}`}
+              >
+                <span>{row.folder}</span>{' '}
+              </Tooltip>
+            )}
+          </Box>
         </Stack>
       </TableCell>
       <TableCell width={140} align="right">

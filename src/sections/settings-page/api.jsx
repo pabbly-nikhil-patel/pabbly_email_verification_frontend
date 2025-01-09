@@ -200,7 +200,7 @@ export default function API() {
                 readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Tooltip title="Copy API key" placement="top">
+                    <Tooltip title="Copy API key" placement="top" arrow>
                       <IconButton onClick={() => handleCopy('api')} edge="end">
                         <Iconify icon="solar:copy-bold" width={18} />
                       </IconButton>
@@ -242,7 +242,7 @@ export default function API() {
                 readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Tooltip title="Copy secret key" placement="top">
+                    <Tooltip title="Copy secret key" placement="top" arrow>
                       <IconButton onClick={() => handleCopy('secret')} edge="end">
                         <Iconify icon="solar:copy-bold" width={18} />
                       </IconButton>

@@ -49,7 +49,7 @@ import { DashboardTableFiltersResult } from './dashboard-table-filters-result';
 
 // constants/table.js
 const STATUS_OPTIONS = [
-  { value: 'all', label: 'All', tooltip: 'Click here to view all list.' },
+  { value: 'all', label: 'All', tooltip: 'View all email lists that have been uploaded.' },
   ...DASHBOARD_STATUS_OPTIONS,
 ];
 
@@ -89,7 +89,7 @@ const dataOn = [
     date: 'Oct 23, 2024 17:45:32',
   },
   {
-    status: 'unprocessed',
+    status: 'Unverified',
     name: 'pabbly_connect_users_email_list.csv',
     numberOfEmails: 65,
     creditconsumed: '65 Credit Consumed',
@@ -103,7 +103,7 @@ const dataOn = [
     date: 'Oct 23, 2024 17:45:32',
   },
   {
-    status: 'completed',
+    status: 'Verified',
     name: 'clothing_users_email_list.csv',
     numberOfEmails: 653343,
     creditconsumed: '653343 Credit Consumed',
@@ -171,7 +171,7 @@ export function DashboardTable() {
   useEffect(() => {
     if (isVerificationCompleted && processingRowId !== null) {
       setTableData((prevData) =>
-        prevData.map((row) => (row.id === processingRowId ? { ...row, status: 'completed' } : row))
+        prevData.map((row) => (row.id === processingRowId ? { ...row, status: 'Verified' } : row))
       );
       setProcessingRowId(null);
     }
@@ -293,14 +293,14 @@ export function DashboardTable() {
                   'soft'
                 }
                 color={
-                  (tab.value === 'completed' && 'success') ||
+                  (tab.value === 'Verified' && 'success') ||
                   (tab.value === 'processing' && 'info') ||
                   (tab.value === 'uploading' && 'warning') ||
-                  (tab.value === 'unprocessed' && 'error') ||
+                  (tab.value === 'Unverified' && 'error') ||
                   'default'
                 }
               >
-                {['completed', 'processing', 'uploading', 'unprocessed'].includes(tab.value)
+                {['Verified', 'processing', 'uploading', 'Unverified'].includes(tab.value)
                   ? tableData.filter((user) => user.status === tab.value).length
                   : tableData.length}
               </Label>

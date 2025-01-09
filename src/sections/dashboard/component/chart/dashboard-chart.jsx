@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import {
   Box,
+  Alert,
   Dialog,
   Button,
   Tooltip,
@@ -213,7 +214,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   arrow
                   placement="top"
                   disableInteractive
-                  title={`Summary of email verification results for ${title}`}
+                  title={`Email List Name: ${title}`}
                 >
                   <span>{title.length > 30 ? `${title.slice(0, 30)}...` : title}</span>
                 </Tooltip>
@@ -280,6 +281,19 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
         {showChartAlert && <ChartAlert />}
         {showProgressLinear && <ProgessLinear />}
       </Card>
+
+      <Alert
+        sx={{
+          mt: 3,
+          mb: 4,
+          // color: 'success',
+          boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
+        }}
+        severity="warning"
+      >
+        All data and reports will be automatically deleted after 15 days. A copy of the report will
+        be sent to your registered email before deletion.
+      </Alert>
 
       <Dialog open={dialog.open} onClose={handleClose} maxWidth="sm" fullWidth>
         <Box sx={{ position: 'relative' }}>

@@ -40,10 +40,10 @@ export function OrderTableRow({ row, selected, onSelectRow, serialNumber }) {
   // Custom tooltips for specific rows
   const getWorkflowTooltip = (rowData) => {
     if (rowData.id === 'workflow-0') {
-      return `Folder Name: Client (A), Workflow Name: ${rowData.workflows_folders_you_shared}`;
+      return `Folder Name: Client (A), ${rowData.workflows_folders_you_shared}`;
     }
     if (rowData.id === 'workflow-4') {
-      return `Folder Name: Main Folder', Workflow Name: ${rowData.workflows_folders_you_shared}`;
+      return `Folder Name: Main Folder' ${rowData.workflows_folders_you_shared}`;
     }
 
     return `Folder Name: ${rowData.workflows_folders_you_shared}`;
@@ -131,7 +131,7 @@ export function OrderTableRow({ row, selected, onSelectRow, serialNumber }) {
           </Tooltip>
         </TableCell>
 
-        {/* Email & Workflows or Folders Shared By  */}
+        {/* Folders Shared By  */}
         <TableCell>
           <Stack spacing={2} direction="row" alignItems="center">
             <Stack

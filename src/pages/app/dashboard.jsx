@@ -314,7 +314,7 @@ export default function Page() {
             <Typography mt="4px" fontSize="14px" color="text.secondary">
               Upload email list for bulk verification. Download{' '}
               <Link href="/SampleImport.csv" download underline="always">
-                Sample File
+                sample file
               </Link>{' '}
               here.
             </Typography>
@@ -352,7 +352,7 @@ export default function Page() {
 
       <Snackbar
         open={alertState.open}
-        autoHideDuration={2500}
+        autoHideDuration={10000}
         onClose={handleAlertClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{

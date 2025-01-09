@@ -234,11 +234,11 @@ export function DashboardTrashTable() {
               arrow
               placement="top"
             >
-              <Typography variant="h6">Trash Email List</Typography>
+              <Typography variant="h6">Trash</Typography>
             </Tooltip>
           </Box>
         }
-        subheader="View all the deleted list here."
+        subheader="Deleted email list can be restored or permanently deleted from the trash folder."
         sx={{ pb: 3 }}
       />
       <Divider />
@@ -377,7 +377,7 @@ export function DashboardTrashTable() {
       >
         <MenuList>
           {selectedRow && selectedRow.status !== 'processing' && (
-            <Tooltip title="Delete connection." arrow placement="left">
+            <Tooltip title="Delete email list permanently." arrow placement="left">
               <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
                 <Iconify icon="solar:trash-bin-trash-bold" />
                 Delete
@@ -391,10 +391,10 @@ export function DashboardTrashTable() {
         open={confirmDelete.value}
         onClose={confirmDelete.onFalse}
         title="Delete"
-        content="Are you sure you want to delete this email list?"
+        content="Email list once deleted cannot be restored in any case."
         action={
           <Button variant="contained" color="error" onClick={handleDelete}>
-            Delete
+            Delete Permanently
           </Button>
         }
       />

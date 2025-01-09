@@ -572,16 +572,16 @@ import { RenameFolderDialog } from './rename_folder-dailog';
 
 // Simplified LABELS
 const LABELS = {
-  home: 'Home',
-  organisation1: 'Organisation 1',
-  organisation2: 'Organisation 2',
-  organisation3: 'Organisation 3',
-  organisation4: 'Organisation 4',
-  organisation5: 'Organisation 5',
-  organisation6: 'Organisation 6',
-  organisation7: 'Organisation 7',
-  organisation8: 'Organisation 8',
-  organisation9: 'Organisation 9',
+  home: 'Home (0)',
+  organisation1: 'Magnet Brains (2)',
+  organisation2: 'Pabbly Hook (5)',
+  organisation3: 'Pabbly Connect (10)',
+  organisation4: 'Pabbly Subcription Billing (0)',
+  organisation5: 'Pabbly Admin (50)',
+  organisation6: 'Pabbly Chatflow (2)',
+  organisation7: 'Pabbly Form Builder (0)',
+  organisation8: 'Pabbly Email Marketing (2)',
+  organisation9: 'Pabbly Plus (4)',
   trash: 'Trash',
 };
 
@@ -745,12 +745,12 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
               }}
             >
               <MenuList>
-                <Tooltip title="Create a new folder." arrow placement="left">
+                {/* <Tooltip title="Create a new folder." arrow placement="left">
                   <MenuItem onClick={handleCreateFolderClick}>
                     <Iconify icon="fa6-solid:square-plus" />
                     Create Folder
                   </MenuItem>
-                </Tooltip>
+                </Tooltip> */}
                 <Tooltip title="Change the folder's name." arrow placement="left">
                   <MenuItem onClick={handleRenameFolderClick}>
                     <Iconify icon="fluent:rename-16-filled" />
