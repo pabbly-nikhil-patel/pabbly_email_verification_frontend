@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 
-import { Box, Grid, Button, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Button, Tooltip, useMediaQuery } from '@mui/material';
 
 import { CONFIG } from 'src/config-global';
 // import { listItems } from 'src/_mock/big-card/_dashboardBigCardListItems';
@@ -102,7 +102,7 @@ export default function TeamMembersPage() {
               </div>
             </Tooltip>
           </Box>
-          <Grid xs={12} md={8}>
+        
             <BigCard
               //  tooltip="View file upload guidelines for email verification."
               getHelp
@@ -137,7 +137,7 @@ export default function TeamMembersPage() {
 
             {/* Separate Dialog */}
             <TeamMemberDialog open={isTeamMemberDialogOpen} onClose={() => setDialogOpen(false)} />
-          </Grid>
+    
           <SharedbyYouTeamMemberTable />
           <SharedWithYouTeamMemberTable />
         </Box>

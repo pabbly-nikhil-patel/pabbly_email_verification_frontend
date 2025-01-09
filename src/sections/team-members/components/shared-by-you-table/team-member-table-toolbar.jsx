@@ -22,7 +22,7 @@ import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 import { TeamMemberDialog } from '../../hooks/add-team-member';
 
-export function OrderTableToolbar({ filters, onResetPage, numSelected, nomemberAdded }) {
+export function SharedbyYouTeamMemberTableToolbar({ filters, onResetPage, numSelected, nomemberAdded }) {
   const theme = useTheme();
    const confirmDelete = useBoolean();
     const popover = usePopover();

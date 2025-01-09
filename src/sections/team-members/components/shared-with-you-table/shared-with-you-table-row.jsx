@@ -21,7 +21,7 @@ import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
 import { CustomSnackbar } from 'src/components/custom-snackbar-alert/custom-snackbar-alert';
 
-export function OrderTableRow({ row, selected, onSelectRow, serialNumber }) {
+export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, serialNumber }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleOpenPopover = (event) => {
