@@ -35,7 +35,7 @@ const TABLE_HEAD = [
     label: 'Status/Date',
     width: 'flex',
     whiteSpace: 'nowrap',
-    tooltip: 'Date and time when the email verification action occurred.',
+    tooltip: 'View the verification type and the date/time it occurred.',
   },
 
   {
@@ -43,7 +43,7 @@ const TABLE_HEAD = [
     label: 'Verification Summary',
     width: 'flex',
     whiteSpace: 'nowrap',
-    tooltip: 'Description of the email verification action or status update.',
+    tooltip: 'View whether a bulk email list or a single email address was verified.',
   },
   {
     id: 'credits',
