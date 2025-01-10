@@ -6,11 +6,11 @@ export const listItems = {
       lineHeight: '2',
     },
     items: [
-      "Click 'Generate API key ' to create a new token, invalidating the previous one.",
-      "Click 'Copy' to quickly copy the API token for use in Pabbly Email Verification Manager application.",
-      'Ensure that you do not share the API token with anyone.',
-      'Keep your data secure, as all uploaded files and reports are automatically deleted after 15 days.',
-      "With the Pabbly Email Verification API, you can obtain real-time status updates for folder(s), manage team members, and much more."
+      "The Pabbly Email Verification API allows you to verify individual email addresses and verify entire email lists.",
+      "Each verification through the API consumes 1 email credit from your account's  a llotted email credits.",
+      'The API Key and Secret Key are confidential and should be treated like passwords.',
+      "Use the 'Copy' button to quickly and securely copy the API  key and  secret  key.",
+      "Ensure that you do not share the API  key or  se cret  key with anyone to maintain account security. "
     ],
   };
   

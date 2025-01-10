@@ -37,7 +37,7 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
 
   const getTooltip = (type, rowData) => {
     const tooltips = {
-      workflow: `Folder Name: ${rowData.workflows_folders_you_shared}`,
+      folder: `Folder Name: ${rowData.folders_you_shared}`,
       sharedOn: `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`,
       permission:
         rowData.permission === 'Full access'
@@ -80,8 +80,8 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
         {/* Workflows */}
         <TableCell >
           <Box sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            <Tooltip title={getTooltip('workflow', row)} arrow placement="top" disableInteractive>
-              {row.workflows_folders_you_shared}
+            <Tooltip title={getTooltip('folder', row)} arrow placement="top" disableInteractive>
+              {row.folders_you_shared}
             </Tooltip>
           </Box>
         </TableCell>

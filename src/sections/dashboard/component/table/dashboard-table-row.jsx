@@ -163,7 +163,7 @@ export function DashboardTableRow({
             <Tooltip
               title={
                 <>
-                  List Name: {currentFile.name} ({currentFile.numberOfEmails})
+                  Email List Name: {currentFile.name} ({currentFile.numberOfEmails})
                 </>
               }
               arrow
@@ -190,7 +190,7 @@ export function DashboardTableRow({
               arrow
               placement="top"
               disableInteractive
-              title={`List Uploaded: ${row.date}, ${timezone}`}
+              title={`Email List Uploaded: ${row.date}, ${timezone}`}
             >
               <Box
                 component="span"
@@ -210,12 +210,13 @@ export function DashboardTableRow({
         </TableCell>
         <TableCell width={400}>
           <Stack spacing={2} direction="row" alignItems="center">
-            <Tooltip
-              title={<>Number of Emails: ({currentFile.numberOfEmails})</>}
+            {/* <Tooltip
+              title={<>Number of email addresses in the uploaded email list: ({currentFile.numberOfEmails})</>}
               arrow
               placement="top"
               disableInteractive
-            >
+            > */}
+            <Tooltip title='Number of email addresses in the uploaded email list.' arrow placement='top' disableInteractive>
               <Typography
                 component="span"
                 fontSize={14}
@@ -237,7 +238,7 @@ export function DashboardTableRow({
                 arrow
                 placement="top"
                 disableInteractive
-                title="Credits consumed for verification"
+                title="Number of email credits used for verification."
               >
                 <Typography
                   component="span"

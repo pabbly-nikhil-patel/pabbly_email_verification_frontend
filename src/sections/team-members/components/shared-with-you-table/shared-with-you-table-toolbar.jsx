@@ -24,7 +24,7 @@ export function SharedWithYouTeamMemberTableToolbar({
   filters,
   onResetPage,
   numSelected,
-  noworkflowsorfoldersShared,
+  nofoldersShared,
 }) {
   const theme = useTheme();
   const confirmDelete = useBoolean();
@@ -58,7 +58,7 @@ export function SharedWithYouTeamMemberTableToolbar({
       >
         <Box sx={{ width: '100%' }}>
           <TextField
-            disabled={noworkflowsorfoldersShared} // Disabled When No Team Members Added
+            disabled={nofoldersShared} // Disabled When No Team Members Added
             fullWidth
             value={filters.state.email}
             onChange={handleFilterEmail} // Handle changes for search input

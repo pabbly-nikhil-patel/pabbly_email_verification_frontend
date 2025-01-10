@@ -144,7 +144,7 @@ export default function API() {
           getHelp={false}
           isVideo
           bigcardtitle="Points To Remember"
-          bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
+          // bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
           style={style}
           items={items}
           videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"

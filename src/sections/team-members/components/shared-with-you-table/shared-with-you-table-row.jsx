@@ -38,20 +38,20 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
   };
 
   // Custom tooltips for specific rows
-  const getWorkflowTooltip = (rowData) => {
-    if (rowData.id === 'workflow-0') {
-      return `Folder Name: Client (A), ${rowData.workflows_folders_you_shared}`;
+  const getFolderTooltip = (rowData) => {
+    if (rowData.id === 'folder-0') {
+      return `Folder Name: Client (A), ${rowData.folders_you_shared}`;
     }
-    if (rowData.id === 'workflow-4') {
-      return `Folder Name: Main Folder' ${rowData.workflows_folders_you_shared}`;
+    if (rowData.id === 'folder-4') {
+      return `Folder Name: Main Folder' ${rowData.folders_you_shared}`;
     }
 
-    return `Folder Name: ${rowData.workflows_folders_you_shared}`;
+    return `Folder Name: ${rowData.folders_you_shared}`;
   };
 
   const getTooltip = (type, rowData) => {
     const tooltips = {
-      workflow: `Folder Name: ${rowData.workflows_folders_you_shared}`,
+      folder: `Folder Name: ${rowData.folders_you_shared}`,
       sharedOn: `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`,
       permission:
         rowData.permission === 'Full access'
@@ -155,7 +155,7 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
                   {row.email}
                 </Tooltip>
               </Box>
-              <Tooltip title={getWorkflowTooltip(row)} placement="bottom" arrow>
+              <Tooltip title={getFolderTooltip(row)} placement="bottom" arrow>
                 <Box
                   component="span"
                   sx={{
@@ -173,7 +173,7 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  {row.workflows_folders_you_shared}
+                  {row.folders_you_shared}
                 </Box>
               </Tooltip>
             </Stack>

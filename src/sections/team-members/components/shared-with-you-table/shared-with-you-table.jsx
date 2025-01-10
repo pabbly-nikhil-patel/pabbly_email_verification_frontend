@@ -149,7 +149,7 @@ export default function SharedWithYouTeamMemberTable({
   };
 
   // Modify these conditions at the top of your component
-  const noworkflowsorfoldersShared = tableData.length === 0; // When no tasks exist at all
+  const nofoldersShared = tableData.length === 0; // When no tasks exist at all
   const noSearchResults = dataFiltered.length === 0 && filters.state.email; // When search returns no results
 
   // const { DataStatus, DataError } = useSelector((state) => state.member);   /* Table CircularProgress loading */
@@ -192,7 +192,7 @@ export default function SharedWithYouTeamMemberTable({
           onResetPage={table.onResetPage}
           dateError={dateError}
           numSelected={table.selected.length}
-          noworkflowsorfoldersShared={noworkflowsorfoldersShared} // Disabled When No Workflows or Folders Shared
+          nofoldersShared={nofoldersShared} // Disabled When No Folders Shared
         />
 
         {canReset && (
@@ -254,7 +254,7 @@ export default function SharedWithYouTeamMemberTable({
                   )
                 }
               />
-              {noworkflowsorfoldersShared ? (
+              {nofoldersShared ? (
                 <TableNoData
                   title="No folders shared!"
                   subTitle="You don't have access to any shared folders."
@@ -308,7 +308,7 @@ export default function SharedWithYouTeamMemberTable({
         </Box>
 
         <TablePaginationCustom
-          disabled={noworkflowsorfoldersShared} // Disabled When No Workflows or Folders Shared
+          disabled={nofoldersShared} // Disabled When No Folders Shared
           page={table.page}
           dense={table.dense}
           count={dataFiltered.length}
