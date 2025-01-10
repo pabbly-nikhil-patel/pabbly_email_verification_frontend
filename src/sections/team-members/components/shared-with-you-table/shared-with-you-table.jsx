@@ -173,7 +173,7 @@ export default function SharedWithYouTeamMemberTable({
                 <Tooltip
                   title="View folder(s) that others have shared with you."
                   arrow
-                  placement="bottom"
+                  placement="top"
                 >
                   Folders Shared With You
                 </Tooltip>

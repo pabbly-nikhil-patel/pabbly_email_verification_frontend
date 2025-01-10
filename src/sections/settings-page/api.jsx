@@ -7,7 +7,6 @@ import {
   Card,
   Alert,
   Button,
-  Dialog,
   Divider,
   Tooltip,
   Snackbar,
@@ -15,10 +14,7 @@ import {
   CardHeader,
   Typography,
   IconButton,
-  DialogTitle,
   CardContent,
-  DialogActions,
-  DialogContent,
   useMediaQuery,
   InputAdornment,
 } from '@mui/material';
@@ -28,6 +24,7 @@ import { listItems } from 'src/_mock/big-card/api';
 
 import { Iconify } from 'src/components/iconify';
 import BigCard from 'src/components/big-card/big-card';
+import { ConfirmDialog } from 'src/components/confirm-dialog';
 
 // ----------------------------------------------------------------------
 
@@ -153,7 +150,7 @@ export default function API() {
           videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
           thumbnailName="email-verication-video-thumbnail.jpg"
           keyword="Note:"
-          learnMoreLink='https://forum.pabbly.com/threads/api.26313/'
+          learnMoreLink="https://forum.pabbly.com/threads/api.26313/"
           bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
         />
       </Box>
@@ -183,16 +180,21 @@ export default function API() {
               API Key
             </Typography> */}
             <TextField
-            fullWidth
+              fullWidth
               variant="outlined"
               type="text"
-              label='API Key'
+              label="API Key"
               value="●●●●●●●●●●●●●●●●●●"
               helperText={
                 <>
-                  Use the &apos;Copy&apos; button to securely copy it. Keep it private and don&apos;t share with others.{' '}
-                  <a href="https://forum.pabbly.com/threads/api.26313/" target="_blank"
-                  rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Use the &apos;Copy&apos; button to securely copy it. Keep it private and
+                  don&apos;t share with others.{' '}
+                  <a
+                    href="https://forum.pabbly.com/threads/api.26313/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#078DEE', textDecoration: 'underline' }}
+                  >
                     Learn more
                   </a>
                 </>
@@ -217,16 +219,21 @@ export default function API() {
               Secret Key
             </Typography> */}
             <TextField
-            fullWidth
+              fullWidth
               variant="outlined"
               label="Secret Key"
               type="text"
               value="●●●●●●●●●●●●●●●●●●"
               helperText={
                 <>
-                  Use the &apos;Copy&apos; button to securely copy it. Keep it private and don&apos;t share with others.{' '}
-                  <a href="https://forum.pabbly.com/threads/api.26313/" target="_blank"
-                  rel="noopener noreferrer" style={{ color: '#078DEE', textDecoration: 'underline' }}>
+                  Use the &apos;Copy&apos; button to securely copy it. Keep it private and
+                  don&apos;t share with others.{' '}
+                  <a
+                    href="https://forum.pabbly.com/threads/api.26313/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#078DEE', textDecoration: 'underline' }}
+                  >
                     Learn more
                   </a>
                 </>
@@ -252,28 +259,22 @@ export default function API() {
             sx={{ mt: '24px' }}
             onClick={handleDialogOpen}
           >
-            Generate Key 
+            Generate Key
           </Button>
         </CardContent>
       </Card>
 
-      {/* Confirmation Dialog */}
-      <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Generate Key </DialogTitle>
-        <DialogContent>
-          <Typography>
-            Generating a new API and Secret key will invalidate your current key. Do you want to continue?
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleGenerateToken} variant="contained" color="primary" autoFocus>
+      <ConfirmDialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        title="Generate Key"
+        content="Generating a new API token will invalidate your current token. Do you want to continue?"
+        action={
+          <Button variant="contained" color="primary" onClick={handleGenerateToken}>
             Generate Key
           </Button>
-          <Button onClick={handleDialogClose} color="inherit" variant="outlined">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+        }
+      />
 
       {/* Alerts and Snackbars */}
       <Snackbar

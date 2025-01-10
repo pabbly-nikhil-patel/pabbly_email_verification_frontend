@@ -18,7 +18,6 @@ import {
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { Iconify } from 'src/components/iconify';
 
 export function RenameFolderDialog({ open, onClose, workflowName }) {
   const [newWorkflowName, setNewWorkflowName] = useState(workflowName); // Store the editable workflow name
@@ -66,11 +65,7 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
           onClick={dialog.onFalse}
         >
           Rename Folder
-          <Iconify
-            onClick={onClose}
-            icon="uil:times"
-            style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
-          />
+          
         </DialogTitle>
         <Divider sx={{ mb: 3, borderStyle: 'dashed' }} />
 
@@ -110,6 +105,9 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
         <DialogActions>
           <Button onClick={handleAdd} variant="contained" color="primary">
             Update
+          </Button>
+          <Button onClick={onClose} variant="outlined" >
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

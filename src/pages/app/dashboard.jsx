@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Link,
+  Grid,
   Alert,
   Button,
   Dialog,
@@ -14,11 +15,11 @@ import {
   Snackbar,
   MenuList,
   MenuItem,
-  IconButton,
   Typography,
   DialogTitle,
   useMediaQuery,
   DialogContent,
+  DialogActions,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -144,8 +145,8 @@ export default function Page() {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            alignItems: isMobile ? 'flex-start' : 'center',
+            flexDirection: { xs: 'column', lg: 'row' },
+            alignItems: { xs: 'flex-start', lg: 'center' },
             justifyContent: 'space-between',
             mb: 0,
           }}
@@ -162,6 +163,7 @@ export default function Page() {
             disableInteractive
           >
             <Button
+              sx={{ mt: { xs: 1, lg: 0 } }}
               startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
               endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
               onClick={handlePopoverOpen}
@@ -217,24 +219,26 @@ export default function Page() {
             tooltipTittle="Number of email lists uploaded in your account."
           />
         </Box>
-        <Box
+        {/* <Box
           width="100%"
           sx={{
             gap: 3,
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'stretch',
+            // alignItems: 'stretch'
           }}
-        >
-          <Box>
+        > */}
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4} lg={3}>
             <FolderCard
               // onFolderSelect={setSelectedFolder}
               onHomeClick={handleHomeClick}
               onTrashClick={handleTrashClick}
-              activeTable={activeTable}
+              // activeTable={activeTable}
             />
-          </Box>
-          <Box gap={3}>
+          </Grid>
+          <Grid item xs={12} md={8} lg={9}>
+            {/* <Box gap={3}> */}
             <BigCard
               tooltip="View file upload guidelines for email verification."
               getHelp={false}
@@ -275,8 +279,10 @@ export default function Page() {
                 <DashboardTable selectedFolder={selectedFolder} />
               )}
             </Box>
-          </Box>
-        </Box>
+            {/* </Box> */}
+          </Grid>
+        </Grid>
+        {/* </Box> */}
       </DashboardContent>
 
       <Dialog
@@ -299,6 +305,7 @@ export default function Page() {
             }}
             email={email}
             setEmail={setEmail}
+            onClose={() => handleDialogClose('singleEmail')} 
           />
         </DialogContent>
       </Dialog>
@@ -320,14 +327,31 @@ export default function Page() {
               here.
             </Typography>
           </Box>
-          <IconButton onClick={() => handleDialogClose('bulkEmail')}>
+          {/* <IconButton sx={{ width: 24, height: 24 }} onClick={() => handleDialogClose('bulkEmail')}>
             <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
-          </IconButton>
+          </IconButton> */}
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ pt: 3 }}>
           <Upload setAlertState={setAlertState} />
         </DialogContent>
+        <DialogActions>
+          <Box
+            sx={{
+              mt: 1,
+
+              pt: 0,
+              gap: 1,
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Button  variant="contained" color="primary">
+              Upload
+            </Button>
+            <Button onClick={() => handleDialogClose('bulkEmail')} variant="outlined">Cancel</Button>
+          </Box>
+        </DialogActions>
       </Dialog>
 
       <Popover
@@ -354,12 +378,7 @@ export default function Page() {
               Verify Single Email
             </MenuItem>
           </Tooltip>
-          <Tooltip
-            title="Click to verify bulk emails."
-            arrow
-            placement="left"
-            disableInteractive
-          >
+          <Tooltip title="Click to verify bulk emails." arrow placement="left" disableInteractive>
             <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
           </Tooltip>
         </MenuList>

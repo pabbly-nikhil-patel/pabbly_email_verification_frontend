@@ -283,16 +283,16 @@ export function DashboardTable() {
       <CardHeader
         title={
           <Box display="inline-block">
-            <Tooltip
+            {/* <Tooltip
               title="See all your uploaded files and their verification status"
               arrow
               placement="top"
-            >
+            > */}
               <Typography variant="h6">Home</Typography>
-            </Tooltip>
+            {/* </Tooltip> */}
           </Box>
         }
-        subheader="View and manage your uploaded lists here."
+        subheader="Verify and manage all your uploaded email lists here."
         sx={{ pb: 3 }}
       />
       <Divider />

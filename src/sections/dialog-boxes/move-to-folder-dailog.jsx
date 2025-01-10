@@ -17,7 +17,6 @@ import {
   DialogContent,
 } from '@mui/material';
 
-import { Iconify } from 'src/components/iconify';
 
 export function MoveToFolderPopover({ title, content, action, open, onClose, ...other }) {
   const theme = useTheme();
@@ -84,11 +83,7 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
           onClick={() => {}}
         >
           Move To Folder{' '}
-          <Iconify
-            onClick={handleDialogClose}
-            icon="uil:times"
-            style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
-          />
+         
         </DialogTitle>
         <Divider sx={{ mb: '16px', borderStyle: 'dashed' }} />
 

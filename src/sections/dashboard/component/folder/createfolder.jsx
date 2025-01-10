@@ -18,7 +18,6 @@ import {
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { Iconify } from 'src/components/iconify';
 
 export function CreateFolderDialog({ title, content, action, open, onClose, ...other }) {
   const [workflowName, setWorkflowName] = useState('');
@@ -107,11 +106,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
           onClick={dialog.onFalse}
         >
           Create Folder
-          <Iconify
-            onClick={onClose}
-            icon="uil:times"
-            style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
-          />
+         
         </DialogTitle>
         <Divider sx={{ mb: 3, borderStyle: 'dashed' }} />
 
@@ -147,54 +142,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
               }
             />
 
-            {/* <Autocomplete
-              sx={{
-                '& .MuiInputBase-input': {
-                  fontSize: '14px',
-                },
-                '& .MuiInputLabel-root': {
-                  fontSize: '14px',
-                },
-              }}
-              options={folder}
-              value={categorylist}
-              onChange={handleChangeCategoryList}
-              defaultValue="None"
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={
-                    <Tooltip
-                      title="Select the parent folder where the folder will be created."
-                      arrow
-                      placement="top"
-                    >
-                      <span>Select Parent Folder </span>
-                    </Tooltip>
-                  }
-                  helperText={
-                    <span>
-                      {categoryError ? (
-                        'Please select a folder.'
-                      ) : (
-                        <>
-                          Select the parent folder where you want to create the folder.{' '}
-                          <Link
-                            href="https://forum.pabbly.com/threads/folders.20987/"
-                            style={{ color: '#078DEE' }}
-                            underline="always"
-                            target="_blank"
-                          >
-                            Learn more
-                          </Link>
-                        </>
-                      )}
-                    </span>
-                  }
-                  error={categoryError}
-                />
-              )}
-            /> */}
+           
           </Box>
         </DialogContent>
 

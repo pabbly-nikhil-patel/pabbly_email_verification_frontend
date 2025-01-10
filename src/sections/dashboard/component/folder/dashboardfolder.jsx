@@ -236,7 +236,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
         content={
           <>
             Are you sure you want to delete this folder?{' '}
-            <Link href="/learn-more" target="_blank" rel="noopener noreferrer">
+            <Link href="/learn-more" target="_blank" style={{ color: '#078DEE' }} rel="noopener noreferrer">
               Learn more
             </Link>
           </>
@@ -261,7 +261,7 @@ export default function FolderCard({ sx, onTrashClick, onHomeClick, onFolderClic
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         height: 'auto',
         backgroundColor: 'common.white',
-        width: { xs: '100%', md: '354.2px' },
+        width: { xs: '100%', md: 'auto' },
         borderRadius: '16px',
         p: 0,
         ...sx,
