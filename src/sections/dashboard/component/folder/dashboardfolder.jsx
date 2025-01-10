@@ -261,7 +261,7 @@ export default function FolderCard({ sx, onTrashClick, onHomeClick, onFolderClic
         boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         height: 'auto',
         backgroundColor: 'common.white',
-        width: { xs: '100%', md: '354.2px' },
+        width: { xs: '100%', md: 'auto' },
         borderRadius: '16px',
         p: 0,
         ...sx,

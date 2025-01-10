@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Link,
+  Grid,
   Alert,
   Button,
   Dialog,
@@ -140,7 +141,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <DashboardContent maxWidth="xl">
+      <DashboardContent maxWidth="xl" >
         <Box
           sx={{
             display: 'flex',
@@ -217,66 +218,69 @@ export default function Page() {
             tooltipTittle="Number of email lists uploaded in your account."
           />
         </Box>
-        <Box
+        {/* <Box
           width="100%"
           sx={{
             gap: 3,
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'stretch',
+            // alignItems: 'stretch'
           }}
-        >
-          <Box>
+        > */}
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4} lg={3}>
             <FolderCard
               // onFolderSelect={setSelectedFolder}
               onHomeClick={handleHomeClick}
               onTrashClick={handleTrashClick}
               activeTable={activeTable}
             />
-          </Box>
-          <Box gap={3}>
-            <BigCard
-              tooltip="View file upload guidelines for email verification."
-              getHelp={false}
-              isVideo
-              bigcardtitle="Verification Guidelines"
-              bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
-              style={style}
-              items={items}
-              videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
-              thumbnailName="email-verication-video-thumbnail.jpg"
-              keyword="Note:"
-              learnMoreLink="https://forum.pabbly.com/threads/dashboard.26311/"
-              bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
-              action={
-                <Tooltip
-                  title="Start verifying email addresses from the list."
-                  arrow
-                  placement="top"
-                  disableInteractive
-                >
-                  <Button
-                    startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
-                    endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
-                    onClick={handlePopoverOpen}
-                    color="primary"
-                    variant="outlined"
-                    size="large"
+          </Grid>
+          <Grid item xs={12} md={8} lg={9}>
+            {/* <Box gap={3}> */}
+              <BigCard
+                tooltip="View file upload guidelines for email verification."
+                getHelp={false}
+                isVideo
+                bigcardtitle="Verification Guidelines"
+                bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
+                style={style}
+                items={items}
+                videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
+                thumbnailName="email-verication-video-thumbnail.jpg"
+                keyword="Note:"
+                learnMoreLink="https://forum.pabbly.com/threads/dashboard.26311/"
+                bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+                action={
+                  <Tooltip
+                    title="Start verifying email addresses from the list."
+                    arrow
+                    placement="top"
+                    disableInteractive
                   >
-                    Verify Email
-                  </Button>
-                </Tooltip>
-              }
-            />
-            <Box sx={{ mt: 3 }}>
-              {activeTable === 'trash' ? (
-                <DashboardTrashTable />
-              ) : (
-                <DashboardTable selectedFolder={selectedFolder} />
-              )}
-            </Box>
-          </Box>
-        </Box>
+                    <Button
+                      startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
+                      endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+                      onClick={handlePopoverOpen}
+                      color="primary"
+                      variant="outlined"
+                      size="large"
+                    >
+                      Verify Email
+                    </Button>
+                  </Tooltip>
+                }
+              />
+              <Box sx={{ mt: 3 }}>
+                {activeTable === 'trash' ? (
+                  <DashboardTrashTable />
+                ) : (
+                  <DashboardTable selectedFolder={selectedFolder} />
+                )}
+              </Box>
+            {/* </Box> */}
+          </Grid></Grid>
+        {/* </Box> */}
       </DashboardContent>
 
       <Dialog
@@ -354,12 +358,7 @@ export default function Page() {
               Verify Single Email
             </MenuItem>
           </Tooltip>
-          <Tooltip
-            title="Click to verify bulk emails."
-            arrow
-            placement="left"
-            disableInteractive
-          >
+          <Tooltip title="Click to verify bulk emails." arrow placement="left" disableInteractive>
             <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
           </Tooltip>
         </MenuList>
