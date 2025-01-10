@@ -19,8 +19,8 @@ import {
 import { fNumber } from 'src/utils/format-number';
 
 import { Iconify } from 'src/components/iconify';
-import { Chart, useChart} from 'src/components/chart';
-import ChartLegends from 'src/components/chart/chart-legends';
+import { Chart, useChart } from 'src/components/chart';
+import {ChartLegends} from 'src/components/chart/chart-legends';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
 import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
 

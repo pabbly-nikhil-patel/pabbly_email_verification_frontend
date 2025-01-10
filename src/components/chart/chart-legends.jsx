@@ -33,7 +33,7 @@ const getTooltipDescription = (label) => {
   return descriptions[label] || `Statistics for ${label}`;
 };
 
-export default function ChartLegends({ labels = [], colors = [], values = [], totalEmails, ...other }) {
+export function ChartLegends({ labels = [], colors = [], values = [], totalEmails, ...other }) {
   const allLabels = ['Total Emails', ...labels];
   const allValues = [totalEmails, ...values];
 
