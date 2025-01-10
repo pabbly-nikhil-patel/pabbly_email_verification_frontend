@@ -104,7 +104,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   const [renameDialogOpen, setRenameDialogOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [selectedFolderName, setSelectedFolderName] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Check if the item is Home based on its ID (25) or label
   const isHome = id === '25' || label === LABELS.home;
@@ -113,7 +113,6 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   const handleNavigateToTeamMembers = () => {
     navigate('settings/team-members');
   };
-
 
   const handleIconClick = (event) => {
     event.stopPropagation();
@@ -248,10 +247,10 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
       <ConfirmDialog
         open={confirmDeleteOpen}
         onClose={handleConfirmDeleteClose}
-        title="Do you really want to delete this folder?"
+        title="Do you really want to delete the folder?"
         content={
           <>
-            Are you sure you want to delete this folder?{' '}
+            Note that when a folder is deleted its email lists are moved to the home folder.{' '}
             <Link
               href="/learn-more"
               target="_blank"

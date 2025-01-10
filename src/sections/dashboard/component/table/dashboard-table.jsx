@@ -445,8 +445,8 @@ export function DashboardTable() {
       <ConfirmDialog
         open={confirmDelete.value}
         onClose={confirmDelete.onFalse}
-        title="Delete"
-        content="Are you sure you want to delete this email list?"
+        title="Do you really want to delete the email list?"
+        content="Note that when an email list is deleted it is moved to the trash folder."
         action={
           <Button variant="contained" color="error" onClick={handleDelete}>
             Delete

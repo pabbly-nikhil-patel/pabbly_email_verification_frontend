@@ -269,7 +269,7 @@ export function DashboardTrashTable() {
               arrow
               placement="top"
             > */}
-              <Typography variant="h6">Trash</Typography>
+            <Typography variant="h6">Trash</Typography>
             {/* </Tooltip> */}
           </Box>
         }
@@ -420,7 +420,7 @@ export function DashboardTrashTable() {
                   Move to folder
                 </MenuItem>
               </Tooltip>
-              <Divider style={{borderStyle: 'dashed'}} />
+              <Divider style={{ borderStyle: 'dashed' }} />
               <Tooltip title="Delete connection." arrow placement="left">
                 <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
                   <Iconify icon="solar:trash-bin-trash-bold" />
@@ -443,8 +443,8 @@ export function DashboardTrashTable() {
       <ConfirmDialog
         open={confirmDelete.value}
         onClose={confirmDelete.onFalse}
-        title="Delete"
-        content="Are you sure you want to delete this email list?"
+        title="Do you want to permanently delete the email list?"
+        content="An email list once deleted cannot be restored in any case."
         action={
           <Button variant="contained" color="error" onClick={handleDelete}>
             Delete
