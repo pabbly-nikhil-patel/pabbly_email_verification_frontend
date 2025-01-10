@@ -31,8 +31,8 @@ import StatsCards from 'src/components/stats-card/stats-card';
 import PageHeader from 'src/components/page-header/page-header';
 
 import Upload from 'src/sections/dashboard/component/upload/upload-file';
-import FolderCard from 'src/sections/dashboard/component/folder/dashboardfolder';
 import { DashboardTable } from 'src/sections/dashboard/component/table/dashboard-table';
+import { FolderSection } from 'src/sections/dashboard/component/folder/dashboardfolder';
 import VerifySingleEmail from 'src/sections/dashboard/component/verify-single-email/verify-single-email';
 import { DashboardTrashTable } from 'src/sections/dashboard/component/dashboard-trash-table/dashboard-trash-table';
 
@@ -180,6 +180,7 @@ export default function Page() {
             </Button>
           </Tooltip>
         </Box>
+
         <Box
           width="100%"
           sx={{
@@ -224,26 +225,15 @@ export default function Page() {
             tooltipTittle="Number of email lists uploaded in your account."
           />
         </Box>
-        {/* <Box
-          width="100%"
-          sx={{
-            gap: 3,
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            // alignItems: 'stretch'
-          }}
-        > */}
+
         <Grid container spacing={3}>
           <Grid item xs={12} md={4} lg={3}>
-            <FolderCard
-              // onFolderSelect={setSelectedFolder}
+            <FolderSection
               onHomeClick={handleHomeClick}
               onTrashClick={handleTrashClick}
-              // activeTable={activeTable}
             />
           </Grid>
           <Grid item xs={12} md={8} lg={9}>
-            {/* <Box gap={3}> */}
             <BigCard
               tooltip="View file upload guidelines for email verification."
               getHelp={false}
@@ -284,10 +274,8 @@ export default function Page() {
                 <DashboardTable selectedFolder={selectedFolder} />
               )}
             </Box>
-            {/* </Box> */}
           </Grid>
         </Grid>
-        {/* </Box> */}
       </DashboardContent>
 
       <Dialog
@@ -318,7 +306,6 @@ export default function Page() {
       <Dialog
         open={dialogState.bulkEmail}
         onClose={() => handleDialogClose('bulkEmail')}
-        // maxWidth="md"
         fullWidth
       >
         <DialogTitle display="flex" justifyContent="space-between">
@@ -332,9 +319,6 @@ export default function Page() {
               here.
             </Typography>
           </Box>
-          {/* <IconButton sx={{ width: 24, height: 24 }} onClick={() => handleDialogClose('bulkEmail')}>
-            <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
-          </IconButton> */}
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ pt: 3 }}>
@@ -344,17 +328,18 @@ export default function Page() {
           <Box
             sx={{
               mt: 1,
-
               pt: 0,
               gap: 1,
               display: 'flex',
               justifyContent: 'flex-end',
             }}
           >
-            <Button  variant="contained" color="primary">
+            <Button variant="contained" color="primary">
               Upload
             </Button>
-            <Button onClick={() => handleDialogClose('bulkEmail')} variant="outlined">Cancel</Button>
+            <Button onClick={() => handleDialogClose('bulkEmail')} variant="outlined">
+              Cancel
+            </Button>
           </Box>
         </DialogActions>
       </Dialog>
@@ -384,14 +369,16 @@ export default function Page() {
             </MenuItem>
           </Tooltip>
           <Tooltip title="Click to verify bulk emails." arrow placement="left" disableInteractive>
-            <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>
+              Verify Bulk Emails
+            </MenuItem>
           </Tooltip>
         </MenuList>
       </Popover>
 
-      {/* <Snackbar
+      <Snackbar
         open={alertState.open}
-        autoHideDuration={10000}
+        autoHideDuration={isFromSingleEmail ? null : 10000}
         onClose={handleAlertClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
@@ -418,37 +405,7 @@ export default function Page() {
         >
           {alertState.message}
         </Alert>
-      </Snackbar> */}
-      <Snackbar
-          open={alertState.open}
-          autoHideDuration={isFromSingleEmail ? null : 10000}
-          onClose={handleAlertClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          sx={{
-            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-            zIndex: theme.zIndex.modal + 9999,
-          }}
-        >
-          <Alert
-            onClose={handleAlertClose}
-            severity={alertState.severity}
-            sx={{
-              width: '100%',
-              fontSize: '14px',
-              fontWeight: 'bold',
-              backgroundColor: theme.palette.background.paper,
-              color: theme.palette.text.primary,
-              '& .MuiAlert-icon': {
-                color:
-                  alertState.severity === 'error'
-                    ? theme.palette.error.main
-                    : theme.palette.success.main,
-              },
-            }}
-          >
-            {alertState.message}
-          </Alert>
-        </Snackbar>
+      </Snackbar>
     </>
   );
 }
