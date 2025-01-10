@@ -19,7 +19,8 @@ import {
 import { fNumber } from 'src/utils/format-number';
 
 import { Iconify } from 'src/components/iconify';
-import { Chart, useChart, ChartLegends } from 'src/components/chart';
+import { Chart, useChart} from 'src/components/chart';
+import ChartLegends from 'src/components/chart/chart-legends';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
 import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
 
@@ -334,57 +335,80 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   }}
                 >
                   {downloadActions.map((action) => (
-                    <Button
+                    <Tooltip
                       key={action.id}
-                      onClick={() => handleOptionSelect(action.id)}
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        p: 2,
-                        border: 2,
-                        borderColor: selectedOption === action.id ? 'primary.main' : 'divider',
-                        borderRadius: 1,
-                        bgcolor:
-                          selectedOption === action.id ? 'primary.lighter' : 'background.paper',
-                        '&:hover': {
-                          borderColor:
-                            selectedOption === action.id ? 'primary.main' : 'text.secondary',
-                          bgcolor:
-                            selectedOption === action.id ? 'primary.lighter' : 'action.hover',
-                        },
-                      }}
+                      title={
+                        action.id === 'all'
+                          ? 'Select to download the complete list of all verified emails, including deliverable, undeliverable, and unknown statuses.'
+                          : action.id === 'deliverable'
+                            ? 'Select to download the list of emails verified as valid and deliverable.'
+                            : 'Select to download the list of emails that are invalid or undeliverable.'
+                      }
+                      arrow
+                      placement="top"
                     >
-                      <Box>
-                        <Iconify
-                          icon={action.itemIcon}
-                          width={24}
-                          sx={{
-                            color: selectedOption === action.id ? 'primary.main' : 'text.secondary',
-                          }}
-                        />
-                      </Box>
-                      <Typography
+                      <Button
+                        onClick={() => handleOptionSelect(action.id)}
                         sx={{
-                          mt: 1,
-                          color: selectedOption === action.id ? 'primary.main' : 'text.secondary',
-                          fontWeight: selectedOption === action.id ? 500 : 400,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          p: 2,
+                          border: 2,
+                          borderColor: selectedOption === action.id ? 'primary.main' : 'divider',
+                          borderRadius: 1,
+                          bgcolor:
+                            selectedOption === action.id ? 'primary.lighter' : 'background.paper',
+                          '&:hover': {
+                            borderColor:
+                              selectedOption === action.id ? 'primary.main' : 'text.secondary',
+                            bgcolor:
+                              selectedOption === action.id ? 'primary.lighter' : 'action.hover',
+                          },
                         }}
                       >
-                        {action.itemName}
-                      </Typography>
-                    </Button>
+                        <Box>
+                          <Iconify
+                            icon={action.itemIcon}
+                            width={24}
+                            sx={{
+                              color:
+                                selectedOption === action.id ? 'primary.main' : 'text.secondary',
+                            }}
+                          />
+                        </Box>
+                        <Typography
+                          sx={{
+                            mt: 1,
+                            color: selectedOption === action.id ? 'primary.main' : 'text.secondary',
+                            fontWeight: selectedOption === action.id ? 500 : 400,
+                          }}
+                        >
+                          {action.itemName}
+                        </Typography>
+                      </Button>
+                    </Tooltip>
                   ))}
                 </Box>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                  Users can download email verification results by selecting one of the three tabs:
+                  All Emails, Deliverable Emails, or Undeliverable Emails. Simply choose a tab and
+                  click &quot;Download CSV&quot; to obtain the report.
+                </Typography>
 
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  All data and reports will be automatically deleted after 15 days. A copy of the
-                  report will be sent to your registered email before deletion.{' '}
+                  Note: The verified list and verification reports will be automatically deleted
+                  after 15 days.
                   <LearnMoreLink link="#" />
                 </Typography>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
-                  <Tooltip title="Click to download report." arrow placement="top" disableInteractive>
+                  <Tooltip
+                    title="Click to download report."
+                    arrow
+                    placement="top"
+                    disableInteractive
+                  >
                     <Button variant="contained" onClick={handleDownload} color="primary">
                       Download CSV
                     </Button>

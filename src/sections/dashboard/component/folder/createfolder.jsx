@@ -91,7 +91,6 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
     'Pabbly Form Builder (0)',
     'Pabbly Email Marketing (2)',
     'Pabbly Plus (4)',
-    'Trash',
   ];
 
   return (

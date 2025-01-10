@@ -66,7 +66,7 @@ const TABLE_HEAD = [
   },
   {
     id: 'consumed',
-    label: 'No. of Emails/Credits Used',
+    label: 'Emails Processed/Credits Consumed',
     width: 400,
     whiteSpace: 'nowrap',
     tooltip: 'Number of credits used by this list',

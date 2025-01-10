@@ -99,7 +99,6 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
     'Pabbly Form Builder (0)',
     'Pabbly Email Marketing (2)',
     'Pabbly Plus (4)',
-    'Trash',
   ];
 
   return (

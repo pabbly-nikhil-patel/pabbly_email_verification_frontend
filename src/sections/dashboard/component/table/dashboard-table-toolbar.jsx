@@ -45,7 +45,6 @@ const FOLDER_STRUCTURE = [
   'Organization 7',
   'Organization 8',
   'Organization 9',
-  'Trash',
 ];
 
 export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDeleteSelected }) {
