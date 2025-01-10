@@ -44,6 +44,7 @@ export default function Page() {
   const [email, setEmail] = useState('');
   const [activeTable, setActiveTable] = useState('dashboard');
   const [selectedFolder, setSelectedFolder] = useState('Home');
+  const [isFromSingleEmail, setIsFromSingleEmail] = useState(false);
 
   const [alertState, setAlertState] = useState({
     open: false,
@@ -80,6 +81,7 @@ export default function Page() {
 
   const handleVerify = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsFromSingleEmail(true);
 
     if (emailRegex.test(email)) {
       setAlertState({
@@ -125,6 +127,9 @@ export default function Page() {
       ...prev,
       [type]: true,
     }));
+    if (type !== 'singleEmail') {
+      setIsFromSingleEmail(false);
+    }
     handlePopoverClose();
   };
 
@@ -384,7 +389,7 @@ export default function Page() {
         </MenuList>
       </Popover>
 
-      <Snackbar
+      {/* <Snackbar
         open={alertState.open}
         autoHideDuration={10000}
         onClose={handleAlertClose}
@@ -413,7 +418,37 @@ export default function Page() {
         >
           {alertState.message}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
+      <Snackbar
+          open={alertState.open}
+          autoHideDuration={isFromSingleEmail ? null : 10000}
+          onClose={handleAlertClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          sx={{
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            zIndex: theme.zIndex.modal + 9999,
+          }}
+        >
+          <Alert
+            onClose={handleAlertClose}
+            severity={alertState.severity}
+            sx={{
+              width: '100%',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              '& .MuiAlert-icon': {
+                color:
+                  alertState.severity === 'error'
+                    ? theme.palette.error.main
+                    : theme.palette.success.main,
+              },
+            }}
+          >
+            {alertState.message}
+          </Alert>
+        </Snackbar>
     </>
   );
 }

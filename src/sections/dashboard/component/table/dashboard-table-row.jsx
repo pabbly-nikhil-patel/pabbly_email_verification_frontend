@@ -105,7 +105,7 @@ export function DashboardTableRow({
   const getButtonText = (status) => {
     switch (status) {
       case 'Verified':
-        return 'View Report';
+        return 'Download Report';
       case 'processing':
         return 'Verification In Progress';
       case 'uploading':
@@ -264,7 +264,7 @@ export function DashboardTableRow({
                 row.status === 'processing'
                   ? 'Verification in progress. Please wait.'
                   : row.status === 'Verified'
-                    ? 'View Report'
+                    ? 'Download Report'
                     : 'Click to start verification'
               }
               arrow

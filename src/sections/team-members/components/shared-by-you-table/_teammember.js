@@ -42,7 +42,7 @@ export const _teammember = [...Array(10)].map((_, index) => {
   const createdAt = dayjs().subtract(index, 'day').format('MMM DD, YYYY HH:mm:ss');
 
   return {
-    id: `workflow-${index}`,
+    id: `list-${index}`,
     status,
     email,
     workflows_folders_you_shared,

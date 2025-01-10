@@ -20,22 +20,22 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 
 export function RenameFolderDialog({ open, onClose, workflowName }) {
-  const [newWorkflowName, setNewWorkflowName] = useState(workflowName); // Store the editable workflow name
-  const [hasError, setHasError] = useState(false); // Track if there's an error
+  const [newWorkflowName, setNewWorkflowName] = useState(workflowName); 
+  const [hasError, setHasError] = useState(false); 
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
   const dialog = useBoolean();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
-    setNewWorkflowName(workflowName); // Update the state when the dialog opens with the initial name
+    setNewWorkflowName(workflowName); 
   }, [workflowName]);
 
   const handleAdd = () => {
     if (!newWorkflowName.trim()) {
-      // Check if the field is empty
+
       setHasError(true);
-      return; // Prevent form submission if empty
+      return; 
     }
     setHasError(false);
     setSnackbarOpen(true);
