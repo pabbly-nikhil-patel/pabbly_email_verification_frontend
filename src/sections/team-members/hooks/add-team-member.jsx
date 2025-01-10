@@ -16,6 +16,7 @@ import {
   DialogActions,
   DialogContent,
   CircularProgress,
+  Typography,
 } from '@mui/material';
 
 import { Iconify } from 'src/components/iconify';
@@ -61,6 +62,16 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
     'anand.nayak@pabbly.com',
     // ... other allowed emails
   ];
+  const commonBoxStyle = { ml: '9px' };
+  const commonTypographyStyle = { fontSize: '14px', color: 'grey.800', mt: 1, mb: 1, ml: '5px' };
+  const commonUlStyle = { paddingLeft: '20px', color: 'grey.600', fontSize: '12px' };
+  const commonLiStyle = {
+    marginBottom: '8px',
+    fontWeight: '500',
+    listStyleType: 'disc',
+    listStylePosition: 'outside',
+    color: '#637381',
+  };
 
   const isEmailValid = (email1) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -151,7 +162,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
               type="email"
               margin="dense"
               variant="outlined"
-              label="Email Address"
+              label="Pabbly Email Address"
               placeholder="sample@example.com"
               value={email}
               onChange={handleChangeEmail}
@@ -164,7 +175,10 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                     'Email address is required.'
                   )
                 ) : (
-                  <span>Ensure that the email address is already registered with Pabbly. </span>
+                  <span>
+                    Ensure that the email address is already registered with Pabbly.{' '}
+                    <LearnMoreLink link="https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-email-verification-account.26333/" />
+                  </span>
                 )
               }
             />
@@ -231,12 +245,43 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                 />
               )}
             />
+            {/* Points to Remember Section */}
+            <Box sx={commonBoxStyle}>
+              <Typography variant="subtitle1" sx={commonTypographyStyle}>
+                Points To Remember!
+              </Typography>
+              <ul style={commonUlStyle}>
+                <li style={commonLiStyle}>
+                  <span>
+                  You can share multiple folders with team members.
+                  </span>
+                </li>
+                <li style={commonLiStyle}>
+                  <span>
+                  Team members can be granted either &quot;Write&quot; or &quot;View&quot; access.
+                  </span>
+                </li>
+                <li style={commonLiStyle}>
+                  <span>
+                  With &quot;Write&quot; access, they can upload email lists for verification, while &ldquo;View&ldquo; access allows them only to download verification reports.
+                  </span>
+                </li>
+                <li style={commonLiStyle}>
+                  <span>
+                  Team members do not have access to the &quot;Settings&quot; section, any billing information, or the &quot;Trash&quot; folder.
+                  </span>
+                </li>
+              </ul>
+            </Box>
           </Box>
         </DialogContent>
 
         <DialogActions>
           <Button onClick={handleAdd} disabled={isLoading} variant="contained" color="primary">
             {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Add'}
+          </Button>
+          <Button variant="outlined" color="inherit" onClick={handleClose}>
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
