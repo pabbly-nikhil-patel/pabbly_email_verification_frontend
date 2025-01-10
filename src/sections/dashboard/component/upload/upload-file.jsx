@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Link, Button, TextField, Autocomplete } from '@mui/material';
+import { Box, Link, TextField, Autocomplete } from '@mui/material';
 
 import FileUpload from 'src/components/upload/upload';
 
@@ -109,26 +109,7 @@ export default function Upload({ setAlertState }) {
           }}
         />
       </Box>
-      <Box
-        sx={{
-          mt: 3,
-          pb: 3,
-          pt: 0,
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          // sx={{
-          //   minWidth: 120,
-          //   borderRadius: 1,
-          // }}
-        >
-          Upload
-        </Button>
-      </Box>
+      
     </Box>
   );
 }

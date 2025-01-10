@@ -15,11 +15,11 @@ import {
   Snackbar,
   MenuList,
   MenuItem,
-  IconButton,
   Typography,
   DialogTitle,
   useMediaQuery,
   DialogContent,
+  DialogActions,
 } from '@mui/material';
 
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -141,12 +141,12 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <DashboardContent maxWidth="xl" >
+      <DashboardContent maxWidth="xl">
         <Box
           sx={{
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            alignItems: isMobile ? 'flex-start' : 'center',
+            flexDirection: { xs: 'column', lg: 'row' },
+            alignItems: { xs: 'flex-start', lg: 'center' },
             justifyContent: 'space-between',
             mb: 0,
           }}
@@ -163,6 +163,7 @@ export default function Page() {
             disableInteractive
           >
             <Button
+              sx={{ mt: { xs: 1, lg: 0 } }}
               startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
               endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
               onClick={handlePopoverOpen}
@@ -233,53 +234,54 @@ export default function Page() {
               // onFolderSelect={setSelectedFolder}
               onHomeClick={handleHomeClick}
               onTrashClick={handleTrashClick}
-              activeTable={activeTable}
+              // activeTable={activeTable}
             />
           </Grid>
           <Grid item xs={12} md={8} lg={9}>
             {/* <Box gap={3}> */}
-              <BigCard
-                tooltip="View file upload guidelines for email verification."
-                getHelp={false}
-                isVideo
-                bigcardtitle="Verification Guidelines"
-                bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
-                style={style}
-                items={items}
-                videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
-                thumbnailName="email-verication-video-thumbnail.jpg"
-                keyword="Note:"
-                learnMoreLink="https://forum.pabbly.com/threads/dashboard.26311/"
-                bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
-                action={
-                  <Tooltip
-                    title="Start verifying email addresses from the list."
-                    arrow
-                    placement="top"
-                    disableInteractive
+            <BigCard
+              tooltip="View file upload guidelines for email verification."
+              getHelp={false}
+              isVideo
+              bigcardtitle="Verification Guidelines"
+              bigcardsubtitle="Please adhere to the following guidelines when uploading your CSV file:"
+              style={style}
+              items={items}
+              videoLink="https://www.youtube.com/embed/MIcaDmC_ngM?si=EJ1SGtn0tdF96b1y"
+              thumbnailName="email-verication-video-thumbnail.jpg"
+              keyword="Note:"
+              learnMoreLink="https://forum.pabbly.com/threads/dashboard.26311/"
+              bigcardNote="All data and reports older than 15 days will be permanently removed automatically. For reference, you can Download Sample File to guide you in formatting your data correctly."
+              action={
+                <Tooltip
+                  title="Start verifying email addresses from the list."
+                  arrow
+                  placement="top"
+                  disableInteractive
+                >
+                  <Button
+                    startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
+                    endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
+                    onClick={handlePopoverOpen}
+                    color="primary"
+                    variant="outlined"
+                    size="large"
                   >
-                    <Button
-                      startIcon={<Iconify icon="heroicons:plus-circle-16-solid" />}
-                      endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
-                      onClick={handlePopoverOpen}
-                      color="primary"
-                      variant="outlined"
-                      size="large"
-                    >
-                      Verify Email
-                    </Button>
-                  </Tooltip>
-                }
-              />
-              <Box sx={{ mt: 3 }}>
-                {activeTable === 'trash' ? (
-                  <DashboardTrashTable />
-                ) : (
-                  <DashboardTable selectedFolder={selectedFolder} />
-                )}
-              </Box>
+                    Verify Email
+                  </Button>
+                </Tooltip>
+              }
+            />
+            <Box sx={{ mt: 3 }}>
+              {activeTable === 'trash' ? (
+                <DashboardTrashTable />
+              ) : (
+                <DashboardTable selectedFolder={selectedFolder} />
+              )}
+            </Box>
             {/* </Box> */}
-          </Grid></Grid>
+          </Grid>
+        </Grid>
         {/* </Box> */}
       </DashboardContent>
 
@@ -303,6 +305,7 @@ export default function Page() {
             }}
             email={email}
             setEmail={setEmail}
+            onClose={() => handleDialogClose('singleEmail')} 
           />
         </DialogContent>
       </Dialog>
@@ -324,14 +327,31 @@ export default function Page() {
               here.
             </Typography>
           </Box>
-          <IconButton onClick={() => handleDialogClose('bulkEmail')}>
+          {/* <IconButton sx={{ width: 24, height: 24 }} onClick={() => handleDialogClose('bulkEmail')}>
             <Iconify icon="eva:close-fill" style={{ cursor: 'pointer' }} />
-          </IconButton>
+          </IconButton> */}
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ pt: 3 }}>
           <Upload setAlertState={setAlertState} />
         </DialogContent>
+        <DialogActions>
+          <Box
+            sx={{
+              mt: 1,
+
+              pt: 0,
+              gap: 1,
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Button  variant="contained" color="primary">
+              Upload
+            </Button>
+            <Button onClick={() => handleDialogClose('bulkEmail')} variant="outlined">Cancel</Button>
+          </Box>
+        </DialogActions>
       </Dialog>
 
       <Popover

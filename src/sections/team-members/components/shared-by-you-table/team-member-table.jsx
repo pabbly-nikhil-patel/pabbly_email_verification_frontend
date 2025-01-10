@@ -169,7 +169,7 @@ export default function SharedbyYouTeamMemberTable({
                 <Tooltip
                   title="Add team members and share folder(s) access with them."
                   arrow
-                  placement="bottom"
+                  placement="top"
                 >
                   Team Members
                 </Tooltip>

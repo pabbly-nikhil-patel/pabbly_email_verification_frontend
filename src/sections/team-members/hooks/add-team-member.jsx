@@ -19,7 +19,6 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Iconify } from 'src/components/iconify';
 import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
 
 export function TeamMemberDialog({ open, onClose, ...other }) {
@@ -146,11 +145,6 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
       >
         <DialogTitle sx={{ fontWeight: '700', display: 'flex', justifyContent: 'space-between' }}>
           Add Team Member
-          <Iconify
-            onClick={handleClose}
-            icon="uil:times"
-            style={{ width: 20, height: 20, cursor: 'pointer', color: '#637381' }}
-          />
         </DialogTitle>
         <Divider sx={{ mb: '16px', borderStyle: 'dashed' }} />
 
@@ -280,7 +274,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
           <Button onClick={handleAdd} disabled={isLoading} variant="contained" color="primary">
             {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Add'}
           </Button>
-          <Button variant="outlined" color="inherit" onClick={handleClose}>
+          <Button onClick={onClose} variant="outlined" color="inherit">
             Cancel
           </Button>
         </DialogActions>

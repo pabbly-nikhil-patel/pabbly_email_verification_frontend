@@ -236,7 +236,7 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
         content={
           <>
             Are you sure you want to delete this folder?{' '}
-            <Link href="/learn-more" target="_blank" rel="noopener noreferrer">
+            <Link href="/learn-more" target="_blank" style={{ color: '#078DEE' }} rel="noopener noreferrer">
               Learn more
             </Link>
           </>

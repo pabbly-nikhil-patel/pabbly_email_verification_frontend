@@ -264,13 +264,13 @@ export function DashboardTrashTable() {
       <CardHeader
         title={
           <Box display="inline-block">
-            <Tooltip
+            {/* <Tooltip
               title="See all your uploaded files and their verification status"
               arrow
               placement="top"
-            >
+            > */}
               <Typography variant="h6">Trash</Typography>
-            </Tooltip>
+            {/* </Tooltip> */}
           </Box>
         }
         subheader="Deleted email list can be restored or permanently deleted from the trash folder."
@@ -420,6 +420,7 @@ export function DashboardTrashTable() {
                   Move to folder
                 </MenuItem>
               </Tooltip>
+              <Divider style={{borderStyle: 'dashed'}} />
               <Tooltip title="Delete connection." arrow placement="left">
                 <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
                   <Iconify icon="solar:trash-bin-trash-bold" />
