@@ -31,7 +31,7 @@ export default function BigCard({
           gap: 3,
         }}
       >
-        <Box>
+        <Box width="60%">
           <Box>
             <Box sx={{ mb: 1 }}>
               <Typography variant="h6">
@@ -71,7 +71,7 @@ export default function BigCard({
 
             {action}
           </Box>
-        </Box>{' '}
+        </Box>
         <Box >
           <VideoModal
             getHelp={getHelp}

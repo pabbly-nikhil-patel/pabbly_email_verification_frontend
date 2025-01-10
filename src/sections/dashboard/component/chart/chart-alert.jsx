@@ -18,7 +18,7 @@ export default function ChartAlert() {
         alignItems: 'center', // Center horizontally
         justifyContent: 'center', // Center verticall
         mb: 3,
-        mt: 6,
+        mt: 3,
         px: 3,
       }}
     >
@@ -27,7 +27,7 @@ export default function ChartAlert() {
           Uploaded Successfully
         </Typography>
       </Alert>
-      <Button color="primary" sx={{ mt: 2 }} onClick={handleStartVerification}>
+      <Button color="primary" variant='outlined' sx={{ mt: 3 }} onClick={handleStartVerification}>
         Start Verification
       </Button>
     </Box>

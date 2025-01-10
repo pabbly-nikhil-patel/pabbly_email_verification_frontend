@@ -24,7 +24,7 @@ export const _sharedwithyou = [...Array(10)].map((_, index) => {
     'Read Access',
   ];
 
-  const workflows_folders_you_shareds = [
+  const folders_you_shareds = [
     'Company A Folder, Company B sub folder',
     'Company B, Company C',
     'Client A',
@@ -37,15 +37,15 @@ export const _sharedwithyou = [...Array(10)].map((_, index) => {
   const updatedAt = dayjs().subtract(index, 'day').add(2, 'hours').format('MMM DD, YYYY HH:mm:ss'); // Updated time for demonstration
   const email = emails[index % emails.length];
   const permission = permissions[index % permissions.length];
-  const workflows_folders_you_shared =
-    workflows_folders_you_shareds[index % workflows_folders_you_shareds.length];
+  const folders_you_shared =
+    folders_you_shareds[index % folders_you_shareds.length];
   const createdAt = dayjs().subtract(index, 'day').format('MMM DD, YYYY HH:mm:ss');
 
   return {
-    id: `workflow-${index}`,
+    id: `folder-${index}`,
     status,
     email,
-    workflows_folders_you_shared,
+    folders_you_shared,
     createdOn,
     permission,
     updatedAt,

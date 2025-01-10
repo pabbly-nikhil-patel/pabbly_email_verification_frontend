@@ -192,7 +192,7 @@ export function DashboardTrashTableRow({
               <Box
                 component="span"
                 sx={{
-                  color: 'text.secondary',
+                  color: 'text.disabled',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',

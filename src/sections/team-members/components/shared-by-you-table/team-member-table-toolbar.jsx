@@ -38,7 +38,6 @@ export function SharedbyYouTeamMemberTableToolbar({ filters, onResetPage, numSel
   const [operator, setOperator] = useState('contains');
   const [filterValue, setFilterValue] = useState('');
 
-  const workflowstatus = ['All Statuses', 'On', 'Off'];
 
   const handlePopoverOpen = (event) => setAnchorEl(event.currentTarget);
   const handlePopoverClose = () => setAnchorEl(null);

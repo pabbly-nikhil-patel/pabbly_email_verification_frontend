@@ -49,7 +49,7 @@ export function CreditTableRow({ row, selected }) {
             <Box
               component="span"
               sx={{
-                color: 'text.primary',
+                color: 'text.disabled',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -94,7 +94,7 @@ export function CreditTableRow({ row, selected }) {
           <Box
             component="span"
             sx={{
-              color: 'text.secondary',
+              color: 'text.disabled',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',

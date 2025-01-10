@@ -11,7 +11,7 @@ export const _teammember = [...Array(10)].map((_, index) => {
   const emails = [
     'neeraj.agarwal@pabbly.com',
     'hardik.pradhan@pabbly.com',
-    'anand.nayak@pabbly.com',
+    'neeraj.agarwal@pabbly.com',
     'nikhil.patel@pabbly.com',
     'rajendra.jatav@pabbly.com',
   ];
@@ -19,15 +19,15 @@ export const _teammember = [...Array(10)].map((_, index) => {
   const permissions = [
     'Write Access',
     'Read Access',
-    'Read Access',
+    'Write Access',
     'Write Access',
     'Read Access',
   ];
 
-  const workflows_folders_you_shareds = [
-    'Company A Folder, Company B sub folder',
-    'Company B, Company C',
-    'Client A',
+  const folders_you_shareds = [
+    'Company A',
+    'Company C',
+    'Company A',
     'Client B',
     'Parent Folder',
     'Main Folder',
@@ -37,15 +37,15 @@ export const _teammember = [...Array(10)].map((_, index) => {
   const updatedAt = dayjs().subtract(index, 'day').add(2, 'hours').format('MMM DD, YYYY HH:mm:ss'); // Updated time for demonstration
   const email = emails[index % emails.length];
   const permission = permissions[index % permissions.length];
-  const workflows_folders_you_shared =
-    workflows_folders_you_shareds[index % workflows_folders_you_shareds.length];
+  const folders_you_shared =
+    folders_you_shareds[index % folders_you_shareds.length];
   const createdAt = dayjs().subtract(index, 'day').format('MMM DD, YYYY HH:mm:ss');
 
   return {
-    id: `list-${index}`,
+    id: `folder-${index}`,
     status,
     email,
-    workflows_folders_you_shared,
+    folders_you_shared,
     createdOn,
     permission,
     updatedAt,
