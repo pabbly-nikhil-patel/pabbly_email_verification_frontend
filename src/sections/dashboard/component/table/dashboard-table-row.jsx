@@ -195,7 +195,7 @@ export function DashboardTableRow({
               <Box
                 component="span"
                 sx={{
-                  color: 'text.secondary',
+                  color: 'text.disabled',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',

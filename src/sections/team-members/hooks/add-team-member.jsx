@@ -10,13 +10,13 @@ import {
   Divider,
   Snackbar,
   TextField,
+  Typography,
   DialogTitle,
   Autocomplete,
   useMediaQuery,
   DialogActions,
   DialogContent,
   CircularProgress,
-  Typography,
 } from '@mui/material';
 
 import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
