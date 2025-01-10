@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
@@ -104,10 +104,16 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
   const [renameDialogOpen, setRenameDialogOpen] = useState(false);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [selectedFolderName, setSelectedFolderName] = useState('');
+  const navigate = useNavigate()
 
   // Check if the item is Home based on its ID (25) or label
   const isHome = id === '25' || label === LABELS.home;
   const shouldShowEllipsis = !hideEllipsis && !isHome && id !== '0';
+
+  const handleNavigateToTeamMembers = () => {
+    navigate('settings/team-members');
+  };
+
 
   const handleIconClick = (event) => {
     event.stopPropagation();
@@ -210,6 +216,16 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
                     Rename
                   </MenuItem>
                 </Tooltip>
+                <Tooltip
+                  title="Click here to share the folder with team member , this will open the team member settings page"
+                  arrow
+                  placement="left"
+                >
+                  <MenuItem onClick={handleNavigateToTeamMembers}>
+                    <Iconify icon="jam:share-alt-f" />
+                    Share
+                  </MenuItem>
+                </Tooltip>
                 <Divider style={{ borderStyle: 'dashed' }} />
                 <Tooltip title="Delete the folder." arrow placement="left">
                   <MenuItem onClick={handleDeleteClick} sx={{ color: 'error.main' }}>
@@ -236,7 +252,12 @@ const CustomTreeItem = React.forwardRef((props, ref) => {
         content={
           <>
             Are you sure you want to delete this folder?{' '}
-            <Link href="/learn-more" target="_blank" style={{ color: '#078DEE' }} rel="noopener noreferrer">
+            <Link
+              href="/learn-more"
+              target="_blank"
+              style={{ color: '#078DEE' }}
+              rel="noopener noreferrer"
+            >
               Learn more
             </Link>
           </>

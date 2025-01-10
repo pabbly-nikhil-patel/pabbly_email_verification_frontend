@@ -62,14 +62,14 @@ const TABLE_HEAD = [
     label: 'Status/Name/Date',
     width: 400,
     whiteSpace: 'nowrap',
-    tooltip: 'View list status, name and date of creation here.',
+    tooltip: 'View email verification status, email list name and upload date.',
   },
   {
     id: 'consumed',
-    label: 'No. of Emails/Credits Used',
+    label: 'Credits Consumed',
     width: 400,
     whiteSpace: 'nowrap',
-    tooltip: 'Number of credits used by this list',
+    tooltip: 'View the number of email addresses in the uploaded list and the verification credits used.',
   },
   {
     id: 'action',
@@ -77,7 +77,7 @@ const TABLE_HEAD = [
     width: 300,
     whiteSpace: 'nowrap',
     align: 'right',
-    tooltip: 'Take actions on the list here.',
+    tooltip: 'View option to start email verification and download the verification report.',
   },
   { id: '', width: 10 },
 ];
@@ -283,13 +283,13 @@ export function DashboardTable() {
       <CardHeader
         title={
           <Box display="inline-block">
-            {/* <Tooltip
-              title="See all your uploaded files and their verification status"
+            <Tooltip
+              title="Folder Name: Home"
               arrow
               placement="top"
-            > */}
+            >
               <Typography variant="h6">Home</Typography>
-            {/* </Tooltip> */}
+            </Tooltip>
           </Box>
         }
         subheader="Verify and manage all your uploaded email lists here."
