@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import { Divider, Tooltip, CardHeader, Typography } from '@mui/material';
+import { Divider, CardHeader, Typography } from '@mui/material';
 
 import { useSetState } from 'src/hooks/use-set-state';
 
@@ -131,14 +131,14 @@ export function CreditTable() {
       <CardHeader
         title={
           <Box display="inline-block">
-            <Tooltip
+            {/* <Tooltip
               arrow
               placement="top"
               disableInteractive
               title="View all the email verification logs here."
-            >
+            > */}
               <Typography variant="h6">Email Verification Logs</Typography>
-            </Tooltip>
+            {/* </Tooltip> */}
           </Box>
         }
         sx={{ pb: 3 }}
