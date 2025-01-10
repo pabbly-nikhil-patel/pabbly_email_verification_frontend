@@ -1,12 +1,7 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import { Box, Stack, Tooltip, Typography } from '@mui/material';
 
-// ----------------------------------------------------------------------
-
-export const StyledLegend = styled(Box)(({ theme }) => ({
+const StyledLegend = styled(Box)(({ theme }) => ({
   gap: 8,
   width: '100%',
   display: 'flex',
@@ -17,7 +12,7 @@ export const StyledLegend = styled(Box)(({ theme }) => ({
   padding: '8px 0',
 }));
 
-export const StyledDot = styled(Box)(() => ({
+const StyledDot = styled(Box)(() => ({
   width: 12,
   height: 12,
   flexShrink: 0,
@@ -26,43 +21,60 @@ export const StyledDot = styled(Box)(() => ({
   backgroundColor: 'currentColor',
 }));
 
-// ----------------------------------------------------------------------
-
-const tooltipDescriptions = {
-  'Total Emails': 'Total number of emails processed in verification.',
-  Deliverable: 'Total number of emails deliverable in verification.',
-  'Accept-all': 'Total number of emails accepted in verification.',
-  Undeliverable: 'Total number of emails undeliverable in verification.',
-  Unknown: 'Total number of emails unknown in verification.',
+const getTooltipDescription = (label) => {
+  const descriptions = {
+    'Total Emails': 'Total number of emails processed in verification',
+    'Deliverable Emails': ' These emails are verified as valid and are safe for sending.',
+    'Undeliverable Emails': 'These emails are invalid. Remove them from your list to avoid bounces.',
+    'Accept-all Emails': 'The domain accepts all emails but does not guarantee individual validity.',
+    'Unknown Emails': 'Unable to verify these emails due to technical limitations or domain restrictions.'
+  };
+  
+  return descriptions[label] || `Statistics for ${label}`;
 };
 
-export function ChartLegends({ labels = [], colors = [], values = [], totalEmails, ...other }) {
+export default function ChartLegends({ labels = [], colors = [], values = [], totalEmails, ...other }) {
   const allLabels = ['Total Emails', ...labels];
   const allValues = [totalEmails, ...values];
 
   return (
     <Stack spacing={0} width="100%" px={3} {...other}>
       {allLabels?.map((label, index) => (
-        <StyledLegend
-          sx={{
-            borderBottom: index === 0 ? '1px dashed' : 'none',
-            borderColor: 'divider',
-            pb: index === 0 ? 2 : 1,
-            pt: index === 1 ? 2 : 1,
-          }}
+        <Tooltip 
+          key={label} 
+          title={getTooltipDescription(label)}
+          arrow 
+          placement="left"
         >
-          <Tooltip key={label} title={tooltipDescriptions[label] || ''} arrow placement="left">
+          <StyledLegend
+            sx={{
+              borderBottom: index === 0 ? '1px dashed' : 'none',
+              borderColor: 'divider',
+              pb: index === 0 ? 2 : 1,
+              pt: index === 1 ? 2 : 1,
+              '&:hover': {
+                bgcolor: 'action.hover',
+                cursor: 'pointer',
+              },
+            }}
+          >
             <Box display="flex" alignItems="center" gap={1}>
               {index !== 0 && <StyledDot sx={{ color: colors[index - 1] }} />}
-              <Typography fontSize="14px" fontWeight={index === 0 ? 800 : 600}>
+              <Typography 
+                fontSize="14px" 
+                fontWeight={index === 0 ? 800 : 600}
+              >
                 {label}
               </Typography>
             </Box>
-          </Tooltip>
-          <Typography fontSize="14px" fontWeight={index === 0 ? 800 : 400}>
-            {allValues[index]?.toLocaleString()}
-          </Typography>
-        </StyledLegend>
+            <Typography 
+              fontSize="14px" 
+              fontWeight={index === 0 ? 800 : 400}
+            >
+              {allValues[index]?.toLocaleString()}
+            </Typography>
+          </StyledLegend>
+        </Tooltip>
       ))}
     </Stack>
   );
