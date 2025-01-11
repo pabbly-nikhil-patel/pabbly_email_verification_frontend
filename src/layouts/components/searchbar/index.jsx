@@ -104,7 +104,7 @@ export default function Searchbar({ sx, ...other }) {
           </IconButton>
         </Box>
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
+          <Typography fontWeight={500} fontSize={14}  py={1}>
             Search Folder
           </Typography>
         </Box>
