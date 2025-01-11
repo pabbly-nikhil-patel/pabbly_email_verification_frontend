@@ -163,7 +163,8 @@ export function DashboardTableRow({
             <Tooltip
               title={
                 <>
-                  Email List Name: {currentFile.name} ({currentFile.numberOfEmails})
+                  Email List Name: {currentFile.name} 
+                  {/* ({currentFile.numberOfEmails}) */}
                 </>
               }
               arrow
@@ -181,7 +182,8 @@ export function DashboardTableRow({
                   maxWidth: '300px',
                 }}
               >
-                {currentFile.name} ({currentFile.numberOfEmails})
+                {currentFile.name} 
+                {/* ({currentFile.numberOfEmails}) */}
               </Typography>
             </Tooltip>
           </Stack>

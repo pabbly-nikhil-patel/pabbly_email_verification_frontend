@@ -160,7 +160,8 @@ export function DashboardTrashTableRow({
             <Tooltip
               title={
                 <>
-                  List Name: {currentFile.name} ({currentFile.numberOfEmails})
+                  List Name: {currentFile.name}
+                   {/* ({currentFile.numberOfEmails}) */}
                 </>
               }
               arrow
@@ -178,7 +179,8 @@ export function DashboardTrashTableRow({
                   maxWidth: '300px',
                 }}
               >
-                {currentFile.name} ({currentFile.numberOfEmails})
+                {currentFile.name} 
+                {/* ({currentFile.numberOfEmails}) */}
               </Typography>
             </Tooltip>
           </Stack>
