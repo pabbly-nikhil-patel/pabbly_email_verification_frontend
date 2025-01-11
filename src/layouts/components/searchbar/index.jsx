@@ -103,10 +103,11 @@ export default function Searchbar({ sx, ...other }) {
             </SvgIcon>
           </IconButton>
         </Box>
-
-        <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
-          Search Folder
-        </Typography>
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Typography fontWeight={500} fontSize={14} ml={1} py={1}>
+            Search Folder
+          </Typography>
+        </Box>
 
         <Typography
           fontWeight={600}
