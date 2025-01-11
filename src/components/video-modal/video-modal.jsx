@@ -45,12 +45,13 @@ function ModalVideoView({
             aria-label="play"
             onClick={handleClickOpen}
             sx={{
+             
               padding: '0px',
               position: 'absolute',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              color: '#078DEE',
+             
               animation: 'pulse 2s infinite',
               '@keyframes pulse': {
                 '0%': {
@@ -68,7 +69,7 @@ function ModalVideoView({
               },
             }}
           >
-            <Iconify icon="icon-park-solid:play" width={50} height={50} />
+         <img width={50} src={`${CONFIG.site.basePath}/assets/icons/play-icons/play-icon.svg`} alt='sdsd'/>
           </IconButton>
           </div>
         </Tooltip>

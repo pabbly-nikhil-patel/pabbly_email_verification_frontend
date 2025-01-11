@@ -125,9 +125,21 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
 
         {/* Shared On */}
         <TableCell align="left">
-          <Tooltip title={getTooltip('sharedOn', row)} arrow placement="top" disableInteractive>
-            {row.createdAt}
-          </Tooltip>
+          <Stack
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            sx={{
+              width: '200px',
+              typography: 'body2',
+              flex: '1 1 auto',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Tooltip title={getTooltip('sharedOn', row)} arrow placement="top" disableInteractive>
+              {row.createdAt}
+            </Tooltip>
+          </Stack>
         </TableCell>
 
         {/* Folders Shared By  */}
@@ -160,7 +172,7 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
                   sx={{
                     color: 'text.disabled',
                     maxWidth: {
-                      xs: '450px', // For extra small screens
+                      xs: '250px', // For extra small screens
                       sm: '650px', // For small screens
                       md: '700px', // For medium screens
                       lg: '750px', // For large screens
@@ -181,20 +193,24 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
 
         {/* Permission */}
         <TableCell align="left">
+           <Stack sx={{ width:'200px'}}>
+          
           <Tooltip title={getTooltip('permission', row)} arrow placement="top" disableInteractive>
             {row.permission}
           </Tooltip>
+          </Stack>
         </TableCell>
 
         {/* Shared On */}
-        <TableCell align="center">
-          <Stack spacing={1} direction="column" alignItems="flex-end">
-            <Box
-              // width={180}
-              sx={{
-                maxWidth: { xs: '110px', md: '110px', lg: '110px' },
-              }}
-            >
+        <TableCell align='right'>
+        <Stack
+            spacing={2}
+            direction="row"
+            justifyContent="flex-end" // Aligns content to the right
+            sx={{ width: {xs: '200px', lg: '100%'} }} // Ensure Stack spans the full cell width
+          >
+         
+           
               <Tooltip
                 title="Click here to access folder(s) shared with you."
                 arrow
@@ -211,7 +227,7 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
                   </Button>
                 </Box>
               </Tooltip>
-            </Box>
+         
           </Stack>
         </TableCell>
 

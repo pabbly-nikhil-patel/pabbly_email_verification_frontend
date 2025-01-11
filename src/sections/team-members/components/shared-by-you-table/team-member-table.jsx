@@ -37,16 +37,15 @@ import { SharedbyYouTeamMemberTableRow } from './team-member-table-row';
 import { SharedbyYouTeamMemberTableToolbar } from './team-member-table-toolbar';
 import { SharedbyYouTeamMemberTableFiltersResult } from './team-member-table-filters-result';
 
-
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   // { id: 'sno', label: 'S.No', width: 'flex', whiteSpace: 'nowrap', tooltip: 'Serial Number' },
-  
+
   {
     id: 'shared_on',
     label: 'Shared On',
-    width: '200',
+    width: '400',
     whiteSpace: 'nowrap',
     align: 'left',
     tooltip: 'Date and time when the folder was shared.',
@@ -109,7 +108,6 @@ export default function SharedbyYouTeamMemberTable({
   const dataInPage = rowInPage(dataFiltered, table.page, table.rowsPerPage);
 
   const canReset = !!filters.state.email || filters.state.status !== 'all';
-
 
   const handleDeleteRow = useCallback(
     (id) => {
@@ -201,34 +199,8 @@ export default function SharedbyYouTeamMemberTable({
         )}
 
         <Box sx={{ position: 'relative' }}>
-          {/* <TableSelectedAction
-            dense={table.dense}
-            numSelected={table.selected.length}
-            rowCount={dataFiltered.length}
-            onSelectAllRows={(checked) =>
-              table.onSelectAllRows(
-                checked,
-                dataFiltered.map((row) => row.id)
-              )
-            }
-            action={
-              <Tooltip title=" Remove the selected access.">
-                <IconButton
-                  color="primary"
-                  onClick={() =>
-                    handleOpenConfirmDialog({
-                      onConfirm: () => handleDeleteRow(),
-                    })
-                  }
-                >
-                  <Iconify icon="solar:trash-bin-trash-bold" />
-                </IconButton>
-              </Tooltip>
-            }
-          /> */}
-
           <Scrollbar>
-            <Table size={table.dense ? 'small' : 'medium'} >
+            <Table size={table.dense ? 'small' : 'medium'}>
               <TableHeadCustom
                 showCheckbox
                 order={table.order}

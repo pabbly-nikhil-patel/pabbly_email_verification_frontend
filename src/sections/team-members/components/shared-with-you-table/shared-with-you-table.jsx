@@ -69,7 +69,7 @@ const TABLE_HEAD = [
   {
     id: 'shared_on',
     label: 'Access Folder',
-    width: '200',
+    width: '400',
     whiteSpace: 'nowrap',
     align: 'right',
     tooltip: 'You can access folder(s) shared with you.',
