@@ -71,7 +71,7 @@ export default function GetHelp({ sx, icon, title, total, color = 'warning', ...
                     style={{ width: 18, height: 18 }}
                   />
                 }
-                sx={{ mt: 3 }}
+                sx={{ mt: 1 }}
                 variant="outlined"
                 color="primary"
                 size="large"
