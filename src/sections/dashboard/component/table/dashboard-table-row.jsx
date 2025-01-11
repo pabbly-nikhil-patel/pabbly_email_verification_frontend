@@ -272,11 +272,11 @@ export function DashboardTableRow({
               placement="top"
               disableInteractive
             >
-              <span>
+      
                 <Button variant="outlined" color="primary" onClick={handleAction}>
                   {getButtonText(row.status)}
                 </Button>
-              </span>
+             
             </Tooltip>
           </Stack>
         </TableCell>

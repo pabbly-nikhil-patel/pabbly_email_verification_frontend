@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import {
   Box,
+  Stack,
   Button,
   Tooltip,
   TableRow,
@@ -62,15 +63,27 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
         </TableCell>
 
         {/* Shared On */}
-        <TableCell align="left">
-          <Tooltip title={getTooltip('sharedOn', row)} arrow placement="top" disableInteractive>
-            {row.createdAt}
-          </Tooltip>
+        <TableCell width={400} align="left">
+          <Stack
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            sx={{
+              width:'200px',
+              typography: 'body2',
+              flex: '1 1 auto',
+              alignItems: 'flex-start',
+            }}
+          >
+            <Tooltip title={getTooltip('sharedOn', row)} arrow placement="top" disableInteractive>
+              {row.createdAt}
+            </Tooltip>
+          </Stack>
         </TableCell>
 
         {/* Email */}
-        <TableCell >
-          <Box sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <TableCell width={400}>
+          <Box sx={{width:'200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             <Tooltip title={`Email: ${row.email}`} arrow placement="top" disableInteractive>
               {row.email}
             </Tooltip>
@@ -78,8 +91,8 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
         </TableCell>
 
         {/* Workflows */}
-        <TableCell >
-          <Box sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <TableCell width={400}>
+          <Box sx={{width:'200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             <Tooltip title={getTooltip('folder', row)} arrow placement="top" disableInteractive>
               {row.folders_you_shared}
             </Tooltip>
@@ -87,10 +100,13 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
         </TableCell>
 
         {/* Permission */}
-        <TableCell align='right'>
+        <TableCell >
+          <Stack sx={{ width:'200px',display:'flex',alignItems:'flex-end',justifyContent:'flex-end',alignContent:'flex-end'}}>
+
           <Tooltip title={getTooltip('permission', row)} arrow placement="top" disableInteractive>
             {row.permission}
           </Tooltip>
+          </Stack>
         </TableCell>
 
         {/* Options */}
