@@ -56,7 +56,7 @@ const applications = [
     title: 'Pabbly Email Verification',
     icon: '/assets/icons/appsicon/pev 2.svg',
     tooltip: 'Verify your email list to remove invalid and bad emails.',
-    link: 'https://accounts.pabbly.com/backend/access?project=emailverify',
+
   },
   {
     title: 'Pabbly Hook',
