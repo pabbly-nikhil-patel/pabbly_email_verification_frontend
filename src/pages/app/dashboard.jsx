@@ -198,7 +198,7 @@ export default function Page() {
             icon_name="2card.png"
             icon_color="#FFA92E"
             bg_gradient="#FFA92E"
-            tooltipTittle="Number of emails credits alloted to your account."
+            tooltipTittle="Number of emails credits allotted to your account."
           />
           <StatsCards
             cardtitle="Email Credits Consumed"

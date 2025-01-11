@@ -26,7 +26,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
 
-  const status = ['Email Credits Purchased', 'Single Verification', 'Bulk Verification'];
+  const status = ['Single Verification', 'Bulk Verification', 'Email Credits Purchased'];
 
   const handlePopoverClose = () => setAnchorEl(null);
 
@@ -197,18 +197,18 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
       >
         <MenuList>
           {[
-            { value: 'published', label: 'Move Workflow', icon: 'fluent:folder-move-16-filled' },
+            { value: 'published', label: 'Move list', icon: 'fluent:folder-move-16-filled' },
             {
               value: 'draft',
-              label: 'Enable Workflow',
+              label: 'Enable list',
               icon: 'line-md:switch-off-filled-to-switch-filled-transition',
             },
             {
               value: 'published',
-              label: 'Disable Workflow',
+              label: 'Disable list',
               icon: 'line-md:switch-filled-to-switch-off-filled-transition',
             },
-            { value: 'draft', label: 'Delete Workflow', icon: 'solar:trash-bin-trash-bold' },
+            { value: 'draft', label: 'Delete list', icon: 'solar:trash-bin-trash-bold' },
           ].map((option) => (
             <MenuItem
               key={option.value}
@@ -358,7 +358,7 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
                 <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
                   <Tooltip
-                    title=" Filter workflows by selecting a folder to view only the workflows within it."
+                    title=" Filter lists by selecting a folder to view only the lists within it."
                     arrow
                     placement="top"
                   >

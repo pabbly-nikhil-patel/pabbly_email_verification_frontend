@@ -20,7 +20,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 
 export function CreateFolderDialog({ title, content, action, open, onClose, ...other }) {
-  const [workflowName, setWorkflowName] = useState('');
+  const [listName, setListName] = useState('');
   const [error, setError] = useState(false);
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
@@ -42,7 +42,7 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
   const handleAdd = () => {
     let hasError = false;
 
-    if (!workflowName.trim()) {
+    if (!listName.trim()) {
       setError(true);
       hasError = true;
     }
@@ -64,17 +64,17 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
     setSnackbarOpen(false);
   };
 
-  const handleWorkflowNameChange = (event) => {
-    setWorkflowName(event.target.value);
+  const handleListNameChange = (event) => {
+    setListName(event.target.value);
     if (event.target.value) {
       setError(false);
     }
   };
 
-  // Reset workflow name when dialog is closed, but keep 'Home' as default category
+  // Reset list name when dialog is closed, but keep 'Home' as default category
   useEffect(() => {
     if (!open) {
-      setWorkflowName('');
+      setListName('');
       setCategoryList('Home'); // Reset to Home when dialog is closed
     }
   }, [open]);
@@ -120,8 +120,8 @@ export function CreateFolderDialog({ title, content, action, open, onClose, ...o
               variant="outlined"
               label="Folder Name"
               placeholder="Enter folder name here."
-              value={workflowName}
-              onChange={handleWorkflowNameChange}
+              value={listName}
+              onChange={handleListNameChange}
               error={error}
               helperText={
                 error ? (

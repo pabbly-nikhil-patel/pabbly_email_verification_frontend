@@ -252,7 +252,7 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
       title={
         isFilterApplied
           ? "Click the 'X' to clear all applied filters."
-          : 'Filter workflows based on list status and folder.'
+          : 'Filter lists based on list status and folder.'
       }
       arrow
       placement="top"

@@ -252,7 +252,7 @@ export function DashboardTrashTableToolbar({
   //     title={
   //       isFilterApplied
   //         ? "Click the 'X' to clear all applied filters."
-  //         : 'Filter workflows based on workflow status and folder.'
+  //         : 'Filter lists based on list status and folder.'
   //     }
   //     arrow
   //     placement="top"

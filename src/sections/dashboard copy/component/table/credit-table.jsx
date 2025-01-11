@@ -82,7 +82,7 @@ const dataOn = [
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Email credits alloted',
+    message: 'Email credits allotted',
     status: 'Email Credits Purchased',
     credits: 'Alloted',
     // folder:'Organisation 1',

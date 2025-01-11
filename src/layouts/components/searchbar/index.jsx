@@ -18,15 +18,15 @@ import { ResultItem } from './result-item';
 
 // ----------------------------------------------------------------------
 const data = [
-  {title: 'Folder Name: Magnet Brains',numberOfEmailList:2},
-  {title: 'Folder Name: Pabbly Hook',numberOfEmailList:5},
-  {title: 'Folder Name: Pabbly Connect',numberOfEmailList:10},
-  {title: 'Folder Name: Pabbly Subcription Billing',numberOfEmailList:0},
-  {title: 'Folder Name: Pabbly Admin',numberOfEmailList:50},
-  {title: 'Folder Name: Pabbly Chatflow',numberOfEmailList:2},
-  {title: 'Folder Name: Pabbly Form Builder',numberOfEmailList:0},
-  {title: 'Folder Name: Pabbly Email Marketing',numberOfEmailList:2},
-  {title: 'Folder Name: Pabbly Plus',numberOfEmailList:4},
+  { title: 'Folder Name: Magnet Brains', numberOfEmailList: 2 },
+  { title: 'Folder Name: Pabbly Hook', numberOfEmailList: 5 },
+  { title: 'Folder Name: Pabbly Connect', numberOfEmailList: 10 },
+  { title: 'Folder Name: Pabbly Subcription Billing', numberOfEmailList: 0 },
+  { title: 'Folder Name: Pabbly Admin', numberOfEmailList: 50 },
+  { title: 'Folder Name: Pabbly Chatflow', numberOfEmailList: 2 },
+  { title: 'Folder Name: Pabbly Form Builder', numberOfEmailList: 0 },
+  { title: 'Folder Name: Pabbly Email Marketing', numberOfEmailList: 2 },
+  { title: 'Folder Name: Pabbly Plus', numberOfEmailList: 4 },
 ];
 export default function Searchbar({ sx, ...other }) {
   const theme = useTheme();
@@ -68,7 +68,7 @@ export default function Searchbar({ sx, ...other }) {
           <ResultItem
             title={item.title}
             folderItems={item.numberOfEmailList}
-             groupLabel={searchQuery && 'Filtered'}
+            groupLabel={searchQuery && 'Filtered'}
             searchQuery={searchQuery}
           />
         </Box>
@@ -76,7 +76,7 @@ export default function Searchbar({ sx, ...other }) {
     </Box>
   );
   const renderButton = (
-    <Tooltip title="Search Folder" arrow placement="bottom">
+    <Tooltip title="You can search folder from here." arrow placement="bottom">
       <Box
         display="flex"
         alignItems="center"
@@ -123,7 +123,6 @@ export default function Searchbar({ sx, ...other }) {
         >
           Magnet Brains
         </Typography>
-        
       </Box>
     </Tooltip>
   );
