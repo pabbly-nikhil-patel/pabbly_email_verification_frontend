@@ -231,9 +231,10 @@ function applyFilter({ inputData, comparator, filters, dateError }) {
 
   // Filter by message (name)
   if (name) {
-    // console.log(name)
+   
     filteredData = filteredData.filter(
-      (order) => order.message && order.message.toLowerCase().includes(name.toLowerCase())
+      (order) => order.message && order.message.toLowerCase().includes(name.toLowerCase())||
+     order.folder && order.folder.toLowerCase().includes(name.toLowerCase())
     );
   }
 

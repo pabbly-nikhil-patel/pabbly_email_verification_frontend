@@ -315,7 +315,7 @@ export function DashboardTrashTableToolbar({
             display: 'flex',
             gap: isBelow600px ? '12px' : '16px',
             flexDirection: 'row',
-            width: isBelow600px ? '100%' : 'auto',
+           
             justifyContent: 'flex-end',
           }}
         >
