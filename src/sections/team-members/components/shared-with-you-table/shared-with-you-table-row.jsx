@@ -240,8 +240,8 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
         open={confirmDelete}
         onClose={handleCloseConfirmDelete}
         disabled={isLoading}
-        title="Do you wish to remove access?"
-        content="You won't be able to revert this!"
+        title=" Do you really want to remove folder(s) access?"
+        content="You will no longer have access to the shared folder(s)."
         action={
           <Button
             variant="contained"

@@ -94,7 +94,7 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
         </TableCell>
 
         {/* Options */}
-        <TableCell align="right">
+        <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <Tooltip title="Click to see options." arrow placement="top" disableInteractive>
             <IconButton onClick={handleOpenPopover}>
               <Iconify icon="eva:more-vertical-fill" />
@@ -118,8 +118,8 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
         open={confirmDelete}
         onClose={handleCloseConfirmDelete}
         disabled={isLoading}
-        title="Do you wish to remove access?"
-        content="You won't be able to revert this!"
+        title=" Do you really want to remove folder(s) access?"
+        content="You will no longer have access to the shared folder(s)."
         action={
           <Button
             variant="contained"
