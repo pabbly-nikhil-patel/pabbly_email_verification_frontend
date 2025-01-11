@@ -130,7 +130,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
       showAlert(
         'info',
         'Notice',
-        'The file "Untitled_spreadsheet_-_Sheet1.csv" is under review and will be uploaded in 3-5 minutes. Once the upload is completed, click "Start Verification" to begin the email verification process.',
+        'The file "Untitled_spreadsheet_-_Sheet1" is under review and will be uploaded in 3-5 minutes. Once the upload is completed, click "Start Verification" to begin the email verification process.',
         'Uploading'
       );
       setHasShownUploadAlert(true);

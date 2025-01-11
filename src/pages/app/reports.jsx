@@ -307,7 +307,7 @@ export default function Page() {
             <>
               <DialogTitle>
                 <Typography variant="body2">
-                  The list &quot;Untitled_spreadsheet_-_Sheet1.csv&quot; will be deleted permanently
+                  The list &quot;Untitled_spreadsheet_-_Sheet1&quot; will be deleted permanently
                   and cannot be recovered back. Do you want to continue?
                 </Typography>
               </DialogTitle>

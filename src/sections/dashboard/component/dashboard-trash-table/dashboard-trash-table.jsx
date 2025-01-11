@@ -86,28 +86,28 @@ const TABLE_HEAD = [
 const dataOn = [
   {
     status: 'uploading',
-    name: 'new_users_list.csv',
+    name: 'new_users_list',
     numberOfEmails: 128,
     creditconsumed: '0 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'Unverified',
-    name: 'pabbly_connect_users_email_list.csv',
+    name: 'pabbly_connect_users_email_list',
     numberOfEmails: 65,
     creditconsumed: '65 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'processing',
-    name: 'pabbly_chatflow_users_email_list.csv',
+    name: 'pabbly_chatflow_users_email_list',
     numberOfEmails: 65,
     creditconsumed: '65 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',
   },
   {
     status: 'Verified',
-    name: 'clothing_users_email_list.csv',
+    name: 'clothing_users_email_list',
     numberOfEmails: 653343,
     creditconsumed: '653343 Credit Consumed',
     date: 'Oct 23, 2024 17:45:32',

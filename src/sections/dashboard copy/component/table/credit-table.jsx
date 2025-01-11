@@ -58,7 +58,7 @@ const TABLE_HEAD = [
 const dataOn = [
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Pabbly_Sheet.csv',
+    message: 'Pabbly_Sheet',
     status: 'Bulk Verification',
     folder:'Organisation 1',
     credits: 'Consumed',
@@ -66,7 +66,7 @@ const dataOn = [
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'MagnetBrains_sheet.csv',
+    message: 'MagnetBrains_sheet',
     status: 'Bulk Verification',
     credits: 'Consumed',
     folder:'Organisation 2',
