@@ -493,9 +493,8 @@ export function DashboardTable() {
         </DialogTitle>
 
         <DialogContent>
-          <Typography variant="body1">
-            You don&apos;t have enough credits to verify this email list. Please purchase more
-            credits to continue.
+          <Typography variant="body2">
+          You don&apos;t have enough credits to verify the email list. Please purchase more credits to continue.
           </Typography>
 
           {/* <Box sx={{ bgcolor: 'background.neutral', p: 2, borderRadius: 1, mb: 2 }}>

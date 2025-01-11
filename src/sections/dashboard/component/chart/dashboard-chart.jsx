@@ -11,7 +11,6 @@ import {
   Dialog,
   Button,
   Tooltip,
-  IconButton,
   Typography,
   DialogTitle,
 } from '@mui/material';
@@ -284,7 +283,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
             <>
               <DialogTitle sx={{ p: 2 }}>
                 <Typography variant="h6">Download Verification Report</Typography>
-                <IconButton
+                {/* <IconButton
                   onClick={handleClose}
                   sx={{
                     position: 'absolute',
@@ -294,7 +293,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   }}
                 >
                   <Iconify icon="eva:close-fill" />
-                </IconButton>
+                </IconButton> */}
               </DialogTitle>
               <Divider sx={{ width: '100%', mb: 3 }} />
               <Box sx={{ px: 2 }}>
@@ -383,7 +382,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   <LearnMoreLink link="https://forum.pabbly.com/threads/download-verification-report.26396/" />
                 </Typography>
 
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 ,gap:1}}>
                   <Tooltip
                     title="Click to download report."
                     arrow
@@ -394,6 +393,9 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                       Download CSV
                     </Button>
                   </Tooltip>
+                    <Button variant="outlined" onClick={handleClose}>
+                      Close
+                    </Button>
                 </Box>
               </Box>
             </>
