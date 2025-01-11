@@ -58,18 +58,18 @@ const TABLE_HEAD = [
 const dataOn = [
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Pabbly_Sheet',
+    message: 'List 1',
     status: 'Bulk Verification',
-    folder:'Organisation 1',
+    folder:'Pabbly Connect',
     credits: 'Consumed',
     noOfCredits: 9,
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'MagnetBrains_sheet',
+    message: 'List 2',
     status: 'Bulk Verification',
     credits: 'Consumed',
-    folder:'Organisation 2',
+    folder:'Pabbly Hook',
     noOfCredits: 7,
   },
   {
@@ -82,7 +82,7 @@ const dataOn = [
   },
   {
     dateCreatedOn: 'Oct 23, 2024 17:45:32',
-    message: 'Email credits allotted',
+    message: 'Email Credits Allotted',
     status: 'Email Credits Purchased',
     credits: 'Alloted',
     // folder:'Organisation 1',
