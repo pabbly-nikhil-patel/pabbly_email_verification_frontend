@@ -156,7 +156,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
               type="email"
               margin="dense"
               variant="outlined"
-              label="Pabbly Email Address"
+              label="Pabbly Account Email Address"
               placeholder="sample@example.com"
               value={email}
               onChange={handleChangeEmail}

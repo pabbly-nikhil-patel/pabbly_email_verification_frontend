@@ -82,7 +82,7 @@ export function CreditTableRow({ row, selected }) {
               disableInteractive
               title={
                 row.status === 'Email Credits Purchased'
-                  ? 'Credits Alloted'
+                  ? 'Email credits alloted to the account.'
                   : `${row.status === 'Single Verification' ? 'Email address' : 'List'}: ${row.message}`
               }
             >
