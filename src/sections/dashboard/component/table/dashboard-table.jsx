@@ -505,9 +505,10 @@ export function DashboardTable() {
           </Box> */}
         </DialogContent>
 
-        <DialogActions sx={{ pb: 3 }}>
+        <DialogActions sx={{ pb: 3 ,gap:1}}>
           <Button
-            onClick={handleBuyCredits}
+          target='blank'
+            href='https://www.pabbly.com/email-list-cleaning/#pricing'
             color="primary"
             variant="contained"
             // startIcon={<Iconify icon="mdi:cart-outline" />}
