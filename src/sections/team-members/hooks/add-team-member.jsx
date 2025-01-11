@@ -252,17 +252,17 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                 </li>
                 <li style={commonLiStyle}>
                   <span>
-                  Team members can be granted either &quot;Write&quot; or &quot;Read&quot; access.
+                  Team members can be granted either &apos;Write&apos; or &apos;Read&apos; access.
                   </span>
                 </li>
                 <li style={commonLiStyle}>
                   <span>
-                  &quot;Write&quot; access allows uploading email lists, starting verification, and downloading reports but restricts folder and list management, while &quot;Read&quot; access permits downloading reports only.
+                  &apos;Write&apos; access allows uploading email lists, starting verification, and downloading reports but restricts folder and list management, while &apos;Read&apos; access permits downloading reports only.
                   </span>
                 </li>
                 <li style={commonLiStyle}>
                   <span>
-                  Team members do not have access to the &quot;Settings&quot; section, any billing information, or the &quot;Trash&quot; folder.{' '}
+                  Team members do not have access to the &apos;Settings&apos; section, any billing information, or the &apos;Trash&apos; folder.{' '}
                   </span>
                   <LearnMoreLink link="https://forum.pabbly.com/threads/team-members.26323/" />
                 </li>
