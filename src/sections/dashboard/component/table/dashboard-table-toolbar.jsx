@@ -139,7 +139,7 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
     numSelected > 0 && (
       <>
         <Tooltip
-          title="Click here to modify workflows status, or to move and delete workflows."
+          title="Click here to modify list status, or to move and delete lists."
           arrow
           placement="top"
         >
@@ -195,7 +195,7 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
       title={
         isFilterApplied
           ? "Click the 'X' to clear all applied filters."
-          : 'Filter workflows based on list status and folder.'
+          : 'Filter lists based on list status and folder.'
       }
       arrow
       placement="top"

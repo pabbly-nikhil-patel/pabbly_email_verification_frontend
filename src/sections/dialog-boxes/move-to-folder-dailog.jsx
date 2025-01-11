@@ -17,7 +17,6 @@ import {
   DialogContent,
 } from '@mui/material';
 
-
 export function MoveToFolderPopover({ title, content, action, open, onClose, ...other }) {
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
@@ -83,7 +82,6 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
           onClick={() => {}}
         >
           Move To Folder{' '}
-         
         </DialogTitle>
         <Divider sx={{ mb: '16px', borderStyle: 'dashed' }} />
 
@@ -119,7 +117,7 @@ export function MoveToFolderPopover({ title, content, action, open, onClose, ...
                       'Please select a required folder.'
                     ) : (
                       <>
-                        Select the folder or subfolder where you want to move the list.{' '}
+                        Select the folder where you want to move the list.{' '}
                         <Link
                           href="https://forum.pabbly.com/threads/folders.20987/"
                           style={{ color: '#078DEE' }}

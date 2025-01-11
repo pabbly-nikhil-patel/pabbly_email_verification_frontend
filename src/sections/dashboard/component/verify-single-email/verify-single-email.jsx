@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 import {
@@ -13,8 +12,7 @@ import {
   CardContent,
 } from '@mui/material';
 
-
-const VerifySingleEmail = ({ onVerify, email, setEmail,onClose }) => {
+const VerifySingleEmail = ({ onVerify, email, setEmail, onClose }) => {
   const [error, setError] = useState('');
 
   const validateEmail = (validemail) => {
@@ -51,15 +49,13 @@ const VerifySingleEmail = ({ onVerify, email, setEmail,onClose }) => {
               <Typography variant="h6" sx={{ fontWeight: 600 }}>
                 Verify Single Email
               </Typography>
-              
             </Box>
-            
           </Box>
         }
         subheader={
           <Box sx={{ mt: 0.5 }}>
             <Typography variant="body2" color="text.secondary">
-              Verify single email to check email is valid or not.{' '}
+              Check if an email address is valid and deliverable.{' '}
               <Link
                 href="https://forum.pabbly.com/threads/verify-single-email.26319/"
                 target="_blank"
@@ -112,11 +108,7 @@ const VerifySingleEmail = ({ onVerify, email, setEmail,onClose }) => {
           <Button variant="contained" onClick={handleVerify} color="primary">
             Verify
           </Button>
-          <Button 
-            variant="outlined" 
-            color="inherit" 
-            onClick={onClose}
-          >
+          <Button variant="outlined" color="inherit" onClick={onClose}>
             Cancel
           </Button>
         </Box>

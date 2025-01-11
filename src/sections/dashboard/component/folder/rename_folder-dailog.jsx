@@ -19,8 +19,8 @@ import {
 import { useBoolean } from 'src/hooks/use-boolean';
 
 
-export function RenameFolderDialog({ open, onClose, workflowName }) {
-  const [newWorkflowName, setNewWorkflowName] = useState(workflowName); 
+export function RenameFolderDialog({ open, onClose, listName }) {
+  const [newListName, setNewListName] = useState(listName); 
   const [hasError, setHasError] = useState(false); 
   const theme = useTheme();
   const isWeb = useMediaQuery(theme.breakpoints.up('sm'));
@@ -28,12 +28,11 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
-    setNewWorkflowName(workflowName); 
-  }, [workflowName]);
+    setNewListName(listName); 
+  }, [listName]);
 
   const handleAdd = () => {
-    if (!newWorkflowName.trim()) {
-
+    if (!newListName.trim()) {
       setHasError(true);
       return; 
     }
@@ -47,7 +46,7 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
   };
 
   const handleNameChange = (event) => {
-    setNewWorkflowName(event.target.value); // Update the name when typing
+    setNewListName(event.target.value); // Update the name when typing
     if (event.target.value.trim()) {
       setHasError(false); // Reset the error if there's text
     }
@@ -78,7 +77,7 @@ export function RenameFolderDialog({ open, onClose, workflowName }) {
               margin="dense"
               variant="outlined"
               label="Folder Name"
-              value={newWorkflowName} // Set value from state
+              value={newListName} // Set value from state
               onChange={handleNameChange} // Allow editing
               error={hasError} // Show error if validation fails
               helperText={

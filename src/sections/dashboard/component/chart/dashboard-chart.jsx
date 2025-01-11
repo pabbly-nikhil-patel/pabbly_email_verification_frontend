@@ -20,7 +20,7 @@ import { fNumber } from 'src/utils/format-number';
 
 import { Iconify } from 'src/components/iconify';
 import { Chart, useChart } from 'src/components/chart';
-import {ChartLegends} from 'src/components/chart/chart-legends';
+import { ChartLegends } from 'src/components/chart/chart-legends';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
 import LearnMoreLink from 'src/components/learn-more-link/learn-more-link';
 
@@ -391,15 +391,14 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   ))}
                 </Box>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  Users can download email verification results by selecting one of the three tabs:
+                  You can download email verification results by selecting one of the three tabs:
                   All Emails, Deliverable Emails, or Undeliverable Emails. Simply choose a tab and
                   click &quot;Download CSV&quot; to obtain the report.
                 </Typography>
 
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                   Note: The verified list and verification reports will be automatically deleted
-                  after 15 days.
-                  <LearnMoreLink link="#" />
+                  after 15 days. <LearnMoreLink link="https://forum.pabbly.com/threads/download-verification-report.26396/" />
                 </Typography>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>

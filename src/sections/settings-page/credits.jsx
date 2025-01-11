@@ -54,7 +54,7 @@ export default function ThreePage() {
           icon_name="2card.png"
           icon_color="#FFA92E"
           bg_gradient="#FFA92E"
-          tooltipTittle="Number of credits alloted to your account."
+          tooltipTittle="Number of credits allotted to your account."
         />
         <StatsCards
           cardtitle="Email Credits Consumed"

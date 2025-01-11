@@ -113,12 +113,12 @@ const FilterComponent = ({
 
         {/* Workflow Name */}
         <Box sx={{ mb: 2 }}>
-          <Typography sx={{ fontSize: '14px', fontWeight: 600 }}>Workflow Name</Typography>
+          <Typography sx={{ fontSize: '14px', fontWeight: 600 }}>List Name</Typography>
           <Autocomplete
             options={workflows}
             value={selectedWorkflowName}
             onChange={(e, value) => setSelectedWorkflowName(value)}
-            renderInput={(params) => <TextField {...params} label="Select Workflow" />}
+            renderInput={(params) => <TextField {...params} label="Select lists" />}
           />
         </Box>
 

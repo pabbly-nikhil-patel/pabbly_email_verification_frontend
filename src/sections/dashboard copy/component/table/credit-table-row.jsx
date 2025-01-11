@@ -125,7 +125,7 @@ export function CreditTableRow({ row, selected }) {
           arrow
           placement="top"
           disableInteractive
-          title={`${row.credits === 'Alloted' ? `Email credits alloted to the account.` : `Email credits consumed for verifying email.`}`}
+          title={`${row.credits === 'Alloted' ? `Email credits allotted to the account.` : `Email credits consumed for verifying email.`}`}
         >
           <Box
             component="span"
