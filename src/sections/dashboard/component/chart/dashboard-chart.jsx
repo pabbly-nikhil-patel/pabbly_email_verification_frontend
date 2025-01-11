@@ -19,6 +19,7 @@ import {
 import { fNumber } from 'src/utils/format-number';
 
 import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
 import { Chart, useChart } from 'src/components/chart';
 import { ChartLegends } from 'src/components/chart/chart-legends';
 import ProgessLinear from 'src/components/progress-bar/progessLinear';
@@ -169,6 +170,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
 
   return (
     <>
+    <Scrollbar>
       <Card {...other}>
         <Box
           sx={{
@@ -283,7 +285,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
         {showChartAlert && <ChartAlert />}
         {showProgressLinear && <ProgessLinear />}
       </Card>
-
+      </Scrollbar>
       <Alert
         sx={{
           mt: 3,
