@@ -114,7 +114,7 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
       >
         {/* checkbox */}
         <TableCell padding="checkbox" onClick={(e) => e.stopPropagation()}>
-          <Tooltip title="Select Row" arrow placement="top">
+          <Tooltip title="Select" arrow placement="top">
             <Checkbox
               checked={selected}
               onClick={onSelectRow}

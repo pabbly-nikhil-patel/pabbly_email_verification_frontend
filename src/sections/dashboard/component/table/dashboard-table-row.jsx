@@ -121,7 +121,7 @@ export function DashboardTableRow({
     <>
       <TableRow hover selected={selected}>
         <TableCell padding="checkbox" onClick={(e) => e.stopPropagation()}>
-          <Tooltip title="Select Row" arrow placement="top">
+          <Tooltip title="Select" arrow placement="top">
             <Checkbox
               checked={selected}
               onClick={onSelectRow}
@@ -265,8 +265,8 @@ export function DashboardTableRow({
                 row.status === 'processing'
                   ? 'Verification in progress. Please wait.'
                   : row.status === 'Verified'
-                    ? 'Download Report'
-                    : 'Click to start verification'
+                    ? 'Click to download report.'
+                    : 'Click to start verification.'
               }
               arrow
               placement="top"

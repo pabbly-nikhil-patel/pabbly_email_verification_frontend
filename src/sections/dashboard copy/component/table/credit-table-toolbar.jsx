@@ -305,7 +305,15 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
               }}
             >
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>Status</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+                  <Tooltip
+                    title=" Filter logs by selecting a status to view only the logs with specific status."
+                    arrow
+                    placement="top"
+                  >
+                    <span>Status</span>
+                  </Tooltip>
+                </Typography>
               </FormControl>
 
               <FormControl
@@ -358,11 +366,11 @@ export function CreditTableToolbar({ filters, onResetPage, publish, onChangePubl
               <FormControl fullWidth sx={{ mb: { xs: 2, sm: 2, md: 0 }, justifyContent: 'center' }}>
                 <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
                   <Tooltip
-                    title=" Filter lists by selecting a folder to view only the lists within it."
+                    title=" Filter logs by selecting a folder to view only the logs within it."
                     arrow
                     placement="top"
                   >
-                    Folder
+                    <span>Folder</span>
                   </Tooltip>
                 </Typography>
               </FormControl>

@@ -40,9 +40,9 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
       folder: `Folder Name: ${rowData.folders_you_shared}`,
       sharedOn: `Folder Shared On: ${rowData.updatedAt} (UTC+05:30) Asia/Kolkata`,
       permission:
-        rowData.permission === 'Full access'
-          ? 'User has complete access to view, edit, and manage the folder contents'
-          : 'User can only view the folder contents without making changes',
+        row.permission === 'Write Access'
+          ? 'Team members can upload email lists, start verification, and download verification reports. They cannot create new folders, delete folders, or remove email lists.'
+          : 'Team members can only download verification reports.',
     };
     return tooltips[type];
   };
@@ -52,7 +52,7 @@ export function SharedbyYouTeamMemberTableRow({ row, selected, onSelectRow, seri
       <TableRow hover selected={selected} sx={{ '&:hover .copy-button': { opacity: 1 } }}>
         {/* Checkbox */}
         <TableCell padding="checkbox">
-          <Tooltip title="Select Row" arrow placement="top" disableInteractive>
+          <Tooltip title="Select" arrow placement="top" disableInteractive>
             <Checkbox
               checked={selected}
               onClick={onSelectRow}

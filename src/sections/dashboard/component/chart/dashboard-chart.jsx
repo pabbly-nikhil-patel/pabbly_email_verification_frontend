@@ -170,121 +170,100 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
 
   return (
     <>
-    <Scrollbar>
-      <Card {...other}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            p: 2,
-            width: '100%',
-          }}
-        >
-          <CardHeader
+      <Scrollbar>
+        <Card {...other}>
+          <Box
             sx={{
-              flex: 1,
-              p: 0,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap:'wrap',
+              p: 2,
+              width: '100%',
             }}
-            title={
-              // <Typography
-              //   sx={{
-              //     overflow: 'hidden',
-              //     textOverflow: 'ellipsis',
-              //     whiteSpace: 'nowrap',
-              //     maxWidth: '320px',
-              //   }}
-              //   variant="h6"
-              // >
-              //   <Tooltip
-              //     arrow
-              //     placement="top"
-              //     disableInteractive
-              //     title={`Summary of email verification results for ${title}`}
-              //   >
-              //     <span>{title}</span>
-              //   </Tooltip>
-              // </Typography>
-              <Typography
-                sx={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: '320px', // Adjust the width accordingly
-                }}
-                variant="h6"
-              >
-                <Tooltip
-                  arrow
-                  placement="top"
-                  disableInteractive
-                  title={`Email List Name: ${title}`}
-                >
-                  <span>{title.length > 30 ? `${title.slice(0, 30)}...` : title}</span>
-                </Tooltip>
-              </Typography>
-            }
-            // subheader={
-            //   <>
-            //     View verification report for this list.{' '}
-            //     <Link href="#" target="_blank" rel="noopener noreferrer" underline="always">
-            //       Learn more
-            //     </Link>
-            //   </>
-            // }
-          />
-          {/* Only show download button when not uploading or processing */}
-          {!isUploading && !isStartVerification && isVerificationCompleted && (
-            <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => handleOpen('download')}
-                startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
-              >
-                Download
-              </Button>
-            </Tooltip>
-          )}
-        </Box>
-        <Divider />
-
-        {showChart && (
-          <>
-            <Chart
-              type="donut"
-              series={chartSeries}
-              options={{
-                ...chartOptions,
-                tooltip: {
-                  y: {
-                    formatter: (value) => fNumber(value),
-                    title: { formatter: (seriesName) => `${seriesName}` },
-                  },
-                },
-              }}
-              width={{ xs: 240, xl: 260 }}
-              height={{ xs: 240, xl: 260 }}
-              sx={{ my: 6, mx: 'auto' }}
-            />
-            <Divider sx={{ borderStyle: 'dashed' }} />
-            <ChartLegends
-              labels={chartOptions.labels}
-              colors={chartOptions.colors}
-              values={[156454, 12244, 43313, 53345, 78343]}
-              totalEmails={188245}
+          >
+            <CardHeader
               sx={{
-                py: 2,
-                flexDirection: 'column',
-                borderTop: '1px dashed',
-                borderColor: 'divider',
+                flex: 1,
+                p: 0,
+               
               }}
+              title={
+              
+                <Typography
+                  sx={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '320px', // Adjust the width accordingly
+                  }}
+                  variant="h6"
+                >
+                  <Tooltip
+                    arrow
+                    placement="top"
+                    disableInteractive
+                    title={`Email List Name: ${title}`}
+                  >
+                    <span>{title.length > 30 ? `${title.slice(0, 30)}...` : title}</span>
+                  </Tooltip>
+                </Typography>
+              }
+             
             />
-          </>
-        )}
-        {showChartAlert && <ChartAlert />}
-        {showProgressLinear && <ProgessLinear />}
-      </Card>
+            {/* Only show download button when not uploading or processing */}
+            {!isUploading && !isStartVerification && isVerificationCompleted && (
+              <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
+                <Button
+                sx={{mt:{xs:'10px',sm:'0px'}}}
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleOpen('download')}
+                  startIcon={<Iconify width={24} icon="solar:download-minimalistic-bold" />}
+                >
+                  Download
+                </Button>
+              </Tooltip>
+            )}
+          </Box>
+          <Divider />
+
+          {showChart && (
+            <>
+              <Chart
+                type="donut"
+                series={chartSeries}
+                options={{
+                  ...chartOptions,
+                  tooltip: {
+                    y: {
+                      formatter: (value) => fNumber(value),
+                      title: { formatter: (seriesName) => `${seriesName}` },
+                    },
+                  },
+                }}
+                width={{ xs: 240, xl: 260 }}
+                height={{ xs: 240, xl: 260 }}
+                sx={{ my: 6, mx: 'auto' }}
+              />
+              <Divider sx={{ borderStyle: 'dashed' }} />
+              <ChartLegends
+                labels={chartOptions.labels}
+                colors={chartOptions.colors}
+                values={[156454, 12244, 43313, 53345, 78343]}
+                totalEmails={188245}
+                sx={{
+                  py: 2,
+                  flexDirection: 'column',
+                  borderTop: '1px dashed',
+                  borderColor: 'divider',
+                }}
+              />
+            </>
+          )}
+          {showChartAlert && <ChartAlert />}
+          {showProgressLinear && <ProgessLinear />}
+        </Card>
       </Scrollbar>
       <Alert
         sx={{
@@ -400,7 +379,8 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
 
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                   Note: The verified list and verification reports will be automatically deleted
-                  after 15 days. <LearnMoreLink link="https://forum.pabbly.com/threads/download-verification-report.26396/" />
+                  after 15 days.{' '}
+                  <LearnMoreLink link="https://forum.pabbly.com/threads/download-verification-report.26396/" />
                 </Typography>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>

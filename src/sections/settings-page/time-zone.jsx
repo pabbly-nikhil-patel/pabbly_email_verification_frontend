@@ -106,7 +106,7 @@ export default function TimeZonePage() {
         <Divider />
 
         <Box sx={{ p: 3 }}>
-          <FormControl fullWidth sx={{ mb: 2, maxWidth: { xs: '100%', sm: 838 } }}>
+          <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel id="time-zone-select-label">Select Time Zone</InputLabel>
 
             <Select

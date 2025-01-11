@@ -23,8 +23,8 @@ export default function ChartAlert() {
       }}
     >
       <Alert severity="success" variant="outlined" sx={{ width: '100%' }}>
-        <Typography variant="body1" fontWeight={600}>
-          Uploaded Successfully
+        <Typography fontSize={14} fontWeight={600}>
+          Email List Uploaded Successfully!
         </Typography>
       </Alert>
       <Button color="primary" variant='outlined' sx={{ mt: 3 }} onClick={handleStartVerification}>

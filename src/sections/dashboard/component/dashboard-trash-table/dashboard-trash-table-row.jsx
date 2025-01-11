@@ -118,7 +118,7 @@ export function DashboardTrashTableRow({
     <>
       <TableRow hover selected={selected}>
         <TableCell padding="checkbox" onClick={(e) => e.stopPropagation()}>
-          <Tooltip title="Select Row" arrow placement="top">
+          <Tooltip title="Select" arrow placement="top">
             <Checkbox
               checked={selected}
               onClick={onSelectRow}
