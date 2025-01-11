@@ -26,12 +26,12 @@ export default function BigCard({
           display: 'flex',
           flexDirection: { xs: 'column', lg: 'row' },
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems:{ xs: 'flex-start', lg: 'center'} ,
           mb: 0,
           gap: 3,
         }}
       >
-        <Box width="60%">
+        <Box width={{ xs: '100%', lg: '60%' }}>
           <Box>
             <Box sx={{ mb: 1 }}>
               <Typography variant="h6">

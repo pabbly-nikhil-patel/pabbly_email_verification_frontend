@@ -29,6 +29,7 @@ import { DASHBOARD_STATUS_OPTIONS } from 'src/_mock/_table/_dashboard';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
 import { CustomPopover } from 'src/components/custom-popover';
 import { ConfirmDialog } from 'src/components/confirm-dialog';
 import {
@@ -346,63 +347,65 @@ export function DashboardTrashTable() {
             )
           }
         /> */}
-        <Table size={table.dense ? 'small' : 'medium'}>
-          <TableHeadCustom
-            showCheckbox
-            order={table.order}
-            orderBy={table.orderBy}
-            headLabel={TABLE_HEAD}
-            rowCount={dataFiltered.length}
-            numSelected={table.selected.length}
-            onSort={table.onSort}
-            onSelectAllRows={(checked) =>
-              table.onSelectAllRows(
-                checked,
-                dataFiltered.map((row) => row.id)
-              )
-            }
-          />
-
-          <TableBody>
-            {dataFiltered
-              .slice(
-                table.page * table.rowsPerPage,
-                table.page * table.rowsPerPage + table.rowsPerPage
-              )
-              .map((row, index) => (
-                <DashboardTrashTableRow
-                  key={row.id}
-                  row={row}
-                  selected={table.selected.includes(row.id)}
-                  onSelectRow={() => table.onSelectRow(row.id)}
-                  onOpenPopover={(event) => handleOpenPopover(event, row)}
-                  dashboardTableIndex={table.page * table.rowsPerPage + index}
-                  onStartVerification={() => handleStartVerification(row.id)}
-                  isProcessing={processingRowId === row.id && isStartVerification}
-                  isCompleted={processingRowId === row.id && isVerificationCompleted}
-                />
-              ))}
-
-            <TableEmptyRows
-              height={table.dense ? 56 : 56 + 20}
-              emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
+        <Scrollbar>
+          <Table size={table.dense ? 'small' : 'medium'}>
+            <TableHeadCustom
+              showCheckbox
+              order={table.order}
+              orderBy={table.orderBy}
+              headLabel={TABLE_HEAD}
+              rowCount={dataFiltered.length}
+              numSelected={table.selected.length}
+              onSort={table.onSort}
+              onSelectAllRows={(checked) =>
+                table.onSelectAllRows(
+                  checked,
+                  dataFiltered.map((row) => row.id)
+                )
+              }
             />
 
-            {tableData.length === 0 ? (
-              <TableNoData
-                title="Not Data Found"
-                description="No data found in the table"
-                notFound={notFound}
+            <TableBody>
+              {dataFiltered
+                .slice(
+                  table.page * table.rowsPerPage,
+                  table.page * table.rowsPerPage + table.rowsPerPage
+                )
+                .map((row, index) => (
+                  <DashboardTrashTableRow
+                    key={row.id}
+                    row={row}
+                    selected={table.selected.includes(row.id)}
+                    onSelectRow={() => table.onSelectRow(row.id)}
+                    onOpenPopover={(event) => handleOpenPopover(event, row)}
+                    dashboardTableIndex={table.page * table.rowsPerPage + index}
+                    onStartVerification={() => handleStartVerification(row.id)}
+                    isProcessing={processingRowId === row.id && isStartVerification}
+                    isCompleted={processingRowId === row.id && isVerificationCompleted}
+                  />
+                ))}
+
+              <TableEmptyRows
+                height={table.dense ? 56 : 56 + 20}
+                emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
               />
-            ) : (
-              <TableNoData
-                title="Not Search Found"
-                description={`No search found with keyword "${filters.state.name}"`}
-                notFound={notFound}
-              />
-            )}
-          </TableBody>
-        </Table>
+
+              {tableData.length === 0 ? (
+                <TableNoData
+                  title="Not Data Found"
+                  description="No data found in the table"
+                  notFound={notFound}
+                />
+              ) : (
+                <TableNoData
+                  title="Not Search Found"
+                  description={`No search found with keyword "${filters.state.name}"`}
+                  notFound={notFound}
+                />
+              )}
+            </TableBody>
+          </Table>
+        </Scrollbar>
       </Box>
 
       <CustomPopover
@@ -421,7 +424,7 @@ export function DashboardTrashTable() {
                 </MenuItem>
               </Tooltip>
               <Divider style={{ borderStyle: 'dashed' }} />
-              <Tooltip title="Delete connection." arrow placement="left">
+              <Tooltip title="Delete email list." arrow placement="left">
                 <MenuItem onClick={handleConfirmDelete} sx={{ color: 'error.main' }}>
                   <Iconify icon="solar:trash-bin-trash-bold" />
                   Delete
@@ -447,7 +450,7 @@ export function DashboardTrashTable() {
         content="An email list once deleted cannot be restored in any case."
         action={
           <Button variant="contained" color="error" onClick={handleDelete}>
-            Delete
+            Delete Permanently
           </Button>
         }
       />

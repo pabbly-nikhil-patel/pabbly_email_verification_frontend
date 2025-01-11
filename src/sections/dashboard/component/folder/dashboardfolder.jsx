@@ -444,6 +444,7 @@
 // }
 
 import { memo, useState } from 'react';
+import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router';
 
 import { styled } from '@mui/material/styles';
@@ -452,11 +453,13 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import {
   Box,
   Card,
+  Alert,
   Button,
   Divider,
   Tooltip,
   MenuList,
   MenuItem,
+  Snackbar,
   IconButton,
   Typography,
 } from '@mui/material';
@@ -517,11 +520,30 @@ const StyledTreeItem = styled((props) => {
 
   const handleCreateFolderClose = () => setCreateFolderOpen(false);
   const handleRenameFolderClose = () => setRenameDialogOpen(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleNavigateToTeamMembers = () => {
     navigate('settings/team-members');
   };
+  const theme = useTheme();
+  const confirmDelete = useBoolean();
 
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setSnackbarState((prev) => ({ ...prev, open: false }));
+  };
+  const handleDelete = () => {
+    confirm.onFalse();
+    setSnackbarState({
+      open: true,
+      message: 'Folder deleted successfully.',
+      severity: 'success',
+    });
+  };
   return (
     <>
       <TreeItem
@@ -593,7 +615,7 @@ const StyledTreeItem = styled((props) => {
                   </MenuItem>
                 </Tooltip>
                 <Divider sx={{ borderStyle: 'dashed' }} />
-                <Tooltip title="Click to delete connection." arrow placement="left">
+                <Tooltip title="Click to delete folder." arrow placement="left">
                   <MenuItem
                     onClick={() => {
                       confirm.onTrue();
@@ -630,11 +652,42 @@ const StyledTreeItem = styled((props) => {
           </>
         }
         action={
-          <Button variant="contained" color="error" onClose={confirm.onFalse}>
+          <Button onClick={handleDelete} variant="contained" color="error">
             Delete
           </Button>
         }
       />
+      <Snackbar
+        open={snackbarState.open}
+        autoHideDuration={3500}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+          mt: 8,
+          zIndex: theme.zIndex.modal + 9999,
+        }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarState.severity}
+          sx={{
+            width: '100%',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            '& .MuiAlert-icon': {
+              color:
+                snackbarState.severity === 'error'
+                  ? theme.palette.error.main
+                  : theme.palette.success.main,
+            },
+          }}
+        >
+          {snackbarState.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 })(({ theme }) => ({
@@ -666,7 +719,7 @@ const CustomStyling = ({ onTrashClick, onHomeClick }) => (
         ),
       }}
     />
-    <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
+    <Divider sx={{ borderStyle: 'dashed', my: 1, mt: 2 }} />
     <RichTreeView
       aria-label="customized"
       items={ITEMS1}
@@ -720,10 +773,9 @@ const FolderSection = memo(({ onTrashClick, onHomeClick }) => {
           </Tooltip>
         </Box>
       </Typography>
-      <Divider sx={{ borderStyle: 'dashed', mb: 0.6, mt: 1 }} />
+      <Divider sx={{ borderStyle: 'dashed', mb: 2, mt: 1 }} />
       <CustomStyling onTrashClick={onTrashClick} onHomeClick={onHomeClick} />
       <CreateFolderDialog open={createFolder.value} onClose={createFolder.onFalse} />
-      
     </Card>
   );
 });

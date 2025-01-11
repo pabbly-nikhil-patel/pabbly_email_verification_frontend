@@ -224,14 +224,14 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Select Permission"
+                  label="Select Access Type"
                   error={categoryError}
                   helperText={
                     categoryError ? (
                       'Please select a permission level.'
                     ) : (
                       <span>
-                        Select the permission level for shared folders.{' '}
+                        Select the team member access type.{' '}
                         <LearnMoreLink link="https://forum.pabbly.com/threads/how-do-add-team-members-in-pabbly-email-verification-account.26333/" />
                       </span>
                     )
@@ -242,7 +242,7 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
             {/* Points to Remember Section */}
             <Box sx={commonBoxStyle}>
               <Typography variant="subtitle1" sx={commonTypographyStyle}>
-                Points To Remember!
+                Points To Remember
               </Typography>
               <ul style={commonUlStyle}>
                 <li style={commonLiStyle}>
@@ -252,18 +252,19 @@ export function TeamMemberDialog({ open, onClose, ...other }) {
                 </li>
                 <li style={commonLiStyle}>
                   <span>
-                  Team members can be granted either &quot;Write&quot; or &quot;View&quot; access.
+                  Team members can be granted either &quot;Write&quot; or &quot;Read&quot; access.
                   </span>
                 </li>
                 <li style={commonLiStyle}>
                   <span>
-                  With &quot;Write&quot; access, they can upload email lists for verification, while &ldquo;View&ldquo; access allows them only to download verification reports.
+                  &quot;Write&quot; access allows uploading email lists, starting verification, and downloading reports but restricts folder and list management, while &quot;Read&quot; access permits downloading reports only.
                   </span>
                 </li>
                 <li style={commonLiStyle}>
                   <span>
-                  Team members do not have access to the &quot;Settings&quot; section, any billing information, or the &quot;Trash&quot; folder.
+                  Team members do not have access to the &quot;Settings&quot; section, any billing information, or the &quot;Trash&quot; folder.{' '}
                   </span>
+                  <LearnMoreLink link="https://forum.pabbly.com/threads/team-members.26323/" />
                 </li>
               </ul>
             </Box>

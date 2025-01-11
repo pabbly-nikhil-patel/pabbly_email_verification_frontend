@@ -5,7 +5,6 @@ import {
   Stack,
   Button,
   Tooltip,
-  Divider,
   TableRow,
   Checkbox,
   MenuList,
@@ -226,14 +225,8 @@ export function SharedWithYouTeamMemberTableRow({ row, selected, onSelectRow, se
         </TableCell>
       </TableRow>
 
-      <CustomPopover
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={handleClosePopover}
-        slotProps={{ arrow: { placement: 'right-top' } }}
-      >
+      <CustomPopover open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClosePopover}>
         <MenuList>
-          <Divider style={{ borderStyle: 'dashed' }} />
           <Tooltip title="Remove access to shared folders." arrow placement="left">
             <MenuItem onClick={handleOpenConfirmDelete} sx={{ color: 'error.main' }}>
               <Iconify icon="solar:trash-bin-trash-bold" />

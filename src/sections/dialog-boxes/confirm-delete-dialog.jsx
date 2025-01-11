@@ -36,9 +36,7 @@ export function DeleteDialog({ title, content, action, open, onClose, ...other }
         <DialogActions>
           {action}
 
-          <Button variant="contained" color="error" onClick={handleDelete}>
-            Delete
-          </Button>
+       
           <Button variant="outlined" color="inherit" onClick={onClose}>
             Cancel
           </Button>

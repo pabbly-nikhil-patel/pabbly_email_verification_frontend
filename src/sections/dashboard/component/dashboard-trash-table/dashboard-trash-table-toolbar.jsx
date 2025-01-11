@@ -3,12 +3,14 @@ import { useState, useCallback } from 'react';
 import {
   Box,
   Stack,
+  Alert,
   Button,
   Tooltip,
   Popover,
   Divider,
   MenuItem,
   useTheme,
+  Snackbar,
   TextField,
   useMediaQuery,
   InputAdornment,
@@ -102,6 +104,25 @@ export function DashboardTrashTableToolbar({
   const handleDeleteClose = () => {
     setDeleteOpen(false);
   };
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setSnackbarState((prev) => ({ ...prev, open: false }));
+  };
+
+  const handleConfirmDelete = () => {
+    setDeleteOpen(false);
+    setSnackbarState({
+      open: true,
+      message: 'Email list(s) permanently deleted successfully.',
+      severity: 'success',
+    });
+  };
+
 
   const folder = [
     'Home (0)',
@@ -137,7 +158,7 @@ export function DashboardTrashTableToolbar({
     numSelected > 0 && (
       <>
         <Tooltip
-          title="Click here to modify workflows status, or to move and delete workflows."
+          title="Click here to move and delete email lists."
           arrow
           placement="top"
         >
@@ -161,15 +182,19 @@ export function DashboardTrashTableToolbar({
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
+           <Tooltip title="Move to folder" arrow placement="left">
           <MenuItem onClick={handleMoveToFolder}>
             <Iconify icon="fluent:folder-move-16-filled" sx={{ mr: 1 }} />
             Move to Folder
           </MenuItem>
+          </Tooltip>
           <Divider sx={{ borderStyle: 'dashed' }} />
+          <Tooltip title="Delete email lists" arrow placement="left">
           <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
             <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 1 }} />
             Delete
           </MenuItem>
+          </Tooltip>
         </Popover>
         <MoveToFolderPopover
           open={moveFolderOpen}
@@ -178,11 +203,47 @@ export function DashboardTrashTableToolbar({
           folder={folder}
         />
         <DeleteDialog
-          title="Do you wish to remove access?"
-          content="You won&quote;t be able to revert this!"
+          title="Do you want to permanently delete the email list(s)?"
+          content="An email list once deleted cannot be restored in any case."
           open={deleteOpen}
           onClose={handleDeleteClose}
-        />
+         action={
+                     <Button variant="contained" color="error" onClick={handleConfirmDelete}>
+                     Delete
+                   </Button>
+                   }
+                 />
+                  <Snackbar
+                         open={snackbarState.open}
+                         autoHideDuration={3500}
+                         onClose={handleSnackbarClose}
+                         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                         sx={{
+                           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+                           mt: 8,
+                           zIndex: theme.zIndex.modal + 9999,
+                         }}
+                       >
+                         <Alert
+                           onClose={handleSnackbarClose}
+                           severity={snackbarState.severity}
+                           sx={{
+                             width: '100%',
+                             fontSize: '14px',
+                             fontWeight: 'bold',
+                             backgroundColor: theme.palette.background.paper,
+                             color: theme.palette.text.primary,
+                             '& .MuiAlert-icon': {
+                               color:
+                                 snackbarState.severity === 'error'
+                                   ? theme.palette.error.main
+                                   : theme.palette.success.main,
+                             },
+                           }}
+                         >
+                           {snackbarState.message}
+                         </Alert>
+                       </Snackbar>
       </>
     );
 

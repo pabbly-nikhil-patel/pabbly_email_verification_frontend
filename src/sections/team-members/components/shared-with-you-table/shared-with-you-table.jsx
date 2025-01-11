@@ -232,7 +232,7 @@ export default function SharedWithYouTeamMemberTable({
           /> */}
 
           <Scrollbar>
-            <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
+            <Table size={table.dense ? 'small' : 'medium'}>
               {/* Table CircularProgress loading */}
               {/* {DataStatus === 'loading' && ( */}
               {/* <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 3 }}>
