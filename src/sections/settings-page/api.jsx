@@ -259,7 +259,7 @@ export default function API() {
             sx={{ mt: '24px' }}
             onClick={handleDialogOpen}
           >
-            Generate Key
+            Generate API Keys
           </Button>
         </CardContent>
       </Card>
@@ -267,11 +267,11 @@ export default function API() {
       <ConfirmDialog
         open={dialogOpen}
         onClose={handleDialogClose}
-        title="Generate Key"
-        content="Generating a new API token will invalidate your current token. Do you want to continue?"
+        title="Generate API Keys"
+        content="Generating new API keys will invalidate your current API keys. Do you want to continue?"
         action={
           <Button variant="contained" color="primary" onClick={handleGenerateToken}>
-            Generate Key
+            Generate API Keys
           </Button>
         }
       />

@@ -5,15 +5,7 @@ import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
-import {
-  Box,
-  Alert,
-  Dialog,
-  Button,
-  Tooltip,
-  Typography,
-  DialogTitle,
-} from '@mui/material';
+import { Box, Alert, Dialog, Button, Tooltip, Typography, DialogTitle } from '@mui/material';
 
 import { fNumber } from 'src/utils/format-number';
 
@@ -168,7 +160,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
   }, [isVerificationCompleted]);
 
   return (
-    <>
+    <Box gap={3}>
       <Scrollbar>
         <Card {...other}>
           <Box
@@ -176,7 +168,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              flexWrap:'wrap',
+              flexWrap: 'wrap',
               p: 2,
               width: '100%',
             }}
@@ -185,10 +177,8 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
               sx={{
                 flex: 1,
                 p: 0,
-               
               }}
               title={
-              
                 <Typography
                   sx={{
                     overflow: 'hidden',
@@ -208,13 +198,12 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   </Tooltip>
                 </Typography>
               }
-             
             />
             {/* Only show download button when not uploading or processing */}
             {!isUploading && !isStartVerification && isVerificationCompleted && (
               <Tooltip arrow placement="top" disableInteractive title="Click to download report.">
                 <Button
-                sx={{mt:{xs:'10px',sm:'0px'}}}
+                  sx={{ mt: { xs: '10px', sm: '0px' } }}
                   variant="outlined"
                   color="primary"
                   onClick={() => handleOpen('download')}
@@ -267,7 +256,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
       <Alert
         sx={{
           mt: 3,
-          mb: 4,
+          // mb: 4,
           // color: 'success',
           boxShadow: '0px 12px 24px -4px rgba(145, 158, 171, 0.2)',
         }}
@@ -382,7 +371,7 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                   <LearnMoreLink link="https://forum.pabbly.com/threads/download-verification-report.26396/" />
                 </Typography>
 
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 ,gap:1}}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3, gap: 1 }}>
                   <Tooltip
                     title="Click to download report."
                     arrow
@@ -393,15 +382,15 @@ export function DashboardChart({ title, subheader, showAlert, chart, handleAlert
                       Download CSV
                     </Button>
                   </Tooltip>
-                    <Button variant="outlined" onClick={handleClose}>
-                      Close
-                    </Button>
+                  <Button variant="outlined" onClick={handleClose}>
+                    Close
+                  </Button>
                 </Box>
               </Box>
             </>
           )}
         </Box>
       </Dialog>
-    </>
+    </Box>
   );
 }

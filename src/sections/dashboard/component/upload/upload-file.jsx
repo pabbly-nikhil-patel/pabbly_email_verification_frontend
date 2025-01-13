@@ -74,7 +74,7 @@ export default function Upload({ setAlertState }) {
               )}
             </span>
           }
-          required
+          // required
           sx={{
             '& .MuiOutlinedInput-root': {
               borderRadius: 1,
