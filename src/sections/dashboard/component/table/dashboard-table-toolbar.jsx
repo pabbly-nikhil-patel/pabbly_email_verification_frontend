@@ -138,7 +138,6 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
     });
   };
 
-
   // Render functions
   const renderSearchField = () => (
     <TextField
@@ -155,7 +154,7 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
       }}
     />
   );
- 
+
   const renderActionButton = () =>
     numSelected > 0 && (
       <>
@@ -209,41 +208,41 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
           onClose={handleDeleteClose}
           action={
             <Button variant="contained" color="error" onClick={handleConfirmDelete}>
-            Delete
-          </Button>
+              Delete
+            </Button>
           }
         />
-         <Snackbar
-                open={snackbarState.open}
-                autoHideDuration={3500}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                sx={{
-                  boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
-                  mt: 8,
-                  zIndex: theme.zIndex.modal + 9999,
-                }}
-              >
-                <Alert
-                  onClose={handleSnackbarClose}
-                  severity={snackbarState.severity}
-                  sx={{
-                    width: '100%',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    backgroundColor: theme.palette.background.paper,
-                    color: theme.palette.text.primary,
-                    '& .MuiAlert-icon': {
-                      color:
-                        snackbarState.severity === 'error'
-                          ? theme.palette.error.main
-                          : theme.palette.success.main,
-                    },
-                  }}
-                >
-                  {snackbarState.message}
-                </Alert>
-              </Snackbar>
+        <Snackbar
+          open={snackbarState.open}
+          autoHideDuration={3500}
+          onClose={handleSnackbarClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          sx={{
+            boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+            mt: 8,
+            zIndex: theme.zIndex.modal + 9999,
+          }}
+        >
+          <Alert
+            onClose={handleSnackbarClose}
+            severity={snackbarState.severity}
+            sx={{
+              width: '100%',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              '& .MuiAlert-icon': {
+                color:
+                  snackbarState.severity === 'error'
+                    ? theme.palette.error.main
+                    : theme.palette.success.main,
+              },
+            }}
+          >
+            {snackbarState.message}
+          </Alert>
+        </Snackbar>
       </>
     );
 
@@ -308,20 +307,26 @@ export function DashboardTableToolbar({ filters, onResetPage, numSelected, onDel
       direction={{ xs: 'column', md: 'row' }}
       sx={{ p: 2.5, pr: { xs: 2.5, md: 1 } }}
     >
-      <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
+      <Stack direction="row" alignItems="center" spacing={1} flexGrow={1} sx={{ width: 1 }}>
         {renderSearchField()}
         <Box
           sx={{
             display: 'flex',
-            gap: isBelow600px ? '12px' : '16px',
             flexDirection: 'row',
-           
+
             justifyContent: 'flex-end',
           }}
         >
           {renderActionButton()}
           {/* {renderFilterButton()} */}
         </Box>
+        <Tooltip title=" Click here to refresh data." arrow placement="top" disableInteractive>
+          <Iconify
+            icon="tabler:refresh"
+            sx={{ width: '24px', height: '24px', mr: '10px', color: 'text.primary' }}
+            cursor="pointer"
+          />
+        </Tooltip>
       </Stack>
     </Stack>
   );

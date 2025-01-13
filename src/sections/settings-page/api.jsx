@@ -203,7 +203,7 @@ export default function API() {
                 readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Tooltip title="Copy API key" placement="top" arrow>
+                    <Tooltip title="Copy API Key" placement="top" arrow>
                       <IconButton onClick={() => handleCopy('api')} edge="end">
                         <Iconify icon="solar:copy-bold" width={18} />
                       </IconButton>
@@ -242,7 +242,7 @@ export default function API() {
                 readOnly: true,
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Tooltip title="Copy secret key" placement="top" arrow>
+                    <Tooltip title="Copy Secret Key" placement="top" arrow>
                       <IconButton onClick={() => handleCopy('secret')} edge="end">
                         <Iconify icon="solar:copy-bold" width={18} />
                       </IconButton>
@@ -285,6 +285,7 @@ export default function API() {
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
           zIndex: theme.zIndex.modal + 9999,
+          mt: 8,
         }}
       >
         <Alert
@@ -315,6 +316,7 @@ export default function API() {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
+          mt: 8,
         }}
       >
         <Alert

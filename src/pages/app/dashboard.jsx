@@ -228,10 +228,7 @@ export default function Page() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={4} lg={3}>
-            <FolderSection
-              onHomeClick={handleHomeClick}
-              onTrashClick={handleTrashClick}
-            />
+            <FolderSection onHomeClick={handleHomeClick} onTrashClick={handleTrashClick} />
           </Grid>
           <Grid item xs={12} md={8} lg={9}>
             <BigCard
@@ -298,16 +295,12 @@ export default function Page() {
             }}
             email={email}
             setEmail={setEmail}
-            onClose={() => handleDialogClose('singleEmail')} 
+            onClose={() => handleDialogClose('singleEmail')}
           />
         </DialogContent>
       </Dialog>
 
-      <Dialog
-        open={dialogState.bulkEmail}
-        onClose={() => handleDialogClose('bulkEmail')}
-        fullWidth
-      >
+      <Dialog open={dialogState.bulkEmail} onClose={() => handleDialogClose('bulkEmail')} fullWidth>
         <DialogTitle display="flex" justifyContent="space-between">
           <Box>
             <Typography variant="h6">Verify Bulk Email List</Typography>
@@ -369,9 +362,7 @@ export default function Page() {
             </MenuItem>
           </Tooltip>
           <Tooltip title="Click to verify bulk emails." arrow placement="left" disableInteractive>
-            <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>
-              Verify Bulk Emails
-            </MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('bulkEmail')}>Verify Bulk Emails</MenuItem>
           </Tooltip>
         </MenuList>
       </Popover>
@@ -384,6 +375,7 @@ export default function Page() {
         sx={{
           boxShadow: '0px 8px 16px 0px rgba(145, 158, 171, 0.16)',
           zIndex: theme.zIndex.modal + 9999,
+          mt: 8,
         }}
       >
         <Alert

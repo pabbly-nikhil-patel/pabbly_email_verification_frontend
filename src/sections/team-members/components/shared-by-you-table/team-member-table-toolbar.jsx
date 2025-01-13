@@ -164,7 +164,7 @@ export function SharedbyYouTeamMemberTableToolbar({ filters, onResetPage, numSel
             }}
           >
             <Iconify icon="solar:trash-bin-trash-bold" sx={{ mr: 2 }} />
-            Remove access
+            Remove Access
           </MenuItem>
           </Tooltip>
         </MenuList>

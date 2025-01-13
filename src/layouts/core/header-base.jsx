@@ -140,9 +140,9 @@ export function HeaderBase({
               }}
             >
               {/* {isReportPage &&  */}
-              
-                <Searchbar data-slot="searchbar" data={data?.nav} />
-             
+
+              <Searchbar data-slot="searchbar" data={data?.nav} />
+
               {/* } */}
               {isNotUpgraded && (
                 <Tooltip title="Click here to purchase credits." arrow placement="bottom">

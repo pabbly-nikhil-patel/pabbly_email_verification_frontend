@@ -10,7 +10,10 @@ export const listItems = {
       "Each verification through the API consumes 1 email credit from your account's  a llotted email credits.",
       'The API Key and Secret Key are confidential and should be treated like passwords.',
       "Use the 'Copy' button to quickly and securely copy the API  key and  secret  key.",
-      "Ensure that you do not share the API  key or  se cret  key with anyone to maintain account security. "
+      "Ensure that you do not share the API key or secret key with anyone to maintain account security. ",
+            "Easily integrate the API with any third-party application, such as CRM systems, email marketing tools, form builder solutions, and more.",
+                  "Refer to the detailed API documentation for endpoint URLs, parameters and examples. "
+
     ],
   };
   
